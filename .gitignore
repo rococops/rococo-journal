@@ -1,2 +1,5 @@
 *.sql
 .claude/
+.env
+.env.local
+node_modules/
