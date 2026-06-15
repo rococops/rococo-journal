@@ -26,10 +26,7 @@ export default async function handler(req, res) {
     .from('inquiries')
     .insert({ name, phone, contact_method, message, source });
 
-  if (dbError) {
-    console.error('Supabase insert error:', dbError);
-    return res.status(500).json({ error: 'DB insert failed', detail: dbError });
-  }
+  if (dbError) console.error('Supabase insert error:', dbError);
 
   let sendResult;
   try {
