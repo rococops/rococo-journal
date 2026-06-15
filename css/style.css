@@ -959,6 +959,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   aspect-ratio: 3/4;
   border-radius: var(--radius);
   overflow: hidden;
+  background: var(--gray-50);
+}
+.about-profile-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .about-lead p { margin-bottom: 1.25rem; }
 .about-lead p:last-child { margin-bottom: 0; }
