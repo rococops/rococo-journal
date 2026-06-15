@@ -28,8 +28,9 @@ export default async function handler(req, res) {
 
   if (dbError) console.error('Supabase insert error:', dbError);
 
+  let sendResult;
   try {
-    await resend.emails.send({
+    sendResult = await resend.emails.send({
       from: 'Rococo Journal <onboarding@resend.dev>',
       to: process.env.NOTIFY_EMAIL,
       subject: `[로코코 저널] 새 상담 신청 - ${name}`,
@@ -46,6 +47,11 @@ export default async function handler(req, res) {
   } catch (mailError) {
     console.error('Resend send error:', mailError);
     return res.status(500).json({ error: '이메일 전송 실패' });
+  }
+
+  if (sendResult?.error) {
+    console.error('Resend API error:', sendResult.error);
+    return res.status(500).json({ error: '이메일 전송 실패', detail: sendResult.error });
   }
 
   return res.status(200).json({ ok: true });
