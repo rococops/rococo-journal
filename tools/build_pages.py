@@ -263,16 +263,15 @@ def build_subcat(cfg, rows, canonical_map):
         og_url = og_url_for(cat_path, sub_dir, slug)
         canonical_url = canonical_map.get(slug, og_url)
 
+        fname = pool[fallback_idx % len(pool)]
+        fallback_idx += 1
+        og_image = THUMB_BASE_URL + fname
+        card_img = f'../../images/thumbnails/{fname}'
+
         if images:
             hero_image = images[0]
-            og_image = hero_image
-            card_img = hero_image
         else:
-            fname = pool[fallback_idx % len(pool)]
-            fallback_idx += 1
             hero_image = f'{root}images/thumbnails/{fname}'
-            og_image = THUMB_BASE_URL + fname
-            card_img = f'../../images/thumbnails/{fname}'
 
         page = DETAIL_PAGE.format(
             title=html_escape(title),
