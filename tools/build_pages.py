@@ -248,7 +248,7 @@ def build_subcat(cfg, rows, canonical_map):
             list_root=list_root,
             hero_image=hero_image,
             content=content_html,
-            cta_section=CTA_SECTION_HTML.format(cat_name=sub_name),
+            cta_section=CTA_SECTION_HTML.format(root=root, cat_name=sub_name),
         )
 
         with open(os.path.join(post_dir, 'index.html'), 'w', encoding='utf-8') as f:
@@ -278,7 +278,7 @@ def build_subcat(cfg, rows, canonical_map):
         cat_name=cat_name,
         count=len(rows),
         cards='\n'.join(cards),
-        cta_section=CTA_SECTION_HTML.format(cat_name=sub_name),
+        cta_section=CTA_SECTION_HTML.format(root=root, cat_name=sub_name),
     )
 
     with open(os.path.join(out_dir, 'index.html'), 'w', encoding='utf-8') as f:

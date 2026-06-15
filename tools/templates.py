@@ -69,14 +69,7 @@ NAV_HTML = """<nav class="gnb" id="gnb">
             <li><a href="{root}about/location/">오시는 길·진료시간</a></li>
           </ul>
         </li>
-        <li class="has-sub"><a href="{root}counsel/">상담·예약</a>
-          <ul class="sub-menu">
-            <li><a href="https://rococops.com/htm/counsel_normal.php" target="_blank">온라인 상담</a></li>
-            <li><a href="https://rococops.com/htm/counsel_katalk.php" target="_blank">카톡 상담</a></li>
-            <li><a href="https://rococops.com/htm/counsel_after.php" target="_blank">수술 후 상담</a></li>
-            <li><a href="https://rococops.com/htm/counsel_faq.php" target="_blank">FAQ</a></li>
-          </ul>
-        </li>
+        <li><a href="{root}counsel/">상담·예약</a></li>
         <li><a href="https://rococops.com/htm/community_photo.php" class="btn-consult" target="_blank">전후사진</a></li>
       </ul>
     </nav>"""
@@ -114,7 +107,7 @@ FOOTER_HTML = """<footer class="site-footer">
       <div class="footer-links">
         <p class="footer-title">바로가기</p>
         <a href="https://rococops.com" target="_blank">기존 홈페이지</a>
-        <a href="https://rococops.com/htm/counsel_normal.php" target="_blank">온라인 상담</a>
+        <a href="{root}counsel/">온라인 상담</a>
         <a href="https://rococops.com/htm/community_photo.php" target="_blank">전후사진</a>
         <a href="{root}about/">About 로코코</a>
       </div>
@@ -141,7 +134,7 @@ CTA_SECTION_HTML = """<!-- 하단 CTA -->
           <span class="cta-btn">전후사진 보기 →</span>
         </div>
       </a>
-      <a href="https://rococops.com/htm/counsel_normal.php" class="cta-card" target="_blank">
+      <a href="{root}counsel/?from={cat_name}" class="cta-card">
         <div class="cta-card-inner">
           <span class="cta-label">온라인 상담</span>
           <h3 class="cta-title">궁금한 점을<br>직접 물어보세요</h3>
