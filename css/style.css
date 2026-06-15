@@ -557,6 +557,18 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   transition: color var(--transition);
 }
 .footer-links a:hover { color: var(--black); }
+.footer-social {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+.footer-social a {
+  display: flex;
+  color: var(--gray-600);
+  transition: color var(--transition);
+}
+.footer-social a:hover { color: var(--accent); }
+.footer-social svg { width: 20px; height: 20px; }
 .footer-bottom {
   display: flex;
   align-items: center;
