@@ -40,6 +40,19 @@ def fix_img_src(src):
     return 'https://rococops.com/' + src
 
 
+ORIGIN_HOSTS = ('blog.naver.com', 'm.blog.naver.com', 'v2.rococops.com', 'rococops.com')
+
+
+def extract_origin_url(contents_html):
+    """본문 HTML에 포함된 원본 블로그(naver/rococops) 글 링크를 찾아서 반환. 없으면 None."""
+    soup = BeautifulSoup(contents_html or '', 'html.parser')
+    for a in soup.find_all('a'):
+        href = (a.get('href') or '').strip()
+        if any(host in href for host in ORIGIN_HOSTS):
+            return href
+    return None
+
+
 def first_paragraph_text(contents_html):
     """본문 HTML에서 첫 번째 텍스트 블록(설명용)을 추출."""
     soup = BeautifulSoup(contents_html or '', 'html.parser')

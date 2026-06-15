@@ -158,6 +158,14 @@ CTA_SECTION_HTML = """<!-- 하단 CTA -->
 </section>"""
 
 
+ORIGIN_LINK_CARD = """        <div class="sidebar-card">
+          <p class="sidebar-title">원본 글 보기</p>
+          <p class="sidebar-desc">로코코성형외과 블로그에서 이 글의 원본을 확인할 수 있습니다</p>
+          <a href="{origin_url}" class="sidebar-btn" target="_blank" rel="noopener">원문 보러가기 →</a>
+        </div>
+"""
+
+
 DETAIL_PAGE = """<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -261,7 +269,7 @@ DETAIL_PAGE = """<!DOCTYPE html>
           <p class="sidebar-title">{sub_name} 다른 글</p>
           <a href="{list_root}" class="related-link">{sub_name} 목록 보기 →</a>
         </div>
-      </aside>
+{origin_link_card}      </aside>
     </div>
   </div>
 </article>
