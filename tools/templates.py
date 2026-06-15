@@ -70,7 +70,7 @@ NAV_HTML = """<nav class="gnb" id="gnb">
           </ul>
         </li>
         <li><a href="{root}counsel/">상담·예약</a></li>
-        <li><a href="https://rococops.com/htm/community_photo.php" class="btn-consult" target="_blank">전후사진</a></li>
+        <li><a href="{root}cases/" class="btn-consult">전후사진</a></li>
       </ul>
     </nav>"""
 
@@ -119,7 +119,7 @@ FOOTER_HTML = """<footer class="site-footer">
         </div>
         <a href="https://rococops.com" target="_blank">기존 홈페이지</a>
         <a href="{root}counsel/">온라인 상담</a>
-        <a href="https://rococops.com/htm/community_photo.php" target="_blank">전후사진</a>
+        <a href="{root}cases/">전후사진</a>
         <a href="{root}about/">About 로코코</a>
       </div>
     </div>
@@ -137,11 +137,11 @@ CTA_SECTION_HTML = """<!-- 하단 CTA -->
 <section class="cta-section">
   <div class="container">
     <div class="cta-grid">
-      <a href="https://rococops.com/htm/community_photo.php" class="cta-card" target="_blank">
+      <a href="{root}cases/" class="cta-card">
         <div class="cta-card-inner">
           <span class="cta-label">{cat_name} 전후사진</span>
           <h3 class="cta-title">실제 수술 결과를<br>직접 확인하세요</h3>
-          <p class="cta-desc">회원 로그인 후 전체 케이스를 열람할 수 있습니다</p>
+          <p class="cta-desc">로코코에서 진행한 실제 케이스 사진을 확인하세요</p>
           <span class="cta-btn">전후사진 보기 →</span>
         </div>
       </a>
@@ -250,7 +250,7 @@ DETAIL_PAGE = """<!DOCTYPE html>
         <div class="sidebar-card">
           <p class="sidebar-title">전후사진 보기</p>
           <p class="sidebar-desc">로코코에서 수술하신 분들의 실제 케이스를 확인하세요</p>
-          <a href="https://rococops.com/htm/community_photo.php" class="sidebar-btn" target="_blank">전후사진 열람 →</a>
+          <a href="{root}cases/" class="sidebar-btn">전후사진 열람 →</a>
         </div>
         <div class="sidebar-card">
           <p class="sidebar-title">온라인 상담</p>
