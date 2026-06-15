@@ -136,19 +136,23 @@
   <div class="container">
     <div class="section-head">
       <h2 class="section-label">엘라스티꿈 실리프팅 케이스 (3개)</h2>
+      <div class="sort-toggle">
+        <button type="button" class="sort-btn active" data-sort="date">최신순</button>
+        <button type="button" class="sort-btn" data-sort="views">조회수순</button>
+      </div>
     </div>
-    <div class="card-grid">
-      <a href="32/" class="card">
+    <div class="card-grid" id="case-grid">
+      <a href="616/" class="card" data-date="2025-09-11" data-views="1379">
         <div class="card-img">
-          <img src="../../images/thumbnails/6-1.jpg" alt="엘라스티꿈 탄력실 리프팅" loading="lazy">
+          <img src="../../images/thumbnails/6-1.jpg" alt="이중턱 지방흡입 - 엘라스티꿈 리프팅 / 불독살 - 민트실 리프팅" loading="lazy">
           <span class="card-tag">엘라스티꿈 실리프팅</span>
         </div>
         <div class="card-body">
-          <p class="card-title">엘라스티꿈 탄력실 리프팅</p>
-          <p class="card-desc">엘라스티꿈 탄력실 리프팅</p>
+          <p class="card-title">이중턱 지방흡입 - 엘라스티꿈 리프팅 / 불독살 - 민트실 리프팅</p>
+          <p class="card-desc">이중턱과 불독살. 노화에 따른 피부와 근육 등 연부조직 처짐이 만드는 대표적인 얼굴 변화입니다.</p>
         </div>
       </a>
-      <a href="332/" class="card">
+      <a href="332/" class="card" data-date="2020-05-18" data-views="9931">
         <div class="card-img">
           <img src="../../images/thumbnails/6-2.jpg" alt="엘라스티꿈 등 실리프팅 부작용인 딤플현상 교정하기" loading="lazy">
           <span class="card-tag">엘라스티꿈 실리프팅</span>
@@ -158,14 +162,14 @@
           <p class="card-desc">모든 수술이 부작용의 가능성을 가지고 있는데, 엘라스티꿈 포함한 실리프팅에서 가장 흔한 부작용? 단점? 중 하나가 딤플현상 -...</p>
         </div>
       </a>
-      <a href="616/" class="card">
+      <a href="32/" class="card" data-date="2018-06-09" data-views="12396">
         <div class="card-img">
-          <img src="../../images/thumbnails/7-1.jpg" alt="이중턱 지방흡입 - 엘라스티꿈 리프팅 / 불독살 - 민트실 리프팅" loading="lazy">
+          <img src="../../images/thumbnails/7-1.jpg" alt="엘라스티꿈 탄력실 리프팅" loading="lazy">
           <span class="card-tag">엘라스티꿈 실리프팅</span>
         </div>
         <div class="card-body">
-          <p class="card-title">이중턱 지방흡입 - 엘라스티꿈 리프팅 / 불독살 - 민트실 리프팅</p>
-          <p class="card-desc">이중턱과 불독살. 노화에 따른 피부와 근육 등 연부조직 처짐이 만드는 대표적인 얼굴 변화입니다.</p>
+          <p class="card-title">엘라스티꿈 탄력실 리프팅</p>
+          <p class="card-desc">엘라스티꿈 탄력실 리프팅</p>
         </div>
       </a>
     </div>
@@ -241,3 +245,28 @@
 <script src="../../js/main.js"></script>
 </body>
 </html>
+
+<script>
+(function() {
+  var grid = document.getElementById('case-grid');
+  var buttons = document.querySelectorAll('.sort-btn');
+  if (!grid || !buttons.length) return;
+  var cards = Array.prototype.slice.call(grid.children);
+
+  buttons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var key = btn.getAttribute('data-sort');
+      buttons.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+
+      var sorted = cards.slice().sort(function(a, b) {
+        if (key === 'views') {
+          return Number(b.dataset.views || 0) - Number(a.dataset.views || 0);
+        }
+        return (b.dataset.date || '').localeCompare(a.dataset.date || '');
+      });
+      sorted.forEach(function(card) { grid.appendChild(card); });
+    });
+  });
+})();
+</script>

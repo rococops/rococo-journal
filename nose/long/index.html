@@ -136,21 +136,15 @@
   <div class="container">
     <div class="section-head">
       <h2 class="section-label">긴코 케이스 (3개)</h2>
+      <div class="sort-toggle">
+        <button type="button" class="sort-btn active" data-sort="date">최신순</button>
+        <button type="button" class="sort-btn" data-sort="views">조회수순</button>
+      </div>
     </div>
-    <div class="card-grid">
-      <a href="11/" class="card">
+    <div class="card-grid" id="case-grid">
+      <a href="274/" class="card" data-date="2019-08-28" data-views="7889">
         <div class="card-img">
-          <img src="../../images/thumbnails/2-1.jpg" alt="긴 코 성형" loading="lazy">
-          <span class="card-tag">긴코</span>
-        </div>
-        <div class="card-body">
-          <p class="card-title">긴 코 성형</p>
-          <p class="card-desc">다양한 형태의 코성형 중에서 가장 뛰어난 디자인 능력을 요하는 것은 뭐니뭐니해도 긴 코를 교정하는 경우입니다.</p>
-        </div>
-      </a>
-      <a href="274/" class="card">
-        <div class="card-img">
-          <img src="../../images/thumbnails/2-2.jpg" alt="낮고 긴 코를 가진 환자에서 매부리코수술" loading="lazy">
+          <img src="../../images/thumbnails/2-1.jpg" alt="낮고 긴 코를 가진 환자에서 매부리코수술" loading="lazy">
           <span class="card-tag">긴코</span>
         </div>
         <div class="card-body">
@@ -158,7 +152,17 @@
           <p class="card-desc">코끝이 살~짝 처져있고, 코가 얼굴에서 비율상 약간 긴 편입니다</p>
         </div>
       </a>
-      <a href="c140/" class="card">
+      <a href="11/" class="card" data-date="2015-09-18" data-views="8719">
+        <div class="card-img">
+          <img src="../../images/thumbnails/2-2.jpg" alt="긴 코 성형" loading="lazy">
+          <span class="card-tag">긴코</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title">긴 코 성형</p>
+          <p class="card-desc">다양한 형태의 코성형 중에서 가장 뛰어난 디자인 능력을 요하는 것은 뭐니뭐니해도 긴 코를 교정하는 경우입니다.</p>
+        </div>
+      </a>
+      <a href="c140/" class="card" data-date="2012-08-14" data-views="3682">
         <div class="card-img">
           <img src="../../images/thumbnails/2-3.jpg" alt="긴 코 성형" loading="lazy">
           <span class="card-tag">긴코</span>
@@ -241,3 +245,28 @@
 <script src="../../js/main.js"></script>
 </body>
 </html>
+
+<script>
+(function() {
+  var grid = document.getElementById('case-grid');
+  var buttons = document.querySelectorAll('.sort-btn');
+  if (!grid || !buttons.length) return;
+  var cards = Array.prototype.slice.call(grid.children);
+
+  buttons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var key = btn.getAttribute('data-sort');
+      buttons.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+
+      var sorted = cards.slice().sort(function(a, b) {
+        if (key === 'views') {
+          return Number(b.dataset.views || 0) - Number(a.dataset.views || 0);
+        }
+        return (b.dataset.date || '').localeCompare(a.dataset.date || '');
+      });
+      sorted.forEach(function(card) { grid.appendChild(card); });
+    });
+  });
+})();
+</script>

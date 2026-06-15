@@ -136,9 +136,13 @@
   <div class="container">
     <div class="section-head">
       <h2 class="section-label">눈썹하거상술 케이스 (2개)</h2>
+      <div class="sort-toggle">
+        <button type="button" class="sort-btn active" data-sort="date">최신순</button>
+        <button type="button" class="sort-btn" data-sort="views">조회수순</button>
+      </div>
     </div>
-    <div class="card-grid">
-      <a href="507/" class="card">
+    <div class="card-grid" id="case-grid">
+      <a href="507/" class="card" data-date="2024-02-21" data-views="4291">
         <div class="card-img">
           <img src="../../images/thumbnails/9-1.jpg" alt="눈썹하거상술" loading="lazy">
           <span class="card-tag">눈썹하거상술</span>
@@ -148,7 +152,7 @@
           <p class="card-desc">눈꺼풀이 처지는 경우에 쌍커풀이 없는 눈이라면 쌍커풀 수술이나 상안검성형술을 생각할 수 있는데, 쌍커풀이 있는 눈이라면 눈과...</p>
         </div>
       </a>
-      <a href="188/" class="card">
+      <a href="188/" class="card" data-date="2015-09-18" data-views="5654">
         <div class="card-img">
           <img src="../../images/thumbnails/9-2.jpg" alt="눈썹하 거상술" loading="lazy">
           <span class="card-tag">눈썹하거상술</span>
@@ -231,3 +235,28 @@
 <script src="../../js/main.js"></script>
 </body>
 </html>
+
+<script>
+(function() {
+  var grid = document.getElementById('case-grid');
+  var buttons = document.querySelectorAll('.sort-btn');
+  if (!grid || !buttons.length) return;
+  var cards = Array.prototype.slice.call(grid.children);
+
+  buttons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var key = btn.getAttribute('data-sort');
+      buttons.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+
+      var sorted = cards.slice().sort(function(a, b) {
+        if (key === 'views') {
+          return Number(b.dataset.views || 0) - Number(a.dataset.views || 0);
+        }
+        return (b.dataset.date || '').localeCompare(a.dataset.date || '');
+      });
+      sorted.forEach(function(card) { grid.appendChild(card); });
+    });
+  });
+})();
+</script>

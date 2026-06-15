@@ -2,7 +2,8 @@
 
 SUBCATS 테이블에서 keywords가 None인 항목은 SEO 키워드가 아직 정해지지 않아 스킵한다.
 """
-import sys, os
+import sys, os, re
+from datetime import datetime
 from collections import defaultdict
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -137,6 +138,28 @@ def truncate(text, n):
     return text[:n].rstrip() + '...'
 
 
+def parse_date(date_str):
+    """sitecontents의 'YYYY-MM-DD HH:MM:SS', mcolumn의 'YYYY. M.', 'YYYY.MM.DD',
+    'YYYY. M. D' 등 다양한 날짜 형식을 정렬용 datetime으로 변환. 실패 시 가장 오래된 날짜."""
+    if not date_str:
+        return datetime.min
+    s = date_str.strip()
+    m = re.match(r'^(\d{4})[.\-]\s*(\d{1,2})?[.\-]?\s*(\d{1,2})?', s)
+    if not m:
+        return datetime.min
+    year = int(m.group(1))
+    month = int(m.group(2)) if m.group(2) else 1
+    day = int(m.group(3)) if m.group(3) else 1
+    try:
+        time_part = s[10:].strip() if len(s) > 10 and ':' in s else ''
+        if time_part:
+            hh, mm, ss = (int(x) for x in time_part.split(':'))
+            return datetime(year, month, day, hh, mm, ss)
+        return datetime(year, month, day)
+    except ValueError:
+        return datetime.min
+
+
 def load_all_rows_by_category(sql):
     """sitecontents.sql을 한 번만 순회하여 category 코드별로 행을 묶어서 반환."""
     by_category = defaultdict(list)
@@ -153,6 +176,8 @@ def load_all_rows_by_category(sql):
             'subject': clean_text(subject or ''),
             'summary': clean_text(summary or ''),
             'contents': contents or '',
+            'visited': int(visited) if visited else 0,
+            'date': parse_date(udate),
         })
     return by_category
 
@@ -192,6 +217,8 @@ def load_mcolumn_rows(sql):
             'contents': contents or '',
             'cat_path': cat_path,
             'sub_dir': sub_dir,
+            'visited': int(visited) if visited else 0,
+            'date': parse_date(rdate),
         })
 
     if unmapped:
@@ -241,6 +268,8 @@ def build_subcat(cfg, rows, canonical_map):
     if not rows:
         print(f'경고: 데이터 없음: {cat_path}/{sub_dir}')
         return
+
+    rows = sorted(rows, key=lambda r: r['date'], reverse=True)
 
     out_dir = os.path.join(BASE, cat_path, sub_dir)
     os.makedirs(out_dir, exist_ok=True)
@@ -306,6 +335,8 @@ def build_subcat(cfg, rows, canonical_map):
             title=html_escape(truncate(title, 60)),
             desc=html_escape(truncate(description, 70)),
             sub_name=sub_name,
+            date=row['date'].strftime('%Y-%m-%d') if row['date'] != datetime.min else '',
+            views=row['visited'],
         ))
 
     # 목록 페이지 생성

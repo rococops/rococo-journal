@@ -136,31 +136,25 @@
   <div class="container">
     <div class="section-head">
       <h2 class="section-label">상·하안검성형 케이스 (5개)</h2>
+      <div class="sort-toggle">
+        <button type="button" class="sort-btn active" data-sort="date">최신순</button>
+        <button type="button" class="sort-btn" data-sort="views">조회수순</button>
+      </div>
     </div>
-    <div class="card-grid">
-      <a href="28/" class="card">
+    <div class="card-grid" id="case-grid">
+      <a href="512/" class="card" data-date="2024-02-25" data-views="3653">
         <div class="card-img">
-          <img src="../../images/thumbnails/6-1.jpg" alt="상안검 성형술" loading="lazy">
+          <img src="../../images/thumbnails/6-1.jpg" alt="하안검성형" loading="lazy">
           <span class="card-tag">상·하안검성형</span>
         </div>
         <div class="card-body">
-          <p class="card-title">상안검 성형술</p>
-          <p class="card-desc">쌍커풀 수술과 비슷한 수술로 위에 설명 드렸던 바짓단을 접어 올리는 수술입니다. 눈썹이 많이 내려오지 않은 상태에서 눈과 눈썹...</p>
+          <p class="card-title">하안검성형</p>
+          <p class="card-desc">가끔 눈밑지방재배치 수술과 하안검성형이 어떻게 달라요? 라고 물어보시는 경우가 있는데, 간단히 설명드리면...</p>
         </div>
       </a>
-      <a href="241/" class="card">
+      <a href="202/" class="card" data-date="2016-04-24" data-views="6701">
         <div class="card-img">
-          <img src="../../images/thumbnails/6-2.jpg" alt="상안검성형 - 중증 안검하수" loading="lazy">
-          <span class="card-tag">상·하안검성형</span>
-        </div>
-        <div class="card-body">
-          <p class="card-title">상안검성형 - 중증 안검하수</p>
-          <p class="card-desc">가성 -&gt; 진성비대칭 안검하수를 거쳐 이번엔 중증안검하수 사례를 보겠습니다.</p>
-        </div>
-      </a>
-      <a href="202/" class="card">
-        <div class="card-img">
-          <img src="../../images/thumbnails/7-1.jpg" alt="이마거상술과 하안검 성형술" loading="lazy">
+          <img src="../../images/thumbnails/6-2.jpg" alt="이마거상술과 하안검 성형술" loading="lazy">
           <span class="card-tag">상·하안검성형</span>
         </div>
         <div class="card-body">
@@ -168,7 +162,17 @@
           <p class="card-desc">노화(Aging) 늙는다는 것.. 슬픈 일이지만 그 누구도 막을 수 없는 일인데요, 얼굴의 노화현상에서 양대산맥은 1. 볼룸이...</p>
         </div>
       </a>
-      <a href="189/" class="card">
+      <a href="28/" class="card" data-date="2015-09-18" data-views="7016">
+        <div class="card-img">
+          <img src="../../images/thumbnails/7-1.jpg" alt="상안검 성형술" loading="lazy">
+          <span class="card-tag">상·하안검성형</span>
+        </div>
+        <div class="card-body">
+          <p class="card-title">상안검 성형술</p>
+          <p class="card-desc">쌍커풀 수술과 비슷한 수술로 위에 설명 드렸던 바짓단을 접어 올리는 수술입니다. 눈썹이 많이 내려오지 않은 상태에서 눈과 눈썹...</p>
+        </div>
+      </a>
+      <a href="189/" class="card" data-date="2015-09-18" data-views="4691">
         <div class="card-img">
           <img src="../../images/thumbnails/7-2.jpg" alt="3중 하안검 성형" loading="lazy">
           <span class="card-tag">상·하안검성형</span>
@@ -178,14 +182,14 @@
           <p class="card-desc">로코코의 하안검 성형은 지방제거를 최소한으로 하여 아래쪽 꺼진 경계부를 지방이동술로 채워주고, 늘어진 지방주머니를 주위 조직에...</p>
         </div>
       </a>
-      <a href="512/" class="card">
+      <a href="241/" class="card" data-date="2011-04-20" data-views="28412">
         <div class="card-img">
-          <img src="../../images/thumbnails/7-3.jpg" alt="하안검성형" loading="lazy">
+          <img src="../../images/thumbnails/7-3.jpg" alt="상안검성형 - 중증 안검하수" loading="lazy">
           <span class="card-tag">상·하안검성형</span>
         </div>
         <div class="card-body">
-          <p class="card-title">하안검성형</p>
-          <p class="card-desc">가끔 눈밑지방재배치 수술과 하안검성형이 어떻게 달라요? 라고 물어보시는 경우가 있는데, 간단히 설명드리면...</p>
+          <p class="card-title">상안검성형 - 중증 안검하수</p>
+          <p class="card-desc">가성 -&gt; 진성비대칭 안검하수를 거쳐 이번엔 중증안검하수 사례를 보겠습니다.</p>
         </div>
       </a>
     </div>
@@ -261,3 +265,28 @@
 <script src="../../js/main.js"></script>
 </body>
 </html>
+
+<script>
+(function() {
+  var grid = document.getElementById('case-grid');
+  var buttons = document.querySelectorAll('.sort-btn');
+  if (!grid || !buttons.length) return;
+  var cards = Array.prototype.slice.call(grid.children);
+
+  buttons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var key = btn.getAttribute('data-sort');
+      buttons.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+
+      var sorted = cards.slice().sort(function(a, b) {
+        if (key === 'views') {
+          return Number(b.dataset.views || 0) - Number(a.dataset.views || 0);
+        }
+        return (b.dataset.date || '').localeCompare(a.dataset.date || '');
+      });
+      sorted.forEach(function(card) { grid.appendChild(card); });
+    });
+  });
+})();
+</script>

@@ -136,9 +136,13 @@
   <div class="container">
     <div class="section-head">
       <h2 class="section-label">광대라인 지방흡입 케이스 (2개)</h2>
+      <div class="sort-toggle">
+        <button type="button" class="sort-btn active" data-sort="date">최신순</button>
+        <button type="button" class="sort-btn" data-sort="views">조회수순</button>
+      </div>
     </div>
-    <div class="card-grid">
-      <a href="120/" class="card">
+    <div class="card-grid" id="case-grid">
+      <a href="120/" class="card" data-date="2017-02-06" data-views="20977">
         <div class="card-img">
           <img src="../../images/thumbnails/1-1.jpg" alt="광대라인 지방흡입" loading="lazy">
           <span class="card-tag">광대라인 지방흡입</span>
@@ -148,7 +152,7 @@
           <p class="card-desc">광대뼈를 덮고 있는 살(연부조직 - 피부, 지방, 근육, 섬유성조직) 아큐스컬프 이용한 광대라인지방흡입 으로 광대쪽의 지방을...</p>
         </div>
       </a>
-      <a href="264/" class="card">
+      <a href="264/" class="card" data-date="2014-06-11" data-views="7910">
         <div class="card-img">
           <img src="../../images/thumbnails/1-2.jpg" alt="아큐스컬프 이용한 &lt; 광대라인 지방흡입술 &gt;" loading="lazy">
           <span class="card-tag">광대라인 지방흡입</span>
@@ -231,3 +235,28 @@
 <script src="../../js/main.js"></script>
 </body>
 </html>
+
+<script>
+(function() {
+  var grid = document.getElementById('case-grid');
+  var buttons = document.querySelectorAll('.sort-btn');
+  if (!grid || !buttons.length) return;
+  var cards = Array.prototype.slice.call(grid.children);
+
+  buttons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var key = btn.getAttribute('data-sort');
+      buttons.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+
+      var sorted = cards.slice().sort(function(a, b) {
+        if (key === 'views') {
+          return Number(b.dataset.views || 0) - Number(a.dataset.views || 0);
+        }
+        return (b.dataset.date || '').localeCompare(a.dataset.date || '');
+      });
+      sorted.forEach(function(card) { grid.appendChild(card); });
+    });
+  });
+})();
+</script>

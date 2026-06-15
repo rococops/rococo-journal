@@ -312,6 +312,27 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   transition: color var(--transition);
 }
 .section-more:hover { color: var(--black); }
+.sort-toggle {
+  display: flex;
+  gap: 0.5rem;
+}
+.sort-btn {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--gray-400);
+  cursor: pointer;
+  transition: color var(--transition), border-color var(--transition), background var(--transition);
+}
+.sort-btn:hover { color: var(--black); border-color: var(--gray-400); }
+.sort-btn.active {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+}
 
 /* ===========================
    CARD GRID

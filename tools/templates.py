@@ -327,8 +327,12 @@ LIST_PAGE = """<!DOCTYPE html>
   <div class="container">
     <div class="section-head">
       <h2 class="section-label">{sub_name} 케이스 ({count}개)</h2>
+      <div class="sort-toggle">
+        <button type="button" class="sort-btn active" data-sort="date">최신순</button>
+        <button type="button" class="sort-btn" data-sort="views">조회수순</button>
+      </div>
     </div>
-    <div class="card-grid">
+    <div class="card-grid" id="case-grid">
 {cards}
     </div>
   </div>
@@ -337,10 +341,35 @@ LIST_PAGE = """<!DOCTYPE html>
 {cta_section}
 
 {footer}
+
+<script>
+(function() {{
+  var grid = document.getElementById('case-grid');
+  var buttons = document.querySelectorAll('.sort-btn');
+  if (!grid || !buttons.length) return;
+  var cards = Array.prototype.slice.call(grid.children);
+
+  buttons.forEach(function(btn) {{
+    btn.addEventListener('click', function() {{
+      var key = btn.getAttribute('data-sort');
+      buttons.forEach(function(b) {{ b.classList.remove('active'); }});
+      btn.classList.add('active');
+
+      var sorted = cards.slice().sort(function(a, b) {{
+        if (key === 'views') {{
+          return Number(b.dataset.views || 0) - Number(a.dataset.views || 0);
+        }}
+        return (b.dataset.date || '').localeCompare(a.dataset.date || '');
+      }});
+      sorted.forEach(function(card) {{ grid.appendChild(card); }});
+    }});
+  }});
+}})();
+</script>
 """
 
 
-CARD_HTML = """      <a href="{num}/" class="card">
+CARD_HTML = """      <a href="{num}/" class="card" data-date="{date}" data-views="{views}">
         <div class="card-img">
           <img src="{img}" alt="{title}" loading="lazy">
           <span class="card-tag">{sub_name}</span>

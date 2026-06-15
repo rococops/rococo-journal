@@ -136,19 +136,23 @@
   <div class="container">
     <div class="section-head">
       <h2 class="section-label">필러·보톡스 케이스 (3개)</h2>
+      <div class="sort-toggle">
+        <button type="button" class="sort-btn active" data-sort="date">최신순</button>
+        <button type="button" class="sort-btn" data-sort="views">조회수순</button>
+      </div>
     </div>
-    <div class="card-grid">
-      <a href="34/" class="card">
+    <div class="card-grid" id="case-grid">
+      <a href="513/" class="card" data-date="2024-02-26" data-views="4123">
         <div class="card-img">
-          <img src="../../images/thumbnails/6-1.jpg" alt="쁘띠 성형" loading="lazy">
+          <img src="../../images/thumbnails/6-1.jpg" alt="중안면이 짧아보이고 싶어요! - 애교필러 &amp; 밑트임" loading="lazy">
           <span class="card-tag">필러·보톡스</span>
         </div>
         <div class="card-body">
-          <p class="card-title">쁘띠 성형</p>
-          <p class="card-desc">보톡스와 필러성형</p>
+          <p class="card-title">중안면이 짧아보이고 싶어요! - 애교필러 &amp; 밑트임</p>
+          <p class="card-desc">최근 몇 년간 새삼 많이 느끼는게 비주말린 코끝 (콧볼처짐, 비주퇴축) 인 분들이 상당히 많다는 것과 중안면이 긴 분도 많다는...</p>
         </div>
       </a>
-      <a href="298/" class="card">
+      <a href="298/" class="card" data-date="2019-11-12" data-views="3369">
         <div class="card-img">
           <img src="../../images/thumbnails/6-2.jpg" alt="필러 절대 맞으면 안됩니다!? - 진실 or 거짓 논란에 대해서.." loading="lazy">
           <span class="card-tag">필러·보톡스</span>
@@ -158,14 +162,14 @@
           <p class="card-desc">일반인들이 볼 때 논문이라고 하면 대단한 진실을 담고 있다고 생각하시겠지만 꼭 그런것은 아니랍니다. 그냥 어떤 연구자의 주장입...</p>
         </div>
       </a>
-      <a href="513/" class="card">
+      <a href="34/" class="card" data-date="2017-02-09" data-views="18675">
         <div class="card-img">
-          <img src="../../images/thumbnails/7-1.jpg" alt="중안면이 짧아보이고 싶어요! - 애교필러 &amp; 밑트임" loading="lazy">
+          <img src="../../images/thumbnails/7-1.jpg" alt="쁘띠 성형" loading="lazy">
           <span class="card-tag">필러·보톡스</span>
         </div>
         <div class="card-body">
-          <p class="card-title">중안면이 짧아보이고 싶어요! - 애교필러 &amp; 밑트임</p>
-          <p class="card-desc">최근 몇 년간 새삼 많이 느끼는게 비주말린 코끝 (콧볼처짐, 비주퇴축) 인 분들이 상당히 많다는 것과 중안면이 긴 분도 많다는...</p>
+          <p class="card-title">쁘띠 성형</p>
+          <p class="card-desc">보톡스와 필러성형</p>
         </div>
       </a>
     </div>
@@ -241,3 +245,28 @@
 <script src="../../js/main.js"></script>
 </body>
 </html>
+
+<script>
+(function() {
+  var grid = document.getElementById('case-grid');
+  var buttons = document.querySelectorAll('.sort-btn');
+  if (!grid || !buttons.length) return;
+  var cards = Array.prototype.slice.call(grid.children);
+
+  buttons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var key = btn.getAttribute('data-sort');
+      buttons.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+
+      var sorted = cards.slice().sort(function(a, b) {
+        if (key === 'views') {
+          return Number(b.dataset.views || 0) - Number(a.dataset.views || 0);
+        }
+        return (b.dataset.date || '').localeCompare(a.dataset.date || '');
+      });
+      sorted.forEach(function(card) { grid.appendChild(card); });
+    });
+  });
+})();
+</script>
