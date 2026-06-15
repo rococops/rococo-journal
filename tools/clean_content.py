@@ -40,16 +40,24 @@ def fix_img_src(src):
     return 'https://rococops.com/' + src
 
 
-ORIGIN_HOSTS = ('blog.naver.com', 'm.blog.naver.com', 'v2.rococops.com', 'rococops.com')
+ORIGIN_HOST_RE = re.compile(r'(blog\.naver\.com|blog\.me|rococops\.com)', re.IGNORECASE)
+ZW_SUFFIX_RE = re.compile(r'(?:%E2%80%8B|[​‌‍﻿])+$', re.IGNORECASE)
 
 
 def extract_origin_url(contents_html):
-    """본문 HTML에 포함된 원본 블로그(naver/rococops) 글 링크를 찾아서 반환. 없으면 None."""
+    """본문에서 '원문 링크/보기' 라벨 바로 다음에 나오는 원본 블로그(naver/rococops) 글 링크를 찾아서 반환.
+    원문 라벨 뒤에 실제 링크가 아닌 다른 <a>가 오는 경우(이후 본문에서 다른 글로 잘못 연결되는 것)는 None 처리."""
     soup = BeautifulSoup(contents_html or '', 'html.parser')
-    for a in soup.find_all('a'):
-        href = (a.get('href') or '').strip()
-        if any(host in href for host in ORIGIN_HOSTS):
-            return href
+    nodes = list(soup.descendants)
+    for i, node in enumerate(nodes):
+        if isinstance(node, NavigableString) and '원문' in str(node):
+            for nxt in nodes[i + 1:]:
+                if isinstance(nxt, Tag) and nxt.name == 'a':
+                    href = ZW_SUFFIX_RE.sub('', (nxt.get('href') or '').strip())
+                    if href and ORIGIN_HOST_RE.search(href):
+                        return href
+                    return None
+            return None
     return None
 
 
