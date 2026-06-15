@@ -560,7 +560,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .footer-social {
   display: flex;
   gap: 12px;
-  margin-top: 10px;
+  margin-bottom: 8px;
 }
 .footer-social a {
   display: flex;
