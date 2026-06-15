@@ -33,13 +33,12 @@ export default async function handler(req, res) {
     sendResult = await resend.emails.send({
       from: 'Rococo Journal <onboarding@resend.dev>',
       to: process.env.NOTIFY_EMAIL,
-      subject: `[로코코 저널] 새 상담 신청 - ${name}`,
+      subject: `[${source || '온라인 상담 페이지'} 상담 문의] - ${name}`,
       html: `
         <h2>새 상담 신청이 도착했습니다</h2>
         <p><strong>이름:</strong> ${name}</p>
         <p><strong>전화번호:</strong> ${phone}</p>
         <p><strong>희망 연락 방법:</strong> ${contact_method}</p>
-        <p><strong>문의 출처:</strong> ${source || '온라인 상담 페이지'}</p>
         <p><strong>문의 내용:</strong></p>
         <p>${String(message).replace(/\n/g, '<br>')}</p>
       `
