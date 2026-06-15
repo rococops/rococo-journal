@@ -112,6 +112,22 @@ def build_article_blocks(contents_html, alt_text):
             return
         if node.name in ('script', 'style'):
             return
+        # 네이버 블로그 관련글 박스 (se2_quote 블록쿼트 + naver 링크)
+        if node.name == 'blockquote' and 'se2.naver.com' in (node.get('style') or ''):
+            a_tag = node.find('a', href=ORIGIN_HOST_RE)
+            if a_tag:
+                href = ZW_SUFFIX_RE.sub('', (a_tag.get('href') or '').strip())
+                # 제목: URL이 아닌 텍스트를 가진 <p> 또는 <span> 찾기
+                title = ''
+                for p in node.find_all(['p', 'span']):
+                    t = clean_text(p.get_text())
+                    if t and not t.startswith('http'):
+                        title = t
+                        break
+                if not title:
+                    title = '관련 글 보기'
+                blocks.append(('related_link', (href, title)))
+            return
         if node.name in ('p', 'div', 'li', 'td', 'th', 'h1', 'h2', 'h3', 'h4', 'blockquote'):
             # 블록 내부에 이미지가 있으면 텍스트와 분리해서 순서대로 처리
             text_parts = []
@@ -150,6 +166,13 @@ def build_article_blocks(contents_html, alt_text):
     for kind, val in out:
         if kind == 'text':
             html_parts.append(f'<p>{html_escape(val)}</p>')
+        elif kind == 'related_link':
+            href, title = val
+            html_parts.append(
+                f'<p class="related-post-link">'
+                f'<a href="{href}" target="_blank" rel="noopener">{html_escape(title)} →</a>'
+                f'</p>'
+            )
         else:
             html_parts.append(f'<img src="{val}" alt="{alt}" loading="lazy">')
 

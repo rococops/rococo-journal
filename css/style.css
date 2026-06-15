@@ -890,6 +890,22 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   max-height: none;
   max-width: 100%;
 }
+.article-content .related-post-link {
+  margin: 1rem 0;
+}
+.article-content .related-post-link a {
+  display: inline-block;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  color: var(--accent);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+.article-content .related-post-link a:hover {
+  background: var(--accent);
+  color: #fff;
+}
 
 /* 인라인 CTA */
 .inline-cta {
