@@ -258,6 +258,7 @@ form.addEventListener('submit', async function (e) {
   } finally {
     submitBtn.disabled = false;
     submitBtn.textContent = '상담 신청하기';
+    messageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 });
 </script>
