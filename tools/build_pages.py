@@ -13,7 +13,41 @@ from templates import (NAV_HTML, HEADER_HTML, FOOTER_HTML, CTA_SECTION_HTML,
                         DETAIL_PAGE, LIST_PAGE, CARD_HTML)
 
 BASE = os.path.join(os.path.dirname(__file__), '..')
-DEFAULT_IMG = 'https://rococops.com/images/main/mcs/2.jpg'
+
+# 본문에 이미지가 없는 글에 사용할 카테고리별 대체 썸네일 (images/thumbnails/)
+THUMB_BASE_URL = 'https://journal.rococops.com/images/thumbnails/'
+THUMB_CHEEKBONE = [f'1-{i}.jpg' for i in range(1, 5)]
+THUMB_NOSE = [f'2-{i}.jpg' for i in range(1, 5)]
+THUMB_NOSTRIL = [f'3-{i}.jpg' for i in range(1, 4)]
+THUMB_FOREHEAD = [f'4-{i}.jpg' for i in range(1, 5)]
+THUMB_CHIN = [f'5-{i}.jpg' for i in range(1, 3)]
+THUMB_ANTI_AGING = [f'6-{i}.jpg' for i in range(1, 3)]
+THUMB_RANDOM = [f'7-{i}.jpg' for i in range(1, 10)]
+THUMB_MALE_NOSE = [f'8-{i}.jpg' for i in range(1, 3)]
+THUMB_EYE = [f'9-{i}.jpg' for i in range(1, 4)]
+
+
+def thumb_pool(cat_path, sub_dir):
+    """카테고리별 대체 썸네일 후보 목록 (전용 풀 + 랜덤 풀)."""
+    if cat_path == 'anti-aging' and sub_dir == 'chin':
+        base = THUMB_CHIN
+    elif cat_path == 'anti-aging':
+        base = THUMB_ANTI_AGING
+    elif cat_path == 'nose' and sub_dir == 'male':
+        base = THUMB_MALE_NOSE
+    elif cat_path == 'cheekbone':
+        base = THUMB_CHEEKBONE
+    elif cat_path == 'nose':
+        base = THUMB_NOSE
+    elif cat_path == 'nostril':
+        base = THUMB_NOSTRIL
+    elif cat_path == 'forehead':
+        base = THUMB_FOREHEAD
+    elif cat_path == 'eye':
+        base = THUMB_EYE
+    else:
+        base = []
+    return base + THUMB_RANDOM
 
 ACTIVE_KEYS = ['active_cheekbone', 'active_nose', 'active_nostril',
                'active_forehead', 'active_eye', 'active_anti_aging']
@@ -211,13 +245,15 @@ def build_subcat(cfg, rows, canonical_map):
     out_dir = os.path.join(BASE, cat_path, sub_dir)
     os.makedirs(out_dir, exist_ok=True)
 
+    pool = thumb_pool(cat_path, sub_dir)
+    fallback_idx = 0
+
     cards = []
     for row in rows:
         slug = row['slug']
         title = row['subject']
         description = row['summary'] or title
         content_html, images = build_article_blocks(row['contents'], img_alt)
-        hero_image = images[0] if images else DEFAULT_IMG
 
         post_dir = os.path.join(out_dir, slug)
         os.makedirs(post_dir, exist_ok=True)
@@ -227,6 +263,17 @@ def build_subcat(cfg, rows, canonical_map):
         og_url = og_url_for(cat_path, sub_dir, slug)
         canonical_url = canonical_map.get(slug, og_url)
 
+        if images:
+            hero_image = images[0]
+            og_image = hero_image
+            card_img = hero_image
+        else:
+            fname = pool[fallback_idx % len(pool)]
+            fallback_idx += 1
+            hero_image = f'{root}images/thumbnails/{fname}'
+            og_image = THUMB_BASE_URL + fname
+            card_img = f'../../images/thumbnails/{fname}'
+
         page = DETAIL_PAGE.format(
             title=html_escape(title),
             title_short=html_escape(truncate(title, 24)),
@@ -234,7 +281,7 @@ def build_subcat(cfg, rows, canonical_map):
             meta_title=html_escape(meta_title),
             description=html_escape(description),
             description_json=description.replace('"', '\\"'),
-            og_image=hero_image,
+            og_image=og_image,
             og_url=og_url,
             canonical_url=canonical_url,
             img_alt=html_escape(img_alt),
@@ -256,7 +303,7 @@ def build_subcat(cfg, rows, canonical_map):
 
         cards.append(CARD_HTML.format(
             num=slug,
-            img=hero_image,
+            img=card_img,
             title=html_escape(truncate(title, 60)),
             desc=html_escape(truncate(description, 70)),
             sub_name=sub_name,
@@ -264,12 +311,14 @@ def build_subcat(cfg, rows, canonical_map):
 
     # 목록 페이지 생성
     root = '../../'
+    list_thumb = pool[0]
     list_description = f'{sub_name}({len(rows)}개 케이스) — 로코코성형외과 김상호 원장의 {sub_name} 시술 케이스 모음'
     list_page = LIST_PAGE.format(
         sub_name=sub_name,
         sub_name_en=sub_name_en,
         description=html_escape(list_description),
-        og_image=DEFAULT_IMG,
+        og_image=THUMB_BASE_URL + list_thumb,
+        hero_src=f'{root}images/thumbnails/{list_thumb}',
         og_url=f'https://journal.rococops.com/{cat_path}/{sub_dir}/',
         root=root,
         header=header(root, active_key),

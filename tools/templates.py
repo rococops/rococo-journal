@@ -316,7 +316,7 @@ LIST_PAGE = """<!DOCTYPE html>
         </div>
       </div>
       <div class="article-hero-img">
-        <img src="{og_image}" alt="{sub_name}" loading="eager">
+        <img src="{hero_src}" alt="{sub_name}" loading="eager">
       </div>
     </div>
   </div>
