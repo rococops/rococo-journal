@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup, NavigableString, Tag
 ZERO_WIDTH = re.compile(r'[​‌‍﻿]')
 URL_RE = re.compile(r'(https?://\S+|www\.\S+)', re.IGNORECASE)
 EMOTICON_RE = re.compile(r'\^[\^_\-]*\^[;*]?')
+ORIGIN_LINK_RE = re.compile(r'원문\s*(?:링크|보기)\s*:?')
 WS_RE = re.compile(r'\s+')
 
 
@@ -13,6 +14,7 @@ def clean_text(text):
     text = text.replace('\xa0', ' ')
     text = URL_RE.sub('', text)
     text = EMOTICON_RE.sub('', text)
+    text = ORIGIN_LINK_RE.sub('', text)
     text = WS_RE.sub(' ', text).strip()
     # 글자만 남거나 의미없는 구두점만 남은 경우 제거
     if not text or re.fullmatch(r'[\s\.\-_·:;,]*', text):
