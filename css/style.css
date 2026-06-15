@@ -823,6 +823,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   aspect-ratio: 4/3;
   border-radius: var(--radius);
   overflow: hidden;
+  background: var(--gray-50);
+}
+.article-hero-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* 아티클 레이아웃 */
