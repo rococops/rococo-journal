@@ -17,6 +17,7 @@ BASE = os.path.join(os.path.dirname(__file__), '..')
 
 # 본문에 이미지가 없는 글에 사용할 카테고리별 대체 썸네일 (images/thumbnails/)
 THUMB_BASE_URL = 'https://journal.rococops.com/images/thumbnails/'
+ATTACH1_BASE_URL = 'https://rococops.com/files/sitecontents/attach1/'
 THUMB_CHEEKBONE = [f'1-{i}.jpg' for i in range(1, 5)]
 THUMB_NOSE = [f'2-{i}.jpg' for i in range(1, 5)]
 THUMB_NOSTRIL = [f'3-{i}.jpg' for i in range(1, 4)]
@@ -178,6 +179,7 @@ def load_all_rows_by_category(sql):
             'contents': contents or '',
             'visited': int(visited) if visited else 0,
             'date': parse_date(udate),
+            'attach1': attach1.strip() if attach1 and attach1.strip() else None,
         })
     return by_category
 
@@ -295,7 +297,12 @@ def build_subcat(cfg, rows, canonical_map):
         fname = pool[fallback_idx % len(pool)]
         fallback_idx += 1
         og_image = THUMB_BASE_URL + fname
-        card_img = f'../../images/thumbnails/{fname}'
+
+        attach1 = row.get('attach1')
+        if attach1:
+            card_img = ATTACH1_BASE_URL + attach1
+        else:
+            card_img = f'../../images/thumbnails/{fname}'
 
         if images:
             hero_image = images[0]
