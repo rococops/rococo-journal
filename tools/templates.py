@@ -342,31 +342,101 @@ LIST_PAGE = """<!DOCTYPE html>
 
 {footer}
 
-<script>
-(function() {{
+""" + "{sort_script}"
+
+
+SORT_SCRIPT_HTML = """<script>
+(function() {
   var grid = document.getElementById('case-grid');
   var buttons = document.querySelectorAll('.sort-btn');
   if (!grid || !buttons.length) return;
   var cards = Array.prototype.slice.call(grid.children);
 
-  buttons.forEach(function(btn) {{
-    btn.addEventListener('click', function() {{
+  buttons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
       var key = btn.getAttribute('data-sort');
-      buttons.forEach(function(b) {{ b.classList.remove('active'); }});
+      buttons.forEach(function(b) { b.classList.remove('active'); });
       btn.classList.add('active');
 
-      var sorted = cards.slice().sort(function(a, b) {{
-        if (key === 'views') {{
+      var sorted = cards.slice().sort(function(a, b) {
+        if (key === 'views') {
           return Number(b.dataset.views || 0) - Number(a.dataset.views || 0);
-        }}
+        }
         return (b.dataset.date || '').localeCompare(a.dataset.date || '');
-      }});
-      sorted.forEach(function(card) {{ grid.appendChild(card); }});
-    }});
-  }});
-}})();
+      });
+      sorted.forEach(function(card) { grid.appendChild(card); });
+    });
+  });
+})();
 </script>
 """
+
+
+ALL_CASES_PAGE = """<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전체 케이스 | 로코코 저널</title>
+<meta name="description" content="{description}">
+<meta property="og:title" content="전체 케이스 | 로코코 저널">
+<meta property="og:description" content="{description}">
+<meta property="og:image" content="{og_image}">
+<meta property="og:url" content="{og_url}">
+<meta property="og:type" content="website">
+<link rel="canonical" href="{og_url}">
+<link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
+<link rel="stylesheet" href="{root}css/style.css">
+</head>
+<body>
+
+{header}
+
+<!-- 아티클 히어로 -->
+<section class="article-hero">
+  <div class="container">
+    <div class="article-breadcrumb">
+      <a href="{root}">홈</a>
+      <span>›</span>
+      <span>전체 케이스</span>
+    </div>
+    <div class="article-hero-inner">
+      <div class="article-hero-text">
+        <span class="eyebrow">ALL CASES</span>
+        <h1 class="article-title">전체 케이스</h1>
+        <p class="article-summary">{description}</p>
+        <div class="article-meta">
+          <span class="meta-author">김상호 원장</span>
+          <span class="dot">·</span>
+          <span class="meta-clinic">로코코성형외과</span>
+        </div>
+      </div>
+      <div class="article-hero-img">
+        <img src="{hero_src}" alt="전체 케이스" loading="eager">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 글 목록 -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-label">전체 케이스 ({count}개)</h2>
+      <div class="sort-toggle">
+        <button type="button" class="sort-btn active" data-sort="date">최신순</button>
+        <button type="button" class="sort-btn" data-sort="views">조회수순</button>
+      </div>
+    </div>
+    <div class="card-grid" id="case-grid">
+{cards}
+    </div>
+  </div>
+</section>
+
+{footer}
+
+{sort_script}"""
 
 
 CARD_HTML = """      <a href="{num}/" class="card" data-date="{date}" data-views="{views}">

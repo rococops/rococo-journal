@@ -2,7 +2,7 @@
 
 SUBCATS 테이블에서 keywords가 None인 항목은 SEO 키워드가 아직 정해지지 않아 스킵한다.
 """
-import sys, os, re
+import sys, os, re, json
 from datetime import datetime
 from collections import defaultdict
 sys.path.insert(0, os.path.dirname(__file__))
@@ -11,7 +11,8 @@ from sql_parse import iter_insert_tuples, split_tuple_fields, parse_field
 from clean_content import build_article_blocks, clean_text, html_escape, first_paragraph_text
 from mcolumn_map import classify as classify_mcolumn
 from templates import (NAV_HTML, HEADER_HTML, FOOTER_HTML, CTA_SECTION_HTML,
-                        DETAIL_PAGE, LIST_PAGE, CARD_HTML)
+                        DETAIL_PAGE, LIST_PAGE, CARD_HTML, SORT_SCRIPT_HTML,
+                        ALL_CASES_PAGE)
 
 BASE = os.path.join(os.path.dirname(__file__), '..')
 
@@ -365,12 +366,104 @@ def build_subcat(cfg, rows, canonical_map):
         count=len(rows),
         cards='\n'.join(cards),
         cta_section=CTA_SECTION_HTML.format(root=root, cat_name=sub_name),
+        sort_script=SORT_SCRIPT_HTML,
     )
 
     with open(os.path.join(out_dir, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(list_page)
 
     print(f'완료: {cat_path}/{sub_dir} - {len(rows)}개 상세페이지 + 목록페이지')
+
+
+def build_all_cases_and_homepage_data(cfg_rows, canonical_map):
+    """전체 케이스 통합 페이지(cases/index.html)와 홈페이지 히어로용
+    인기글(조회수 상위) JSON(data/top-cases.json)을 생성."""
+    entries = []
+    fallback_idx_by_sub = defaultdict(int)
+
+    for cfg in SUBCATS:
+        sql_categories, cat_path, sub_dir, sub_name, sub_name_en, keywords = cfg
+        if keywords is None:
+            continue
+        for row in cfg_rows[sub_dir, cat_path]:
+            slug = row['slug']
+            if slug in canonical_map:
+                continue
+
+            pool = thumb_pool(cat_path, sub_dir)
+            attach1 = row.get('attach1')
+            if attach1:
+                img = ATTACH1_BASE_URL + attach1
+            else:
+                idx = fallback_idx_by_sub[cat_path, sub_dir]
+                fallback_idx_by_sub[cat_path, sub_dir] += 1
+                img = f'images/thumbnails/{pool[idx % len(pool)]}'
+
+            entries.append({
+                'title': row['subject'],
+                'summary': row['summary'],
+                'cat_path': cat_path,
+                'sub_dir': sub_dir,
+                'sub_name': sub_name,
+                'slug': slug,
+                'img': img,
+                'hero_img': f'images/thumbnails/{pool[0]}',
+                'views': row['visited'],
+                'date': row['date'].strftime('%Y-%m-%d') if row['date'] != datetime.min else '',
+            })
+
+    # ── 전체 케이스 통합 페이지 ──
+    entries_by_date = sorted(entries, key=lambda e: e['date'], reverse=True)
+    cards = []
+    for e in entries_by_date:
+        img = e['img'] if e['img'].startswith('http') else f"../{e['img']}"
+        cards.append(CARD_HTML.format(
+            num=f"../{e['cat_path']}/{e['sub_dir']}/{e['slug']}",
+            img=img,
+            title=html_escape(truncate(e['title'], 60)),
+            desc=html_escape(truncate(e['summary'], 70)),
+            sub_name=e['sub_name'],
+            date=e['date'],
+            views=e['views'],
+        ))
+
+    out_dir = os.path.join(BASE, 'cases')
+    os.makedirs(out_dir, exist_ok=True)
+    root = '../'
+    all_cases_page = ALL_CASES_PAGE.format(
+        description=f'로코코성형외과 김상호 원장의 시술 케이스 전체 모음 ({len(entries)}개) — 최신순/조회수순으로 확인할 수 있습니다.',
+        og_image=THUMB_BASE_URL + '7-1.jpg',
+        og_url='https://journal.rococops.com/cases/',
+        hero_src=f'{root}images/thumbnails/7-1.jpg',
+        root=root,
+        header=header(root, 'none'),
+        footer=footer(root),
+        count=len(entries),
+        cards='\n'.join(cards),
+        sort_script=SORT_SCRIPT_HTML,
+    )
+    with open(os.path.join(out_dir, 'index.html'), 'w', encoding='utf-8') as f:
+        f.write(all_cases_page)
+    print(f'완료: cases/ - {len(entries)}개 케이스 통합 페이지')
+
+    # ── 홈페이지 히어로용 인기글(조회수 상위) JSON ──
+    top_cases = sorted(entries, key=lambda e: e['views'], reverse=True)[:40]
+    top_cases_out = [{
+        'title': e['title'],
+        'summary': e['summary'],
+        'url': f"{e['cat_path']}/{e['sub_dir']}/{e['slug']}/",
+        'img': e['img'],
+        'heroImg': e['hero_img'],
+        'catTag': e['sub_name'],
+        'views': e['views'],
+        'date': e['date'],
+    } for e in top_cases]
+
+    data_dir = os.path.join(BASE, 'data')
+    os.makedirs(data_dir, exist_ok=True)
+    with open(os.path.join(data_dir, 'top-cases.json'), 'w', encoding='utf-8') as f:
+        json.dump(top_cases_out, f, ensure_ascii=False, indent=2)
+    print(f'완료: data/top-cases.json - 조회수 상위 {len(top_cases_out)}개')
 
 
 def main():
@@ -414,6 +507,8 @@ def main():
             continue
         rows = cfg_rows[sub_dir, cat_path]
         build_subcat(cfg, rows, canonical_map)
+
+    build_all_cases_and_homepage_data(cfg_rows, canonical_map)
 
 
 if __name__ == '__main__':
