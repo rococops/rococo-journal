@@ -230,7 +230,7 @@ DETAIL_PAGE = """<!DOCTYPE html>
         <!-- 상담 인라인 CTA -->
         <div class="inline-cta">
           <p class="inline-cta-text">{sub_name}에 대해 더 궁금한 점이 있으신가요?</p>
-          <a href="https://rococops.com/htm/counsel_normal.php" class="inline-cta-btn" target="_blank">김상호 원장에게 직접 상담하기 →</a>
+          <a href="{root}counsel/?from={sub_name}" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>
         </div>
       </div>
 
@@ -244,7 +244,7 @@ DETAIL_PAGE = """<!DOCTYPE html>
         <div class="sidebar-card">
           <p class="sidebar-title">온라인 상담</p>
           <p class="sidebar-desc">02-2135-2702<br>월·금 09:00~19:00<br>화·수·목 09:00~18:00<br>토 09:00~13:00</p>
-          <a href="https://rococops.com/htm/counsel_normal.php" class="sidebar-btn" target="_blank">상담 신청하기 →</a>
+          <a href="{root}counsel/?from={sub_name}" class="sidebar-btn">상담 신청하기 →</a>
         </div>
         <div class="sidebar-related">
           <p class="sidebar-title">{sub_name} 다른 글</p>

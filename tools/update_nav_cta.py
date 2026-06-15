@@ -29,7 +29,16 @@ FOOTER_PATTERN = re.compile(
     r'<a href="https://rococops\.com/htm/counsel_normal\.php" target="_blank">온라인 상담</a>'
 )
 
+INLINE_CTA_PATTERN = re.compile(
+    r'<a href="https://rococops\.com/htm/counsel_normal\.php" class="inline-cta-btn" target="_blank">(.*?)</a>'
+)
+
+SIDEBAR_BTN_PATTERN = re.compile(
+    r'<a href="https://rococops\.com/htm/counsel_normal\.php" class="sidebar-btn" target="_blank">(.*?)</a>'
+)
+
 CTA_LABEL_PATTERN = re.compile(r'<span class="cta-label">(.*?) 전후사진</span>')
+META_CAT_PATTERN = re.compile(r'<span class="meta-cat">(.*?)</span>')
 
 
 def process_file(path):
@@ -56,6 +65,18 @@ def process_file(path):
         f'<a href="{root}counsel/">온라인 상담</a>',
         content,
     )
+
+    if INLINE_CTA_PATTERN.search(content) or SIDEBAR_BTN_PATTERN.search(content):
+        meta_match = META_CAT_PATTERN.search(content)
+        sub_name = meta_match.group(1) if meta_match else ''
+        content = INLINE_CTA_PATTERN.sub(
+            lambda m: f'<a href="{root}counsel/?from={sub_name}" class="inline-cta-btn">{m.group(1)}</a>',
+            content,
+        )
+        content = SIDEBAR_BTN_PATTERN.sub(
+            lambda m: f'<a href="{root}counsel/?from={sub_name}" class="sidebar-btn">{m.group(1)}</a>',
+            content,
+        )
 
     if content != original:
         with open(path, 'w', encoding='utf-8') as f:
