@@ -631,12 +631,15 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .nav-toggle { display: flex; }
   .gnb {
     position: fixed;
-    top: var(--header-h); left: 0; right: 0; bottom: 0;
+    top: var(--header-h); left: 0; right: 0;
+    height: calc(100vh - var(--header-h));
     background: var(--white);
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     transform: translateX(100%);
     transition: transform 0.3s ease;
-    padding: 1.5rem 1.25rem;
+    padding: 1.5rem 1.25rem 3rem;
+    z-index: 999;
   }
   .gnb.open { transform: translateX(0); }
   .gnb > ul { flex-direction: column; gap: 0; }
