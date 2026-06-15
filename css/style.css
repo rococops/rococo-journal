@@ -641,8 +641,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .gnb.open { transform: translateX(0); }
   .gnb > ul { flex-direction: column; gap: 0; }
   .gnb > ul > li > a {
-    padding: 14px 0;
-    font-size: 15px;
+    padding: 16px 0;
+    font-size: 17px;
+    font-weight: 600;
     color: var(--black);
     border-bottom: 1px solid var(--gray-100);
   }
@@ -654,18 +655,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     border: none;
     box-shadow: none;
     background: var(--gray-50);
-    padding: 0.5rem 0;
-    display: none;
+    padding: 0.5rem 0 0.75rem;
+    display: block; /* 모바일에서 서브메뉴 항상 펼쳐진 채로 표시 */
   }
-  .sub-menu.open { display: block; }
-  .sub-menu li a { padding: 10px 1.5rem; font-size: 13px; }
+  .sub-menu li a { padding: 11px 1.5rem; font-size: 15px; }
   .gnb .btn-consult {
     display: block;
-    margin: 1.5rem 0 0;
+    margin: 2rem 0 0;
     text-align: center;
-    padding: 14px !important;
+    padding: 16px !important;
     border-radius: var(--radius);
-    font-size: 14px !important;
+    font-size: 15px !important;
   }
   .hero-grid { grid-template-columns: 1fr; grid-template-rows: 260px auto; }
   .hero-featured { border-right: none; border-bottom: 1px solid var(--gray-200); }

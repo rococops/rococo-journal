@@ -15,16 +15,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // 모바일 서브메뉴 토글
-  const hasSubItems = document.querySelectorAll('.has-sub > a');
-  hasSubItems.forEach(function (link) {
-    link.addEventListener('click', function (e) {
-      if (window.innerWidth <= 768) {
-        e.preventDefault();
-        const sub = this.nextElementSibling;
-        if (sub) {
-          sub.classList.toggle('open');
-        }
+  // 모바일: 메뉴 항목 클릭 시 메뉴 닫기
+  const gnbLinks = document.querySelectorAll('.gnb a:not(.btn-consult)');
+  gnbLinks.forEach(function (link) {
+    link.addEventListener('click', function () {
+      if (window.innerWidth <= 768 && gnb) {
+        gnb.classList.remove('open');
+        document.body.style.overflow = '';
+        toggle.setAttribute('aria-label', '메뉴 열기');
       }
     });
   });
