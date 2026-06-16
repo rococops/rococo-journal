@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
   const { password, catPath, subDir } = req.body || {};
   if (password !== process.env.ADMIN_PASSWORD)
-    return res.status(401).json({ error: '인증 실패' });
+    return res.status(401).json({ error: `인증 실패 (받은값: ${password ? password.slice(0,2)+'***' : 'undefined'}, 환경변수: ${process.env.ADMIN_PASSWORD ? '설정됨' : '미설정'})` });
 
   const token = process.env.GITHUB_TOKEN;
   try {
