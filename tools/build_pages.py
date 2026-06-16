@@ -330,12 +330,16 @@ def build_subcat(cfg, rows, canonical_map):
             footer=footer(root),
             cat_path=cat_path,
             cat_name=cat_name,
+            cat_name_json=cat_name.replace('"', '\\"'),
             sub_name=sub_name,
+            sub_name_json=sub_name.replace('"', '\\"'),
             sub_name_en=sub_name_en,
+            sub_dir=sub_dir,
             list_root=list_root,
             hero_image=hero_image,
             content=content_html,
             origin_link_card=origin_link_card,
+            date=row.get('date', ''),
             cta_section=CTA_SECTION_HTML.format(root=root, cat_name=sub_name),
         )
 

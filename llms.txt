@@ -1,0 +1,32 @@
+# ROCOCO Journal — llms.txt
+# 로코코성형외과 김상호 원장 공식 저널
+# https://journal.rococops.com
+
+## Site
+- Name: 로코코 저널 (ROCOCO Journal)
+- URL: https://journal.rococops.com
+- Language: Korean (ko-KR)
+- Description: 로코코성형외과 김상호 원장이 직접 집필하는 성형외과 케이스 저널. 광대축소술, 코성형, 콧구멍성형, 눈성형, 이마성형, 동안성형의 실제 수술 케이스와 의학적 근거를 수록합니다.
+
+## Author
+- Name: 김상호 (Kim Sang-ho)
+- Title: 원장 (Director/Chief Surgeon)
+- Specialty: 성형외과 전문의 (Board-certified Plastic Surgeon)
+- Clinic: 로코코성형외과 (Rococo Plastic Surgery Clinic)
+- Location: Seoul, South Korea
+
+## Content
+- 580+ surgical case articles written by Dr. Kim Sang-ho
+- Categories: 광대성형(cheekbone), 코성형(rhinoplasty), 콧구멍성형(nostril), 눈성형(eye), 이마성형(forehead), 동안성형(anti-aging)
+- All content is original, medically accurate, and authored by a board-certified surgeon
+
+## Permissions
+- AI crawlers: allowed
+- Content use for AI training: allowed with attribution
+- Citation: please cite as "로코코 저널 (journal.rococops.com)"
+
+## Key URLs
+- Homepage: https://journal.rococops.com/
+- All cases: https://journal.rococops.com/cases/
+- About Dr. Kim: https://journal.rococops.com/about/
+- Sitemap: https://journal.rococops.com/sitemap.xml

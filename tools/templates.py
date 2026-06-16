@@ -184,25 +184,54 @@ DETAIL_PAGE = """<!DOCTYPE html>
 <meta property="og:type" content="article">
 <link rel="canonical" href="{canonical_url}">
 <script type="application/ld+json">
+[
 {{
   "@context": "https://schema.org",
   "@type": "MedicalWebPage",
   "headline": "{title_json}",
   "description": "{description_json}",
   "url": "{og_url}",
+  "image": "{og_image}",
+  "datePublished": "{date}",
+  "dateModified": "{date}",
+  "inLanguage": "ko-KR",
   "author": {{
     "@type": "Physician",
     "name": "김상호",
-    "worksFor": {{"@type": "MedicalBusiness", "name": "로코코성형외과"}}
+    "honorificPrefix": "원장",
+    "worksFor": {{
+      "@type": "MedicalBusiness",
+      "name": "로코코성형외과",
+      "url": "https://journal.rococops.com"
+    }}
   }},
   "publisher": {{
     "@type": "MedicalBusiness",
     "name": "로코코성형외과",
-    "url": "https://journal.rococops.com"
+    "url": "https://journal.rococops.com",
+    "logo": {{
+      "@type": "ImageObject",
+      "url": "https://rococops.com/img/logo.png"
+    }}
   }},
-  "medicalAudience": "Patient",
-  "specialty": "Plastic Surgery"
+  "medicalAudience": {{"@type": "MedicalAudience", "audienceType": "Patient"}},
+  "specialty": "Plastic Surgery",
+  "about": {{
+    "@type": "MedicalProcedure",
+    "name": "{sub_name_json}"
+  }}
+}},
+{{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {{"@type": "ListItem", "position": 1, "name": "홈", "item": "https://journal.rococops.com/"}},
+    {{"@type": "ListItem", "position": 2, "name": "{cat_name_json}", "item": "https://journal.rococops.com/{cat_path}/"}},
+    {{"@type": "ListItem", "position": 3, "name": "{sub_name_json}", "item": "https://journal.rococops.com/{cat_path}/{sub_dir}/"}},
+    {{"@type": "ListItem", "position": 4, "name": "{title_json}", "item": "{og_url}"}}
+  ]
 }}
+]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="{root}css/style.css">
