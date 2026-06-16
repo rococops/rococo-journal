@@ -27,10 +27,13 @@ export default async function handler(req, res) {
       .filter(i => i.type === 'dir')
       .map(i => i.name)
       .sort((a, b) => {
-        // 숫자면 숫자 정렬, 아니면 문자 정렬
-        const na = parseInt(a), nb = parseInt(b);
-        if (!isNaN(na) && !isNaN(nb)) return nb - na;
-        return b.localeCompare(a);
+        const isPureNum = s => /^\d+$/.test(s);
+        const cNum = s => parseInt(s.replace(/^c/, ''));
+        // 순수 숫자(어드민 발행글)는 항상 위
+        if (isPureNum(a) && !isPureNum(b)) return -1;
+        if (!isPureNum(a) && isPureNum(b)) return 1;
+        // 둘 다 순수 숫자거나 둘 다 c-prefix: 숫자 내림차순
+        return cNum(b) - cNum(a);
       });
     return res.status(200).json({ ok: true, slugs });
   } catch (e) {
