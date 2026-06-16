@@ -1394,3 +1394,32 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 @media (max-width: 768px) {
   .radio-group { flex-direction: column; }
 }
+
+/* 카카오채널 플로팅 버튼 */
+.kakao-float {
+  position: fixed;
+  bottom: 28px;
+  right: 24px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #FEE500;
+  color: #3C1E1E;
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 12px 18px 12px 14px;
+  border-radius: 50px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.kakao-float:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+.kakao-float svg { flex-shrink: 0; }
+@media (max-width: 768px) {
+  .kakao-float { bottom: 20px; right: 16px; padding: 11px 15px 11px 12px; font-size: 12px; }
+}
