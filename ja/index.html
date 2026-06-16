@@ -105,6 +105,25 @@
 .case-views { font-size: 11px; color: #aaa; }
 .case-title { font-size: 12px; color: #333; line-height: 1.5; margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
+
+.consult-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+@media(max-width:640px){ .consult-grid { grid-template-columns: 1fr; } }
+.consult-card { display: flex; flex-direction: column; gap: 0.75rem; background: #fafafa; border: 1px solid #e8e8e8; border-radius: 10px; padding: 1.5rem 1.75rem; text-decoration: none; transition: box-shadow 0.15s; }
+.consult-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.09); }
+.consult-icon { font-size: 2rem; line-height: 1; }
+.consult-card h3 { font-size: 1.05rem; font-weight: 700; color: #111; margin: 0; }
+.consult-card p { font-size: 0.88rem; color: #555; line-height: 1.7; margin: 0; }
+.consult-card .lang-note { font-size: 12px; color: #b8956a; font-weight: 600; border-top: 1px solid #eee; padding-top: 0.65rem; margin-top: auto; }
+.consult-phone { font-size: 0.9rem; color: #555; text-align: center; margin-top: 0.5rem; }
+.consult-phone a { color: #111; font-weight: 700; }
+.faq-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.faq-item { border: 1px solid #ebebeb; border-radius: 8px; overflow: hidden; }
+.faq-item summary { cursor: pointer; padding: 1rem 1.25rem; font-size: 0.95rem; font-weight: 600; color: #111; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; font-size: 1.2rem; color: #b8956a; font-weight: 400; transition: transform 0.2s; flex-shrink: 0; margin-left: 1rem; }
+.faq-item[open] summary::after { content: '−'; }
+.faq-item p { padding: 0 1.25rem 1rem; font-size: 0.88rem; color: #555; line-height: 1.8; margin: 0; }
+
 </style>
 </head>
 <body>
@@ -643,6 +662,42 @@
   <a href="../cases/">症例集を見る →</a>
 </section>
 
+<hr class="divider">
+
+<section class="section" id="consult">
+  <p class="section-title">カウンセリングのご予約</p>
+  <p class="section-sub">すべてのカウンセリングはキム・サンホ院長が直接担当します</p>
+  <div class="consult-grid">
+    <a href="https://journal.rococops.com/counsel/" class="consult-card">
+      <div class="consult-icon">&#9993;&#65039;</div>
+      <h3>オンライン相談フォーム</h3>
+      <p>ご質問や写真をお送りください。1〜2営業日以内にメールでご返信します。</p>
+      <span class="lang-note">✓ 日本語対応（翻訳補助）・英語・中国語も受付可</span>
+    </a>
+    <a href="https://pf.kakao.com/_xdBpRl" class="consult-card" target="_blank" rel="noopener">
+      <div class="consult-icon">&#128172;</div>
+      <h3>カカオトーク</h3>
+      <p>カカオトークでのリアルタイム相談。アプリをダウンロードしてメッセージをお送りください。</p>
+      <span class="lang-note">✓ 韓国語推奨・英語対応可</span>
+    </a>
+  </div>
+  <p class="consult-phone">電話: <a href="tel:+82221352702">+82-2-2135-2702</a></p>
+</section>
+
+<section class="section" id="faq">
+  <p class="section-title">海外からいらっしゃる患者様へ よくある質問</p>
+  <p class="section-sub">韓国での美容整形を検討されている方へ</p>
+  <div class="faq-list">
+    <details class="faq-item"><summary>日本語でのカウンセリングはできますか？</summary><p>日本語での直接会話は難しいですが、オンライン相談フォームから日本語でお問い合わせいただければ、翻訳を通じて丁寧にご対応いたします。英語でのカウンセリングはキム院長が直接対応します。</p></details>
+    <details class="faq-item"><summary>予約はどのようにするのですか？</summary><p>オンライン相談フォームからご希望の日程をお送りいただくか、カカオトークでご連絡ください。通常1〜2営業日以内にご確認のご連絡を差し上げます。</p></details>
+    <details class="faq-item"><summary>一人で来院しても大丈夫ですか？</summary><p>はい、大丈夫です。英語でのコミュニケーションが可能ですので、韓国語ができなくても安心してご来院いただけます。多くの海外の患者様が一人で来院されています。</p></details>
+    <details class="faq-item"><summary>ダウンタイム（回復期間）はどのくらいですか？</summary><p>術式によって異なります。目安として：頬骨縮小術 2〜3週間、鼻整形 2〜3週間、目の整形 1〜2週間で大きな腫れが引きます。最終的な仕上がりは3〜6ヶ月後です。カウンセリング時に詳しくご説明します。</p></details>
+    <details class="faq-item"><summary>手術費用はどのくらいですか？</summary><p>術式や個々の状態によって異なるため、一概にはお伝えできません。オンライン相談フォームにてご希望やお悩みをお送りいただければ、詳細なお見積りをお出しいたします。</p></details>
+  </div>
+</section>
+
+<hr class="divider">
+
 <section class="section" id="location">
   <p class="section-title">アクセス・診療時間</p>
   <p class="section-sub">完全予約制です。ご来院前にお問い合わせください。</p>
@@ -668,6 +723,7 @@
         オリーブヤング・コーヒービーン入居ビル（狎鴎亭ビル）3F
       </p>
       <p style="margin-top:1rem;font-size:0.9rem;"><strong>電話：</strong><a href="tel:+82221352702" style="color:#111;">+82-2-2135-2702</a></p>
+      <p style="margin-top:1.2rem;"><a href="https://maps.google.com/maps?q=%EB%A1%9C%EC%BD%94%EC%BD%94%EC%84%B1%ED%98%95%EC%99%B8%EA%B3%BC+%EC%84%9C%EC%9A%B8+%EA%B0%95%EB%82%A8%EA%B5%AC+%EB%85%BC%ED%98%84%EB%A1%9C+842" target="_blank" rel="noopener" style="color:#b8956a;font-weight:700;font-size:0.9rem;">Google マップで開く →</a></p>
     </div>
   </div>
 </section>

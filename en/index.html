@@ -123,6 +123,25 @@
 .case-views { font-size: 11px; color: #aaa; }
 .case-title { font-size: 12px; color: #333; line-height: 1.5; margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
+
+.consult-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+@media(max-width:640px){ .consult-grid { grid-template-columns: 1fr; } }
+.consult-card { display: flex; flex-direction: column; gap: 0.75rem; background: #fafafa; border: 1px solid #e8e8e8; border-radius: 10px; padding: 1.5rem 1.75rem; text-decoration: none; transition: box-shadow 0.15s; }
+.consult-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.09); }
+.consult-icon { font-size: 2rem; line-height: 1; }
+.consult-card h3 { font-size: 1.05rem; font-weight: 700; color: #111; margin: 0; }
+.consult-card p { font-size: 0.88rem; color: #555; line-height: 1.7; margin: 0; }
+.consult-card .lang-note { font-size: 12px; color: #b8956a; font-weight: 600; border-top: 1px solid #eee; padding-top: 0.65rem; margin-top: auto; }
+.consult-phone { font-size: 0.9rem; color: #555; text-align: center; margin-top: 0.5rem; }
+.consult-phone a { color: #111; font-weight: 700; }
+.faq-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.faq-item { border: 1px solid #ebebeb; border-radius: 8px; overflow: hidden; }
+.faq-item summary { cursor: pointer; padding: 1rem 1.25rem; font-size: 0.95rem; font-weight: 600; color: #111; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; font-size: 1.2rem; color: #b8956a; font-weight: 400; transition: transform 0.2s; flex-shrink: 0; margin-left: 1rem; }
+.faq-item[open] summary::after { content: '−'; }
+.faq-item p { padding: 0 1.25rem 1rem; font-size: 0.88rem; color: #555; line-height: 1.8; margin: 0; }
+
 </style>
 </head>
 <body>
@@ -659,12 +678,48 @@
 
 <hr class="divider">
 
+<section class="section" id="consult">
+  <p class="section-title">Book a Consultation</p>
+  <p class="section-sub">All consultations are conducted by Dr. Kim Sang-ho personally — no coordinators</p>
+  <div class="consult-grid">
+    <a href="https://journal.rococops.com/counsel/" class="consult-card">
+      <div class="consult-icon">✉️</div>
+      <h3>Online Consultation Form</h3>
+      <p>Send your questions and photos. We reply by email within 1–2 business days.</p>
+      <span class="lang-note">✓ English available &nbsp;·&nbsp; Japanese &amp; Chinese (translation-assisted)</span>
+    </a>
+    <a href="https://pf.kakao.com/_xdBpRl" class="consult-card" target="_blank" rel="noopener">
+      <div class="consult-icon">💬</div>
+      <h3>KakaoTalk</h3>
+      <p>Instant messaging via KakaoTalk. Download the free app to start a chat.</p>
+      <span class="lang-note">✓ Korean preferred &nbsp;·&nbsp; English available</span>
+    </a>
+  </div>
+  <p class="consult-phone">Phone: <a href="tel:+82221352702">+82-2-2135-2702</a></p>
+</section>
+
+<hr class="divider">
+
 <!-- 케이스 리뷰 배너 -->
 <section class="cases-banner">
   <h2>See Real Case Reviews</h2>
   <p>Browse before & after cases and Dr. Kim's clinical columns — written in Korean, but the results speak for themselves.</p>
   <a href="../cases/">View Case Reviews →</a>
 </section>
+
+<section class="section" id="faq">
+  <p class="section-title">FAQ for International Patients</p>
+  <p class="section-sub">Common questions from patients traveling from abroad</p>
+  <div class="faq-list">
+    <details class="faq-item"><summary>Is English consultation available?</summary><p>Dr. Kim Sang-ho consults in English directly. Written inquiries in Japanese and Chinese are also accepted — we use translation to ensure clear communication.</p></details>
+    <details class="faq-item"><summary>How do I book a consultation?</summary><p>Submit the online consultation form or message us on KakaoTalk. We will confirm your appointment date by email or message, usually within 1–2 business days.</p></details>
+    <details class="faq-item"><summary>Can I come alone without a Korean companion?</summary><p>Yes. Dr. Kim handles English consultations directly. Most of our international patients visit independently. Our staff will assist you from the moment you arrive.</p></details>
+    <details class="faq-item"><summary>How long is the recovery period?</summary><p>It varies by procedure. As a general guide: cheekbone reduction 2–3 weeks for most swelling to subside, rhinoplasty 2–3 weeks, eye surgery 1–2 weeks. Full results take 3–6 months. We will provide a detailed recovery timeline at your consultation.</p></details>
+    <details class="faq-item"><summary>How much does surgery cost?</summary><p>Pricing depends on the specific procedure and your individual case. Please use the consultation form to describe your goals — we will provide a full cost estimate after reviewing your case.</p></details>
+  </div>
+</section>
+
+<hr class="divider">
 
 <!-- 위치 & 시간 -->
 <section class="section" id="location">
@@ -692,6 +747,7 @@
         Head toward Eulji Hospital intersection → past CGV → Apgujeong Building (Olive Young / Coffee Bean building), 3F
       </p>
       <p style="margin-top:1rem;font-size:0.9rem;"><strong>Tel:</strong> <a href="tel:+82221352702" style="color:#111;">+82-2-2135-2702</a></p>
+      <p style="margin-top:1.2rem;"><a href="https://maps.google.com/maps?q=로코코성형외과+서울+강남구+논현로+842" target="_blank" rel="noopener" style="color:#b8956a;font-weight:700;font-size:0.9rem;">Open in Google Maps →</a></p>
     </div>
   </div>
 </section>

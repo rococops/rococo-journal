@@ -105,6 +105,25 @@
 .case-views { font-size: 11px; color: #aaa; }
 .case-title { font-size: 12px; color: #333; line-height: 1.5; margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
+
+.consult-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+@media(max-width:640px){ .consult-grid { grid-template-columns: 1fr; } }
+.consult-card { display: flex; flex-direction: column; gap: 0.75rem; background: #fafafa; border: 1px solid #e8e8e8; border-radius: 10px; padding: 1.5rem 1.75rem; text-decoration: none; transition: box-shadow 0.15s; }
+.consult-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.09); }
+.consult-icon { font-size: 2rem; line-height: 1; }
+.consult-card h3 { font-size: 1.05rem; font-weight: 700; color: #111; margin: 0; }
+.consult-card p { font-size: 0.88rem; color: #555; line-height: 1.7; margin: 0; }
+.consult-card .lang-note { font-size: 12px; color: #b8956a; font-weight: 600; border-top: 1px solid #eee; padding-top: 0.65rem; margin-top: auto; }
+.consult-phone { font-size: 0.9rem; color: #555; text-align: center; margin-top: 0.5rem; }
+.consult-phone a { color: #111; font-weight: 700; }
+.faq-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.faq-item { border: 1px solid #ebebeb; border-radius: 8px; overflow: hidden; }
+.faq-item summary { cursor: pointer; padding: 1rem 1.25rem; font-size: 0.95rem; font-weight: 600; color: #111; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; font-size: 1.2rem; color: #b8956a; font-weight: 400; transition: transform 0.2s; flex-shrink: 0; margin-left: 1rem; }
+.faq-item[open] summary::after { content: '−'; }
+.faq-item p { padding: 0 1.25rem 1rem; font-size: 0.88rem; color: #555; line-height: 1.8; margin: 0; }
+
 </style>
 </head>
 <body>
@@ -643,6 +662,42 @@
   <a href="../cases/">查看手术案例 →</a>
 </section>
 
+<hr class="divider">
+
+<section class="section" id="consult">
+  <p class="section-title">预约咨询</p>
+  <p class="section-sub">所有咨询均由金相镐院长亲自主持，不设中间人</p>
+  <div class="consult-grid">
+    <a href="https://journal.rococops.com/counsel/" class="consult-card">
+      <div class="consult-icon">&#9993;&#65039;</div>
+      <h3>在线咨询表格</h3>
+      <p>请发送您的问题和照片，我们将在1-2个工作日内通过邮件回复。</p>
+      <span class="lang-note">✓ 支持中文（翻译辅助）· 英语·日语均可</span>
+    </a>
+    <a href="https://pf.kakao.com/_xdBpRl" class="consult-card" target="_blank" rel="noopener">
+      <div class="consult-icon">&#128172;</div>
+      <h3>KakaoTalk</h3>
+      <p>通过KakaoTalk即时咨询。请下载应用程序后发送消息。</p>
+      <span class="lang-note">✓ 韩语优先 · 支持英语</span>
+    </a>
+  </div>
+  <p class="consult-phone">电话: <a href="tel:+82221352702">+82-2-2135-2702</a></p>
+</section>
+
+<section class="section" id="faq">
+  <p class="section-title">海外患者常见问题</p>
+  <p class="section-sub">专为考虑赴韩整形的国际患者整理</p>
+  <div class="faq-list">
+    <details class="faq-item"><summary>可以用中文咨询吗？</summary><p>目前不提供直接的中文对话服务，但可通过在线咨询表格以中文提问，我们会借助翻译为您详细解答。金院长可以用英语直接沟通。</p></details>
+    <details class="faq-item"><summary>如何预约？</summary><p>请通过在线咨询表格告知希望预约的日期，或通过KakaoTalk联系我们。通常在1-2个工作日内确认预约。</p></details>
+    <details class="faq-item"><summary>一个人来也可以吗？</summary><p>完全可以。金院长可以用英语沟通，许多海外患者都是独自前来。到院后工作人员会全程协助您。</p></details>
+    <details class="faq-item"><summary>恢复期大概需要多长时间？</summary><p>因手术项目而异。一般参考：颧骨缩小2-3周主要肿胀消退，鼻整形2-3周，眼部整形1-2周。最终效果需3-6个月后完全显现。咨询时会提供详细的恢复时间表。</p></details>
+    <details class="faq-item"><summary>手术费用大概是多少？</summary><p>费用因手术项目和个人情况而有所不同。请通过在线咨询表格告知您的需求，我们将在了解您的情况后提供详细报价。</p></details>
+  </div>
+</section>
+
+<hr class="divider">
+
 <section class="section" id="location">
   <p class="section-title">地址与诊疗时间</p>
   <p class="section-sub">完全预约制，请提前联系预约。</p>
@@ -668,6 +723,7 @@
         经过CGV影院后，狎鸥亭大厦（橄榄少女/Coffee Bean楼）3层
       </p>
       <p style="margin-top:1rem;font-size:0.9rem;"><strong>电话：</strong><a href="tel:+82221352702" style="color:#111;">+82-2-2135-2702</a></p>
+      <p style="margin-top:1.2rem;"><a href="https://maps.google.com/maps?q=%EB%A1%9C%EC%BD%94%EC%BD%94%EC%84%B1%ED%98%95%EC%99%B8%EA%B3%BC+%EC%84%9C%EC%9A%B8+%EA%B0%95%EB%82%A8%EA%B5%AC+%EB%85%BC%ED%98%84%EB%A1%9C+842" target="_blank" rel="noopener" style="color:#b8956a;font-weight:700;font-size:0.9rem;">在 Google 地图中打开 →</a></p>
     </div>
   </div>
 </section>
