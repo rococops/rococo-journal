@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>페이지를 찾을 수 없습니다 | 로코코 저널</title>
+<meta name="robots" content="noindex">
+<link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
+<link rel="stylesheet" href="https://journal.rococops.com/css/style.css">
+<style>
+  .error-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+  }
+  .error-code {
+    font-size: 96px;
+    font-weight: 800;
+    color: var(--gray-100);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .error-title { font-size: 22px; font-weight: 700; margin-bottom: 0.75rem; }
+  .error-desc { color: var(--gray-600); font-size: 15px; margin-bottom: 2rem; line-height: 1.7; }
+  .error-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .error-links a {
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all var(--transition);
+  }
+  .btn-primary { background: var(--black); color: var(--white) !important; }
+  .btn-primary:hover { background: var(--gray-800); }
+  .btn-secondary { border: 1px solid var(--gray-200); color: var(--gray-600) !important; }
+  .btn-secondary:hover { border-color: var(--black); color: var(--black) !important; }
+</style>
+</head>
+<body>
+<div class="error-page">
+  <div>
+    <div class="error-code">404</div>
+    <h1 class="error-title">페이지를 찾을 수 없습니다</h1>
+    <p class="error-desc">
+      요청하신 페이지가 존재하지 않거나 이동되었습니다.<br>
+      아래에서 원하시는 내용을 찾아보세요.
+    </p>
+    <div class="error-links">
+      <a href="https://journal.rococops.com/" class="btn-primary">홈으로 돌아가기</a>
+      <a href="https://journal.rococops.com/cases/" class="btn-secondary">전체 케이스 보기</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
