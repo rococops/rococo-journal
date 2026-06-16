@@ -402,9 +402,9 @@ document.getElementById('load-list-btn').addEventListener('click', async () => {
       try {
         const r = await fetch(`https://journal.rococops.com/${catPath}/${subDir}/${slug}/`);
         const html = await r.text();
-        const m = html.match(/<title>([^<]+)<\/title>/);
+        const m = html.match(/<h1[^>]*class="article-title"[^>]*>([^<]+)<\/h1>/);
         const el = document.getElementById(`title-${slug}`);
-        if (el) el.textContent = m ? m[1].replace(/\s*\|[^|]*$/, '') : '';
+        if (el) el.textContent = m ? m[1].trim() : '(제목 없음)';
       } catch { /* 무시 */ }
     });
   } catch(e) {
