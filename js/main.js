@@ -5,14 +5,23 @@ document.addEventListener('DOMContentLoaded', function () {
   // 모바일 메뉴 토글
   const toggle = document.getElementById('navToggle');
   const gnb = document.getElementById('gnb');
+  const overlay = document.getElementById('gnbOverlay');
+
+  function closeMenu() {
+    gnb.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+    toggle.setAttribute('aria-label', '메뉴 열기');
+    document.body.style.overflow = '';
+  }
 
   if (toggle && gnb) {
     toggle.addEventListener('click', function () {
-      gnb.classList.toggle('open');
-      const isOpen = gnb.classList.contains('open');
+      const isOpen = gnb.classList.toggle('open');
+      if (overlay) overlay.classList.toggle('open', isOpen);
       toggle.setAttribute('aria-label', isOpen ? '메뉴 닫기' : '메뉴 열기');
       document.body.style.overflow = isOpen ? 'hidden' : '';
     });
+    if (overlay) overlay.addEventListener('click', closeMenu);
   }
 
   // 모바일 서브메뉴 토글 (클릭해서 열고 닫기)

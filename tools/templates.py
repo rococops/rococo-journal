@@ -205,6 +205,7 @@ DETAIL_PAGE = """<!DOCTYPE html>
 </head>
 <body>
 
+<div class="gnb-overlay" id="gnbOverlay"></div>
 {header}
 
 <!-- 아티클 히어로 -->
@@ -298,6 +299,7 @@ LIST_PAGE = """<!DOCTYPE html>
 </head>
 <body>
 
+<div class="gnb-overlay" id="gnbOverlay"></div>
 {header}
 
 <!-- 아티클 히어로 -->
@@ -398,6 +400,7 @@ ALL_CASES_PAGE = """<!DOCTYPE html>
 </head>
 <body>
 
+<div class="gnb-overlay" id="gnbOverlay"></div>
 {header}
 
 <!-- 아티클 히어로 -->
