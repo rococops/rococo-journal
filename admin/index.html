@@ -258,24 +258,36 @@ textarea{height:360px;font-family:monospace;font-size:.8rem;line-height:1.55;res
 const API = 'https://rococo-journal-api.vercel.app/api/publish';
 let savedPw = '';
 
-// 오늘 날짜 기본값
+function showAdmin() {
+  document.getElementById('login-screen').classList.remove('active');
+  document.getElementById('admin-screen').classList.add('active');
+}
+
+// 오늘 날짜 기본값 + 자동 로그인 체크
 document.addEventListener('DOMContentLoaded', () => {
   const today = new Date().toISOString().slice(0,10);
   document.getElementById('date').value = today;
-  document.getElementById('login-screen').classList.add('active');
+
+  const stored = localStorage.getItem('admin_pw');
+  if (stored) {
+    savedPw = stored;
+    showAdmin();
+  } else {
+    document.getElementById('login-screen').classList.add('active');
+  }
 
   document.getElementById('pw-input').addEventListener('keydown', e => {
     if (e.key === 'Enter') document.getElementById('login-btn').click();
   });
 });
 
-// 로그인 (비밀번호는 서버에서 검증, 여기선 일단 저장)
+// 로그인
 document.getElementById('login-btn').addEventListener('click', () => {
   const pw = document.getElementById('pw-input').value.trim();
   if (!pw) return;
   savedPw = pw;
-  document.getElementById('login-screen').classList.remove('active');
-  document.getElementById('admin-screen').classList.add('active');
+  localStorage.setItem('admin_pw', pw);
+  showAdmin();
   document.getElementById('login-err').style.display = 'none';
 });
 
