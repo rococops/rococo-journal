@@ -1,6 +1,10 @@
 """상세/목록 페이지 HTML 템플릿. {root}는 사이트 루트까지의 상대경로(예: '../../' 또는 '../../../')."""
 
 NAV_HTML = """<nav class="gnb" id="gnb">
+      <div class="gnb-header">
+        <span class="gnb-title">Menu</span>
+        <button class="gnb-close" id="gnbClose" aria-label="메뉴 닫기">&#x2715;</button>
+      </div>
       <ul>
         <li class="has-sub {active_cheekbone}"><a href="{root}cheekbone/">광대성형</a>
           <ul class="sub-menu">

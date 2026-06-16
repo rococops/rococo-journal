@@ -629,38 +629,104 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   :root { --header-h: 52px; }
   .container { padding: 0 1.25rem; }
   .nav-toggle { display: flex; }
-  .gnb {
-    position: fixed;
-    top: var(--header-h); right: 0;
-    width: 78%;
-    height: calc(100vh - var(--header-h));
-    background: var(--white);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    padding: 1.5rem 1.25rem 3rem;
-    z-index: 999;
-    box-shadow: -4px 0 20px rgba(0,0,0,0.12);
-  }
-  .gnb.open { transform: translateX(0); }
-  /* 메뉴 열릴 때 왼쪽 배경 어둡게 */
+
+  /* 오버레이 */
   .gnb-overlay {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.35);
+    background: rgba(0,0,0,0.4);
     z-index: 998;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
-  .gnb-overlay.open { display: block; }
-  .gnb > ul { flex-direction: column; gap: 0; }
-  .gnb > ul > li > a {
-    padding: 16px 0;
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--black);
+  .gnb-overlay.open { display: block; opacity: 1; }
+
+  /* 메뉴 패널 */
+  .gnb {
+    position: fixed;
+    top: 0; right: 0;
+    width: 82%;
+    max-width: 340px;
+    height: 100vh;
+    background: var(--white);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transform: translateX(100%);
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+  }
+  .gnb.open { transform: translateX(0); }
+
+  /* 패널 헤더 */
+  .gnb-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.25rem;
+    height: 56px;
     border-bottom: 1px solid var(--gray-100);
+    flex-shrink: 0;
   }
+  .gnb-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--gray-400);
+    text-transform: uppercase;
+  }
+  .gnb-close {
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    background: none; border: none; cursor: pointer;
+    color: var(--gray-600);
+    font-size: 20px;
+    border-radius: 50%;
+    transition: background var(--transition);
+  }
+  .gnb-close:hover { background: var(--gray-100); }
+
+  /* 메뉴 목록 */
+  .gnb > ul {
+    flex-direction: column;
+    gap: 0;
+    flex: 1;
+    padding: 0.5rem 0 2rem;
+  }
+  .gnb > ul > li { border-bottom: 1px solid var(--gray-100); }
+  .gnb > ul > li:last-child { border-bottom: none; }
+
+  /* 상위 메뉴 아이템 */
+  .gnb > ul > li > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 1.25rem;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -0.01em;
+  }
+  /* 화살표 아이콘 (has-sub에만) */
+  .gnb > ul > li.has-sub > a::after {
+    content: '';
+    display: block;
+    width: 7px; height: 7px;
+    border-right: 1.5px solid var(--gray-400);
+    border-bottom: 1.5px solid var(--gray-400);
+    transform: rotate(45deg);
+    transition: transform 0.25s ease;
+    margin-top: -3px;
+    flex-shrink: 0;
+  }
+  .gnb > ul > li.has-sub.sub-open > a::after {
+    transform: rotate(-135deg);
+    margin-top: 3px;
+  }
+
+  /* 서브메뉴 슬라이드 애니메이션 */
   .sub-menu {
     position: static;
     opacity: 1;
@@ -669,18 +735,38 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     border: none;
     box-shadow: none;
     background: var(--gray-50);
-    padding: 0.5rem 0 0.75rem;
-    display: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0;
   }
-  .sub-menu.open { display: block; }
-  .sub-menu li a { padding: 11px 1.5rem; font-size: 15px; }
+  .sub-menu.open { max-height: 600px; }
+  .sub-menu li { border-bottom: 1px solid var(--gray-100); }
+  .sub-menu li:last-child { border-bottom: none; }
+  .sub-menu li a {
+    display: block;
+    padding: 12px 1.25rem 12px 2rem;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--gray-600);
+  }
+  .sub-menu li a:hover { color: var(--accent); }
+
+  /* 하단 상담 버튼 */
   .gnb .btn-consult {
     display: block;
-    margin: 2rem 0 0;
+    margin: 1.5rem 1.25rem 0;
     text-align: center;
-    padding: 16px !important;
+    padding: 14px !important;
     border-radius: var(--radius);
-    font-size: 15px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+  }
+  /* 상담·예약 단독 링크 */
+  .gnb > ul > li:not(.has-sub) > a:not(.btn-consult) {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
   }
   .hero-grid { grid-template-columns: 1fr; grid-template-rows: 260px auto; }
   .hero-featured { border-right: none; border-bottom: 1px solid var(--gray-200); }
