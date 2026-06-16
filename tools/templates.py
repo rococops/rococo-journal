@@ -287,6 +287,10 @@ DETAIL_PAGE = """<!DOCTYPE html>
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="translate-notice">
+          <span>🌐</span>
+          <span>This article is written in Korean. Your browser can translate it automatically — in Chrome, tap the translate icon in the address bar.</span>
+        </div>
         {content}
 
         <!-- 상담 인라인 CTA -->
