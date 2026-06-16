@@ -139,6 +139,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   padding-left: 20px;
 }
 
+.gnb-header { display: none; }
+
 .nav-toggle {
   display: none;
   flex-direction: column;
