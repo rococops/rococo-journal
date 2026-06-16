@@ -23,7 +23,10 @@ def read_lastmod(html_path):
             content = f.read(4000)
         m = DATE_RE.search(content)
         if m:
-            return m.group(1)
+            date = m.group(1)
+            # 0001-01-01 같은 유효하지 않은 날짜 제외
+            if date >= '1900-01-01':
+                return date
     except OSError:
         pass
     return DEFAULT_LASTMOD
