@@ -71,10 +71,16 @@
 .section-title { font-size: 1.6rem; font-weight: 700; color: #111; margin-bottom: 0.6rem; }
 .section-sub { font-size: 0.95rem; color: #888; margin-bottom: 2.5rem; }
 .procedures-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
-.proc-card { background: #fff; border: 1px solid #ebebeb; border-radius: 8px; padding: 1.5rem; }
+.proc-card { background: #fff; border: 1px solid #ebebeb; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; }
+.proc-thumb-wrap { position: relative; height: 170px; overflow: hidden; background: #f0f0f0; }
+.proc-thumb-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.proc-thumb-views { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.55); color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 20px; }
+.proc-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
 .proc-card h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 0.5rem; }
-.proc-card p { font-size: 0.85rem; color: #666; line-height: 1.7; }
+.proc-card p { font-size: 0.85rem; color: #666; line-height: 1.7; flex: 1; }
 .proc-card .kr { font-size: 11px; color: #b8956a; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 0.4rem; display: block; }
+.proc-case-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700; color: #b8956a; text-decoration: none; margin-top: 0.85rem; }
+.proc-case-link:hover { text-decoration: underline; }
 .doctor-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
 .doctor-wrap img { width: 100%; border-radius: 8px; }
 .doctor-info h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem; }
@@ -149,34 +155,74 @@
   <p class="section-sub">Specializing in facial contouring and refinement surgery</p>
   <div class="procedures-grid">
     <div class="proc-card">
-      <span class="kr">광대축소술</span>
-      <h3>Cheekbone Reduction</h3>
-      <p>Minimally invasive cheekbone reduction with the 15-minute Quick method. Natural results with minimal downtime.</p>
+      <div class="proc-thumb-wrap">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_20190612968316724.jpg" alt="Cheekbone Reduction Case">
+        <span class="proc-thumb-views">👁 83,535 views</span>
+      </div>
+      <div class="proc-body">
+        <span class="kr">광대축소술</span>
+        <h3>Cheekbone Reduction</h3>
+        <p>Minimally invasive cheekbone reduction with the 15-minute Quick method. Natural results with minimal downtime.</p>
+        <a href="https://journal.rococops.com/cheekbone/quick/19/" target="_blank" class="proc-case-link">View case review →</a>
+      </div>
     </div>
     <div class="proc-card">
-      <span class="kr">코성형</span>
-      <h3>Rhinoplasty</h3>
-      <p>Nose reshaping using autologous rib cartilage or septal cartilage. Revision rhinoplasty specialist.</p>
+      <div class="proc-thumb-wrap">
+        <img src="https://journal.rococops.com/images/thumbnails/2-1.jpg" alt="Rhinoplasty Case">
+      </div>
+      <div class="proc-body">
+        <span class="kr">코성형</span>
+        <h3>Rhinoplasty</h3>
+        <p>Nose reshaping using autologous rib cartilage or septal cartilage. Revision rhinoplasty specialist.</p>
+        <a href="https://journal.rococops.com/nose/rib-cartilage/602/" target="_blank" class="proc-case-link">View case review →</a>
+      </div>
     </div>
     <div class="proc-card">
-      <span class="kr">콧구멍성형</span>
-      <h3>Nostril Surgery</h3>
-      <p>Alar lowering, alar raising, alar base reduction — precise correction of nostril shape and symmetry.</p>
+      <div class="proc-thumb-wrap">
+        <img src="https://journal.rococops.com/images/thumbnails/3-1.jpg" alt="Nostril Surgery Case">
+      </div>
+      <div class="proc-body">
+        <span class="kr">콧구멍성형</span>
+        <h3>Nostril Surgery</h3>
+        <p>Alar lowering, alar raising, alar base reduction — precise correction of nostril shape and symmetry.</p>
+        <a href="https://journal.rococops.com/nostril/alar-lowering/627/" target="_blank" class="proc-case-link">View case review →</a>
+      </div>
     </div>
     <div class="proc-card">
-      <span class="kr">눈성형</span>
-      <h3>Eye Surgery</h3>
-      <p>Double eyelid surgery, ptosis correction, epicanthoplasty. Natural, non-overdone results.</p>
+      <div class="proc-thumb-wrap">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_20190612683722009.jpg" alt="Eye Surgery Case">
+        <span class="proc-thumb-views">👁 75,715 views</span>
+      </div>
+      <div class="proc-body">
+        <span class="kr">눈성형</span>
+        <h3>Eye Surgery</h3>
+        <p>Double eyelid surgery, ptosis correction, epicanthoplasty. Natural, non-overdone results.</p>
+        <a href="https://journal.rococops.com/eye/incision/20/" target="_blank" class="proc-case-link">View case review →</a>
+      </div>
     </div>
     <div class="proc-card">
-      <span class="kr">이마성형</span>
-      <h3>Forehead Surgery</h3>
-      <p>Endoscopic brow lift and forehead contouring for a balanced facial proportion.</p>
+      <div class="proc-thumb-wrap">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_20190617900292767.jpg" alt="Forehead Surgery Case">
+        <span class="proc-thumb-views">👁 25,556 views</span>
+      </div>
+      <div class="proc-body">
+        <span class="kr">이마성형</span>
+        <h3>Forehead Surgery</h3>
+        <p>Endoscopic brow lift and forehead contouring for a balanced facial proportion.</p>
+        <a href="https://journal.rococops.com/forehead/endoscopic/200/" target="_blank" class="proc-case-link">View case review →</a>
+      </div>
     </div>
     <div class="proc-card">
-      <span class="kr">동안성형</span>
-      <h3>Anti-Aging</h3>
-      <p>Lifting, fat grafting, blepharoplasty, and chin surgery for natural rejuvenation.</p>
+      <div class="proc-thumb-wrap">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201906141657268877.jpg" alt="Anti-Aging Case">
+        <span class="proc-thumb-views">👁 27,028 views</span>
+      </div>
+      <div class="proc-body">
+        <span class="kr">동안성형</span>
+        <h3>Anti-Aging</h3>
+        <p>Lifting, fat grafting, blepharoplasty, and chin surgery for natural rejuvenation.</p>
+        <a href="https://journal.rococops.com/anti-aging/chin/30/" target="_blank" class="proc-case-link">View case review →</a>
+      </div>
     </div>
   </div>
 </section>

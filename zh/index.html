@@ -53,10 +53,16 @@
 .section-title { font-size: 1.6rem; font-weight: 700; color: #111; margin-bottom: 0.6rem; }
 .section-sub { font-size: 0.95rem; color: #888; margin-bottom: 2.5rem; }
 .procedures-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
-.proc-card { background: #fff; border: 1px solid #ebebeb; border-radius: 8px; padding: 1.5rem; }
+.proc-card { background: #fff; border: 1px solid #ebebeb; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; }
+.proc-thumb-wrap { position: relative; height: 170px; overflow: hidden; background: #f0f0f0; }
+.proc-thumb-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.proc-thumb-views { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.55); color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 20px; }
+.proc-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
 .proc-card h3 { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 0.5rem; }
-.proc-card p { font-size: 0.85rem; color: #666; line-height: 1.8; }
+.proc-card p { font-size: 0.85rem; color: #666; line-height: 1.8; flex: 1; }
 .proc-card .kr { font-size: 11px; color: #b8956a; font-weight: 700; margin-bottom: 0.4rem; display: block; }
+.proc-case-link { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700; color: #b8956a; text-decoration: none; margin-top: 0.85rem; }
+.proc-case-link:hover { text-decoration: underline; }
 .doctor-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
 .doctor-wrap img { width: 100%; border-radius: 8px; }
 .doctor-info h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem; }
@@ -127,34 +133,74 @@
   <p class="section-sub">专注于面部轮廓整形与精细化美容手术</p>
   <div class="procedures-grid">
     <div class="proc-card">
-      <span class="kr">광대축소술</span>
-      <h3>颧骨缩小术</h3>
-      <p>采用15分钟Quick微创法进行颧骨缩小，恢复期短，效果自然持久。</p>
+      <div class="proc-thumb-wrap">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_20190612968316724.jpg" alt="颧骨缩小术案例">
+        <span class="proc-thumb-views">👁 83,535</span>
+      </div>
+      <div class="proc-body">
+        <span class="kr">광대축소술</span>
+        <h3>颧骨缩小术</h3>
+        <p>采用15分钟Quick微创法进行颧骨缩小，恢复期短，效果自然持久。</p>
+        <a href="https://journal.rococops.com/cheekbone/quick/19/" target="_blank" class="proc-case-link">查看案例 →</a>
+      </div>
     </div>
     <div class="proc-card">
-      <span class="kr">코성형</span>
-      <h3>鼻部整形</h3>
-      <p>使用自体肋软骨或鼻中隔软骨进行隆鼻及鼻型矫正，专注修复性鼻整形。</p>
+      <div class="proc-thumb-wrap">
+        <img src="https://journal.rococops.com/images/thumbnails/2-1.jpg" alt="鼻部整形案例">
+      </div>
+      <div class="proc-body">
+        <span class="kr">코성형</span>
+        <h3>鼻部整形</h3>
+        <p>使用自体肋软骨或鼻中隔软骨进行隆鼻及鼻型矫正，专注修复性鼻整形。</p>
+        <a href="https://journal.rococops.com/nose/rib-cartilage/602/" target="_blank" class="proc-case-link">查看案例 →</a>
+      </div>
     </div>
     <div class="proc-card">
-      <span class="kr">콧구멍성형</span>
-      <h3>鼻孔整形</h3>
-      <p>鼻孔下降、上移、缩小等精细矫正，改善鼻孔形态及左右不对称问题。</p>
+      <div class="proc-thumb-wrap">
+        <img src="https://journal.rococops.com/images/thumbnails/3-1.jpg" alt="鼻孔整形案例">
+      </div>
+      <div class="proc-body">
+        <span class="kr">콧구멍성형</span>
+        <h3>鼻孔整形</h3>
+        <p>鼻孔下降、上移、缩小等精细矫正，改善鼻孔形态及左右不对称问题。</p>
+        <a href="https://journal.rococops.com/nostril/alar-lowering/627/" target="_blank" class="proc-case-link">查看案例 →</a>
+      </div>
     </div>
     <div class="proc-card">
-      <span class="kr">눈성형</span>
-      <h3>眼部整形</h3>
-      <p>双眼皮手术、上睑下垂矫正、开眼角手术，追求自然不夸张的眼部轮廓。</p>
+      <div class="proc-thumb-wrap">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_20190612683722009.jpg" alt="眼部整形案例">
+        <span class="proc-thumb-views">👁 75,715</span>
+      </div>
+      <div class="proc-body">
+        <span class="kr">눈성형</span>
+        <h3>眼部整形</h3>
+        <p>双眼皮手术、上睑下垂矫正、开眼角手术，追求自然不夸张的眼部轮廓。</p>
+        <a href="https://journal.rococops.com/eye/incision/20/" target="_blank" class="proc-case-link">查看案例 →</a>
+      </div>
     </div>
     <div class="proc-card">
-      <span class="kr">이마성형</span>
-      <h3>额头整形</h3>
-      <p>内窥镜额头提升及额骨轮廓塑形，改善整体面部比例。</p>
+      <div class="proc-thumb-wrap">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_20190617900292767.jpg" alt="额头整形案例">
+        <span class="proc-thumb-views">👁 25,556</span>
+      </div>
+      <div class="proc-body">
+        <span class="kr">이마성형</span>
+        <h3>额头整形</h3>
+        <p>内窥镜额头提升及额骨轮廓塑形，改善整体面部比例。</p>
+        <a href="https://journal.rococops.com/forehead/endoscopic/200/" target="_blank" class="proc-case-link">查看案例 →</a>
+      </div>
     </div>
     <div class="proc-card">
-      <span class="kr">동안성형</span>
-      <h3>抗衰老整形</h3>
-      <p>提升术、脂肪填充、眼睑整形、下颌整形，实现自然年轻化效果。</p>
+      <div class="proc-thumb-wrap">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201906141657268877.jpg" alt="抗衰老整形案例">
+        <span class="proc-thumb-views">👁 27,028</span>
+      </div>
+      <div class="proc-body">
+        <span class="kr">동안성형</span>
+        <h3>抗衰老整形</h3>
+        <p>提升术、脂肪填充、眼睑整形、下颌整形，实现自然年轻化效果。</p>
+        <a href="https://journal.rococops.com/anti-aging/chin/30/" target="_blank" class="proc-case-link">查看案例 →</a>
+      </div>
     </div>
   </div>
 </section>
