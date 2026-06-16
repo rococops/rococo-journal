@@ -1,56 +1,76 @@
-# 로코코 저널 — 작업 정리 (2026-06-15)
+# 로코코 저널 — 작업 정리 (2026-06-16)
 
 ## 1. 완료된 작업 요약
 
 ### 사이트 생성 / 콘텐츠
 - `sitecontents.sql`(583건) + `mcolumn.sql`(238건) → 시술 상세페이지 + 36개 카테고리 목록페이지 자동 생성 (`tools/build_pages.py`)
+- 총 869개 개별 페이지 + `cases/index.html`(601개 케이스 통합)
 - 중복 글 dedup + `<link rel="canonical">` 적용
-- About 3페이지(소개/철학/오시는길) 작성 완료, 원장 프로필·인테리어 이미지 적용 완료
-- 카드 썸네일: 본문 이미지 없는 글은 카테고리별 썸네일 풀(`thumb_pool`)에서 분배, 있는 글은 `attach1`(전후사진 대표컷) 우선 사용 → 동일 이미지 반복 노출 문제 해결
-- `cases/index.html`: 전체 601개 케이스 통합 페이지 (최신순/조회수순 토글)
-- 홈페이지 히어로: `data/top-cases.json`(조회수 상위 40개) 기반 랜덤 노출
-- footer SNS(블로그/유튜브/인스타) 아이콘 — 전체 페이지 적용 완료 (이번에 index.html도 추가)
+- About 3페이지(소개/철학/오시는길) 작성 완료
+- 카드 썸네일: attach1(전후사진 대표컷) 우선, 없으면 카테고리별 썸네일 풀 분배
+- 네이버 블로그 관련글 박스(se2_quote blockquote) → `.related-post-link` 인라인 링크로 변환
+- 본문 이미지 `http://` → `https://` 강제 변환 (Mixed Content 전면 해결, 809개)
+
+### 홈페이지 히어로
+- 왼쪽 이미지 + 오른쪽 텍스트 = 동일 글로 통일 (이전엔 서로 다른 글이라 혼란)
+- 각 카테고리 최신글 고정:
+  - 히어로: `cheekbone/quick/580/` — 변형 15분 광대축소술 흉터에 대해
+  - 서브1: `nose/rib-cartilage/602/` — 자가늑연골 뾰족코 수술
+  - 서브2: `nostril/alar-lowering/627/` — 코끝 연골비침·휜코 교정 비공내리기
+  - 카드1: `nose/column/621/` — 비주말린 코 비개방 코성형
 
 ### 상담/예약
 - `/counsel/index.html` 상담 폼 + `api/consult.js` (Vercel + Resend + Supabase) 구축 완료
-- 모든 서브카테고리 nav "상담·예약"은 `counsel/`로 연결됨
 
-### SEO
-- `sitemap.xml`, `robots.txt` 추가 완료
-- `canonical`, `og:*`, JSON-LD(MedicalWebPage/Physician/LocalBusiness) 적용 완료
+### 모바일 메뉴
+- 우측 슬라이드 패널 (화면의 82%, max 340px)
+- 서브메뉴 클릭 accordion (max-height 애니메이션)
+- 오버레이 클릭으로 닫기
+- PC에서 "Menu X" 숨김 처리
 
-### 배포
-- GitHub repo `rococops/rococo-journal`, `main` 브랜치 push, GitHub Pages(`main`/root) 활성화
+### SEO / GEO
+- `sitemap.xml` (869개 URL, 글별 lastmod 반영)
+- `robots.txt` (AI 크롤러 명시적 허용: GPTBot, ClaudeBot, PerplexityBot 등)
+- `llms.txt` (AI 검색 최적화 가이드)
+- `canonical`, `og:*`, JSON-LD(MedicalWebPage / BreadcrumbList / Physician / MedicalBusiness / WebSite) 전체 적용
+- `404.html` 커스텀 에러 페이지
 
----
+### 검색엔진 등록
+- Google Search Console: 소유확인 ✅, 사이트맵 제출 ✅ (869페이지 발견)
+- 네이버 서치어드바이저: 소유확인 ✅, 사이트맵 제출 ✅
+- Bing Webmaster Tools: 소유확인 ✅, 사이트맵 제출 ✅ (Processing)
 
-## 2. 이번 라운드 변경사항 (2026-06-15)
-
-- 카테고리 랜딩 6페이지(`anti-aging/`, `cheekbone/`, `eye/`, `forehead/`, `nose/`, `nostril/`) 로고 링크 `href="/"` → `href="../"` (GitHub Pages 프로젝트 페이지에서 깨지던 문제 수정)
-- `index.html`
-  - "최근 케이스 리뷰 → 전체 보기"를 `cases/`로 연결 (예전 `rococops.com/htm/community_photo.php` 외부링크였음)
-  - 히어로 섹션 조회수 상위 케이스 랜덤 노출 JS 추가
-  - "원장 칼럼" → "김상호원장의 칼럼"으로 변경
-  - footer에 누락되어 있던 SNS(블로그/유튜브/인스타) 아이콘 추가 (서브페이지엔 이미 있었으나 루트 index.html만 빠져 있었음)
-  - CTA "온라인 상담" 카드 + footer "온라인 상담" 링크: 외부 `rococops.com/htm/counsel_normal.php` → 내부 `counsel/`로 변경
-  - nav "상담·예약" 하위에 남아있던 구 홈페이지 외부링크 서브메뉴(온라인상담/카톡상담/수술후상담/FAQ)를 제거 — 서브페이지 nav와 동일하게 단일 링크(`counsel/`)로 정리. (이 서브메뉴는 `/counsel/` 페이지가 생기기 전 임시로 남아있던 코드)
-
-## 3. mcolumn 칼럼 → 서브카테고리 선별 기준
-
-`tools/mcolumn_map.py`의 `classify(category, subject)`가 글 제목(subject)을 기준으로 분류합니다.
-
-1. **1차: 제목 키워드 규칙** (`_rules`) — "비공내리기", "쌍커풀", "무턱", "15분" 등 시술명 키워드가 제목에 있으면 해당 서브카테고리로 매칭 (우선순위 순서대로 검사)
-2. **2차: 카테고리 코드 기본값** (`CODE_DEFAULT`) — 제목에서 키워드를 못 찾으면, mcolumn의 4자리 category 코드별로 사전에 정해둔 기본 서브카테고리로 배정 (코드별 실제 글 내용을 확인해서 수동으로 정한 매핑)
-
-즉 "이 칼럼이 왜 이 서브메뉴에 있는가"는 기본적으로 **글 제목에 포함된 시술명 키워드** 기준이고, 제목만으로 판단 안 되는 경우(날짜만 있는 제목 등)에는 원래 mcolumn 카테고리 코드의 주제로 들어갑니다.
+### 도메인 / 배포
+- GitHub Pages (`main` / root) 호스팅
+- 커스텀 도메인 `journal.rococops.com` 연결 완료 (Cafe24 CNAME → GitHub Pages)
+- HTTPS Enforce 활성화
 
 ---
 
-## 4. 남은 작업 (우선순위 제안)
+## 2. 남은 작업 (우선순위 제안)
 
-| 항목 | 내용 |
-|---|---|
-| 도메인 연결 | `journal.rococops.com` → GitHub Pages CNAME 설정 (사용자가 DNS 작업 필요) |
-| 다국어 페이지 | 홈/About/주요 카테고리만 우선 (일/영/중) — 범위·번역 방식 결정 필요 |
-| 콘텐츠별 문의 기능 | 시술 상세페이지에 "이 시술 상담 신청" 인라인 폼 — `/counsel/` 백엔드 재사용 가능 |
-| 이미지 핫링크 리스크 | 모든 이미지가 `rococops.com` 의존 — 장기적으로 자체 호스팅/CDN 이전 검토 |
+| 항목 | 우선순위 | 내용 |
+|---|---|---|
+| 카카오 채널 상담 연동 | ★★★ | 카카오 채널 버튼을 플로팅 또는 CTA에 추가 — 별도 백엔드 불필요, 채널 URL만 있으면 됨 |
+| 홈 히어로 업데이트 주기 | ★★☆ | 새 글 올라올 때마다 수동으로 index.html 수정 필요 — 자동화 고려 |
+| 이미지 자체 호스팅 | ★★☆ | 현재 rococops.com 핫링크 의존 — 기존 홈페이지 셧다운 시 전체 이미지 깨짐 |
+| 다국어 페이지 | ★☆☆ | 홈/About/주요 카테고리 일/영/중 — 범위·번역 방식 결정 필요 |
+| 검색창 추가 | ★☆☆ | 키워드로 869개 글 검색 — 정적 사이트라 별도 인덱스 필요 (Fuse.js 또는 Pagefind) |
+
+---
+
+## 3. mcolumn 칼럼 서브카테고리 분류 기준
+
+`tools/mcolumn_map.py`의 `classify(category, subject)`
+1. **1차: 제목 키워드 규칙** — 시술명 키워드로 서브카테고리 매칭
+2. **2차: 카테고리 코드 기본값** — 키워드 미매칭 시 mcolumn 코드별 기본 서브카테고리
+
+---
+
+## 4. 기술 스택
+
+- 순수 정적 HTML/CSS/JS (빌드툴 없음)
+- 페이지 생성: Python + BeautifulSoup4 (`tools/build_pages.py`)
+- 상담 폼 백엔드: Vercel Functions + Resend(메일) + Supabase(DB)
+- 호스팅: GitHub Pages → `journal.rococops.com`
+- 이미지: `rococops.com` 핫링크 (자체 호스팅 이전 미완)
