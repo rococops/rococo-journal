@@ -87,6 +87,24 @@
   .doctor-wrap { grid-template-columns: 1fr; }
   .hours-grid { grid-template-columns: 1fr; }
 }
+
+.proc-section { margin-bottom: 2.8rem; }
+.proc-section-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 1rem; }
+.proc-section-labels .kr { font-size: 11px; color: #b8956a; font-weight: 700; letter-spacing: 0.05em; display: block; margin-bottom: 2px; }
+.proc-section-labels h3 { font-size: 1.15rem; font-weight: 700; color: #111; margin: 0; }
+.view-all-link { font-size: 13px; color: #b8956a; font-weight: 700; text-decoration: none; white-space: nowrap; }
+.view-all-link:hover { text-decoration: underline; }
+.case-scroll { display: flex; gap: 14px; overflow-x: auto; padding-bottom: 8px; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
+.case-scroll::-webkit-scrollbar { height: 4px; }
+.case-scroll::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
+.case-card { flex: 0 0 160px; background: #fff; border: 1px solid #ebebeb; border-radius: 8px; overflow: hidden; text-decoration: none; display: flex; flex-direction: column; transition: box-shadow 0.15s; }
+.case-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.10); }
+.case-card img { width: 100%; height: 120px; object-fit: cover; display: block; }
+.case-no-img { width: 100%; height: 120px; background: #f5f5f5; }
+.case-card-body { padding: 0.6rem 0.75rem 0.75rem; flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.case-views { font-size: 11px; color: #aaa; }
+.case-title { font-size: 12px; color: #333; line-height: 1.5; margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
 </style>
 </head>
 <body>
@@ -129,78 +147,470 @@
 <hr class="divider">
 
 <section class="section" id="procedures">
-  <p class="section-title">施術メニュー</p>
-  <p class="section-sub">顔の輪郭形成・美容整形を専門とするクリニック</p>
-  <div class="procedures-grid">
-    <div class="proc-card">
-      <div class="proc-thumb-wrap">
-        <img src="https://rococops.com/files/sitecontents/attach1/1_20190612968316724.jpg" alt="頬骨縮小術 症例">
-        <span class="proc-thumb-views">👁 83,535</span>
-      </div>
-      <div class="proc-body">
+  <p class="section-title">施術 &amp; 症例レビュー</p>
+  <p class="section-sub">キム・サンホ院長の実際の症例 — 閲覧数順</p>
+
+  <div class="proc-section">
+    <div class="proc-section-head">
+      <div class="proc-section-labels">
         <span class="kr">광대축소술</span>
         <h3>頬骨縮小術</h3>
-        <p>15分クイック法による低侵襲な頬骨縮小。ダウンタイムを最小限に抑えた自然な仕上がり。</p>
-        <a href="https://journal.rococops.com/cheekbone/quick/19/" target="_blank" class="proc-case-link">症例を見る →</a>
       </div>
+      <a href="https://journal.rococops.com/cheekbone/" class="view-all-link" target="_blank">すべて見る →</a>
     </div>
-    <div class="proc-card">
-      <div class="proc-thumb-wrap">
-        <img src="https://journal.rococops.com/images/thumbnails/2-1.jpg" alt="鼻整形 症例">
-      </div>
-      <div class="proc-body">
+    <div class="case-scroll">
+      <a href="https://journal.rococops.com/cheekbone/quick/19/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_20190612968316724.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 83K</span>
+          <p class="case-title">김상호 원장의 15분 광대축소술</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/cheekbone/quick/88/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201906181553568508.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 49K</span>
+          <p class="case-title">얼굴형에 따른 광대축소술의 효과 Vol.2</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/cheekbone/quick/86/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201907101030017445.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 45K</span>
+          <p class="case-title">옆광대와 45도 광대는?</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/cheekbone/quick/99/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201906181593067913.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 42K</span>
+          <p class="case-title">김상호 원장의 15분 광대축소 2.</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/cheekbone/quick/87/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201906181179011726.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 41K</span>
+          <p class="case-title">15분 광대축소술(퀵광대) 후 회복기간.</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/cheekbone/quick/85/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201906191497518833.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 40K</span>
+          <p class="case-title">퀵광대 방식의 15분 광대축소술과 변형 15분광대축소술은?</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/cheekbone/quick/110/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_20190610104545674.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 35K</span>
+          <p class="case-title">퀵광대(옆광대축소술)와 변형 15분광대축소술(15분광대 + 45도광대)의 차이점</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/cheekbone/quick/94/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_20190610296291083.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 31K</span>
+          <p class="case-title">광대 축소술 관련 Q & A</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/cheekbone/quick/100/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201906181518510395.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 29K</span>
+          <p class="case-title">15분 광대축소술 2년 6개월 후</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/cheekbone/quick/104/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201906111942474912.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 26K</span>
+          <p class="case-title">광대축소술이란 (보다 고차원적인 광대축소술) - w광대, 광대라인지방흡입, 심부볼지방이식, 뒷광대축소</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="proc-section">
+    <div class="proc-section-head">
+      <div class="proc-section-labels">
         <span class="kr">코성형</span>
-        <h3>鼻整形（隆鼻術）</h3>
-        <p>自家肋軟骨・鼻中隔軟骨を使用した鼻形成術。鼻の修正手術（再手術）も専門的に対応。</p>
-        <a href="https://journal.rococops.com/nose/rib-cartilage/602/" target="_blank" class="proc-case-link">症例を見る →</a>
+        <h3>鼻整形</h3>
       </div>
+      <a href="https://journal.rococops.com/nose/" class="view-all-link" target="_blank">すべて見る →</a>
     </div>
-    <div class="proc-card">
-      <div class="proc-thumb-wrap">
-        <img src="https://journal.rococops.com/images/thumbnails/3-1.jpg" alt="鼻孔形成術 症例">
-      </div>
-      <div class="proc-body">
+    <div class="case-scroll">
+      <a href="https://journal.rococops.com/nose/revision/1/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201906111437183758.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 33K</span>
+          <p class="case-title">디자인이 잘못된 코 (밸런스가 깨어진 코)</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/nose/cat/16/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201906121656156714.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 29K</span>
+          <p class="case-title">고양이 수술(입매교정술)</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/nose/column/388/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_202104201961068851.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 22K</span>
+          <p class="case-title">코(재)수술로 바꿀 수 없는 것 - 얼굴의 축이 틀어져 생기는 휜코 수술법과 그때 생기는 문제점</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/nose/bulbous/10/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_20190612732686490.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 20K</span>
+          <p class="case-title">복코 성형</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/nose/column/393/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_20210510924840177.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 20K</span>
+          <p class="case-title">코(재)수술로 바꿀 수 없는 것 - 염증이 생긴 경우의 증상과 대처법</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/nose/cat/74/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201906211666468646.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 20K</span>
+          <p class="case-title">옆라인의 디자인 - 고양이 수술 (입매교정술)</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/nose/septal/628/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/202604101035211346276915.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">코재수술 - 코끝 연골비침 교정과 휜코 교정하면서 용코에서 비공내리기</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/nose/scarless/622/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/20251022111339296822258.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">비주말린 코 : 실리콘 귀연골 이용한 비개방 코성형 + 콧구멍, 콧볼축소술</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/nose/columella/625/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/202511111253201812779486.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">비주내리기 수술 - 끝판왕 재료는?</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/nose/column/621/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/20251022111339296822258.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">비주말린 코 : 실리콘 귀연골 이용한 비개방 코성형 + 콧구멍, 콧볼축소술</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="proc-section">
+    <div class="proc-section-head">
+      <div class="proc-section-labels">
         <span class="kr">콧구멍성형</span>
-        <h3>鼻孔形成術</h3>
-        <p>鼻孔の下降・挙上・縮小など、鼻孔の形や左右差を精密に修正します。</p>
-        <a href="https://journal.rococops.com/nostril/alar-lowering/627/" target="_blank" class="proc-case-link">症例を見る →</a>
+        <h3>小鼻整形</h3>
       </div>
+      <a href="https://journal.rococops.com/nostril/" class="view-all-link" target="_blank">すべて見る →</a>
     </div>
-    <div class="proc-card">
-      <div class="proc-thumb-wrap">
-        <img src="https://rococops.com/files/sitecontents/attach1/1_20190612683722009.jpg" alt="目の整形 症例">
-        <span class="proc-thumb-views">👁 75,715</span>
-      </div>
-      <div class="proc-body">
+    <div class="case-scroll">
+      <a href="https://journal.rococops.com/nostril/alar-lowering/627/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/202604101035211346276915.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">코재수술 - 코끝 연골비침 교정과 휜코 교정하면서 용코에서 비공내리기</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/nostril/alar-lowering/626/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/202604030856121507326462.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">코재수술 - 콧구멍 짝짝이를 비공내리기 수술로 교정하는 법</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/nostril/reduction/623/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/20251022111339296822258.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">비주말린 코 : 실리콘 귀연골 이용한 비개방 코성형 + 콧구멍, 콧볼축소술</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/nostril/alar-base/624/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/20251022111339296822258.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">비주말린 코 : 실리콘 귀연골 이용한 비개방 코성형 + 콧구멍, 콧볼축소술</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/nostril/alar-lowering/619/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/202510151036591342987993.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">콧구멍 가리는 가장 강력한 방법? 3세대 비공내리기 수술</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/nostril/alar-lowering/617/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/202509291045251319046682.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">비주말린 코 - 미니 코끝 성형으로 간단히 교정하기 - 비공내리기 + 비주내리기 + 콧날개올리기</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/nostril/alar-raising/618/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/202509291045251319046682.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">비주말린 코 - 미니 코끝 성형으로 간단히 교정하기 - 비공내리기 + 비주내리기 + 콧날개올리기</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/nostril/alar-lowering/614/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/20250908110811562945033.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">비주말린 코 - 최대한 화려하게! ; 자가늑연골 비주내리기, 비공내리기, 비순각수술 - 남자 코성형 코재수술</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/nostril/alar-raising/610/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/20250826122842582099744.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">4세대 콧날개올리기 - 콧날개 모서리 올려서 코 비대칭 교정수술 하는 법</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/nostril/alar-lowering/607/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/202507081518471357725651.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">약한 용코에서 3세대 비공내리기 수술과 콧날개올리기 수술로 콧구멍 가려주기</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="proc-section">
+    <div class="proc-section-head">
+      <div class="proc-section-labels">
         <span class="kr">눈성형</span>
         <h3>目の整形</h3>
-        <p>二重まぶた形成、眼瞼下垂修正、目頭切開。不自然にならない自然な目元を追求。</p>
-        <a href="https://journal.rococops.com/eye/incision/20/" target="_blank" class="proc-case-link">症例を見る →</a>
       </div>
+      <a href="https://journal.rococops.com/eye/" class="view-all-link" target="_blank">すべて見る →</a>
     </div>
-    <div class="proc-card">
-      <div class="proc-thumb-wrap">
-        <img src="https://rococops.com/files/sitecontents/attach1/1_20190617900292767.jpg" alt="額形成術 症例">
-        <span class="proc-thumb-views">👁 25,556</span>
-      </div>
-      <div class="proc-body">
+    <div class="case-scroll">
+      <a href="https://journal.rococops.com/eye/incision/20/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_20190612683722009.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 75K</span>
+          <p class="case-title">붓기 적은 눈밑트임</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/eye/incision/21/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_20190612260568257.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 47K</span>
+          <p class="case-title">로코코 붙지않는 뒷트임</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/eye/correction/251/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201906211302525573.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 31K</span>
+          <p class="case-title">비절개 눈매교정술</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/eye/incision/23/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_20190612423566171.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 30K</span>
+          <p class="case-title">명품 앞트임 (눈 앞을 트지 않고 밴드만 없애기)</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/eye/correction/247/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201906211594061148.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 29K</span>
+          <p class="case-title">남자의 비절개 눈매교정술</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/eye/incision/245/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201906211231387800.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 29K</span>
+          <p class="case-title">비절개눈매교정 + 뒷트임</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/eye/correction/250/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201906212099076279.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 29K</span>
+          <p class="case-title">무절개눈매교정</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/eye/correction/242/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201906211102990675.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 28K</span>
+          <p class="case-title">중증 안검하수</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/eye/incision/243/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_20190621125468281.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 28K</span>
+          <p class="case-title">남자의 눈성형 - 무쌍 눈매교정 + 앞트임</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/eye/correction/248/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201906211739115080.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 26K</span>
+          <p class="case-title">눈성형 - 비절개눈매교정 & 무절개눈매교정</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="proc-section">
+    <div class="proc-section-head">
+      <div class="proc-section-labels">
         <span class="kr">이마성형</span>
-        <h3>額形成術</h3>
-        <p>内視鏡式ブローリフト・額のライン形成で、顔全体のバランスを整えます。</p>
-        <a href="https://journal.rococops.com/forehead/endoscopic/200/" target="_blank" class="proc-case-link">症例を見る →</a>
+        <h3>おでこ整形</h3>
       </div>
+      <a href="https://journal.rococops.com/forehead/" class="view-all-link" target="_blank">すべて見る →</a>
     </div>
-    <div class="proc-card">
-      <div class="proc-thumb-wrap">
-        <img src="https://rococops.com/files/sitecontents/attach1/1_201906141657268877.jpg" alt="若返り整形 症例">
-        <span class="proc-thumb-views">👁 27,028</span>
-      </div>
-      <div class="proc-body">
+    <div class="case-scroll">
+      <a href="https://journal.rococops.com/forehead/endoscopic/200/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_20190617900292767.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 25K</span>
+          <p class="case-title">20대의 내시경 이마거상술</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/forehead/endoscopic/193/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_20190617465355119.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 24K</span>
+          <p class="case-title">내시경 이마거상술</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/forehead/endoscopic/196/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201907101520736413.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 22K</span>
+          <p class="case-title">비대칭이 심한 눈에서 비절개눈매교정과 내시경 이마거상술</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/forehead/endoscopic/620/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/20251020163927839042823.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">이마 보형물제거 와 동시에 내시경 이마거상술</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/forehead/endoscopic/543/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/202404050853482049315349.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">이마거상술의 효과는 얼마나 지속되나요?</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/forehead/endoscopic/372/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/202103081441101889647865.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">이마거상술 시에 추미근 절제에 대해서</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/forehead/endoscopic/337/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/20200622123919357065621.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">이마거상술로 밝은 인상 만들기 &lt; 좋은 관상 vs 나쁜 관상 &gt;</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/forehead/endoscopic/321/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/202003310920171911318893.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">이마보형물 수술 후 물이 차는 이유 &amp; 이마보형물 제거</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/forehead/reduction/299/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/201911131039241744312042.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">이마거상술 과 이마축소술 어떻게 다른 수술인가요?</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/forehead/endoscopic/277/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/201909061324121919806509.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">내시경 이마거상술 후에 생기는 꺼진눈을 지방이식과 무쌍눈매교정으로 교정하는 법</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="proc-section">
+    <div class="proc-section-head">
+      <div class="proc-section-labels">
         <span class="kr">동안성형</span>
-        <h3>若返り・抗老化</h3>
-        <p>リフトアップ、脂肪注入、眼瞼形成、顎形成による自然なエイジングケア。</p>
-        <a href="https://journal.rococops.com/anti-aging/chin/30/" target="_blank" class="proc-case-link">症例を見る →</a>
+        <h3>アンチエイジング</h3>
       </div>
+      <a href="https://journal.rococops.com/anti-aging/" class="view-all-link" target="_blank">すべて見る →</a>
+    </div>
+    <div class="case-scroll">
+      <a href="https://journal.rococops.com/anti-aging/blepharoplasty/241/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_20190621466734299.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 28K</span>
+          <p class="case-title">상안검성형 - 중증 안검하수</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/anti-aging/chin/30/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_201906141657268877.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 27K</span>
+          <p class="case-title">무턱 교정</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/anti-aging/fat-graft/31/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/sitecontents/attach1/1_20190710625837779.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <span class="case-views">&#128065; 21K</span>
+          <p class="case-title">자가혈 미세지방 이식술 (리포킷(Lipokit) 지방이식)</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/anti-aging/lifting/616/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/202509120947191319741420.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">이중턱 지방흡입 - 엘라스티꿈 리프팅 / 불독살 - 민트실 리프팅</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/anti-aging/fat-graft/615/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/202509120947191319741420.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">이중턱 지방흡입 - 엘라스티꿈 리프팅 / 불독살 - 민트실 리프팅</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/anti-aging/chin/568/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/202406211314501393522107.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">환자 만족도가 매우 높은 수술 - 무턱 수술</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/anti-aging/chin/560/" class="case-card" target="_blank">
+        <div class="case-no-img"></div>
+        <div class="case-card-body">
+          <p class="case-title">무턱수술로 돌출입 교정이 가능한가요? - 무턱 총정리</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/anti-aging/fat-graft/520/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/20240307130728747940493.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">콧대 시작점 내려주세요 - 미간 지방이식</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/anti-aging/filler-botox/513/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/20240227134746420559197.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">중안면이 짧아보이고 싶어요! - 애교필러 &amp; 밑트임</p>
+        </div>
+      </a>
+      <a href="https://journal.rococops.com/anti-aging/blepharoplasty/512/" class="case-card" target="_blank">
+        <img src="https://rococops.com/files/editor/20240226113257804041124.jpg" alt="" loading="lazy">
+        <div class="case-card-body">
+          <p class="case-title">하안검성형</p>
+        </div>
+      </a>
     </div>
   </div>
 </section>
