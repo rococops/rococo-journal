@@ -191,11 +191,11 @@
 <section class="hero">
   <div class="hero-grid">
     <div class="hero-featured">
-      <a href="cheekbone/quick/" class="hero-img-wrap" id="hero-featured-link">
-        <img src="images/thumbnails/1-1.jpg" alt="15분 광대축소술 퀵광대 로코코성형외과" loading="eager" id="hero-featured-img">
+      <a href="nose/revision/" class="hero-img-wrap" id="hero-featured-link">
+        <img src="images/thumbnails/2-1.jpg" alt="코재수술 로코코성형외과" loading="eager" id="hero-featured-img">
         <div class="hero-img-overlay">
-          <span class="hero-cat" id="hero-featured-cat">광대성형 · 케이스</span>
-          <h2 class="hero-img-title" id="hero-featured-title">퀵광대 15분 광대축소술<br>어떤 케이스에 적합한가</h2>
+          <span class="hero-cat" id="hero-featured-cat">코재수술 · 케이스</span>
+          <h2 class="hero-img-title" id="hero-featured-title">코재수술, 왜 어렵고<br>어떻게 달라야 하는가</h2>
         </div>
       </a>
     </div>
@@ -452,18 +452,19 @@
       .then(function (cases) {
         if (!Array.isArray(cases) || cases.length < 4) return;
 
-        // 중복 없이 4개 무작위 선택
+        // 중복 없이 3개 무작위 선택
         var pool = cases.slice();
         var picks = [];
-        for (var i = 0; i < 4 && pool.length > 0; i++) {
+        for (var i = 0; i < 3 && pool.length > 0; i++) {
           var idx = Math.floor(Math.random() * pool.length);
           picks.push(pool.splice(idx, 1)[0]);
         }
 
+        // 히어로: 한 글을 이미지+텍스트 모두에 사용
         var featured = picks[0];
-        var main = picks[1];
-        var sub1 = picks[2];
-        var sub2 = picks[3];
+        var main = picks[0];
+        var sub1 = picks[1];
+        var sub2 = picks[2];
 
         // 메인 피처드 이미지
         var featuredLink = document.getElementById('hero-featured-link');
