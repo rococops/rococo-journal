@@ -270,6 +270,8 @@ function generatePage({title, metaTitle, description, ogImage, ogUrl, date,
 <meta property="og:url" content="${ogUrl}">
 <meta property="og:type" content="article">
 <link rel="canonical" href="${ogUrl}">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
 [{"@context":"https://schema.org","@type":"MedicalWebPage","headline":"${titleJ}","description":"${descJ}","url":"${ogUrl}","image":"${ogImage}","datePublished":"${date}","dateModified":"${date}","inLanguage":"ko-KR","author":{"@type":"Physician","name":"김상호","honorificPrefix":"원장","worksFor":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"${SITE_BASE}"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"${SITE_BASE}"},"medicalAudience":{"@type":"MedicalAudience","audienceType":"Patient"},"specialty":"Plastic Surgery","about":{"@type":"MedicalProcedure","name":"${subJ}"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"${SITE_BASE}/"},{"@type":"ListItem","position":2,"name":"${catJ}","item":"${SITE_BASE}/${catPath}/"},{"@type":"ListItem","position":3,"name":"${subJ}","item":"${SITE_BASE}/${catPath}/${subDir}/"},{"@type":"ListItem","position":4,"name":"${titleJ}","item":"${ogUrl}"}]}]
 </script>

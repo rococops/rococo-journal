@@ -183,6 +183,8 @@ DETAIL_PAGE = """<!DOCTYPE html>
 <meta property="og:url" content="{og_url}">
 <meta property="og:type" content="article">
 <link rel="canonical" href="{canonical_url}">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
 [
 {{
@@ -327,6 +329,8 @@ LIST_PAGE = """<!DOCTYPE html>
 <meta property="og:url" content="{og_url}">
 <meta property="og:type" content="website">
 <link rel="canonical" href="{og_url}">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/favicon.svg">
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="{root}css/style.css">
 </head>
@@ -428,6 +432,8 @@ ALL_CASES_PAGE = """<!DOCTYPE html>
 <meta property="og:url" content="{og_url}">
 <meta property="og:type" content="website">
 <link rel="canonical" href="{og_url}">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/favicon.svg">
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="{root}css/style.css">
 </head>
