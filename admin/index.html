@@ -367,8 +367,11 @@ document.getElementById('load-list-btn').addEventListener('click', async () => {
     }
 
     const rows = data.slugs.map(slug => `
-      <tr>
-        <td><span class="slug-tag">${slug}</span></td>
+      <tr id="row-${slug}">
+        <td style="max-width:380px">
+          <span class="slug-tag">${slug}</span>
+          <span id="title-${slug}" style="display:block;font-size:.82rem;color:#444;margin-top:.3rem">불러오는 중...</span>
+        </td>
         <td><a href="https://journal.rococops.com/${catPath}/${subDir}/${slug}/" target="_blank" style="color:#1a7f37;font-size:.82rem">보기 →</a></td>
         <td>
           <button class="btn-del" onclick="deleteArticle('${catPath}','${subDir}','${slug}',this)">삭제</button>
@@ -377,10 +380,21 @@ document.getElementById('load-list-btn').addEventListener('click', async () => {
 
     wrap.innerHTML = `
       <table class="article-list-table">
-        <thead><tr><th>Slug</th><th>링크</th><th>삭제</th></tr></thead>
+        <thead><tr><th>글</th><th>링크</th><th>삭제</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
       <p style="font-size:.75rem;color:#aaa;margin-top:.75rem">총 ${data.slugs.length}개 (최신순)</p>`;
+
+    // 제목 비동기 로드
+    data.slugs.forEach(async slug => {
+      try {
+        const r = await fetch(`https://journal.rococops.com/${catPath}/${subDir}/${slug}/`);
+        const html = await r.text();
+        const m = html.match(/<title>([^<]+)<\/title>/);
+        const el = document.getElementById(`title-${slug}`);
+        if (el) el.textContent = m ? m[1].replace(/\s*\|[^|]*$/, '') : '';
+      } catch { /* 무시 */ }
+    });
   } catch(e) {
     wrap.innerHTML = `<p style="color:#c00">오류: ${e.message}</p>`;
   }
