@@ -33,7 +33,9 @@ def fix_img_src(src):
     src = src.strip()
     if src.startswith('//'):
         return 'https:' + src
-    if src.startswith('http://') or src.startswith('https://'):
+    if src.startswith('http://'):
+        return 'https://' + src[7:]  # mixed content 방지: http → https 강제 변환
+    if src.startswith('https://'):
         return src
     if src.startswith('/'):
         return 'https://rococops.com' + src
@@ -117,6 +119,8 @@ def build_article_blocks(contents_html, alt_text):
             a_tag = node.find('a', href=ORIGIN_HOST_RE)
             if a_tag:
                 href = ZW_SUFFIX_RE.sub('', (a_tag.get('href') or '').strip())
+                if href.startswith('http://'):
+                    href = 'https://' + href[7:]
                 # 제목: URL이 아닌 텍스트를 가진 <p> 또는 <span> 찾기
                 title = ''
                 for p in node.find_all(['p', 'span']):
