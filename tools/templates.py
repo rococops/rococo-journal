@@ -228,6 +228,10 @@ DETAIL_PAGE = """<!DOCTYPE html>
   "about": {{
     "@type": "MedicalProcedure",
     "name": "{sub_name_json}"
+  }},
+  "speakable": {{
+    "@type": "SpeakableSpecification",
+    "cssSelector": [".tldr-box", ".article-summary"]
   }}
 }},
 {{
@@ -290,6 +294,10 @@ DETAIL_PAGE = """<!DOCTYPE html>
         <div class="translate-notice">
           <span>🌐</span>
           <span>This article is written in Korean. Your browser can translate it automatically — in Chrome, tap the translate icon in the address bar.</span>
+        </div>
+        <div class="tldr-box">
+          <p class="tldr-label">요약</p>
+          <p>{description}</p>
         </div>
         {content}
 

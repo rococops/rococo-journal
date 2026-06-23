@@ -1440,6 +1440,30 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .translate-notice span:first-child { flex-shrink: 0; font-size: 1rem; }
 
+/* AI 발췌용 TL;DR 요약 */
+.tldr-box {
+  background: #fff;
+  border: 1px solid #ebebeb;
+  border-left: 3px solid #111;
+  border-radius: 0 6px 6px 0;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 1.75rem;
+}
+.tldr-box .tldr-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #b8956a;
+  text-transform: uppercase;
+  margin: 0 0 0.35rem;
+}
+.tldr-box p:last-child {
+  font-size: 0.92rem;
+  color: #333;
+  line-height: 1.7;
+  margin: 0;
+}
+
 /* ── 언어 스위처 ── */
 .lang-switcher { position: relative; display: flex; align-items: center; }
 .lang-btn {
