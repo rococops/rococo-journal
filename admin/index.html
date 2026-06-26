@@ -318,16 +318,31 @@ function showAdmin() {
   document.getElementById('admin-screen').classList.add('active');
 }
 
+async function verifyPassword(pw) {
+  try {
+    const res = await fetch(API.replace('/publish', '/verify'), {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({password: pw}),
+    });
+    const data = await res.json();
+    return res.ok && data.ok;
+  } catch {
+    return false;
+  }
+}
+
 // 오늘 날짜 기본값 + 자동 로그인 체크
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const today = new Date().toISOString().slice(0,10);
   document.getElementById('date').value = today;
 
   const stored = localStorage.getItem('admin_pw');
-  if (stored) {
+  if (stored && await verifyPassword(stored)) {
     savedPw = stored;
     showAdmin();
   } else {
+    if (stored) localStorage.removeItem('admin_pw');
     document.getElementById('login-screen').classList.add('active');
   }
 
@@ -337,9 +352,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // 로그인
-document.getElementById('login-btn').addEventListener('click', () => {
+document.getElementById('login-btn').addEventListener('click', async () => {
   const pw = document.getElementById('pw-input').value.trim();
   if (!pw) return;
+  const btn = document.getElementById('login-btn');
+  btn.disabled = true;
+  const ok = await verifyPassword(pw);
+  btn.disabled = false;
+  if (!ok) {
+    document.getElementById('login-err').style.display = 'block';
+    return;
+  }
   savedPw = pw;
   localStorage.setItem('admin_pw', pw);
   showAdmin();
