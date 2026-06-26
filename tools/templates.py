@@ -188,6 +188,13 @@ DETAIL_PAGE = """<!DOCTYPE html>
   gtag('js', new Date());
   gtag('config', 'G-0Y6WHB6J6X');
 </script>
+<script>
+fetch('https://rococo-journal-api.vercel.app/api/track', {
+  method: 'POST',
+  headers: {'Content-Type': 'application/json'},
+  body: JSON.stringify({path: location.pathname, referrer: document.referrer})
+}).catch(function(){});
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{meta_title}</title>
@@ -354,6 +361,13 @@ LIST_PAGE = """<!DOCTYPE html>
   gtag('js', new Date());
   gtag('config', 'G-0Y6WHB6J6X');
 </script>
+<script>
+fetch('https://rococo-journal-api.vercel.app/api/track', {
+  method: 'POST',
+  headers: {'Content-Type': 'application/json'},
+  body: JSON.stringify({path: location.pathname, referrer: document.referrer})
+}).catch(function(){});
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{sub_name} | 로코코 저널</title>
@@ -464,6 +478,13 @@ ALL_CASES_PAGE = """<!DOCTYPE html>
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-0Y6WHB6J6X');
+</script>
+<script>
+fetch('https://rococo-journal-api.vercel.app/api/track', {
+  method: 'POST',
+  headers: {'Content-Type': 'application/json'},
+  body: JSON.stringify({path: location.pathname, referrer: document.referrer})
+}).catch(function(){});
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
