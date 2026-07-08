@@ -18,15 +18,17 @@ export default async function handler(req, res) {
   const todayStart = new Date();
   todayStart.setHours(0, 0, 0, 0);
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+  const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
 
-  const [todayRes, weekRes, totalRes] = await Promise.all([
+  const [todayRes, weekRes, totalRes, monthRes, consultRes] = await Promise.all([
     supabase.from('pageviews').select('*', { count: 'exact', head: true }).gte('created_at', todayStart.toISOString()),
     supabase.from('pageviews').select('path, referrer, created_at').gte('created_at', sevenDaysAgo.toISOString()),
     supabase.from('pageviews').select('*', { count: 'exact', head: true }),
+    supabase.from('pageviews').select('created_at').gte('created_at', thirtyDaysAgo.toISOString()),
+    supabase.from('inquiries').select('*', { count: 'exact', head: true }).gte('created_at', thirtyDaysAgo.toISOString()),
   ]);
 
   if (weekRes.error) {
-    console.error('Supabase select error:', weekRes.error);
     return res.status(500).json({ error: '통계 조회 실패' });
   }
 
@@ -49,11 +51,25 @@ export default async function handler(req, res) {
     .slice(0, 10)
     .map(([referrer, count]) => ({ referrer, count }));
 
+  // 최근 30일 일별 방문수
+  const dailyCounts = {};
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
+    dailyCounts[d.toISOString().slice(0, 10)] = 0;
+  }
+  for (const row of (monthRes.data || [])) {
+    const day = new Date(row.created_at).toISOString().slice(0, 10);
+    if (day in dailyCounts) dailyCounts[day]++;
+  }
+  const dailyViews = Object.entries(dailyCounts).map(([date, count]) => ({ date, count }));
+
   return res.status(200).json({
     ok: true,
     today: todayRes.count || 0,
     last7days: rows.length,
     total: totalRes.count || 0,
+    consultCount30: consultRes.count || 0,
+    dailyViews,
     topPages,
     topReferrers,
   });

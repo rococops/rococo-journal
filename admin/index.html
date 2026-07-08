@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0Y6WHB6J6X"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -9,289 +8,400 @@
   gtag('js', new Date());
   gtag('config', 'G-0Y6WHB6J6X');
 </script>
-<script>
-fetch('https://rococo-journal-api.vercel.app/api/track', {
-  method: 'POST',
-  headers: {'Content-Type': 'application/json'},
-  body: JSON.stringify({path: location.pathname, referrer: document.referrer})
-}).catch(function(){});
-</script>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>로코코 저널 관리자</title>
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../favicon.svg">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <style>
 @import url('https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css');
-:root{--black:#111;--gray-50:#f8f8f6;--gray-100:#efefed;--gray-200:#dedede;--gray-400:#999;--gray-600:#555;--accent:#b8956a;--accent-dim:#e8dcc8;--radius:10px;--font-main:'NanumSquare','Apple SD Gothic Neo',Pretendard,sans-serif}
+:root{
+  --black:#111;--sidebar:#181818;--sidebar-w:210px;
+  --gray-50:#f8f8f6;--gray-100:#efefed;--gray-200:#dedede;--gray-400:#999;--gray-600:#555;
+  --accent:#b8956a;--accent-dim:#e8dcc8;--accent-dark:#9a7a55;
+  --green:#2e7d32;--green-light:#e8f5e9;
+  --radius:10px;--font:'NanumSquare','Apple SD Gothic Neo',Pretendard,sans-serif
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font-main);background:var(--gray-50);color:var(--black);min-height:100vh;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webkit-font-smoothing:antialiased}
 
-.topbar{background:var(--black);color:#fff;padding:1rem 2.25rem;display:flex;align-items:center;gap:.85rem;border-bottom:2px solid var(--accent)}
-.topbar h1{font-size:.95rem;font-weight:800;letter-spacing:.06em;display:flex;align-items:baseline;gap:.3rem}
-.topbar h1 em{font-style:italic;font-weight:400;color:var(--accent);letter-spacing:.02em}
-.badge{font-size:.7rem;background:rgba(184,149,106,.18);padding:.25rem .6rem;border-radius:99px;color:var(--accent);font-weight:700;letter-spacing:.02em}
+/* ── 로그인 ── */
+#login-screen{display:none;min-height:100vh;align-items:center;justify-content:center;background:var(--gray-50)}
+#login-screen.active{display:flex}
+.login-wrap{max-width:380px;width:100%;padding:0 1.5rem}
+.login-card{background:#fff;border-radius:var(--radius);padding:2.5rem 2rem;box-shadow:0 4px 32px rgba(0,0,0,.08);border-top:3px solid var(--accent);text-align:center}
+.login-logo{font-size:1.4rem;font-weight:800;letter-spacing:.08em;margin-bottom:.2rem}
+.login-logo em{font-style:italic;font-weight:400;color:var(--accent)}
+.login-sub{font-size:.8rem;color:var(--gray-400);margin-bottom:2rem;letter-spacing:.02em}
+.login-field label{display:block;font-size:.76rem;font-weight:700;color:var(--gray-600);margin-bottom:.4rem;text-align:left}
+.login-field input{width:100%;padding:.7rem 1rem;border:1.5px solid var(--gray-200);border-radius:8px;font-size:.9rem;font-family:inherit}
+.login-field input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(184,149,106,.15)}
+.login-btn{margin-top:1.25rem;width:100%;padding:.8rem;border:none;border-radius:8px;background:var(--black);color:#fff;font-size:.9rem;font-weight:700;font-family:inherit;cursor:pointer;transition:background .15s}
+.login-btn:hover{background:#2a2a2a}
+.login-btn:disabled{background:var(--gray-400);cursor:not-allowed}
+.login-err{color:#c00;font-size:.8rem;margin-top:.75rem;display:none}
 
-.wrap{max-width:860px;margin:2.5rem auto;padding:0 1.5rem 6rem}
+/* ── 어드민 레이아웃 ── */
+#admin-screen{display:none}
+#admin-screen.active{display:flex;min-height:100vh}
 
-.tabs{display:flex;gap:.4rem;margin-bottom:1.75rem;border-bottom:1px solid var(--gray-200);padding-bottom:0}
-.tab{padding:.7rem 1.3rem;border-radius:0;font-size:.86rem;font-weight:700;cursor:pointer;border:none;border-bottom:2px solid transparent;background:transparent;color:var(--gray-400);transition:all .15s;margin-bottom:-1px}
-.tab:hover{color:var(--black)}
-.tab.active{color:var(--black);border-bottom-color:var(--accent)}
-.tab-panel{display:none;animation:fadeIn .25s ease}
-.tab-panel.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+/* 사이드바 */
+.sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--sidebar);color:#fff;display:flex;flex-direction:column;position:fixed;top:0;left:0;z-index:100}
+.sidebar-logo{padding:1.6rem 1.4rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.sidebar-logo p{font-size:1rem;font-weight:800;letter-spacing:.06em;line-height:1.2}
+.sidebar-logo em{font-style:italic;font-weight:400;color:var(--accent)}
+.sidebar-logo span{display:block;font-size:.68rem;color:rgba(255,255,255,.35);margin-top:.2rem;letter-spacing:.05em}
+.nav-section{padding:.9rem 0 .4rem}
+.nav-label{font-size:.65rem;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:.1em;padding:.1rem 1.4rem .55rem;text-transform:uppercase}
+.nav-item{display:flex;align-items:center;gap:.65rem;padding:.6rem 1.4rem;font-size:.83rem;font-weight:700;color:rgba(255,255,255,.55);cursor:pointer;border-left:3px solid transparent;transition:all .15s;user-select:none}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.06)}
+.nav-item.active{color:#fff;background:rgba(184,149,106,.15);border-left-color:var(--accent)}
+.nav-item .nav-icon{font-size:.95rem;width:1.1rem;text-align:center}
+.sidebar-footer{margin-top:auto;padding:.75rem 0;border-top:1px solid rgba(255,255,255,.08)}
+.nav-item.danger{color:rgba(255,100,100,.6)}
+.nav-item.danger:hover{color:#ff6b6b;background:rgba(255,100,100,.08)}
 
-.card{background:#fff;border-radius:var(--radius);padding:1.85rem 2.1rem;margin-bottom:1.25rem;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px -8px rgba(0,0,0,.06);border:1px solid var(--gray-100)}
-.card-title{font-size:.95rem;font-weight:800;margin-bottom:1.4rem;padding-bottom:.85rem;border-bottom:1px solid var(--gray-100);color:var(--black);display:flex;align-items:center;gap:.5rem}
-.card-title::before{content:'';width:4px;height:14px;background:var(--accent);border-radius:2px;display:inline-block}
+/* 메인 */
+.main{margin-left:var(--sidebar-w);flex:1;padding:2rem 2.25rem 4rem;min-height:100vh}
+.page{display:none}
+.page.active{display:block}
+.page-header{margin-bottom:1.75rem}
+.page-title{font-size:1.35rem;font-weight:800;letter-spacing:-.01em}
+.page-sub{font-size:.82rem;color:var(--gray-400);margin-top:.25rem}
 
-.field{margin-bottom:1.15rem}
-label{display:block;font-size:.78rem;font-weight:700;color:var(--gray-600);margin-bottom:.4rem;letter-spacing:.01em}
-input,select,textarea{width:100%;padding:.65rem .9rem;border:1.5px solid var(--gray-200);border-radius:8px;font-size:.9rem;font-family:inherit;background:#fff;transition:border .15s,box-shadow .15s;color:var(--black)}
-input::placeholder,textarea::placeholder{color:#bbb}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(184,149,106,.15)}
-textarea{height:360px;font-family:'SF Mono',Consolas,monospace;font-size:.8rem;line-height:1.6;resize:vertical}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
-.hint{font-size:.75rem;color:var(--gray-400);margin-top:.4rem;line-height:1.6}
+/* 카드 */
+.card{background:#fff;border-radius:var(--radius);padding:1.75rem 2rem;margin-bottom:1.25rem;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px -8px rgba(0,0,0,.06);border:1px solid var(--gray-100)}
+.card-title{font-size:.9rem;font-weight:800;margin-bottom:1.3rem;padding-bottom:.8rem;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;gap:.5rem}
+.card-title::before{content:'';width:3px;height:13px;background:var(--accent);border-radius:2px;display:inline-block}
+
+/* 대시보드 stat tiles */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
+.stat-tile{background:#fff;border-radius:var(--radius);padding:1.4rem 1.6rem;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px -8px rgba(0,0,0,.06);border:1px solid var(--gray-100);border-top:3px solid var(--accent)}
+.stat-tile .st-label{font-size:.74rem;font-weight:700;color:var(--gray-400);margin-bottom:.55rem;letter-spacing:.02em}
+.stat-tile .st-val{font-size:2rem;font-weight:800;line-height:1;letter-spacing:-.02em}
+.stat-tile .st-diff{font-size:.74rem;margin-top:.45rem;font-weight:700}
+.st-diff.up{color:var(--green)}
+.st-diff.down{color:#c0392b}
+.st-diff.neutral{color:var(--gray-400)}
+
+/* 차트 영역 */
+.chart-row{display:grid;grid-template-columns:2fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+.chart-wrap{position:relative;height:260px}
+
+/* 폼 */
+.field{margin-bottom:1.1rem}
+.field label{display:block;font-size:.76rem;font-weight:700;color:var(--gray-600);margin-bottom:.38rem;letter-spacing:.01em}
+.field input,.field select,.field textarea{width:100%;padding:.65rem .9rem;border:1.5px solid var(--gray-200);border-radius:8px;font-size:.89rem;font-family:inherit;background:#fff;transition:border .15s,box-shadow .15s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(184,149,106,.15)}
+.field textarea{height:340px;font-family:'SF Mono',Consolas,monospace;font-size:.79rem;line-height:1.6;resize:vertical}
+.hint{font-size:.74rem;color:var(--gray-400);margin-top:.38rem;line-height:1.6}
 .hint strong{color:var(--gray-600)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 
-.btn{display:inline-flex;align-items:center;gap:.45rem;padding:.7rem 1.7rem;border:none;border-radius:8px;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit}
+/* 버튼 */
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.65rem 1.5rem;border:none;border-radius:8px;font-size:.86rem;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit}
 .btn-primary{background:var(--black);color:#fff}
-.btn-primary:hover{background:#2a2a2a;box-shadow:0 4px 12px rgba(0,0,0,.15)}
-.btn-primary:disabled{background:var(--gray-400);cursor:not-allowed;box-shadow:none}
-.actions{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;margin-top:1.4rem}
-.spinner{display:none;width:15px;height:15px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite}
+.btn-primary:hover{background:#2a2a2a}
+.btn-primary:disabled{background:var(--gray-400);cursor:not-allowed}
+.btn-sm{padding:.38rem .85rem;font-size:.78rem;background:var(--gray-100);color:var(--black);border:none;border-radius:7px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s}
+.btn-sm:hover{background:var(--black);color:#fff}
+.btn-del{padding:.38rem .85rem;border:none;border-radius:7px;font-size:.77rem;font-weight:700;cursor:pointer;background:#fdf2f2;color:#c0392b;transition:all .15s;font-family:inherit}
+.btn-del:hover{background:#c0392b;color:#fff}
+.actions{display:flex;gap:.7rem;align-items:center;flex-wrap:wrap;margin-top:1.3rem}
+.spinner{display:none;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-.msg{padding:.9rem 1.15rem;border-radius:9px;margin-bottom:1.25rem;font-size:.87rem;line-height:1.65;border-left:3px solid transparent}
+/* 메시지 */
+.msg{padding:.85rem 1.1rem;border-radius:9px;margin-bottom:1.1rem;font-size:.86rem;line-height:1.6;border-left:3px solid transparent}
 .msg.ok{background:#f0f9f1;color:#1f5e2c;border-left-color:#3a9450}
 .msg.err{background:#fdf2f2;color:#8b1a1a;border-left-color:#c0392b}
-.result-url{font-family:'SF Mono',Consolas,monospace;font-size:.8rem;background:var(--gray-50);padding:.5rem .8rem;border-radius:6px;word-break:break-all;margin-top:.5rem;display:block;border:1px solid var(--gray-100)}
+.result-url{font-family:'SF Mono',Consolas,monospace;font-size:.78rem;background:var(--gray-50);padding:.45rem .75rem;border-radius:6px;word-break:break-all;margin-top:.45rem;display:block;border:1px solid var(--gray-100)}
 .result-url a{color:var(--accent);font-weight:700}
 
-.article-list-table{width:100%;border-collapse:collapse;font-size:.85rem}
-.article-list-table th{text-align:left;padding:.7rem .8rem;border-bottom:2px solid var(--gray-100);color:var(--gray-400);font-weight:700;font-size:.74rem;letter-spacing:.03em;text-transform:uppercase}
-.article-list-table td{padding:.75rem .8rem;border-bottom:1px solid var(--gray-50);vertical-align:middle}
-.article-list-table tr:hover td{background:var(--gray-50)}
-.slug-tag{font-family:'SF Mono',Consolas,monospace;font-size:.76rem;background:var(--gray-100);padding:.22rem .5rem;border-radius:5px;color:var(--gray-600)}
-.btn-del{padding:.4rem .9rem;border:none;border-radius:7px;font-size:.78rem;font-weight:700;cursor:pointer;background:#fdf2f2;color:#c0392b;transition:all .15s}
-.btn-del:hover{background:#c0392b;color:#fff}
-.btn-sm{padding:.4rem .9rem;border:none;border-radius:7px;font-size:.8rem;font-weight:700;cursor:pointer;background:var(--gray-100);color:var(--black);transition:all .15s}
-.btn-sm:hover{background:var(--black);color:#fff}
-.empty-state{text-align:center;padding:2.5rem 1rem;color:var(--gray-400);font-size:.87rem}
+/* 테이블 */
+.data-table{width:100%;border-collapse:collapse;font-size:.83rem}
+.data-table th{text-align:left;padding:.65rem .75rem;border-bottom:2px solid var(--gray-100);color:var(--gray-400);font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.data-table td{padding:.72rem .75rem;border-bottom:1px solid var(--gray-50);vertical-align:top}
+.data-table tr:hover td{background:var(--gray-50)}
+.slug-tag{font-family:'SF Mono',Consolas,monospace;font-size:.74rem;background:var(--gray-100);padding:.2rem .48rem;border-radius:5px;color:var(--gray-600)}
+.empty-state{text-align:center;padding:2.5rem 1rem;color:var(--gray-400);font-size:.86rem}
 
-.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.75rem}
-.stat-tile{background:var(--gray-50);border-radius:9px;padding:1.2rem 1.3rem;border-top:3px solid var(--accent)}
-.stat-tile label{margin-bottom:.5rem}
-.stat-tile p{font-size:1.85rem;font-weight:800;color:var(--black);line-height:1}
-@media(max-width:560px){.stat-grid,.row{grid-template-columns:1fr}}
-
-/* 상담 목록 */
-.consult-table{width:100%;border-collapse:collapse;font-size:.84rem}
-.consult-table th{text-align:left;padding:.65rem .75rem;border-bottom:2px solid var(--gray-100);color:var(--gray-400);font-size:.73rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
-.consult-table td{padding:.75rem .75rem;border-bottom:1px solid var(--gray-50);vertical-align:top}
-.consult-table tr:hover td{background:var(--gray-50)}
-.consult-name{font-weight:700;font-size:.88rem}
-.consult-phone{font-family:'SF Mono',Consolas,monospace;font-size:.78rem;color:var(--gray-600);margin-top:.2rem}
-.consult-badge{display:inline-block;font-size:.7rem;padding:.18rem .5rem;border-radius:99px;font-weight:700;margin-left:.4rem}
+/* 상담 */
+.consult-name{font-weight:700;font-size:.87rem}
+.consult-phone{font-family:'SF Mono',Consolas,monospace;font-size:.76rem;color:var(--gray-600);margin-top:.18rem}
+.consult-badge{display:inline-block;font-size:.68rem;padding:.16rem .45rem;border-radius:99px;font-weight:700;margin-left:.35rem}
 .badge-call{background:#e8f4fd;color:#1565c0}
 .badge-kakao{background:#fff9c4;color:#795548}
-.consult-msg{font-size:.82rem;color:#444;margin-top:.25rem;line-height:1.55;white-space:pre-wrap;word-break:break-all}
-.consult-date{font-size:.74rem;color:var(--gray-400);white-space:nowrap}
-.consult-src{font-size:.72rem;color:var(--gray-400);margin-top:.15rem}
+.consult-msg{font-size:.81rem;color:#444;margin-top:.22rem;line-height:1.5;white-space:pre-wrap;word-break:break-all}
+.consult-src{font-size:.7rem;color:var(--gray-400);margin-top:.12rem}
+.consult-date{font-size:.72rem;color:var(--gray-400);white-space:nowrap}
 
-/* 미니 캘린더 */
+/* 캘린더 */
+.cal-nav{display:flex;align-items:center;gap:1rem;margin-bottom:1.1rem}
+.cal-nav span{font-size:1rem;font-weight:800;flex:1;text-align:center}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center}
-.cal-dow{font-size:.72rem;font-weight:700;color:var(--gray-400);padding:.4rem 0;letter-spacing:.05em}
+.cal-dow{font-size:.7rem;font-weight:700;color:var(--gray-400);padding:.35rem 0;letter-spacing:.04em}
 .cal-dow:first-child{color:#c0392b}
 .cal-dow:last-child{color:#1565c0}
-.cal-cell{border-radius:8px;padding:.55rem .25rem;font-size:.85rem;cursor:pointer;position:relative;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px;border:1px solid transparent;transition:background .12s}
+.cal-cell{border-radius:8px;padding:.5rem .2rem;font-size:.82rem;cursor:pointer;min-height:50px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px;border:1px solid transparent;transition:background .12s}
 .cal-cell.empty{cursor:default}
 .cal-cell.today{border-color:var(--accent);font-weight:800}
 .cal-cell.has-data{background:var(--accent-dim)}
 .cal-cell.has-data:hover{background:#dcc9a8}
 .cal-cell.selected{background:var(--accent);color:#fff}
-.cal-cell .cal-count{font-size:.64rem;font-weight:700;background:var(--accent);color:#fff;border-radius:99px;padding:.08rem .38rem;line-height:1.4}
+.cal-count{font-size:.62rem;font-weight:700;background:var(--accent);color:#fff;border-radius:99px;padding:.06rem .35rem;line-height:1.4}
 .cal-cell.selected .cal-count{background:#fff;color:var(--accent)}
-.cal-day-num{font-size:.82rem;line-height:1}
+.cal-day-num{font-size:.8rem;line-height:1}
+.cal-detail{margin-top:1.25rem}
 
-#login-screen,#admin-screen{display:none}
-#login-screen.active,#admin-screen.active{display:block}
-#login-screen{min-height:100vh;display:none;align-items:center;justify-content:center;background:var(--gray-50)}
-#login-screen.active{display:flex}
-.login-wrap{max-width:380px;width:100%;padding:0 1.5rem}
-.login-wrap .card{text-align:center;border-top:3px solid var(--accent)}
-.login-logo{font-size:1.3rem;font-weight:800;letter-spacing:.08em;margin-bottom:.15rem;color:var(--black)}
-.login-logo em{font-style:italic;font-weight:400;color:var(--accent)}
-.login-sub{font-size:.8rem;color:var(--gray-400);margin-bottom:1.75rem;letter-spacing:.02em}
+@media(max-width:900px){
+  .stat-row{grid-template-columns:repeat(2,1fr)}
+  .chart-row{grid-template-columns:1fr}
+  .sidebar{width:180px}
+  .main{margin-left:180px}
+}
+@media(max-width:640px){
+  .sidebar{display:none}
+  .main{margin-left:0}
+  .row2{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
 
-<!-- 로그인 화면 -->
+<!-- 로그인 -->
 <div id="login-screen">
   <div class="login-wrap">
-    <div class="card">
+    <div class="login-card">
       <p class="login-logo">ROCOCO <em>Journal</em></p>
       <p class="login-sub">관리자 로그인</p>
-      <div class="field">
+      <div class="login-field">
         <label>비밀번호</label>
         <input type="password" id="pw-input" placeholder="비밀번호 입력" autocomplete="off">
       </div>
-      <div class="actions" style="justify-content:center">
-        <button class="btn btn-primary" id="login-btn">로그인</button>
-      </div>
-      <p id="login-err" style="color:#c00;font-size:.8rem;margin-top:.75rem;display:none">비밀번호가 올바르지 않습니다.</p>
+      <button class="login-btn" id="login-btn">로그인</button>
+      <p class="login-err" id="login-err">비밀번호가 올바르지 않습니다.</p>
     </div>
   </div>
 </div>
 
-<!-- 관리자 화면 -->
+<!-- 어드민 -->
 <div id="admin-screen">
-  <div class="topbar">
-    <h1>ROCOCO <em>Journal</em></h1>
-    <span class="badge">관리자</span>
-  </div>
-  <div class="wrap">
 
+  <!-- 사이드바 -->
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <p>ROCOCO <em>Journal</em></p>
+      <span>관리자 패널</span>
+    </div>
+
+    <div class="nav-section">
+      <p class="nav-label">현황</p>
+      <div class="nav-item active" data-page="dashboard">
+        <span class="nav-icon">📊</span>대시보드
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <p class="nav-label">환자 관리</p>
+      <div class="nav-item" data-page="consult">
+        <span class="nav-icon">💬</span>온라인 상담
+      </div>
+      <div class="nav-item" data-page="calendar">
+        <span class="nav-icon">📅</span>예약 캘린더
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <p class="nav-label">운영</p>
+      <div class="nav-item" data-page="write">
+        <span class="nav-icon">✏️</span>새 글 작성
+      </div>
+      <div class="nav-item" data-page="manage">
+        <span class="nav-icon">📋</span>글 관리
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="nav-item" onclick="window.open('https://journal.rococops.com','_blank')">
+        <span class="nav-icon">🌐</span>사이트로 이동
+      </div>
+      <div class="nav-item danger" onclick="logout()">
+        <span class="nav-icon">🚪</span>로그아웃
+      </div>
+    </div>
+  </nav>
+
+  <!-- 메인 -->
+  <main class="main">
     <div id="msg-area"></div>
 
-    <div class="tabs">
-      <button class="tab active" onclick="switchTab('write')">✏️ 새 글 작성</button>
-      <button class="tab" onclick="switchTab('consult')">💬 상담 목록</button>
-      <button class="tab" onclick="switchTab('calendar')">📅 예약 캘린더</button>
-      <button class="tab" onclick="switchTab('manage')">📋 글 관리</button>
-      <button class="tab" onclick="switchTab('stats')">📊 통계</button>
-    </div>
-
-    <!-- 탭1: 새 글 작성 -->
-    <div class="tab-panel active" id="tab-write">
-    <form id="publish-form">
-    <div class="card">
-      <p class="card-title">새 글 작성</p>
-
-      <div class="field">
-        <label>카테고리</label>
-        <select name="subcat" id="subcat" required>
-          <option value="">— 선택 —</option>
-          <optgroup label="광대성형">
-            <option value="cheekbone|quick">15분 광대축소술</option>
-            <option value="cheekbone|fat-graft">심부볼·관자 지방이식</option>
-            <option value="cheekbone|liposuction">광대라인 지방흡입</option>
-            <option value="cheekbone|rear">뒷광대축소술</option>
-            <option value="cheekbone|revision">광대 재수술</option>
-          </optgroup>
-          <optgroup label="코성형">
-            <option value="nose|column">진료단상</option>
-            <option value="nose|revision">코재수술</option>
-            <option value="nose|rib-cartilage">늑연골 명품코성형</option>
-            <option value="nose|septal">비중격연골 코성형</option>
-            <option value="nose|scarless">흉터없는 코성형</option>
-            <option value="nose|hump">매부리코</option>
-            <option value="nose|bulbous">복코</option>
-            <option value="nose|osteotomy">절골술</option>
-            <option value="nose|long">긴코</option>
-            <option value="nose|columella">비주성형</option>
-            <option value="nose|cat">비순각 고양이 입매교정</option>
-            <option value="nose|male">남자의 코성형</option>
-            <option value="nose|rhinitis">비염수술</option>
-          </optgroup>
-          <optgroup label="콧구멍성형">
-            <option value="nostril|alar-lowering">비공내리기</option>
-            <option value="nostril|alar-raising">콧날개올리기</option>
-            <option value="nostril|v-shape">V형 콧구멍교정</option>
-            <option value="nostril|reduction">콧구멍축소술</option>
-            <option value="nostril|alar-base">콧볼축소술</option>
-          </optgroup>
-          <optgroup label="이마성형">
-            <option value="forehead|endoscopic">내시경 이마거상술</option>
-            <option value="forehead|reduction">이마축소술</option>
-          </optgroup>
-          <optgroup label="눈성형">
-            <option value="eye|correction">눈매교정술</option>
-            <option value="eye|double">쌍커풀 자연유착법</option>
-            <option value="eye|incision">트임성형</option>
-            <option value="eye|brow-lift">눈썹하거상술</option>
-            <option value="eye|fat-graft">꺼진눈 지방이식</option>
-            <option value="eye|lower-fat">눈밑지방 재배치</option>
-          </optgroup>
-          <optgroup label="동안성형">
-            <option value="anti-aging|blepharoplasty">상·하안검성형</option>
-            <option value="anti-aging|lifting">엘라스티꿈 실리프팅</option>
-            <option value="anti-aging|filler-botox">필러·보톡스</option>
-            <option value="anti-aging|chin">무턱성형</option>
-            <option value="anti-aging|fat-graft">미세지방이식</option>
-          </optgroup>
-        </select>
+    <!-- 대시보드 -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <h1 class="page-title">대시보드</h1>
+        <p class="page-sub">방문자 현황과 상담 신청을 한눈에 확인하세요.</p>
       </div>
 
-      <div class="field">
-        <label>제목</label>
-        <input type="text" name="title" id="title" required placeholder="글 제목">
+      <div class="stat-row" id="dash-stats">
+        <div class="stat-tile"><p class="st-label">오늘 방문</p><p class="st-val" id="s-today">—</p></div>
+        <div class="stat-tile"><p class="st-label">최근 7일</p><p class="st-val" id="s-week">—</p></div>
+        <div class="stat-tile"><p class="st-label">전체 누적</p><p class="st-val" id="s-total">—</p></div>
+        <div class="stat-tile"><p class="st-label">상담 신청 (30일)</p><p class="st-val" id="s-consult">—</p></div>
       </div>
 
-      <div class="row">
-        <div class="field">
-          <label>작성일</label>
-          <input type="date" name="date" id="date" required>
+      <div class="chart-row">
+        <div class="card">
+          <p class="card-title">일별 방문수 (최근 30일)</p>
+          <div class="chart-wrap"><canvas id="chart-daily"></canvas></div>
         </div>
-        <div class="field">
-          <label>요약 <span style="font-weight:400;color:#aaa">(비워두면 자동 추출)</span></label>
-          <input type="text" name="summary" id="summary" placeholder="선택사항">
+        <div class="card">
+          <p class="card-title">인기 페이지 TOP 7</p>
+          <div class="chart-wrap"><canvas id="chart-pages"></canvas></div>
         </div>
       </div>
 
-      <div class="field">
-        <label>본문 HTML</label>
-        <textarea name="content" id="content" required placeholder="기존 홈페이지 에디터 → 하단 HTML 탭 → 전체 선택(Ctrl+A) → 복사(Ctrl+C) → 여기에 붙여넣기(Ctrl+V)"></textarea>
-        <p class="hint">기존 홈페이지 에디터 하단 <strong>HTML</strong> 탭 클릭 → 전체 선택(Ctrl+A) → 복사 → 여기에 붙여넣기</p>
-      </div>
-
-      <div class="actions">
-        <button type="submit" class="btn btn-primary" id="submit-btn">
-          <span class="spinner" id="spinner"></span>
-          글 발행하기 →
-        </button>
-        <span style="font-size:.78rem;color:#aaa">GitHub에 바로 반영됩니다 (1~2분 소요)</span>
-      </div>
-    </div>
-    </form>
-    </div><!-- /tab-write -->
-
-    <!-- 탭2: 상담 목록 -->
-    <div class="tab-panel" id="tab-consult">
       <div class="card">
-        <p class="card-title">상담 신청 목록</p>
-        <div class="actions" style="margin-top:0;margin-bottom:1.25rem">
-          <button type="button" class="btn btn-sm" id="reload-consult-btn">↻ 새로고침</button>
-        </div>
-        <div id="consult-wrap"><p class="empty-state">탭을 클릭하면 자동으로 불러옵니다.</p></div>
+        <p class="card-title">유입 경로 TOP 10 (최근 7일)</p>
+        <div id="dash-referrers"><p class="empty-state">불러오는 중...</p></div>
       </div>
     </div>
 
-    <!-- 탭3: 예약 캘린더 -->
-    <div class="tab-panel" id="tab-calendar">
+    <!-- 온라인 상담 -->
+    <div class="page" id="page-consult">
+      <div class="page-header">
+        <h1 class="page-title">온라인 상담</h1>
+        <p class="page-sub">사이트를 통해 신청된 상담 목록입니다.</p>
+      </div>
       <div class="card">
-        <p class="card-title">예약 캘린더</p>
-        <div id="calendar-nav" style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem">
-          <button class="btn btn-sm" id="cal-prev">‹ 이전달</button>
-          <span id="cal-month-label" style="font-size:1rem;font-weight:800;flex:1;text-align:center"></span>
-          <button class="btn btn-sm" id="cal-next">다음달 ›</button>
+        <div class="actions" style="margin-top:0;margin-bottom:1.1rem">
+          <button class="btn-sm" id="reload-consult-btn">↻ 새로고침</button>
+        </div>
+        <div id="consult-wrap"><p class="empty-state">불러오는 중...</p></div>
+      </div>
+    </div>
+
+    <!-- 예약 캘린더 -->
+    <div class="page" id="page-calendar">
+      <div class="page-header">
+        <h1 class="page-title">예약 캘린더</h1>
+        <p class="page-sub">상담 신청이 들어온 날짜를 확인하세요.</p>
+      </div>
+      <div class="card">
+        <div class="cal-nav">
+          <button class="btn-sm" id="cal-prev">‹ 이전달</button>
+          <span id="cal-month-label"></span>
+          <button class="btn-sm" id="cal-next">다음달 ›</button>
         </div>
         <div id="calendar-wrap"></div>
-        <div id="cal-detail" style="margin-top:1.25rem"></div>
+        <div class="cal-detail" id="cal-detail"></div>
       </div>
     </div>
 
-    <!-- 탭4: 글 관리 -->
-    <div class="tab-panel" id="tab-manage">
+    <!-- 새 글 작성 -->
+    <div class="page" id="page-write">
+      <div class="page-header">
+        <h1 class="page-title">새 글 작성</h1>
+        <p class="page-sub">GitHub에 바로 발행됩니다. 반영까지 1~2분 소요됩니다.</p>
+      </div>
+      <form id="publish-form">
       <div class="card">
-        <p class="card-title">글 관리 (삭제)</p>
-        <div class="row">
+        <p class="card-title">글 정보</p>
+        <div class="field">
+          <label>카테고리</label>
+          <select name="subcat" id="subcat" required>
+            <option value="">— 선택 —</option>
+            <optgroup label="광대성형">
+              <option value="cheekbone|quick">15분 광대축소술</option>
+              <option value="cheekbone|fat-graft">심부볼·관자 지방이식</option>
+              <option value="cheekbone|liposuction">광대라인 지방흡입</option>
+              <option value="cheekbone|rear">뒷광대축소술</option>
+              <option value="cheekbone|revision">광대 재수술</option>
+            </optgroup>
+            <optgroup label="코성형">
+              <option value="nose|column">진료단상</option>
+              <option value="nose|revision">코재수술</option>
+              <option value="nose|rib-cartilage">늑연골 명품코성형</option>
+              <option value="nose|septal">비중격연골 코성형</option>
+              <option value="nose|scarless">흉터없는 코성형</option>
+              <option value="nose|hump">매부리코</option>
+              <option value="nose|bulbous">복코</option>
+              <option value="nose|osteotomy">절골술</option>
+              <option value="nose|long">긴코</option>
+              <option value="nose|columella">비주성형</option>
+              <option value="nose|cat">비순각 고양이 입매교정</option>
+              <option value="nose|male">남자의 코성형</option>
+              <option value="nose|rhinitis">비염수술</option>
+            </optgroup>
+            <optgroup label="콧구멍성형">
+              <option value="nostril|alar-lowering">비공내리기</option>
+              <option value="nostril|alar-raising">콧날개올리기</option>
+              <option value="nostril|v-shape">V형 콧구멍교정</option>
+              <option value="nostril|reduction">콧구멍축소술</option>
+              <option value="nostril|alar-base">콧볼축소술</option>
+            </optgroup>
+            <optgroup label="이마성형">
+              <option value="forehead|endoscopic">내시경 이마거상술</option>
+              <option value="forehead|reduction">이마축소술</option>
+            </optgroup>
+            <optgroup label="눈성형">
+              <option value="eye|correction">눈매교정술</option>
+              <option value="eye|double">쌍커풀 자연유착법</option>
+              <option value="eye|incision">트임성형</option>
+              <option value="eye|brow-lift">눈썹하거상술</option>
+              <option value="eye|fat-graft">꺼진눈 지방이식</option>
+              <option value="eye|lower-fat">눈밑지방 재배치</option>
+            </optgroup>
+            <optgroup label="동안성형">
+              <option value="anti-aging|blepharoplasty">상·하안검성형</option>
+              <option value="anti-aging|lifting">엘라스티꿈 실리프팅</option>
+              <option value="anti-aging|filler-botox">필러·보톡스</option>
+              <option value="anti-aging|chin">무턱성형</option>
+              <option value="anti-aging|fat-graft">미세지방이식</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="field">
+          <label>제목</label>
+          <input type="text" name="title" id="title" required placeholder="글 제목">
+        </div>
+        <div class="row2">
           <div class="field">
-            <label>카테고리 선택</label>
+            <label>작성일</label>
+            <input type="date" name="date" id="date" required>
+          </div>
+          <div class="field">
+            <label>요약 <span style="font-weight:400;color:#aaa">(비워두면 자동 추출)</span></label>
+            <input type="text" name="summary" id="summary" placeholder="선택사항">
+          </div>
+        </div>
+        <div class="field">
+          <label>본문 HTML</label>
+          <textarea name="content" id="content" required placeholder="기존 홈페이지 에디터 → 하단 HTML 탭 → 전체 선택(Ctrl+A) → 복사(Ctrl+C) → 여기에 붙여넣기(Ctrl+V)"></textarea>
+          <p class="hint">기존 홈페이지 에디터 하단 <strong>HTML</strong> 탭 클릭 → 전체 선택(Ctrl+A) → 복사 → 붙여넣기</p>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn btn-primary" id="submit-btn">
+            <span class="spinner" id="spinner"></span>글 발행하기 →
+          </button>
+          <span style="font-size:.76rem;color:#aaa">GitHub에 바로 반영됩니다 (1~2분 소요)</span>
+        </div>
+      </div>
+      </form>
+    </div>
+
+    <!-- 글 관리 -->
+    <div class="page" id="page-manage">
+      <div class="page-header">
+        <h1 class="page-title">글 관리</h1>
+        <p class="page-sub">카테고리별 글 목록을 확인하고 삭제할 수 있습니다.</p>
+      </div>
+      <div class="card">
+        <p class="card-title">카테고리 선택</p>
+        <div class="row2">
+          <div class="field">
+            <label>카테고리</label>
             <select id="manage-subcat">
               <option value="">— 선택 —</option>
               <optgroup label="광대성형">
@@ -348,53 +458,34 @@ textarea{height:360px;font-family:'SF Mono',Consolas,monospace;font-size:.8rem;l
             <button type="button" class="btn btn-primary" id="load-list-btn" style="width:100%">글 목록 불러오기</button>
           </div>
         </div>
-        <div id="article-list-wrap" style="margin-top:1rem"></div>
+        <div id="article-list-wrap" style="margin-top:.75rem"></div>
       </div>
-    </div><!-- /tab-manage -->
+    </div>
 
-    <!-- 탭3: 통계 -->
-    <div class="tab-panel" id="tab-stats">
-      <div class="card">
-        <p class="card-title">방문자 통계</p>
-        <div class="actions" style="margin-top:0;margin-bottom:1.25rem">
-          <button type="button" class="btn btn-sm" id="reload-stats-btn">↻ 새로고침</button>
-          <a href="https://analytics.google.com/" target="_blank" class="btn btn-sm" style="text-decoration:none">Google 애널리틱스 열기 →</a>
-        </div>
-        <div id="stats-wrap"><p class="empty-state">통계 탭을 클릭하면 자동으로 불러옵니다.</p></div>
-      </div>
-    </div><!-- /tab-stats -->
-
-  </div>
+  </main>
 </div>
 
 <script>
 const API = 'https://rococo-journal-api.vercel.app/api/publish';
 let savedPw = '';
+let chartDaily = null, chartPages = null;
+let consultCache = null, calData = null;
+let calYear, calMonth;
 
-function showAdmin() {
-  document.getElementById('login-screen').classList.remove('active');
-  document.getElementById('admin-screen').classList.add('active');
-}
-
+// ── 로그인 ───────────────────────────────────────
 async function verifyPassword(pw) {
   try {
-    const res = await fetch(API.replace('/publish', '/verify'), {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({password: pw}),
+    const res = await fetch(API.replace('/publish','/verify'), {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({password:pw}),
     });
-    const data = await res.json();
-    return res.ok && data.ok;
-  } catch {
-    return false;
-  }
+    const d = await res.json();
+    return res.ok && d.ok;
+  } catch { return false; }
 }
 
-// 오늘 날짜 기본값 + 자동 로그인 체크
 document.addEventListener('DOMContentLoaded', async () => {
-  const today = new Date().toISOString().slice(0,10);
-  document.getElementById('date').value = today;
-
+  document.getElementById('date').value = new Date().toISOString().slice(0,10);
   const stored = localStorage.getItem('admin_pw');
   if (stored && await verifyPassword(stored)) {
     savedPw = stored;
@@ -403,13 +494,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (stored) localStorage.removeItem('admin_pw');
     document.getElementById('login-screen').classList.add('active');
   }
-
   document.getElementById('pw-input').addEventListener('keydown', e => {
     if (e.key === 'Enter') document.getElementById('login-btn').click();
   });
 });
 
-// 로그인
 document.getElementById('login-btn').addEventListener('click', async () => {
   const pw = document.getElementById('pw-input').value.trim();
   if (!pw) return;
@@ -417,141 +506,132 @@ document.getElementById('login-btn').addEventListener('click', async () => {
   btn.disabled = true;
   const ok = await verifyPassword(pw);
   btn.disabled = false;
-  if (!ok) {
-    document.getElementById('login-err').style.display = 'block';
-    return;
-  }
+  if (!ok) { document.getElementById('login-err').style.display = 'block'; return; }
   savedPw = pw;
   localStorage.setItem('admin_pw', pw);
-  showAdmin();
   document.getElementById('login-err').style.display = 'none';
+  showAdmin();
 });
 
-// 발행
-document.getElementById('publish-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const btn = document.getElementById('submit-btn');
-  const spinner = document.getElementById('spinner');
-  const msgArea = document.getElementById('msg-area');
+function showAdmin() {
+  document.getElementById('login-screen').classList.remove('active');
+  document.getElementById('admin-screen').classList.add('active');
+  loadDashboard();
+}
 
-  const subcat = document.getElementById('subcat').value;
-  if (!subcat) { showMsg('카테고리를 선택해주세요.', 'err'); return; }
-  const [catPath, subDir] = subcat.split('|');
+function logout() {
+  localStorage.removeItem('admin_pw');
+  location.reload();
+}
 
-  btn.disabled = true;
-  spinner.style.display = 'inline-block';
-  msgArea.innerHTML = '';
+// ── 네비게이션 ───────────────────────────────────
+document.querySelectorAll('.nav-item[data-page]').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('page-' + el.dataset.page).classList.add('active');
+    if (el.dataset.page === 'dashboard') loadDashboard();
+    if (el.dataset.page === 'consult') loadConsult();
+    if (el.dataset.page === 'calendar') initCalendar();
+  });
+});
 
+// ── 대시보드 ─────────────────────────────────────
+async function loadDashboard() {
   try {
-    const res = await fetch(API, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        password: savedPw,
-        catPath,
-        subDir,
-        title: document.getElementById('title').value.trim(),
-        summary: document.getElementById('summary').value.trim(),
-        date: document.getElementById('date').value,
-        content: document.getElementById('content').value,
-      }),
-    });
-    const data = await res.json();
-    if (res.ok && data.ok) {
-      showMsg(`✅ 발행 완료! 1~2분 후 아래 주소에서 확인하세요.<br>
-        <span class="result-url"><a href="${data.url}" target="_blank">${data.url}</a></span>`, 'ok');
-      document.getElementById('publish-form').reset();
-      document.getElementById('date').value = new Date().toISOString().slice(0,10);
-    } else {
-      if (res.status === 401) {
-        showMsg('비밀번호가 올바르지 않습니다. 페이지를 새로고침해서 다시 로그인하세요.', 'err');
-      } else {
-        showMsg('❌ 오류: ' + (data.error || '알 수 없는 오류'), 'err');
+    const res = await fetch(`${API.replace('/publish','/stats')}?password=${encodeURIComponent(savedPw)}`);
+    const d = await res.json();
+    if (!res.ok) return;
+
+    document.getElementById('s-today').textContent = d.today.toLocaleString();
+    document.getElementById('s-week').textContent = d.last7days.toLocaleString();
+    document.getElementById('s-total').textContent = d.total.toLocaleString();
+    document.getElementById('s-consult').textContent = d.consultCount30?.toLocaleString() ?? '—';
+
+    // 일별 방문 차트
+    const labels = d.dailyViews.map(v => v.date.slice(5));
+    const values = d.dailyViews.map(v => v.count);
+    if (chartDaily) chartDaily.destroy();
+    chartDaily = new Chart(document.getElementById('chart-daily'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label: '방문수',
+          data: values,
+          borderColor: '#2e7a4f',
+          backgroundColor: 'rgba(46,122,79,.12)',
+          fill: true,
+          tension: 0.35,
+          pointRadius: 2,
+          borderWidth: 2,
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { size: 10 }, maxRotation: 0, maxTicksLimit: 10 } },
+          y: { beginAtZero: true, grid: { color: '#f0f0ee' }, ticks: { font: { size: 10 } } }
+        }
       }
-    }
-  } catch (err) {
-    showMsg('❌ 네트워크 오류: ' + err.message, 'err');
-  } finally {
-    btn.disabled = false;
-    spinner.style.display = 'none';
-  }
-});
+    });
 
-function showMsg(html, type) {
-  const el = document.getElementById('msg-area');
-  el.innerHTML = `<div class="msg ${type}">${html}</div>`;
-  el.scrollIntoView({behavior:'smooth', block:'nearest'});
-}
+    // 인기 페이지 차트
+    const top7 = d.topPages.slice(0, 7);
+    const pageLabels = top7.map(p => p.path.replace(/^\/|\/$/g,'').split('/').pop() || '홈');
+    const pageVals = top7.map(p => p.count);
+    if (chartPages) chartPages.destroy();
+    chartPages = new Chart(document.getElementById('chart-pages'), {
+      type: 'bar',
+      data: {
+        labels: pageLabels,
+        datasets: [{
+          data: pageVals,
+          backgroundColor: '#6b9e7a',
+          borderRadius: 5,
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        indexAxis: 'y',
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { beginAtZero: true, grid: { color: '#f0f0ee' }, ticks: { font: { size: 10 } } },
+          y: { grid: { display: false }, ticks: { font: { size: 10 } } }
+        }
+      }
+    });
 
-// 탭 전환
-const TAB_ORDER = ['write', 'consult', 'calendar', 'manage', 'stats'];
-function switchTab(name) {
-  document.querySelectorAll('.tab').forEach((t, i) => {
-    t.classList.toggle('active', TAB_ORDER[i] === name);
-  });
-  TAB_ORDER.forEach(id => {
-    document.getElementById('tab-' + id).classList.toggle('active', id === name);
-  });
-  if (name === 'stats') loadStats();
-  if (name === 'consult') loadConsult();
-  if (name === 'calendar') initCalendar();
-}
-
-// 통계 불러오기
-async function loadStats() {
-  const wrap = document.getElementById('stats-wrap');
-  wrap.innerHTML = '<p style="color:#aaa;font-size:.85rem">불러오는 중...</p>';
-  try {
-    const res = await fetch(API.replace('/publish', '/stats') + '?password=' + encodeURIComponent(savedPw));
-    const data = await res.json();
-    if (!res.ok || !data.ok) {
-      wrap.innerHTML = `<p style="color:#c00">오류: ${data.error || '알 수 없는 오류'}</p>`;
-      return;
-    }
-
-    const topPagesRows = data.topPages.length
-      ? data.topPages.map(p => `<tr><td><span class="slug-tag">${p.path}</span></td><td style="text-align:right">${p.count}</td></tr>`).join('')
+    // 유입경로 테이블
+    const refRows = d.topReferrers.length
+      ? d.topReferrers.map(r => `<tr>
+          <td>${esc(r.referrer)}</td>
+          <td style="text-align:right;font-weight:700">${r.count}</td>
+        </tr>`).join('')
       : '<tr><td colspan="2" class="empty-state">데이터 없음</td></tr>';
-
-    const topRefRows = data.topReferrers.length
-      ? data.topReferrers.map(r => `<tr><td>${r.referrer || '(직접 입력)'}</td><td style="text-align:right">${r.count}</td></tr>`).join('')
-      : '<tr><td colspan="2" class="empty-state">데이터 없음</td></tr>';
-
-    wrap.innerHTML = `
-      <div class="stat-grid">
-        <div class="stat-tile"><label>오늘 방문</label><p>${data.today}</p></div>
-        <div class="stat-tile"><label>최근 7일</label><p>${data.last7days}</p></div>
-        <div class="stat-tile"><label>전체 누적</label><p>${data.total}</p></div>
-      </div>
-      <p class="card-title" style="font-size:.85rem;margin-top:0">인기 페이지 TOP 10 (최근 7일)</p>
-      <table class="article-list-table" style="margin-bottom:1.5rem">
-        <thead><tr><th>경로</th><th style="text-align:right">조회수</th></tr></thead>
-        <tbody>${topPagesRows}</tbody>
-      </table>
-      <p class="card-title" style="font-size:.85rem">유입경로 TOP 10 (최근 7일)</p>
-      <table class="article-list-table">
-        <thead><tr><th>referrer</th><th style="text-align:right">방문수</th></tr></thead>
-        <tbody>${topRefRows}</tbody>
+    document.getElementById('dash-referrers').innerHTML = `
+      <table class="data-table">
+        <thead><tr><th>유입 경로</th><th style="text-align:right">방문수</th></tr></thead>
+        <tbody>${refRows}</tbody>
       </table>`;
-  } catch (e) {
-    wrap.innerHTML = `<p style="color:#c00">네트워크 오류: ${e.message}</p>`;
+  } catch(e) {
+    console.error(e);
   }
 }
-
-document.getElementById('reload-stats-btn').addEventListener('click', loadStats);
 
 // ── 상담 목록 ─────────────────────────────────────
-let consultCache = null;
-
 async function loadConsult(force) {
   const wrap = document.getElementById('consult-wrap');
   if (consultCache && !force) { renderConsult(consultCache, wrap); return; }
   wrap.innerHTML = '<p style="color:#aaa;font-size:.85rem">불러오는 중...</p>';
   try {
     const res = await fetch(`${API.replace('/publish','/inquiries')}?password=${encodeURIComponent(savedPw)}`);
-    const data = await res.json();
-    if (!res.ok) { wrap.innerHTML = `<p style="color:#c00">${data.error}</p>`; return; }
-    consultCache = data.inquiries || [];
+    const d = await res.json();
+    if (!res.ok) { wrap.innerHTML = `<p style="color:#c00">${d.error}</p>`; return; }
+    consultCache = d.inquiries || [];
+    calData = null; // 캘린더 캐시 초기화
     renderConsult(consultCache, wrap);
   } catch(e) {
     wrap.innerHTML = `<p style="color:#c00">오류: ${e.message}</p>`;
@@ -562,31 +642,23 @@ function renderConsult(list, wrap) {
   if (!list.length) { wrap.innerHTML = '<p class="empty-state">상담 신청이 없습니다.</p>'; return; }
   const rows = list.map(q => {
     const dt = new Date(q.created_at);
-    const dateStr = dt.toLocaleDateString('ko-KR', {year:'numeric',month:'2-digit',day:'2-digit'});
-    const timeStr = dt.toLocaleTimeString('ko-KR', {hour:'2-digit',minute:'2-digit'});
+    const dateStr = dt.toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'});
+    const timeStr = dt.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
     const badge = q.contact_method === '카카오톡'
       ? '<span class="consult-badge badge-kakao">카카오톡</span>'
       : '<span class="consult-badge badge-call">전화</span>';
     return `<tr>
-      <td>
-        <div class="consult-name">${esc(q.name)}${badge}</div>
-        <div class="consult-phone">${esc(q.phone)}</div>
-        <div class="consult-msg">${esc(q.message)}</div>
-        <div class="consult-src">${esc(q.source||'')}</div>
-      </td>
+      <td><div class="consult-name">${esc(q.name)}${badge}</div><div class="consult-phone">${esc(q.phone)}</div><div class="consult-src">${esc(q.source||'')}</div></td>
+      <td><div class="consult-msg">${esc(q.message)}</div></td>
       <td class="consult-date">${dateStr}<br>${timeStr}</td>
     </tr>`;
   }).join('');
   wrap.innerHTML = `
-    <table class="consult-table">
-      <thead><tr><th>문의 내용</th><th>일시</th></tr></thead>
+    <table class="data-table">
+      <thead><tr><th>이름</th><th>문의 내용</th><th>일시</th></tr></thead>
       <tbody>${rows}</tbody>
     </table>
-    <p style="font-size:.74rem;color:#aaa;margin-top:.75rem">총 ${list.length}건</p>`;
-}
-
-function esc(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    <p style="font-size:.73rem;color:#aaa;margin-top:.7rem">총 ${list.length}건</p>`;
 }
 
 document.getElementById('reload-consult-btn').addEventListener('click', () => {
@@ -595,8 +667,6 @@ document.getElementById('reload-consult-btn').addEventListener('click', () => {
 });
 
 // ── 예약 캘린더 ───────────────────────────────────
-let calYear, calMonth, calData = null;
-
 function initCalendar() {
   if (calYear === undefined) {
     const now = new Date();
@@ -611,16 +681,14 @@ async function fetchCalData() {
   document.getElementById('calendar-wrap').innerHTML = '<p style="color:#aaa;font-size:.85rem">불러오는 중...</p>';
   try {
     const res = await fetch(`${API.replace('/publish','/inquiries')}?password=${encodeURIComponent(savedPw)}`);
-    const data = await res.json();
-    if (!res.ok) { document.getElementById('calendar-wrap').innerHTML = `<p style="color:#c00">${data.error}</p>`; return; }
-    // 날짜별 카운트
+    const d = await res.json();
+    if (!res.ok) { document.getElementById('calendar-wrap').innerHTML = `<p style="color:#c00">${d.error}</p>`; return; }
     calData = {};
-    (data.inquiries || []).forEach(q => {
-      const d = q.created_at.slice(0, 10);
-      calData[d] = (calData[d] || []);
-      calData[d].push(q);
+    (d.inquiries || []).forEach(q => {
+      const day = q.created_at.slice(0,10);
+      (calData[day] = calData[day] || []).push(q);
     });
-    consultCache = data.inquiries;
+    consultCache = d.inquiries;
     renderCalendar();
   } catch(e) {
     document.getElementById('calendar-wrap').innerHTML = `<p style="color:#c00">오류: ${e.message}</p>`;
@@ -628,50 +696,39 @@ async function fetchCalData() {
 }
 
 function renderCalendar() {
-  const label = document.getElementById('cal-month-label');
-  label.textContent = `${calYear}년 ${calMonth + 1}월`;
-
+  document.getElementById('cal-month-label').textContent = `${calYear}년 ${calMonth+1}월`;
   const firstDay = new Date(calYear, calMonth, 1).getDay();
-  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
-  const today = new Date().toISOString().slice(0, 10);
-
+  const days = new Date(calYear, calMonth+1, 0).getDate();
+  const today = new Date().toISOString().slice(0,10);
   const dows = ['일','월','화','수','목','금','토'];
   let html = '<div class="cal-grid">';
   dows.forEach(d => { html += `<div class="cal-dow">${d}</div>`; });
-
   for (let i = 0; i < firstDay; i++) html += '<div class="cal-cell empty"></div>';
-
-  for (let d = 1; d <= daysInMonth; d++) {
-    const dateStr = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    const entries = (calData && calData[dateStr]) || [];
-    const isToday = dateStr === today;
-    const hasData = entries.length > 0;
+  for (let d = 1; d <= days; d++) {
+    const ds = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const entries = (calData && calData[ds]) || [];
     let cls = 'cal-cell';
-    if (hasData) cls += ' has-data';
-    if (isToday) cls += ' today';
-    const countBadge = hasData ? `<span class="cal-count">${entries.length}</span>` : '';
-    html += `<div class="${cls}" onclick="showCalDetail('${dateStr}')">
-      <span class="cal-day-num">${d}</span>${countBadge}
-    </div>`;
+    if (entries.length) cls += ' has-data';
+    if (ds === today) cls += ' today';
+    const cnt = entries.length ? `<span class="cal-count">${entries.length}</span>` : '';
+    html += `<div class="${cls}" onclick="showCalDetail('${ds}',this)"><span class="cal-day-num">${d}</span>${cnt}</div>`;
   }
   html += '</div>';
   document.getElementById('calendar-wrap').innerHTML = html;
   document.getElementById('cal-detail').innerHTML = '';
 }
 
-function showCalDetail(dateStr) {
-  // 선택 셀 표시
-  document.querySelectorAll('.cal-cell').forEach(el => el.classList.remove('selected'));
-  event.currentTarget.classList.add('selected');
-
-  const entries = (calData && calData[dateStr]) || [];
+function showCalDetail(ds, el) {
+  document.querySelectorAll('.cal-cell').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  const entries = (calData && calData[ds]) || [];
   const det = document.getElementById('cal-detail');
-  if (!entries.length) { det.innerHTML = `<p class="empty-state">${dateStr} — 상담 신청 없음</p>`; return; }
+  if (!entries.length) { det.innerHTML = `<p class="empty-state">${ds} — 상담 신청 없음</p>`; return; }
   const rows = entries.map(q => {
+    const time = new Date(q.created_at).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
     const badge = q.contact_method === '카카오톡'
       ? '<span class="consult-badge badge-kakao">카카오톡</span>'
       : '<span class="consult-badge badge-call">전화</span>';
-    const time = new Date(q.created_at).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
     return `<tr>
       <td><div class="consult-name">${esc(q.name)}${badge}</div><div class="consult-phone">${esc(q.phone)}</div></td>
       <td><div class="consult-msg">${esc(q.message)}</div></td>
@@ -679,105 +736,131 @@ function showCalDetail(dateStr) {
     </tr>`;
   }).join('');
   det.innerHTML = `
-    <p style="font-size:.82rem;font-weight:700;margin-bottom:.75rem;color:var(--gray-600)">${dateStr} 상담 신청 ${entries.length}건</p>
-    <table class="consult-table">
+    <p style="font-size:.82rem;font-weight:700;margin:.9rem 0 .65rem;color:var(--gray-600)">${ds} 상담 신청 ${entries.length}건</p>
+    <table class="data-table">
       <thead><tr><th>이름</th><th>문의</th><th>시간</th></tr></thead>
       <tbody>${rows}</tbody>
     </table>`;
 }
 
 document.getElementById('cal-prev').addEventListener('click', () => {
-  calMonth--;
-  if (calMonth < 0) { calMonth = 11; calYear--; }
-  renderCalendar();
+  calMonth--; if (calMonth < 0) { calMonth = 11; calYear--; } renderCalendar();
 });
 document.getElementById('cal-next').addEventListener('click', () => {
-  calMonth++;
-  if (calMonth > 11) { calMonth = 0; calYear++; }
-  renderCalendar();
+  calMonth++; if (calMonth > 11) { calMonth = 0; calYear++; } renderCalendar();
 });
 
-// 글 목록 불러오기
+// ── 글 발행 ───────────────────────────────────────
+document.getElementById('publish-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  const spinner = document.getElementById('spinner');
+  const subcat = document.getElementById('subcat').value;
+  if (!subcat) { showMsg('카테고리를 선택해주세요.', 'err'); return; }
+  const [catPath, subDir] = subcat.split('|');
+  btn.disabled = true; spinner.style.display = 'inline-block';
+  document.getElementById('msg-area').innerHTML = '';
+  try {
+    const res = await fetch(API, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        password: savedPw, catPath, subDir,
+        title: document.getElementById('title').value.trim(),
+        summary: document.getElementById('summary').value.trim(),
+        date: document.getElementById('date').value,
+        content: document.getElementById('content').value,
+      }),
+    });
+    const d = await res.json();
+    if (res.ok && d.ok) {
+      showMsg(`✅ 발행 완료! 1~2분 후 아래 주소에서 확인하세요.<br><span class="result-url"><a href="${d.url}" target="_blank">${d.url}</a></span>`, 'ok');
+      document.getElementById('publish-form').reset();
+      document.getElementById('date').value = new Date().toISOString().slice(0,10);
+    } else {
+      showMsg('❌ 오류: ' + (d.error || '알 수 없는 오류'), 'err');
+    }
+  } catch(err) {
+    showMsg('❌ 네트워크 오류: ' + err.message, 'err');
+  } finally {
+    btn.disabled = false; spinner.style.display = 'none';
+  }
+});
+
+// ── 글 관리 ───────────────────────────────────────
 document.getElementById('load-list-btn').addEventListener('click', async () => {
   const val = document.getElementById('manage-subcat').value;
   if (!val) { alert('카테고리를 선택해주세요.'); return; }
   const [catPath, subDir] = val.split('|');
   const wrap = document.getElementById('article-list-wrap');
   wrap.innerHTML = '<p style="color:#aaa;font-size:.85rem">불러오는 중...</p>';
-
   try {
     const res = await fetch(API.replace('/publish','/list-articles'), {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
+      method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({password:savedPw, catPath, subDir}),
     });
-    const data = await res.json();
-    if (!res.ok) { wrap.innerHTML = `<p style="color:#c00">${data.error}</p>`; return; }
-
-    if (!data.slugs.length) {
-      wrap.innerHTML = '<p class="empty-state">글이 없습니다.</p>';
-      return;
-    }
-
-    const rows = data.slugs.map(slug => `
+    const d = await res.json();
+    if (!res.ok) { wrap.innerHTML = `<p style="color:#c00">${d.error}</p>`; return; }
+    if (!d.slugs.length) { wrap.innerHTML = '<p class="empty-state">글이 없습니다.</p>'; return; }
+    const rows = d.slugs.map(slug => `
       <tr id="row-${slug}">
-        <td style="max-width:380px">
+        <td style="max-width:360px">
           <span class="slug-tag">${slug}</span>
-          <span id="title-${slug}" style="display:block;font-size:.82rem;color:#444;margin-top:.3rem">불러오는 중...</span>
+          <span id="title-${slug}" style="display:block;font-size:.8rem;color:#444;margin-top:.28rem">불러오는 중...</span>
         </td>
-        <td><a href="https://journal.rococops.com/${catPath}/${subDir}/${slug}/" target="_blank" style="color:#1a7f37;font-size:.82rem">보기 →</a></td>
-        <td>
-          <button class="btn-del" onclick="deleteArticle('${catPath}','${subDir}','${slug}',this)">삭제</button>
-        </td>
+        <td><a href="https://journal.rococops.com/${catPath}/${subDir}/${slug}/" target="_blank" style="color:#1a7f37;font-size:.8rem">보기 →</a></td>
+        <td><button class="btn-del" onclick="deleteArticle('${catPath}','${subDir}','${slug}',this)">삭제</button></td>
       </tr>`).join('');
-
     wrap.innerHTML = `
-      <table class="article-list-table">
+      <table class="data-table">
         <thead><tr><th>글</th><th>링크</th><th>삭제</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
-      <p style="font-size:.75rem;color:#aaa;margin-top:.75rem">총 ${data.slugs.length}개 (최신순)</p>`;
-
-    // 제목 비동기 로드
-    data.slugs.forEach(async slug => {
+      <p style="font-size:.73rem;color:#aaa;margin-top:.65rem">총 ${d.slugs.length}개</p>`;
+    d.slugs.forEach(async slug => {
       try {
         const r = await fetch(`https://journal.rococops.com/${catPath}/${subDir}/${slug}/`);
         const html = await r.text();
         const m = html.match(/<h1[^>]*class="article-title"[^>]*>([^<]+)<\/h1>/);
         const el = document.getElementById(`title-${slug}`);
         if (el) el.textContent = m ? m[1].trim() : '(제목 없음)';
-      } catch { /* 무시 */ }
+      } catch {}
     });
   } catch(e) {
     wrap.innerHTML = `<p style="color:#c00">오류: ${e.message}</p>`;
   }
 });
 
-// 삭제
 async function deleteArticle(catPath, subDir, slug, btn) {
   if (!confirm(`정말 삭제하시겠습니까?\n${catPath}/${subDir}/${slug}/`)) return;
-  btn.disabled = true;
-  btn.textContent = '삭제 중...';
+  btn.disabled = true; btn.textContent = '삭제 중...';
   try {
     const res = await fetch(API.replace('/publish','/delete'), {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
+      method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({password:savedPw, catPath, subDir, slug}),
     });
-    const data = await res.json();
-    if (res.ok && data.ok) {
-      btn.closest('tr').remove();
+    const d = await res.json();
+    if (res.ok && d.ok) {
+      document.getElementById('row-' + slug)?.remove();
       showMsg(`✅ ${catPath}/${subDir}/${slug}/ 삭제 완료`, 'ok');
     } else {
-      btn.disabled = false;
-      btn.textContent = '삭제';
-      alert('삭제 실패: ' + (data.error||''));
+      btn.disabled = false; btn.textContent = '삭제';
+      alert('삭제 실패: ' + (d.error||''));
     }
   } catch(e) {
-    btn.disabled = false;
-    btn.textContent = '삭제';
+    btn.disabled = false; btn.textContent = '삭제';
     alert('오류: ' + e.message);
   }
+}
+
+// ── 공통 ──────────────────────────────────────────
+function showMsg(html, type) {
+  const el = document.getElementById('msg-area');
+  el.innerHTML = `<div class="msg ${type}">${html}</div>`;
+  el.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 </script>
 </body>
