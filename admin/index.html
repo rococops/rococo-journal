@@ -86,6 +86,35 @@ textarea{height:360px;font-family:'SF Mono',Consolas,monospace;font-size:.8rem;l
 .stat-tile p{font-size:1.85rem;font-weight:800;color:var(--black);line-height:1}
 @media(max-width:560px){.stat-grid,.row{grid-template-columns:1fr}}
 
+/* 상담 목록 */
+.consult-table{width:100%;border-collapse:collapse;font-size:.84rem}
+.consult-table th{text-align:left;padding:.65rem .75rem;border-bottom:2px solid var(--gray-100);color:var(--gray-400);font-size:.73rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+.consult-table td{padding:.75rem .75rem;border-bottom:1px solid var(--gray-50);vertical-align:top}
+.consult-table tr:hover td{background:var(--gray-50)}
+.consult-name{font-weight:700;font-size:.88rem}
+.consult-phone{font-family:'SF Mono',Consolas,monospace;font-size:.78rem;color:var(--gray-600);margin-top:.2rem}
+.consult-badge{display:inline-block;font-size:.7rem;padding:.18rem .5rem;border-radius:99px;font-weight:700;margin-left:.4rem}
+.badge-call{background:#e8f4fd;color:#1565c0}
+.badge-kakao{background:#fff9c4;color:#795548}
+.consult-msg{font-size:.82rem;color:#444;margin-top:.25rem;line-height:1.55;white-space:pre-wrap;word-break:break-all}
+.consult-date{font-size:.74rem;color:var(--gray-400);white-space:nowrap}
+.consult-src{font-size:.72rem;color:var(--gray-400);margin-top:.15rem}
+
+/* 미니 캘린더 */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center}
+.cal-dow{font-size:.72rem;font-weight:700;color:var(--gray-400);padding:.4rem 0;letter-spacing:.05em}
+.cal-dow:first-child{color:#c0392b}
+.cal-dow:last-child{color:#1565c0}
+.cal-cell{border-radius:8px;padding:.55rem .25rem;font-size:.85rem;cursor:pointer;position:relative;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px;border:1px solid transparent;transition:background .12s}
+.cal-cell.empty{cursor:default}
+.cal-cell.today{border-color:var(--accent);font-weight:800}
+.cal-cell.has-data{background:var(--accent-dim)}
+.cal-cell.has-data:hover{background:#dcc9a8}
+.cal-cell.selected{background:var(--accent);color:#fff}
+.cal-cell .cal-count{font-size:.64rem;font-weight:700;background:var(--accent);color:#fff;border-radius:99px;padding:.08rem .38rem;line-height:1.4}
+.cal-cell.selected .cal-count{background:#fff;color:var(--accent)}
+.cal-day-num{font-size:.82rem;line-height:1}
+
 #login-screen,#admin-screen{display:none}
 #login-screen.active,#admin-screen.active{display:block}
 #login-screen{min-height:100vh;display:none;align-items:center;justify-content:center;background:var(--gray-50)}
@@ -129,7 +158,9 @@ textarea{height:360px;font-family:'SF Mono',Consolas,monospace;font-size:.8rem;l
 
     <div class="tabs">
       <button class="tab active" onclick="switchTab('write')">✏️ 새 글 작성</button>
-      <button class="tab" onclick="switchTab('manage')">📋 글 관리 (삭제)</button>
+      <button class="tab" onclick="switchTab('consult')">💬 상담 목록</button>
+      <button class="tab" onclick="switchTab('calendar')">📅 예약 캘린더</button>
+      <button class="tab" onclick="switchTab('manage')">📋 글 관리</button>
       <button class="tab" onclick="switchTab('stats')">📊 통계</button>
     </div>
 
@@ -227,7 +258,32 @@ textarea{height:360px;font-family:'SF Mono',Consolas,monospace;font-size:.8rem;l
     </form>
     </div><!-- /tab-write -->
 
-    <!-- 탭2: 글 관리 -->
+    <!-- 탭2: 상담 목록 -->
+    <div class="tab-panel" id="tab-consult">
+      <div class="card">
+        <p class="card-title">상담 신청 목록</p>
+        <div class="actions" style="margin-top:0;margin-bottom:1.25rem">
+          <button type="button" class="btn btn-sm" id="reload-consult-btn">↻ 새로고침</button>
+        </div>
+        <div id="consult-wrap"><p class="empty-state">탭을 클릭하면 자동으로 불러옵니다.</p></div>
+      </div>
+    </div>
+
+    <!-- 탭3: 예약 캘린더 -->
+    <div class="tab-panel" id="tab-calendar">
+      <div class="card">
+        <p class="card-title">예약 캘린더</p>
+        <div id="calendar-nav" style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem">
+          <button class="btn btn-sm" id="cal-prev">‹ 이전달</button>
+          <span id="cal-month-label" style="font-size:1rem;font-weight:800;flex:1;text-align:center"></span>
+          <button class="btn btn-sm" id="cal-next">다음달 ›</button>
+        </div>
+        <div id="calendar-wrap"></div>
+        <div id="cal-detail" style="margin-top:1.25rem"></div>
+      </div>
+    </div>
+
+    <!-- 탭4: 글 관리 -->
     <div class="tab-panel" id="tab-manage">
       <div class="card">
         <p class="card-title">글 관리 (삭제)</p>
@@ -426,15 +482,17 @@ function showMsg(html, type) {
 }
 
 // 탭 전환
+const TAB_ORDER = ['write', 'consult', 'calendar', 'manage', 'stats'];
 function switchTab(name) {
-  const order = ['write', 'manage', 'stats'];
-  document.querySelectorAll('.tab').forEach((t,i) => {
-    t.classList.toggle('active', order[i] === name);
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    t.classList.toggle('active', TAB_ORDER[i] === name);
   });
-  document.getElementById('tab-write').classList.toggle('active', name==='write');
-  document.getElementById('tab-manage').classList.toggle('active', name==='manage');
-  document.getElementById('tab-stats').classList.toggle('active', name==='stats');
+  TAB_ORDER.forEach(id => {
+    document.getElementById('tab-' + id).classList.toggle('active', id === name);
+  });
   if (name === 'stats') loadStats();
+  if (name === 'consult') loadConsult();
+  if (name === 'calendar') initCalendar();
 }
 
 // 통계 불러오기
@@ -479,6 +537,163 @@ async function loadStats() {
 }
 
 document.getElementById('reload-stats-btn').addEventListener('click', loadStats);
+
+// ── 상담 목록 ─────────────────────────────────────
+let consultCache = null;
+
+async function loadConsult(force) {
+  const wrap = document.getElementById('consult-wrap');
+  if (consultCache && !force) { renderConsult(consultCache, wrap); return; }
+  wrap.innerHTML = '<p style="color:#aaa;font-size:.85rem">불러오는 중...</p>';
+  try {
+    const res = await fetch(`${API.replace('/publish','/inquiries')}?password=${encodeURIComponent(savedPw)}`);
+    const data = await res.json();
+    if (!res.ok) { wrap.innerHTML = `<p style="color:#c00">${data.error}</p>`; return; }
+    consultCache = data.inquiries || [];
+    renderConsult(consultCache, wrap);
+  } catch(e) {
+    wrap.innerHTML = `<p style="color:#c00">오류: ${e.message}</p>`;
+  }
+}
+
+function renderConsult(list, wrap) {
+  if (!list.length) { wrap.innerHTML = '<p class="empty-state">상담 신청이 없습니다.</p>'; return; }
+  const rows = list.map(q => {
+    const dt = new Date(q.created_at);
+    const dateStr = dt.toLocaleDateString('ko-KR', {year:'numeric',month:'2-digit',day:'2-digit'});
+    const timeStr = dt.toLocaleTimeString('ko-KR', {hour:'2-digit',minute:'2-digit'});
+    const badge = q.contact_method === '카카오톡'
+      ? '<span class="consult-badge badge-kakao">카카오톡</span>'
+      : '<span class="consult-badge badge-call">전화</span>';
+    return `<tr>
+      <td>
+        <div class="consult-name">${esc(q.name)}${badge}</div>
+        <div class="consult-phone">${esc(q.phone)}</div>
+        <div class="consult-msg">${esc(q.message)}</div>
+        <div class="consult-src">${esc(q.source||'')}</div>
+      </td>
+      <td class="consult-date">${dateStr}<br>${timeStr}</td>
+    </tr>`;
+  }).join('');
+  wrap.innerHTML = `
+    <table class="consult-table">
+      <thead><tr><th>문의 내용</th><th>일시</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <p style="font-size:.74rem;color:#aaa;margin-top:.75rem">총 ${list.length}건</p>`;
+}
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+document.getElementById('reload-consult-btn').addEventListener('click', () => {
+  consultCache = null;
+  loadConsult(true);
+});
+
+// ── 예약 캘린더 ───────────────────────────────────
+let calYear, calMonth, calData = null;
+
+function initCalendar() {
+  if (calYear === undefined) {
+    const now = new Date();
+    calYear = now.getFullYear();
+    calMonth = now.getMonth();
+  }
+  if (calData) { renderCalendar(); return; }
+  fetchCalData();
+}
+
+async function fetchCalData() {
+  document.getElementById('calendar-wrap').innerHTML = '<p style="color:#aaa;font-size:.85rem">불러오는 중...</p>';
+  try {
+    const res = await fetch(`${API.replace('/publish','/inquiries')}?password=${encodeURIComponent(savedPw)}`);
+    const data = await res.json();
+    if (!res.ok) { document.getElementById('calendar-wrap').innerHTML = `<p style="color:#c00">${data.error}</p>`; return; }
+    // 날짜별 카운트
+    calData = {};
+    (data.inquiries || []).forEach(q => {
+      const d = q.created_at.slice(0, 10);
+      calData[d] = (calData[d] || []);
+      calData[d].push(q);
+    });
+    consultCache = data.inquiries;
+    renderCalendar();
+  } catch(e) {
+    document.getElementById('calendar-wrap').innerHTML = `<p style="color:#c00">오류: ${e.message}</p>`;
+  }
+}
+
+function renderCalendar() {
+  const label = document.getElementById('cal-month-label');
+  label.textContent = `${calYear}년 ${calMonth + 1}월`;
+
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+  const today = new Date().toISOString().slice(0, 10);
+
+  const dows = ['일','월','화','수','목','금','토'];
+  let html = '<div class="cal-grid">';
+  dows.forEach(d => { html += `<div class="cal-dow">${d}</div>`; });
+
+  for (let i = 0; i < firstDay; i++) html += '<div class="cal-cell empty"></div>';
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateStr = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const entries = (calData && calData[dateStr]) || [];
+    const isToday = dateStr === today;
+    const hasData = entries.length > 0;
+    let cls = 'cal-cell';
+    if (hasData) cls += ' has-data';
+    if (isToday) cls += ' today';
+    const countBadge = hasData ? `<span class="cal-count">${entries.length}</span>` : '';
+    html += `<div class="${cls}" onclick="showCalDetail('${dateStr}')">
+      <span class="cal-day-num">${d}</span>${countBadge}
+    </div>`;
+  }
+  html += '</div>';
+  document.getElementById('calendar-wrap').innerHTML = html;
+  document.getElementById('cal-detail').innerHTML = '';
+}
+
+function showCalDetail(dateStr) {
+  // 선택 셀 표시
+  document.querySelectorAll('.cal-cell').forEach(el => el.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+
+  const entries = (calData && calData[dateStr]) || [];
+  const det = document.getElementById('cal-detail');
+  if (!entries.length) { det.innerHTML = `<p class="empty-state">${dateStr} — 상담 신청 없음</p>`; return; }
+  const rows = entries.map(q => {
+    const badge = q.contact_method === '카카오톡'
+      ? '<span class="consult-badge badge-kakao">카카오톡</span>'
+      : '<span class="consult-badge badge-call">전화</span>';
+    const time = new Date(q.created_at).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+    return `<tr>
+      <td><div class="consult-name">${esc(q.name)}${badge}</div><div class="consult-phone">${esc(q.phone)}</div></td>
+      <td><div class="consult-msg">${esc(q.message)}</div></td>
+      <td class="consult-date">${time}</td>
+    </tr>`;
+  }).join('');
+  det.innerHTML = `
+    <p style="font-size:.82rem;font-weight:700;margin-bottom:.75rem;color:var(--gray-600)">${dateStr} 상담 신청 ${entries.length}건</p>
+    <table class="consult-table">
+      <thead><tr><th>이름</th><th>문의</th><th>시간</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+document.getElementById('cal-prev').addEventListener('click', () => {
+  calMonth--;
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  renderCalendar();
+});
+document.getElementById('cal-next').addEventListener('click', () => {
+  calMonth++;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  renderCalendar();
+});
 
 // 글 목록 불러오기
 document.getElementById('load-list-btn').addEventListener('click', async () => {
