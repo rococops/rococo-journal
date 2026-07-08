@@ -17,30 +17,36 @@
 <style>
 @import url('https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css');
 :root{
-  --black:#111;--sidebar:#181818;--sidebar-w:210px;
-  --gray-50:#f8f8f6;--gray-100:#efefed;--gray-200:#dedede;--gray-400:#999;--gray-600:#555;
-  --accent:#b8956a;--accent-dim:#e8dcc8;--accent-dark:#9a7a55;
-  --green:#2e7d32;--green-light:#e8f5e9;
-  --radius:10px;--font:'NanumSquare','Apple SD Gothic Neo',Pretendard,sans-serif
+  --black:#0f1117;--sidebar:#13151a;--sidebar-w:220px;
+  --gray-50:#f7f8fa;--gray-100:#eef0f3;--gray-200:#dde0e6;--gray-400:#9097a6;--gray-600:#555e6e;
+  --accent:#b8956a;/* 브랜드 골드 — 로고/강조만 */
+  --adm:#3b6b4a;/* 어드민 포인트 — 다크 세이지 */
+  --adm-light:#eef5f1;
+  --green:#2a7a40;--green-bg:#edf7f1;
+  --red:#c0392b;--red-bg:#fdf2f2;
+  --radius:12px;--radius-sm:8px;
+  --shadow:0 1px 3px rgba(0,0,0,.06),0 8px 28px -6px rgba(0,0,0,.1);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04),0 3px 10px -2px rgba(0,0,0,.06);
+  --font:'NanumSquare','Apple SD Gothic Neo',Pretendard,sans-serif
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webkit-font-smoothing:antialiased}
 
 /* ── 로그인 ── */
-#login-screen{display:none;min-height:100vh;align-items:center;justify-content:center;background:var(--gray-50)}
+#login-screen{display:none;min-height:100vh;align-items:center;justify-content:center;background:#f0f2f5}
 #login-screen.active{display:flex}
-.login-wrap{max-width:380px;width:100%;padding:0 1.5rem}
-.login-card{background:#fff;border-radius:var(--radius);padding:2.5rem 2rem;box-shadow:0 4px 32px rgba(0,0,0,.08);border-top:3px solid var(--accent);text-align:center}
-.login-logo{font-size:1.4rem;font-weight:800;letter-spacing:.08em;margin-bottom:.2rem}
+.login-wrap{max-width:400px;width:100%;padding:0 1.5rem}
+.login-card{background:#fff;border-radius:16px;padding:3rem 2.5rem 2.5rem;box-shadow:0 4px 6px rgba(0,0,0,.04),0 20px 60px rgba(0,0,0,.1);text-align:center}
+.login-logo{font-size:1.5rem;font-weight:800;letter-spacing:.08em;margin-bottom:.25rem}
 .login-logo em{font-style:italic;font-weight:400;color:var(--accent)}
-.login-sub{font-size:.8rem;color:var(--gray-400);margin-bottom:2rem;letter-spacing:.02em}
-.login-field label{display:block;font-size:.76rem;font-weight:700;color:var(--gray-600);margin-bottom:.4rem;text-align:left}
-.login-field input{width:100%;padding:.7rem 1rem;border:1.5px solid var(--gray-200);border-radius:8px;font-size:.9rem;font-family:inherit}
-.login-field input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(184,149,106,.15)}
-.login-btn{margin-top:1.25rem;width:100%;padding:.8rem;border:none;border-radius:8px;background:var(--black);color:#fff;font-size:.9rem;font-weight:700;font-family:inherit;cursor:pointer;transition:background .15s}
-.login-btn:hover{background:#2a2a2a}
-.login-btn:disabled{background:var(--gray-400);cursor:not-allowed}
-.login-err{color:#c00;font-size:.8rem;margin-top:.75rem;display:none}
+.login-sub{font-size:.8rem;color:var(--gray-400);margin-bottom:2.25rem;letter-spacing:.02em}
+.login-field label{display:block;font-size:.76rem;font-weight:700;color:var(--gray-600);margin-bottom:.45rem;text-align:left}
+.login-field input{width:100%;padding:.78rem 1rem;border:1.5px solid var(--gray-200);border-radius:10px;font-size:.9rem;font-family:inherit;transition:border .15s,box-shadow .15s}
+.login-field input:focus{outline:none;border-color:var(--adm);box-shadow:0 0 0 3px rgba(59,107,74,.12)}
+.login-btn{margin-top:1.4rem;width:100%;padding:.85rem;border:none;border-radius:10px;background:var(--black);color:#fff;font-size:.92rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .15s;letter-spacing:.01em}
+.login-btn:hover{background:#222;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.login-btn:disabled{background:var(--gray-400);cursor:not-allowed;box-shadow:none}
+.login-err{color:#c0392b;font-size:.8rem;margin-top:.8rem;display:none}
 
 /* ── 어드민 레이아웃 ── */
 #admin-screen{display:none}
@@ -48,84 +54,84 @@ body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webki
 
 /* 사이드바 */
 .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--sidebar);color:#fff;display:flex;flex-direction:column;position:fixed;top:0;left:0;z-index:100}
-.sidebar-logo{padding:1.6rem 1.4rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.08)}
-.sidebar-logo p{font-size:1rem;font-weight:800;letter-spacing:.06em;line-height:1.2}
+.sidebar-logo{padding:1.75rem 1.5rem 1.4rem;border-bottom:1px solid rgba(255,255,255,.07)}
+.sidebar-logo p{font-size:1.05rem;font-weight:800;letter-spacing:.06em;line-height:1.2}
 .sidebar-logo em{font-style:italic;font-weight:400;color:var(--accent)}
-.sidebar-logo span{display:block;font-size:.68rem;color:rgba(255,255,255,.35);margin-top:.2rem;letter-spacing:.05em}
-.nav-section{padding:.9rem 0 .4rem}
-.nav-label{font-size:.65rem;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:.1em;padding:.1rem 1.4rem .55rem;text-transform:uppercase}
-.nav-item{display:flex;align-items:center;gap:.65rem;padding:.6rem 1.4rem;font-size:.83rem;font-weight:700;color:rgba(255,255,255,.55);cursor:pointer;border-left:3px solid transparent;transition:all .15s;user-select:none}
-.nav-item:hover{color:#fff;background:rgba(255,255,255,.06)}
-.nav-item.active{color:#fff;background:rgba(184,149,106,.15);border-left-color:var(--accent)}
-.nav-item .nav-icon{font-size:.95rem;width:1.1rem;text-align:center}
-.sidebar-footer{margin-top:auto;padding:.75rem 0;border-top:1px solid rgba(255,255,255,.08)}
-.nav-item.danger{color:rgba(255,100,100,.6)}
-.nav-item.danger:hover{color:#ff6b6b;background:rgba(255,100,100,.08)}
+.sidebar-logo span{display:block;font-size:.67rem;color:rgba(255,255,255,.28);margin-top:.3rem;letter-spacing:.08em;text-transform:uppercase}
+.nav-section{padding:.85rem 0 .3rem}
+.nav-label{font-size:.62rem;font-weight:700;color:rgba(255,255,255,.25);letter-spacing:.12em;padding:.1rem 1.5rem .5rem;text-transform:uppercase}
+.nav-item{display:flex;align-items:center;gap:.7rem;padding:.62rem 1.5rem;font-size:.82rem;font-weight:700;color:rgba(255,255,255,.48);cursor:pointer;border-left:2px solid transparent;transition:all .15s;user-select:none;margin:1px 0}
+.nav-item:hover{color:rgba(255,255,255,.9);background:rgba(255,255,255,.05)}
+.nav-item.active{color:#fff;background:rgba(255,255,255,.08);border-left-color:var(--accent)}
+.nav-item .nav-icon{font-size:.88rem;width:1rem;text-align:center;opacity:.8}
+.sidebar-footer{margin-top:auto;padding:.6rem 0;border-top:1px solid rgba(255,255,255,.07)}
+.nav-item.danger{color:rgba(255,90,90,.5)}
+.nav-item.danger:hover{color:#ff7070;background:rgba(255,90,90,.07)}
 
 /* 메인 */
-.main{margin-left:var(--sidebar-w);flex:1;padding:2rem 2.25rem 4rem;min-height:100vh}
+.main{margin-left:var(--sidebar-w);flex:1;padding:2.25rem 2.5rem 5rem;min-height:100vh;background:#f0f2f5}
 .page{display:none}
 .page.active{display:block}
-.page-header{margin-bottom:1.75rem}
-.page-title{font-size:1.35rem;font-weight:800;letter-spacing:-.01em}
-.page-sub{font-size:.82rem;color:var(--gray-400);margin-top:.25rem}
+.page-header{margin-bottom:2rem}
+.page-title{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;color:var(--black)}
+.page-sub{font-size:.82rem;color:var(--gray-400);margin-top:.3rem;line-height:1.5}
 
 /* 카드 */
-.card{background:#fff;border-radius:var(--radius);padding:1.75rem 2rem;margin-bottom:1.25rem;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px -8px rgba(0,0,0,.06);border:1px solid var(--gray-100)}
-.card-title{font-size:.9rem;font-weight:800;margin-bottom:1.3rem;padding-bottom:.8rem;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;gap:.5rem}
-.card-title::before{content:'';width:3px;height:13px;background:var(--accent);border-radius:2px;display:inline-block}
+.card{background:#fff;border-radius:var(--radius);padding:1.75rem 2rem;margin-bottom:1.25rem;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,.04)}
+.card-title{font-size:.88rem;font-weight:800;margin-bottom:1.3rem;padding-bottom:.8rem;border-bottom:1px solid var(--gray-100);color:var(--black)}
 
 /* 대시보드 stat tiles */
-.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
-.stat-tile{background:#fff;border-radius:var(--radius);padding:1.4rem 1.6rem;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px -8px rgba(0,0,0,.06);border:1px solid var(--gray-100);border-top:3px solid var(--accent)}
-.stat-tile .st-label{font-size:.74rem;font-weight:700;color:var(--gray-400);margin-bottom:.55rem;letter-spacing:.02em}
-.stat-tile .st-val{font-size:2rem;font-weight:800;line-height:1;letter-spacing:-.02em}
-.stat-tile .st-diff{font-size:.74rem;margin-top:.45rem;font-weight:700}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;margin-bottom:1.4rem}
+.stat-tile{background:#fff;border-radius:var(--radius);padding:1.5rem 1.75rem;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,.04)}
+.stat-tile .st-label{font-size:.75rem;font-weight:700;color:var(--gray-400);margin-bottom:.6rem;letter-spacing:.02em}
+.stat-tile .st-val{font-size:2.1rem;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--black)}
+.stat-tile .st-diff{font-size:.73rem;margin-top:.5rem;font-weight:700;display:flex;align-items:center;gap:.25rem}
 .st-diff.up{color:var(--green)}
-.st-diff.down{color:#c0392b}
+.st-diff.down{color:var(--red)}
 .st-diff.neutral{color:var(--gray-400)}
 
 /* 차트 영역 */
-.chart-row{display:grid;grid-template-columns:2fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
-.chart-wrap{position:relative;height:260px}
+.chart-row{display:grid;grid-template-columns:2fr 1fr;gap:1.2rem;margin-bottom:1.2rem}
+.chart-wrap{position:relative;height:240px}
 
 /* 폼 */
-.field{margin-bottom:1.1rem}
-.field label{display:block;font-size:.76rem;font-weight:700;color:var(--gray-600);margin-bottom:.38rem;letter-spacing:.01em}
-.field input,.field select,.field textarea{width:100%;padding:.65rem .9rem;border:1.5px solid var(--gray-200);border-radius:8px;font-size:.89rem;font-family:inherit;background:#fff;transition:border .15s,box-shadow .15s}
-.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(184,149,106,.15)}
+.field{margin-bottom:1.15rem}
+.field label{display:block;font-size:.75rem;font-weight:700;color:var(--gray-600);margin-bottom:.42rem;letter-spacing:.01em}
+.field input,.field select,.field textarea{width:100%;padding:.68rem 1rem;border:1.5px solid var(--gray-200);border-radius:10px;font-size:.89rem;font-family:inherit;background:#fff;transition:border .15s,box-shadow .15s;color:var(--black)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--adm);box-shadow:0 0 0 3px rgba(59,107,74,.1)}
 .field textarea{height:340px;font-family:'SF Mono',Consolas,monospace;font-size:.79rem;line-height:1.6;resize:vertical}
-.hint{font-size:.74rem;color:var(--gray-400);margin-top:.38rem;line-height:1.6}
+.hint{font-size:.73rem;color:var(--gray-400);margin-top:.4rem;line-height:1.6}
 .hint strong{color:var(--gray-600)}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 
 /* 버튼 */
-.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.65rem 1.5rem;border:none;border-radius:8px;font-size:.86rem;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.68rem 1.6rem;border:none;border-radius:10px;font-size:.86rem;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit;letter-spacing:.01em}
 .btn-primary{background:var(--black);color:#fff}
-.btn-primary:hover{background:#2a2a2a}
-.btn-primary:disabled{background:var(--gray-400);cursor:not-allowed}
-.btn-sm{padding:.38rem .85rem;font-size:.78rem;background:var(--gray-100);color:var(--black);border:none;border-radius:7px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s}
-.btn-sm:hover{background:var(--black);color:#fff}
-.btn-del{padding:.38rem .85rem;border:none;border-radius:7px;font-size:.77rem;font-weight:700;cursor:pointer;background:#fdf2f2;color:#c0392b;transition:all .15s;font-family:inherit}
-.btn-del:hover{background:#c0392b;color:#fff}
-.actions{display:flex;gap:.7rem;align-items:center;flex-wrap:wrap;margin-top:1.3rem}
+.btn-primary:hover{background:#222;box-shadow:0 4px 12px rgba(0,0,0,.18)}
+.btn-primary:disabled{background:var(--gray-400);cursor:not-allowed;box-shadow:none}
+.btn-sm{padding:.42rem .9rem;font-size:.78rem;background:#fff;color:var(--black);border:1.5px solid var(--gray-200);border-radius:8px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s}
+.btn-sm:hover{background:var(--gray-100);border-color:var(--gray-400)}
+.btn-del{padding:.4rem .9rem;border:none;border-radius:8px;font-size:.77rem;font-weight:700;cursor:pointer;background:var(--red-bg);color:var(--red);transition:all .15s;font-family:inherit}
+.btn-del:hover{background:var(--red);color:#fff}
+.actions{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;margin-top:1.4rem}
 .spinner{display:none;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* 메시지 */
-.msg{padding:.85rem 1.1rem;border-radius:9px;margin-bottom:1.1rem;font-size:.86rem;line-height:1.6;border-left:3px solid transparent}
-.msg.ok{background:#f0f9f1;color:#1f5e2c;border-left-color:#3a9450}
-.msg.err{background:#fdf2f2;color:#8b1a1a;border-left-color:#c0392b}
-.result-url{font-family:'SF Mono',Consolas,monospace;font-size:.78rem;background:var(--gray-50);padding:.45rem .75rem;border-radius:6px;word-break:break-all;margin-top:.45rem;display:block;border:1px solid var(--gray-100)}
-.result-url a{color:var(--accent);font-weight:700}
+.msg{padding:.9rem 1.15rem;border-radius:10px;margin-bottom:1.15rem;font-size:.86rem;line-height:1.6;border-left:3px solid transparent}
+.msg.ok{background:var(--green-bg);color:#1a5c2e;border-left-color:var(--green)}
+.msg.err{background:var(--red-bg);color:#7a1a1a;border-left-color:var(--red)}
+.result-url{font-family:'SF Mono',Consolas,monospace;font-size:.77rem;background:var(--gray-50);padding:.48rem .8rem;border-radius:8px;word-break:break-all;margin-top:.5rem;display:block;border:1px solid var(--gray-100)}
+.result-url a{color:var(--adm);font-weight:700}
 
 /* 테이블 */
 .data-table{width:100%;border-collapse:collapse;font-size:.83rem}
-.data-table th{text-align:left;padding:.65rem .75rem;border-bottom:2px solid var(--gray-100);color:var(--gray-400);font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
-.data-table td{padding:.72rem .75rem;border-bottom:1px solid var(--gray-50);vertical-align:top}
+.data-table th{text-align:left;padding:.65rem .8rem;border-bottom:2px solid var(--gray-100);color:var(--gray-400);font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.data-table td{padding:.75rem .8rem;border-bottom:1px solid var(--gray-100);vertical-align:top}
+.data-table tr:last-child td{border-bottom:none}
 .data-table tr:hover td{background:var(--gray-50)}
-.slug-tag{font-family:'SF Mono',Consolas,monospace;font-size:.74rem;background:var(--gray-100);padding:.2rem .48rem;border-radius:5px;color:var(--gray-600)}
-.empty-state{text-align:center;padding:2.5rem 1rem;color:var(--gray-400);font-size:.86rem}
+.slug-tag{font-family:'SF Mono',Consolas,monospace;font-size:.73rem;background:var(--gray-100);padding:.2rem .5rem;border-radius:6px;color:var(--gray-600)}
+.empty-state{text-align:center;padding:3rem 1rem;color:var(--gray-400);font-size:.85rem}
 
 /* 상담 */
 .consult-name{font-weight:700;font-size:.87rem}
@@ -245,10 +251,26 @@ body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webki
       </div>
 
       <div class="stat-row" id="dash-stats">
-        <div class="stat-tile"><p class="st-label">오늘 방문</p><p class="st-val" id="s-today">—</p></div>
-        <div class="stat-tile"><p class="st-label">최근 7일</p><p class="st-val" id="s-week">—</p></div>
-        <div class="stat-tile"><p class="st-label">전체 누적</p><p class="st-val" id="s-total">—</p></div>
-        <div class="stat-tile"><p class="st-label">상담 신청 (30일)</p><p class="st-val" id="s-consult">—</p></div>
+        <div class="stat-tile">
+          <p class="st-label">오늘 방문</p>
+          <p class="st-val" id="s-today">—</p>
+          <p class="st-diff neutral" id="s-today-diff"></p>
+        </div>
+        <div class="stat-tile">
+          <p class="st-label">최근 7일</p>
+          <p class="st-val" id="s-week">—</p>
+          <p class="st-diff neutral" id="s-week-diff"></p>
+        </div>
+        <div class="stat-tile">
+          <p class="st-label">전체 누적</p>
+          <p class="st-val" id="s-total">—</p>
+          <p class="st-diff neutral" id="s-total-diff"></p>
+        </div>
+        <div class="stat-tile">
+          <p class="st-label">상담 신청 (30일)</p>
+          <p class="st-val" id="s-consult">—</p>
+          <p class="st-diff neutral" id="s-consult-diff"></p>
+        </div>
       </div>
 
       <div class="chart-row">
@@ -549,6 +571,18 @@ async function loadDashboard() {
     document.getElementById('s-total').textContent = d.total.toLocaleString();
     document.getElementById('s-consult').textContent = d.consultCount30?.toLocaleString() ?? '—';
 
+    // 30일 데이터로 전반기/후반기 비교
+    if (d.dailyViews && d.dailyViews.length === 30) {
+      const prev15 = d.dailyViews.slice(0,15).reduce((s,v)=>s+v.count,0);
+      const curr15 = d.dailyViews.slice(15).reduce((s,v)=>s+v.count,0);
+      const diffEl = document.getElementById('s-week-diff');
+      if (prev15 > 0) {
+        const pct = Math.round((curr15 - prev15) / prev15 * 100);
+        diffEl.textContent = (pct >= 0 ? '▲ ' : '▼ ') + Math.abs(pct) + '% 전반기 대비';
+        diffEl.className = 'st-diff ' + (pct >= 0 ? 'up' : 'down');
+      }
+    }
+
     // 일별 방문 차트
     const labels = d.dailyViews.map(v => v.date.slice(5));
     const values = d.dailyViews.map(v => v.count);
@@ -560,27 +594,31 @@ async function loadDashboard() {
         datasets: [{
           label: '방문수',
           data: values,
-          borderColor: '#2e7a4f',
-          backgroundColor: 'rgba(46,122,79,.12)',
+          borderColor: '#3b6b4a',
+          backgroundColor: 'rgba(59,107,74,.09)',
           fill: true,
-          tension: 0.35,
-          pointRadius: 2,
-          borderWidth: 2,
+          tension: 0.4,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          borderWidth: 2.5,
         }]
       },
       options: {
         responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
+        plugins: { legend: { display: false }, tooltip: { mode: 'index', intersect: false } },
         scales: {
-          x: { grid: { display: false }, ticks: { font: { size: 10 }, maxRotation: 0, maxTicksLimit: 10 } },
-          y: { beginAtZero: true, grid: { color: '#f0f0ee' }, ticks: { font: { size: 10 } } }
+          x: { grid: { display: false }, border: { display: false }, ticks: { font: { size: 10, family: 'NanumSquare' }, color: '#9097a6', maxRotation: 0, maxTicksLimit: 8 } },
+          y: { beginAtZero: true, border: { display: false }, grid: { color: 'rgba(0,0,0,.05)' }, ticks: { font: { size: 10, family: 'NanumSquare' }, color: '#9097a6' } }
         }
       }
     });
 
     // 인기 페이지 차트
     const top7 = d.topPages.slice(0, 7);
-    const pageLabels = top7.map(p => p.path.replace(/^\/|\/$/g,'').split('/').pop() || '홈');
+    const pageLabels = top7.map(p => {
+      const parts = p.path.replace(/^\/|\/$/g,'').split('/');
+      return parts.slice(-2).join('/') || '홈';
+    });
     const pageVals = top7.map(p => p.count);
     if (chartPages) chartPages.destroy();
     chartPages = new Chart(document.getElementById('chart-pages'), {
@@ -589,8 +627,9 @@ async function loadDashboard() {
         labels: pageLabels,
         datasets: [{
           data: pageVals,
-          backgroundColor: '#6b9e7a',
-          borderRadius: 5,
+          backgroundColor: ['#3b6b4a','#4e8060','#618e70','#759b80','#8aaa91','#a0bba4','#b6ccb8'],
+          borderRadius: 6,
+          borderSkipped: false,
         }]
       },
       options: {
@@ -598,8 +637,8 @@ async function loadDashboard() {
         indexAxis: 'y',
         plugins: { legend: { display: false } },
         scales: {
-          x: { beginAtZero: true, grid: { color: '#f0f0ee' }, ticks: { font: { size: 10 } } },
-          y: { grid: { display: false }, ticks: { font: { size: 10 } } }
+          x: { beginAtZero: true, border: { display: false }, grid: { color: 'rgba(0,0,0,.05)' }, ticks: { font: { size: 10, family: 'NanumSquare' }, color: '#9097a6' } },
+          y: { border: { display: false }, grid: { display: false }, ticks: { font: { size: 10, family: 'NanumSquare' }, color: '#555e6e' } }
         }
       }
     });
