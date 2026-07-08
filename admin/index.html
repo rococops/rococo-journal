@@ -245,9 +245,14 @@ body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webki
 
     <!-- 대시보드 -->
     <div class="page active" id="page-dashboard">
-      <div class="page-header">
-        <h1 class="page-title">대시보드</h1>
-        <p class="page-sub">방문자 현황과 상담 신청을 한눈에 확인하세요.</p>
+      <div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem">
+        <div>
+          <h1 class="page-title">대시보드</h1>
+          <p class="page-sub">방문자 현황과 상담 신청을 한눈에 확인하세요.</p>
+        </div>
+        <a href="https://analytics.google.com/" target="_blank" class="btn-sm" style="white-space:nowrap;text-decoration:none;margin-top:.25rem">
+          📈 Google 애널리틱스 열기 →
+        </a>
       </div>
 
       <div class="stat-row" id="dash-stats">
