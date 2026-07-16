@@ -1036,8 +1036,6 @@ document.querySelectorAll('.nav-item').forEach(el => {
 });
 
 // ── 예약 관리 ───────────────────────────────────
-const RESV_API = API.replace('/publish', '/reservations');
-const SCHED_API = API.replace('/publish', '/schedule');
 const RESV_STATUS = { new:'신규', confirmed:'확정', cancelled:'취소' };
 const RESV_BADGE  = { new:'sb-new', confirmed:'sb-done', cancelled:'sb-inprogress' };
 let resvCache = null, resvFilter = 'all', scheduleData = null;
