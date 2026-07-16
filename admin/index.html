@@ -184,6 +184,16 @@ body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webki
 .cal-day-num{font-size:.8rem;line-height:1}
 .cal-detail{margin-top:1.25rem}
 
+/* 모바일 상단바 */
+.mob-topbar{display:none;position:fixed;top:0;left:0;right:0;height:52px;background:var(--sidebar);z-index:200;align-items:center;padding:0 1rem;gap:.75rem}
+.mob-topbar-logo{font-size:.95rem;font-weight:800;letter-spacing:.06em;color:#fff;flex:1}
+.mob-topbar-logo em{font-style:italic;font-weight:400;color:var(--accent)}
+.mob-menu-btn{background:none;border:none;cursor:pointer;padding:.4rem;color:rgba(255,255,255,.8);display:flex;flex-direction:column;gap:4px}
+.mob-menu-btn span{display:block;width:20px;height:2px;background:currentColor;border-radius:2px;transition:all .2s}
+/* 오버레이 */
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99;opacity:0;transition:opacity .28s}
+.sidebar-overlay.open{opacity:1}
+
 @media(max-width:900px){
   .stat-row{grid-template-columns:repeat(2,1fr)}
   .chart-row{grid-template-columns:1fr}
@@ -191,8 +201,11 @@ body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webki
   .main{margin-left:180px}
 }
 @media(max-width:640px){
-  .sidebar{display:none}
-  .main{margin-left:0}
+  .sidebar{transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);width:240px;display:flex}
+  .sidebar.open{transform:translateX(0)}
+  .sidebar-overlay{display:block}
+  .mob-topbar{display:flex}
+  .main{margin-left:0;padding:4rem 1rem 4rem}
   .row2{grid-template-columns:1fr}
 }
 </style>
@@ -218,8 +231,18 @@ body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webki
 <!-- 어드민 -->
 <div id="admin-screen">
 
+  <!-- 모바일 상단바 -->
+  <div class="mob-topbar">
+    <button class="mob-menu-btn" id="mob-menu-btn" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="mob-topbar-logo">ROCOCO <em>Journal</em></div>
+  </div>
+  <!-- 오버레이 -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
   <!-- 사이드바 -->
-  <nav class="sidebar">
+  <nav class="sidebar" id="adm-sidebar">
     <div class="sidebar-logo">
       <p>ROCOCO <em>Journal</em></p>
       <span>관리자 패널</span>
@@ -890,6 +913,26 @@ document.getElementById('btn-csv').addEventListener('click', downloadCSV);
 document.getElementById('reload-consult-btn').addEventListener('click', () => {
   consultCache = null;
   loadConsult(true);
+});
+
+// ── 모바일 사이드바 토글 ──────────────────────────
+function openSidebar() {
+  document.getElementById('adm-sidebar').classList.add('open');
+  const ov = document.getElementById('sidebar-overlay');
+  ov.style.display = 'block';
+  requestAnimationFrame(() => ov.classList.add('open'));
+}
+function closeSidebar() {
+  document.getElementById('adm-sidebar').classList.remove('open');
+  const ov = document.getElementById('sidebar-overlay');
+  ov.classList.remove('open');
+  setTimeout(() => { ov.style.display = 'none'; }, 280);
+}
+document.getElementById('mob-menu-btn').addEventListener('click', openSidebar);
+document.getElementById('sidebar-overlay').addEventListener('click', closeSidebar);
+// 메뉴 항목 클릭 시 자동 닫기
+document.querySelectorAll('.nav-item').forEach(el => {
+  el.addEventListener('click', () => { if (window.innerWidth <= 640) closeSidebar(); });
 });
 
 // ── 예약 캘린더 ───────────────────────────────────
