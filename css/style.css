@@ -618,6 +618,23 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .footer-bottom a:hover { color: var(--black); }
 
+/* 글로벌(en/ja/zh) 푸터 */
+.footer-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 1.5rem 2rem;
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+.footer-col { flex: 1; min-width: 160px; }
+.footer-col p { font-size: 0.83rem; color: #aaa; line-height: 1.9; margin-bottom: 0.3rem; }
+.footer-col .footer-title { color: #fff; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; margin-bottom: 0.85rem; }
+.footer-col a { font-size: 0.83rem; line-height: 1.9; }
+
+/* 번역 안내 — JS로 비한국어 브라우저에서만 표시 */
+.translate-notice { display: none; }
+
 /* ===========================
    RESPONSIVE
    =========================== */
