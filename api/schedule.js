@@ -3,9 +3,11 @@ import { createClient } from '@supabase/supabase-js';
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const origin = req.headers.origin || '';
+  const allowed = ['https://journal.rococops.com','https://rococo-journal-api.vercel.app'];
+  res.setHeader('Access-Control-Allow-Origin', allowed.includes(origin) ? origin : allowed[0]);
   res.setHeader('Access-Control-Allow-Methods', 'GET, PATCH, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   if (req.method === 'GET') {
@@ -15,7 +17,7 @@ export default async function handler(req, res) {
   }
 
   if (req.method === 'PATCH') {
-    const password = req.body?.password;
+    const password = (req.headers.authorization||'').replace('Bearer ','') || req.body?.password;
     if (password !== process.env.ADMIN_PASSWORD) return res.status(401).json({ error: '인증 실패' });
     const { schedule } = req.body || {};
     if (!schedule) return res.status(400).json({ error: 'schedule 필요' });

@@ -605,7 +605,12 @@ body{overflow-x:hidden}
 </div>
 
 <script>
-const API = 'https://rococo-journal-api.vercel.app/api/publish';
+const API       = 'https://rococo-journal-api.vercel.app/api/publish';
+const STATS_API = 'https://rococo-journal-api.vercel.app/api/stats';
+const INQ_API   = 'https://rococo-journal-api.vercel.app/api/inquiries';
+const RESV_API  = 'https://rococo-journal-api.vercel.app/api/reservations';
+const SCHED_API = 'https://rococo-journal-api.vercel.app/api/schedule';
+function authHead(extra) { return Object.assign({'Authorization':'Bearer '+savedPw}, extra||{}); }
 let savedPw = '';
 let chartDaily = null, chartPages = null;
 let consultCache = null, calData = null;
@@ -679,7 +684,7 @@ document.querySelectorAll('.nav-item[data-page]').forEach(el => {
 // ── 대시보드 ─────────────────────────────────────
 async function loadDashboard() {
   try {
-    const res = await fetch(`${API.replace('/publish','/stats')}?password=${encodeURIComponent(savedPw)}`);
+    const res = await fetch(STATS_API, {headers:authHead()});
     const d = await res.json();
     if (!res.ok) return;
 
@@ -789,7 +794,7 @@ async function loadConsult(force) {
   if (consultCache && !force) { renderConsult(filteredList(), wrap); return; }
   wrap.innerHTML = '<p style="color:#aaa;font-size:.85rem">불러오는 중...</p>';
   try {
-    const res = await fetch(`${API.replace('/publish','/inquiries')}?password=${encodeURIComponent(savedPw)}`);
+    const res = await fetch(INQ_API, {headers:authHead()});
     const d = await res.json();
     if (!res.ok) { wrap.innerHTML = `<p style="color:#c00">${d.error}</p>`; return; }
     consultCache = d.inquiries || [];
@@ -865,7 +870,7 @@ async function saveNote(id, btn) {
   const note = area.querySelector('.memo-textarea').value;
   btn.disabled = true;
   try {
-    const res = await fetch(API.replace('/publish','/inquiries'), {
+    const res = await fetch(INQ_API, {
       method: 'PATCH', headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ password: savedPw, id, note })
     });
@@ -894,7 +899,7 @@ async function updateStatus(id, newStatus, btn) {
   const row = btn.closest('tr');
   row.querySelectorAll('.sbtn').forEach(b => b.disabled = true);
   try {
-    const res = await fetch(API.replace('/publish','/inquiries'), {
+    const res = await fetch(INQ_API, {
       method: 'PATCH', headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ password: savedPw, id, status: newStatus })
     });
@@ -922,7 +927,7 @@ async function deleteInquiry(id, btn) {
   if (!confirm('이 상담 문의를 삭제하시겠습니까?')) return;
   btn.disabled = true;
   try {
-    const res = await fetch(API.replace('/publish','/inquiries'), {
+    const res = await fetch(INQ_API, {
       method: 'DELETE', headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ password: savedPw, id })
     });
@@ -941,7 +946,7 @@ async function deleteSelected() {
   const btn = document.getElementById('btn-del-selected');
   btn.disabled = true;
   try {
-    const res = await fetch(API.replace('/publish','/inquiries'), {
+    const res = await fetch(INQ_API, {
       method: 'DELETE', headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ password: savedPw, ids })
     });
@@ -959,7 +964,7 @@ async function deleteDone() {
   const btn = document.getElementById('btn-del-done');
   btn.disabled = true;
   try {
-    const res = await fetch(API.replace('/publish','/inquiries'), {
+    const res = await fetch(INQ_API, {
       method: 'DELETE', headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ password: savedPw, status_filter: 'done' })
     });
@@ -1048,7 +1053,7 @@ async function loadReservations(force) {
   document.getElementById('calendar-wrap').innerHTML = '<p style="color:#aaa;font-size:.85rem">불러오는 중...</p>';
   try {
     const month = `${calYear}-${String(calMonth+1).padStart(2,'0')}`;
-    const res = await fetch(`${RESV_API}?password=${encodeURIComponent(savedPw)}&month=${month}`);
+    const res = await fetch(`${RESV_API}?month=${month}`, {headers:authHead()});
     const d = await res.json();
     if (!res.ok) { document.getElementById('calendar-wrap').innerHTML = `<p style="color:#c00">${d.error}</p>`; return; }
     resvCache = d.reservations || [];
@@ -1182,7 +1187,7 @@ async function saveResvNote(id, btn) {
 // 운영시간 설정
 async function loadScheduleSettings() {
   try {
-    const res = await fetch(`${SCHED_API}?password=${encodeURIComponent(savedPw)}`);
+    const res = await fetch(SCHED_API, {headers:authHead()});
     const d = await res.json();
     if (d.ok) { scheduleData = d.schedule; renderScheduleUI(); }
   } catch(e) {}
