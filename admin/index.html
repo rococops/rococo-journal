@@ -67,6 +67,7 @@ body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webki
 .sidebar-footer{margin-top:auto;padding:.6rem 0;border-top:1px solid rgba(255,255,255,.07)}
 .nav-item.danger{color:rgba(255,90,90,.5)}
 .nav-item.danger:hover{color:#ff7070;background:rgba(255,90,90,.07)}
+.nav-badge{margin-left:auto;background:#e53935;color:#fff;font-size:.6rem;font-weight:800;min-width:17px;height:17px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;padding:0 5px;letter-spacing:0;flex-shrink:0}
 
 /* 메인 */
 .main{margin-left:var(--sidebar-w);flex:1;padding:2.25rem 2.5rem 5rem;min-height:100vh;background:#f0f2f5}
@@ -287,10 +288,10 @@ body{overflow-x:hidden}
     <div class="nav-section">
       <p class="nav-label">환자 관리</p>
       <div class="nav-item" data-page="consult">
-        <span class="nav-icon">💬</span>온라인 상담
+        <span class="nav-icon">💬</span>온라인 상담<span class="nav-badge" id="badge-consult" style="display:none"></span>
       </div>
       <div class="nav-item" data-page="calendar">
-        <span class="nav-icon">📅</span>예약 캘린더
+        <span class="nav-icon">📅</span>예약 캘린더<span class="nav-badge" id="badge-calendar" style="display:none"></span>
       </div>
     </div>
 
@@ -661,6 +662,28 @@ function showAdmin() {
   document.getElementById('login-screen').classList.remove('active');
   document.getElementById('admin-screen').classList.add('active');
   loadDashboard();
+  updateBadges();
+}
+
+async function updateBadges() {
+  try {
+    const r1 = await fetch(INQ_API, {headers: authHead()});
+    const d1 = await r1.json();
+    if (d1.ok) {
+      const n = d1.inquiries.filter(i => i.status === 'new').length;
+      const b = document.getElementById('badge-consult');
+      b.textContent = n; b.style.display = n > 0 ? '' : 'none';
+    }
+  } catch(e) {}
+  try {
+    const r2 = await fetch(RESV_API, {headers: authHead()});
+    const d2 = await r2.json();
+    if (d2.ok) {
+      const n = d2.reservations.filter(r => r.status === 'new').length;
+      const b = document.getElementById('badge-calendar');
+      b.textContent = n; b.style.display = n > 0 ? '' : 'none';
+    }
+  } catch(e) {}
 }
 
 function logout() {
@@ -914,6 +937,7 @@ async function updateStatus(id, newStatus, btn) {
     // 뱃지 업데이트
     const badge = row.querySelector('.status-badge');
     if (badge) { badge.className = `status-badge ${STATUS_BADGE[newStatus]}`; badge.textContent = STATUS_LABEL[newStatus]; }
+    updateBadges();
     // 필터 중이면 행 제거
     if (consultFilter !== 'all') {
       row.style.opacity = '0'; row.style.transition = 'opacity .3s';
@@ -1163,6 +1187,7 @@ async function updateResvStatus(id, status, btn) {
     const badge = row.querySelector('.status-badge');
     if (badge) { badge.className = `status-badge ${RESV_BADGE[status]}`; badge.textContent = RESV_STATUS[status]; }
     if (resvFilter !== 'all') { row.style.opacity='0'; row.style.transition='opacity .3s'; setTimeout(()=>row.remove(),300); }
+    updateBadges();
   } catch(e) { alert('오류: '+e.message); }
   row.querySelectorAll('.sbtn').forEach(b => b.disabled=false);
 }
