@@ -67,7 +67,7 @@ body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webki
 .sidebar-footer{margin-top:auto;padding:.6rem 0;border-top:1px solid rgba(255,255,255,.07)}
 .nav-item.danger{color:rgba(255,90,90,.5)}
 .nav-item.danger:hover{color:#ff7070;background:rgba(255,90,90,.07)}
-.nav-badge{margin-left:auto;background:#e53935;color:#fff;font-size:.6rem;font-weight:800;min-width:17px;height:17px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;padding:0 5px;letter-spacing:0;flex-shrink:0}
+.nav-badge{margin-left:auto;background:#e53935;color:#fff;font-size:.58rem;font-weight:800;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;padding:2px 5px;letter-spacing:.04em;flex-shrink:0}
 
 /* 메인 */
 .main{margin-left:var(--sidebar-w);flex:1;padding:2.25rem 2.5rem 5rem;min-height:100vh;background:#f0f2f5}
@@ -672,7 +672,7 @@ async function updateBadges() {
     if (d1.ok) {
       const n = d1.inquiries.filter(i => i.status === 'new').length;
       const b = document.getElementById('badge-consult');
-      b.textContent = n; b.style.display = n > 0 ? '' : 'none';
+      b.textContent = 'NEW'; b.style.display = n > 0 ? '' : 'none';
     }
   } catch(e) {}
   try {
@@ -681,7 +681,7 @@ async function updateBadges() {
     if (d2.ok) {
       const n = d2.reservations.filter(r => r.status === 'new').length;
       const b = document.getElementById('badge-calendar');
-      b.textContent = n; b.style.display = n > 0 ? '' : 'none';
+      b.textContent = 'NEW'; b.style.display = n > 0 ? '' : 'none';
     }
   } catch(e) {}
 }
@@ -808,7 +808,8 @@ async function loadDashboard() {
 // ── 상담 목록 ─────────────────────────────────────
 let consultFilter = 'all';
 
-const STATUS_LABEL = { new: '신규', in_progress: '상담중', done: '완료' };
+const STATUS_LABEL = { new: '신규', in_progress: '상담중', done: '완료', null: '신규', undefined: '신규' };
+function statusLabel(s) { return STATUS_LABEL[s] || '신규'; }
 const STATUS_ROW   = { new: '', in_progress: 'row-inprogress', done: 'row-done' };
 const STATUS_BADGE = { new: 'sb-new', in_progress: 'sb-inprogress', done: 'sb-done' };
 
@@ -845,7 +846,7 @@ function renderConsult(list, wrap) {
     const contactBadge = q.contact_method === '카카오톡'
       ? '<span class="consult-badge badge-kakao">카카오톡</span>'
       : '<span class="consult-badge badge-call">전화</span>';
-    const statusBadge = `<span class="status-badge ${STATUS_BADGE[st]}">${STATUS_LABEL[st]}</span>`;
+    const statusBadge = `<span class="status-badge ${STATUS_BADGE[st]||'sb-new'}">${statusLabel(st)}</span>`;
     const statusBtns = ['new','in_progress','done'].map(s =>
       `<button class="sbtn s-${s.replace('_','')} ${st===s?'active':''}" onclick="updateStatus('${esc(q.id)}','${s}',this)">${STATUS_LABEL[s]}</button>`
     ).join('');
