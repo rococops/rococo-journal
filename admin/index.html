@@ -158,13 +158,31 @@ body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webki
 .data-table .col-chk{width:32px;padding-left:.5rem}
 .row-chk{accent-color:var(--adm);width:14px;height:14px;cursor:pointer}
 .consult-actions{display:flex;gap:.4rem;margin-top:.5rem;white-space:nowrap}
-.btn-done{padding:.3rem .7rem;border:1.5px solid var(--adm);border-radius:7px;font-size:.72rem;font-weight:700;cursor:pointer;background:#fff;color:var(--adm);transition:all .15s;font-family:inherit}
-.btn-done:hover{background:var(--adm);color:#fff}
-.btn-done.is-done{background:var(--adm);color:#fff}
-.btn-done.is-done:hover{background:#2e5439}
-.data-table tr.row-done td{background:#f5faf7;color:#888}
-.data-table tr.row-done .consult-name{color:#888}
-.badge-done{display:inline-block;font-size:.65rem;padding:.14rem .4rem;border-radius:99px;font-weight:700;margin-left:.35rem;background:#eef5f1;color:var(--adm)}
+/* 상태 버튼 그룹 */
+.status-btns{display:flex;gap:.3rem;flex-wrap:wrap}
+.sbtn{padding:.28rem .65rem;border-radius:6px;font-size:.71rem;font-weight:700;cursor:pointer;font-family:inherit;border:1.5px solid var(--gray-200);background:#fff;color:var(--gray-600);transition:all .15s}
+.sbtn:hover{border-color:var(--gray-400);color:var(--black)}
+.sbtn.s-new.active{background:#e8f4fd;border-color:#1565c0;color:#1565c0}
+.sbtn.s-inprogress.active{background:#fff8e1;border-color:#f59e0b;color:#b45309}
+.sbtn.s-done.active{background:var(--adm-light);border-color:var(--adm);color:var(--adm)}
+/* 상태 뱃지 */
+.status-badge{display:inline-block;font-size:.65rem;padding:.14rem .42rem;border-radius:99px;font-weight:700;margin-left:.3rem;vertical-align:middle}
+.sb-new{background:#e8f4fd;color:#1565c0}
+.sb-inprogress{background:#fff8e1;color:#b45309}
+.sb-done{background:var(--adm-light);color:var(--adm)}
+/* 행 상태별 배경 */
+.data-table tr.row-inprogress td{background:#fffdf5}
+.data-table tr.row-done td{background:#f5faf7}
+.data-table tr.row-done .consult-name,.data-table tr.row-done .consult-msg{color:#999}
+/* 메모 영역 */
+.memo-area{margin-top:.55rem;display:none}
+.memo-area.open{display:block}
+.memo-textarea{width:100%;padding:.5rem .7rem;font-size:.78rem;font-family:inherit;border:1.5px solid var(--gray-200);border-radius:8px;resize:vertical;min-height:60px;line-height:1.6;transition:border .15s;color:var(--black)}
+.memo-textarea:focus{outline:none;border-color:var(--adm)}
+.memo-footer{display:flex;align-items:center;justify-content:space-between;margin-top:.3rem;gap:.5rem}
+.memo-saved{font-size:.7rem;color:var(--adm);display:none}
+.btn-memo-toggle{background:none;border:none;font-size:.7rem;color:var(--gray-400);cursor:pointer;font-family:inherit;padding:0;margin-top:.3rem;text-decoration:underline}
+.btn-memo-toggle:hover{color:var(--gray-600)}
 
 /* 캘린더 */
 .cal-nav{display:flex;align-items:center;gap:1rem;margin-bottom:1.1rem}
@@ -362,8 +380,9 @@ body{overflow-x:hidden}
         <!-- 필터 탭 -->
         <div class="consult-tabs">
           <button class="ctab active" data-filter="all">전체</button>
-          <button class="ctab" data-filter="pending">미처리</button>
-          <button class="ctab" data-filter="done">처리완료</button>
+          <button class="ctab" data-filter="new">신규</button>
+          <button class="ctab" data-filter="in_progress">상담중</button>
+          <button class="ctab" data-filter="done">완료</button>
         </div>
         <!-- 툴바 -->
         <div class="consult-toolbar">
@@ -738,6 +757,10 @@ async function loadDashboard() {
 // ── 상담 목록 ─────────────────────────────────────
 let consultFilter = 'all';
 
+const STATUS_LABEL = { new: '신규', in_progress: '상담중', done: '완료' };
+const STATUS_ROW   = { new: '', in_progress: 'row-inprogress', done: 'row-done' };
+const STATUS_BADGE = { new: 'sb-new', in_progress: 'sb-inprogress', done: 'sb-done' };
+
 async function loadConsult(force) {
   const wrap = document.getElementById('consult-wrap');
   if (consultCache && !force) { renderConsult(filteredList(), wrap); return; }
@@ -756,32 +779,44 @@ async function loadConsult(force) {
 
 function filteredList() {
   if (!consultCache) return [];
-  if (consultFilter === 'pending') return consultCache.filter(q => q.status !== 'done');
-  if (consultFilter === 'done') return consultCache.filter(q => q.status === 'done');
-  return consultCache;
+  if (consultFilter === 'all') return consultCache;
+  return consultCache.filter(q => (q.status || 'new') === consultFilter);
 }
 
 function renderConsult(list, wrap) {
   updateDelSelectedBtn();
   if (!list.length) { wrap.innerHTML = '<p class="empty-state">해당 항목이 없습니다.</p>'; return; }
   const rows = list.map(q => {
+    const st = q.status || 'new';
     const dt = new Date(q.created_at);
     const dateStr = dt.toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'});
     const timeStr = dt.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
     const contactBadge = q.contact_method === '카카오톡'
       ? '<span class="consult-badge badge-kakao">카카오톡</span>'
       : '<span class="consult-badge badge-call">전화</span>';
-    const isDone = q.status === 'done';
-    const doneBadge = isDone ? '<span class="badge-done">처리완료</span>' : '';
-    return `<tr class="${isDone?'row-done':''}" data-id="${esc(q.id)}">
+    const statusBadge = `<span class="status-badge ${STATUS_BADGE[st]}">${STATUS_LABEL[st]}</span>`;
+    const statusBtns = ['new','in_progress','done'].map(s =>
+      `<button class="sbtn s-${s.replace('_','')} ${st===s?'active':''}" onclick="updateStatus('${esc(q.id)}','${s}',this)">${STATUS_LABEL[s]}</button>`
+    ).join('');
+    const noteVal = esc(q.note || '');
+    const hasNote = q.note && q.note.trim();
+    return `<tr class="${STATUS_ROW[st]}" data-id="${esc(q.id)}">
       <td class="col-chk"><input type="checkbox" class="row-chk" onchange="updateDelSelectedBtn()"></td>
       <td>
-        <div class="consult-name">${esc(q.name)}${contactBadge}${doneBadge}</div>
+        <div class="consult-name">${esc(q.name)}${contactBadge}${statusBadge}</div>
         <div class="consult-phone">${esc(q.phone)}</div>
         <div class="consult-src">${esc(q.source||'')}</div>
         <div class="consult-actions">
-          <button class="btn-done ${isDone?'is-done':''}" onclick="toggleStatus('${esc(q.id)}','${isDone?'pending':'done'}',this)">${isDone?'처리취소':'처리완료'}</button>
+          <div class="status-btns">${statusBtns}</div>
           <button class="btn-del" onclick="deleteInquiry('${esc(q.id)}',this)">삭제</button>
+        </div>
+        <button class="btn-memo-toggle" onclick="toggleMemo(this)">${hasNote?'📝 메모 보기':'+ 메모'}</button>
+        <div class="memo-area ${hasNote?'open':''}">
+          <textarea class="memo-textarea" placeholder="상담 메모를 입력하세요 (예약일, 연락 내용 등)">${noteVal}</textarea>
+          <div class="memo-footer">
+            <span class="memo-saved">저장됨 ✓</span>
+            <button class="btn-sm" onclick="saveNote('${esc(q.id)}',this)">메모 저장</button>
+          </div>
         </div>
       </td>
       <td><div class="consult-msg">${esc(q.message)}</div></td>
@@ -796,6 +831,32 @@ function renderConsult(list, wrap) {
     <p style="font-size:.73rem;color:#aaa;margin-top:.7rem">총 ${list.length}건</p>`;
 }
 
+function toggleMemo(btn) {
+  const area = btn.nextElementSibling;
+  const isOpen = area.classList.toggle('open');
+  btn.textContent = isOpen ? '메모 닫기' : (area.querySelector('.memo-textarea').value.trim() ? '📝 메모 보기' : '+ 메모');
+}
+
+async function saveNote(id, btn) {
+  const area = btn.closest('.memo-area');
+  const note = area.querySelector('.memo-textarea').value;
+  btn.disabled = true;
+  try {
+    const res = await fetch(API.replace('/publish','/inquiries'), {
+      method: 'PATCH', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ password: savedPw, id, note })
+    });
+    if (!res.ok) { alert('저장 실패'); btn.disabled = false; return; }
+    consultCache = consultCache.map(q => q.id === id ? {...q, note} : q);
+    const saved = area.querySelector('.memo-saved');
+    saved.style.display = 'block';
+    setTimeout(() => { saved.style.display = 'none'; }, 2000);
+    const toggleBtn = area.previousElementSibling;
+    toggleBtn.textContent = note.trim() ? '메모 닫기' : '+ 메모';
+  } catch(e) { alert('오류: ' + e.message); }
+  btn.disabled = false;
+}
+
 function updateDelSelectedBtn() {
   const checked = document.querySelectorAll('.row-chk:checked').length;
   const btn = document.getElementById('btn-del-selected');
@@ -806,32 +867,32 @@ function updateDelSelectedBtn() {
   if (chkAll && allChks.length) chkAll.checked = checked === allChks.length;
 }
 
-async function toggleStatus(id, newStatus, btn) {
-  btn.disabled = true;
+async function updateStatus(id, newStatus, btn) {
+  const row = btn.closest('tr');
+  row.querySelectorAll('.sbtn').forEach(b => b.disabled = true);
   try {
     const res = await fetch(API.replace('/publish','/inquiries'), {
-      method: 'PATCH',
-      headers: {'Content-Type':'application/json'},
+      method: 'PATCH', headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ password: savedPw, id, status: newStatus })
     });
-    if (!res.ok) { alert('오류가 발생했습니다.'); btn.disabled = false; return; }
+    if (!res.ok) { alert('오류가 발생했습니다.'); row.querySelectorAll('.sbtn').forEach(b => b.disabled = false); return; }
     consultCache = consultCache.map(q => q.id === id ? {...q, status: newStatus} : q);
-    const isDone = newStatus === 'done';
-    const row = btn.closest('tr');
-    row.classList.toggle('row-done', isDone);
-    btn.textContent = isDone ? '처리취소' : '처리완료';
-    btn.classList.toggle('is-done', isDone);
-    btn.onclick = () => toggleStatus(id, isDone ? 'pending' : 'done', btn);
-    const namEl = row.querySelector('.consult-name');
-    const existBadge = namEl.querySelector('.badge-done');
-    if (isDone && !existBadge) namEl.insertAdjacentHTML('beforeend','<span class="badge-done">처리완료</span>');
-    if (!isDone && existBadge) existBadge.remove();
+    // 행 스타일 업데이트
+    Object.values(STATUS_ROW).forEach(c => { if(c) row.classList.remove(c); });
+    if (STATUS_ROW[newStatus]) row.classList.add(STATUS_ROW[newStatus]);
+    // 버튼 active 업데이트
+    row.querySelectorAll('.sbtn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    // 뱃지 업데이트
+    const badge = row.querySelector('.status-badge');
+    if (badge) { badge.className = `status-badge ${STATUS_BADGE[newStatus]}`; badge.textContent = STATUS_LABEL[newStatus]; }
+    // 필터 중이면 행 제거
     if (consultFilter !== 'all') {
       row.style.opacity = '0'; row.style.transition = 'opacity .3s';
       setTimeout(() => { row.remove(); updateDelSelectedBtn(); }, 300);
     }
   } catch(e) { alert('오류: ' + e.message); }
-  btn.disabled = false;
+  row.querySelectorAll('.sbtn').forEach(b => b.disabled = false);
 }
 
 async function deleteInquiry(id, btn) {

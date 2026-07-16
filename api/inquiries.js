@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     if (!authCheck(req, res)) return;
     const { data, error } = await supabase
       .from('inquiries')
-      .select('id, name, phone, contact_method, message, source, status, created_at')
+      .select('id, name, phone, contact_method, message, source, status, note, created_at')
       .order('created_at', { ascending: false })
       .limit(200);
     if (error) return res.status(500).json({ error: error.message });
@@ -31,11 +31,18 @@ export default async function handler(req, res) {
 
   if (req.method === 'PATCH') {
     if (!authCheck(req, res)) return;
-    const { id, status } = req.body || {};
-    if (!id || !['pending', 'done'].includes(status)) {
-      return res.status(400).json({ error: '잘못된 요청' });
+    const { id, status, note } = req.body || {};
+    if (!id) return res.status(400).json({ error: 'id 필요' });
+    const update = {};
+    if (status !== undefined) {
+      if (!['new', 'in_progress', 'done'].includes(status)) {
+        return res.status(400).json({ error: '잘못된 status' });
+      }
+      update.status = status;
     }
-    const { error } = await supabase.from('inquiries').update({ status }).eq('id', id);
+    if (note !== undefined) update.note = note;
+    if (!Object.keys(update).length) return res.status(400).json({ error: '변경할 필드 없음' });
+    const { error } = await supabase.from('inquiries').update(update).eq('id', id);
     if (error) return res.status(500).json({ error: error.message });
     return res.status(200).json({ ok: true });
   }
