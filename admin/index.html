@@ -205,9 +205,20 @@ body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webki
   .sidebar.open{transform:translateX(0)}
   .sidebar-overlay{display:block}
   .mob-topbar{display:flex}
-  .main{margin-left:0;padding:4rem 1rem 4rem}
+  .main{margin-left:0;padding:4rem 1rem 4rem;overflow-x:hidden}
   .row2{grid-template-columns:1fr}
+  .stat-row{grid-template-columns:repeat(2,1fr)}
+  .chart-row{grid-template-columns:1fr}
+  .consult-toolbar{flex-direction:column;align-items:flex-start}
+  .consult-toolbar-right{flex-wrap:wrap;gap:.35rem}
+  .data-table{font-size:.75rem}
+  .data-table th,.data-table td{padding:.5rem .45rem}
+  .card{padding:1.25rem 1rem}
+  .page-title{font-size:1.15rem}
+  .cal-grid{gap:2px}
+  .cal-cell{font-size:.72rem;min-height:40px;padding:.3rem .1rem}
 }
+body{overflow-x:hidden}
 </style>
 </head>
 <body>
