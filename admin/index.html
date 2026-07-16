@@ -142,6 +142,21 @@ body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webki
 .consult-msg{font-size:.81rem;color:#444;margin-top:.22rem;line-height:1.5;white-space:pre-wrap;word-break:break-all}
 .consult-src{font-size:.7rem;color:var(--gray-400);margin-top:.12rem}
 .consult-date{font-size:.72rem;color:var(--gray-400);white-space:nowrap}
+/* 상담 탭 */
+.consult-tabs{display:flex;gap:.35rem;margin-bottom:1rem}
+.ctab{padding:.42rem 1rem;border:1.5px solid var(--gray-200);border-radius:8px;font-size:.78rem;font-weight:700;cursor:pointer;background:#fff;color:var(--gray-600);font-family:inherit;transition:all .15s}
+.ctab:hover{border-color:var(--adm);color:var(--adm)}
+.ctab.active{background:var(--adm);border-color:var(--adm);color:#fff}
+/* 툴바 */
+.consult-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem;gap:.5rem;flex-wrap:wrap}
+.consult-toolbar-right{display:flex;gap:.4rem;flex-wrap:wrap}
+.chk-all-wrap{display:flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:700;color:var(--gray-600);cursor:pointer;user-select:none}
+.chk-all-wrap input{accent-color:var(--adm);width:14px;height:14px;cursor:pointer}
+.btn-sm-danger{background:var(--red-bg)!important;color:var(--red)!important;border-color:#f5c6c1!important}
+.btn-sm-danger:hover{background:var(--red)!important;color:#fff!important;border-color:var(--red)!important}
+/* 체크박스 컬럼 */
+.data-table .col-chk{width:32px;padding-left:.5rem}
+.row-chk{accent-color:var(--adm);width:14px;height:14px;cursor:pointer}
 .consult-actions{display:flex;gap:.4rem;margin-top:.5rem;white-space:nowrap}
 .btn-done{padding:.3rem .7rem;border:1.5px solid var(--adm);border-radius:7px;font-size:.72rem;font-weight:700;cursor:pointer;background:#fff;color:var(--adm);transition:all .15s;font-family:inherit}
 .btn-done:hover{background:var(--adm);color:#fff}
@@ -310,8 +325,21 @@ body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webki
         <p class="page-sub">사이트를 통해 신청된 상담 목록입니다.</p>
       </div>
       <div class="card">
-        <div class="actions" style="margin-top:0;margin-bottom:1.1rem">
-          <button class="btn-sm" id="reload-consult-btn">↻ 새로고침</button>
+        <!-- 필터 탭 -->
+        <div class="consult-tabs">
+          <button class="ctab active" data-filter="all">전체</button>
+          <button class="ctab" data-filter="pending">미처리</button>
+          <button class="ctab" data-filter="done">처리완료</button>
+        </div>
+        <!-- 툴바 -->
+        <div class="consult-toolbar">
+          <label class="chk-all-wrap"><input type="checkbox" id="chk-all"> 전체선택</label>
+          <div class="consult-toolbar-right">
+            <button class="btn-sm" id="btn-del-selected" disabled>선택 삭제</button>
+            <button class="btn-sm btn-sm-danger" id="btn-del-done">처리완료 전체삭제</button>
+            <button class="btn-sm" id="btn-csv">CSV 다운로드</button>
+            <button class="btn-sm" id="reload-consult-btn">↻ 새로고침</button>
+          </div>
         </div>
         <div id="consult-wrap"><p class="empty-state">불러오는 중...</p></div>
       </div>
@@ -674,24 +702,34 @@ async function loadDashboard() {
 }
 
 // ── 상담 목록 ─────────────────────────────────────
+let consultFilter = 'all';
+
 async function loadConsult(force) {
   const wrap = document.getElementById('consult-wrap');
-  if (consultCache && !force) { renderConsult(consultCache, wrap); return; }
+  if (consultCache && !force) { renderConsult(filteredList(), wrap); return; }
   wrap.innerHTML = '<p style="color:#aaa;font-size:.85rem">불러오는 중...</p>';
   try {
     const res = await fetch(`${API.replace('/publish','/inquiries')}?password=${encodeURIComponent(savedPw)}`);
     const d = await res.json();
     if (!res.ok) { wrap.innerHTML = `<p style="color:#c00">${d.error}</p>`; return; }
     consultCache = d.inquiries || [];
-    calData = null; // 캘린더 캐시 초기화
-    renderConsult(consultCache, wrap);
+    calData = null;
+    renderConsult(filteredList(), wrap);
   } catch(e) {
     wrap.innerHTML = `<p style="color:#c00">오류: ${e.message}</p>`;
   }
 }
 
+function filteredList() {
+  if (!consultCache) return [];
+  if (consultFilter === 'pending') return consultCache.filter(q => q.status !== 'done');
+  if (consultFilter === 'done') return consultCache.filter(q => q.status === 'done');
+  return consultCache;
+}
+
 function renderConsult(list, wrap) {
-  if (!list.length) { wrap.innerHTML = '<p class="empty-state">상담 신청이 없습니다.</p>'; return; }
+  updateDelSelectedBtn();
+  if (!list.length) { wrap.innerHTML = '<p class="empty-state">해당 항목이 없습니다.</p>'; return; }
   const rows = list.map(q => {
     const dt = new Date(q.created_at);
     const dateStr = dt.toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'});
@@ -701,8 +739,8 @@ function renderConsult(list, wrap) {
       : '<span class="consult-badge badge-call">전화</span>';
     const isDone = q.status === 'done';
     const doneBadge = isDone ? '<span class="badge-done">처리완료</span>' : '';
-    const rowClass = isDone ? 'row-done' : '';
-    return `<tr class="${rowClass}" data-id="${esc(q.id)}">
+    return `<tr class="${isDone?'row-done':''}" data-id="${esc(q.id)}">
+      <td class="col-chk"><input type="checkbox" class="row-chk" onchange="updateDelSelectedBtn()"></td>
       <td>
         <div class="consult-name">${esc(q.name)}${contactBadge}${doneBadge}</div>
         <div class="consult-phone">${esc(q.phone)}</div>
@@ -718,10 +756,20 @@ function renderConsult(list, wrap) {
   }).join('');
   wrap.innerHTML = `
     <table class="data-table">
-      <thead><tr><th>이름</th><th>문의 내용</th><th>일시</th></tr></thead>
+      <thead><tr><th class="col-chk"></th><th>이름</th><th>문의 내용</th><th>일시</th></tr></thead>
       <tbody>${rows}</tbody>
     </table>
     <p style="font-size:.73rem;color:#aaa;margin-top:.7rem">총 ${list.length}건</p>`;
+}
+
+function updateDelSelectedBtn() {
+  const checked = document.querySelectorAll('.row-chk:checked').length;
+  const btn = document.getElementById('btn-del-selected');
+  if (btn) { btn.disabled = checked === 0; btn.textContent = checked ? `선택 삭제 (${checked})` : '선택 삭제'; }
+  const allChks = document.querySelectorAll('.row-chk');
+  const chkAll = document.getElementById('chk-all');
+  if (chkAll && allChks.length) chkAll.indeterminate = checked > 0 && checked < allChks.length;
+  if (chkAll && allChks.length) chkAll.checked = checked === allChks.length;
 }
 
 async function toggleStatus(id, newStatus, btn) {
@@ -733,8 +781,9 @@ async function toggleStatus(id, newStatus, btn) {
       body: JSON.stringify({ password: savedPw, id, status: newStatus })
     });
     if (!res.ok) { alert('오류가 발생했습니다.'); btn.disabled = false; return; }
-    const row = btn.closest('tr');
+    consultCache = consultCache.map(q => q.id === id ? {...q, status: newStatus} : q);
     const isDone = newStatus === 'done';
+    const row = btn.closest('tr');
     row.classList.toggle('row-done', isDone);
     btn.textContent = isDone ? '처리취소' : '처리완료';
     btn.classList.toggle('is-done', isDone);
@@ -743,7 +792,10 @@ async function toggleStatus(id, newStatus, btn) {
     const existBadge = namEl.querySelector('.badge-done');
     if (isDone && !existBadge) namEl.insertAdjacentHTML('beforeend','<span class="badge-done">처리완료</span>');
     if (!isDone && existBadge) existBadge.remove();
-    consultCache = consultCache.map(q => q.id === id ? {...q, status: newStatus} : q);
+    if (consultFilter !== 'all') {
+      row.style.opacity = '0'; row.style.transition = 'opacity .3s';
+      setTimeout(() => { row.remove(); updateDelSelectedBtn(); }, 300);
+    }
   } catch(e) { alert('오류: ' + e.message); }
   btn.disabled = false;
 }
@@ -753,16 +805,88 @@ async function deleteInquiry(id, btn) {
   btn.disabled = true;
   try {
     const res = await fetch(API.replace('/publish','/inquiries'), {
-      method: 'DELETE',
-      headers: {'Content-Type':'application/json'},
+      method: 'DELETE', headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ password: savedPw, id })
     });
     if (!res.ok) { alert('삭제 실패'); btn.disabled = false; return; }
     btn.closest('tr').remove();
     consultCache = consultCache.filter(q => q.id !== id);
+    updateDelSelectedBtn();
   } catch(e) { alert('오류: ' + e.message); btn.disabled = false; }
 }
 
+async function deleteSelected() {
+  const rows = [...document.querySelectorAll('.row-chk:checked')].map(c => c.closest('tr'));
+  const ids = rows.map(r => r.dataset.id);
+  if (!ids.length) return;
+  if (!confirm(`선택한 ${ids.length}건을 삭제하시겠습니까?`)) return;
+  const btn = document.getElementById('btn-del-selected');
+  btn.disabled = true;
+  try {
+    const res = await fetch(API.replace('/publish','/inquiries'), {
+      method: 'DELETE', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ password: savedPw, ids })
+    });
+    if (!res.ok) { alert('삭제 실패'); btn.disabled = false; return; }
+    rows.forEach(r => r.remove());
+    consultCache = consultCache.filter(q => !ids.includes(q.id));
+    updateDelSelectedBtn();
+  } catch(e) { alert('오류: ' + e.message); btn.disabled = false; }
+}
+
+async function deleteDone() {
+  const doneCount = (consultCache||[]).filter(q => q.status === 'done').length;
+  if (!doneCount) { alert('처리완료된 항목이 없습니다.'); return; }
+  if (!confirm(`처리완료된 ${doneCount}건을 모두 삭제하시겠습니까?`)) return;
+  const btn = document.getElementById('btn-del-done');
+  btn.disabled = true;
+  try {
+    const res = await fetch(API.replace('/publish','/inquiries'), {
+      method: 'DELETE', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ password: savedPw, status_filter: 'done' })
+    });
+    if (!res.ok) { alert('삭제 실패'); btn.disabled = false; return; }
+    consultCache = consultCache.filter(q => q.status !== 'done');
+    renderConsult(filteredList(), document.getElementById('consult-wrap'));
+  } catch(e) { alert('오류: ' + e.message); }
+  btn.disabled = false;
+}
+
+function downloadCSV() {
+  const list = filteredList();
+  if (!list.length) { alert('다운로드할 데이터가 없습니다.'); return; }
+  const header = ['이름','전화번호','연락방법','문의내용','유입경로','상태','신청일시'];
+  const rows = list.map(q => [
+    q.name, q.phone, q.contact_method,
+    (q.message||'').replace(/"/g,'""'),
+    q.source||'', q.status === 'done' ? '처리완료' : '미처리',
+    new Date(q.created_at).toLocaleString('ko-KR')
+  ].map(v => `"${v}"`).join(','));
+  const csv = '﻿' + [header.join(','), ...rows].join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8'}));
+  a.download = `상담문의_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+}
+
+// 탭 필터
+document.querySelectorAll('.ctab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    consultFilter = tab.dataset.filter;
+    document.getElementById('chk-all').checked = false;
+    renderConsult(filteredList(), document.getElementById('consult-wrap'));
+  });
+});
+
+document.getElementById('chk-all').addEventListener('change', e => {
+  document.querySelectorAll('.row-chk').forEach(c => c.checked = e.target.checked);
+  updateDelSelectedBtn();
+});
+document.getElementById('btn-del-selected').addEventListener('click', deleteSelected);
+document.getElementById('btn-del-done').addEventListener('click', deleteDone);
+document.getElementById('btn-csv').addEventListener('click', downloadCSV);
 document.getElementById('reload-consult-btn').addEventListener('click', () => {
   consultCache = null;
   loadConsult(true);

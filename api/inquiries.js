@@ -42,9 +42,18 @@ export default async function handler(req, res) {
 
   if (req.method === 'DELETE') {
     if (!authCheck(req, res)) return;
-    const { id } = req.body || {};
-    if (!id) return res.status(400).json({ error: 'id 필요' });
-    const { error } = await supabase.from('inquiries').delete().eq('id', id);
+    const { id, ids, status_filter } = req.body || {};
+    let query = supabase.from('inquiries').delete();
+    if (status_filter) {
+      query = query.eq('status', status_filter);
+    } else if (ids && Array.isArray(ids)) {
+      query = query.in('id', ids);
+    } else if (id) {
+      query = query.eq('id', id);
+    } else {
+      return res.status(400).json({ error: 'id / ids / status_filter 중 하나 필요' });
+    }
+    const { error } = await query;
     if (error) return res.status(500).json({ error: error.message });
     return res.status(200).json({ ok: true });
   }
