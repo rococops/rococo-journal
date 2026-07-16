@@ -142,6 +142,14 @@ body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webki
 .consult-msg{font-size:.81rem;color:#444;margin-top:.22rem;line-height:1.5;white-space:pre-wrap;word-break:break-all}
 .consult-src{font-size:.7rem;color:var(--gray-400);margin-top:.12rem}
 .consult-date{font-size:.72rem;color:var(--gray-400);white-space:nowrap}
+.consult-actions{display:flex;gap:.4rem;margin-top:.5rem;white-space:nowrap}
+.btn-done{padding:.3rem .7rem;border:1.5px solid var(--adm);border-radius:7px;font-size:.72rem;font-weight:700;cursor:pointer;background:#fff;color:var(--adm);transition:all .15s;font-family:inherit}
+.btn-done:hover{background:var(--adm);color:#fff}
+.btn-done.is-done{background:var(--adm);color:#fff}
+.btn-done.is-done:hover{background:#2e5439}
+.data-table tr.row-done td{background:#f5faf7;color:#888}
+.data-table tr.row-done .consult-name{color:#888}
+.badge-done{display:inline-block;font-size:.65rem;padding:.14rem .4rem;border-radius:99px;font-weight:700;margin-left:.35rem;background:#eef5f1;color:var(--adm)}
 
 /* 캘린더 */
 .cal-nav{display:flex;align-items:center;gap:1rem;margin-bottom:1.1rem}
@@ -688,11 +696,22 @@ function renderConsult(list, wrap) {
     const dt = new Date(q.created_at);
     const dateStr = dt.toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'});
     const timeStr = dt.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
-    const badge = q.contact_method === '카카오톡'
+    const contactBadge = q.contact_method === '카카오톡'
       ? '<span class="consult-badge badge-kakao">카카오톡</span>'
       : '<span class="consult-badge badge-call">전화</span>';
-    return `<tr>
-      <td><div class="consult-name">${esc(q.name)}${badge}</div><div class="consult-phone">${esc(q.phone)}</div><div class="consult-src">${esc(q.source||'')}</div></td>
+    const isDone = q.status === 'done';
+    const doneBadge = isDone ? '<span class="badge-done">처리완료</span>' : '';
+    const rowClass = isDone ? 'row-done' : '';
+    return `<tr class="${rowClass}" data-id="${esc(q.id)}">
+      <td>
+        <div class="consult-name">${esc(q.name)}${contactBadge}${doneBadge}</div>
+        <div class="consult-phone">${esc(q.phone)}</div>
+        <div class="consult-src">${esc(q.source||'')}</div>
+        <div class="consult-actions">
+          <button class="btn-done ${isDone?'is-done':''}" onclick="toggleStatus('${esc(q.id)}','${isDone?'pending':'done'}',this)">${isDone?'처리취소':'처리완료'}</button>
+          <button class="btn-del" onclick="deleteInquiry('${esc(q.id)}',this)">삭제</button>
+        </div>
+      </td>
       <td><div class="consult-msg">${esc(q.message)}</div></td>
       <td class="consult-date">${dateStr}<br>${timeStr}</td>
     </tr>`;
@@ -703,6 +722,45 @@ function renderConsult(list, wrap) {
       <tbody>${rows}</tbody>
     </table>
     <p style="font-size:.73rem;color:#aaa;margin-top:.7rem">총 ${list.length}건</p>`;
+}
+
+async function toggleStatus(id, newStatus, btn) {
+  btn.disabled = true;
+  try {
+    const res = await fetch(API.replace('/publish','/inquiries'), {
+      method: 'PATCH',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ password: savedPw, id, status: newStatus })
+    });
+    if (!res.ok) { alert('오류가 발생했습니다.'); btn.disabled = false; return; }
+    const row = btn.closest('tr');
+    const isDone = newStatus === 'done';
+    row.classList.toggle('row-done', isDone);
+    btn.textContent = isDone ? '처리취소' : '처리완료';
+    btn.classList.toggle('is-done', isDone);
+    btn.onclick = () => toggleStatus(id, isDone ? 'pending' : 'done', btn);
+    const namEl = row.querySelector('.consult-name');
+    const existBadge = namEl.querySelector('.badge-done');
+    if (isDone && !existBadge) namEl.insertAdjacentHTML('beforeend','<span class="badge-done">처리완료</span>');
+    if (!isDone && existBadge) existBadge.remove();
+    consultCache = consultCache.map(q => q.id === id ? {...q, status: newStatus} : q);
+  } catch(e) { alert('오류: ' + e.message); }
+  btn.disabled = false;
+}
+
+async function deleteInquiry(id, btn) {
+  if (!confirm('이 상담 문의를 삭제하시겠습니까?')) return;
+  btn.disabled = true;
+  try {
+    const res = await fetch(API.replace('/publish','/inquiries'), {
+      method: 'DELETE',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ password: savedPw, id })
+    });
+    if (!res.ok) { alert('삭제 실패'); btn.disabled = false; return; }
+    btn.closest('tr').remove();
+    consultCache = consultCache.filter(q => q.id !== id);
+  } catch(e) { alert('오류: ' + e.message); btn.disabled = false; }
 }
 
 document.getElementById('reload-consult-btn').addEventListener('click', () => {
