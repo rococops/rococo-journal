@@ -11,6 +11,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://journal.rococops.com/about/faq/</loc>
+    <lastmod>2026-08-24</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://journal.rococops.com/about/location/</loc>
     <lastmod>2026-06-15</lastmod>
     <priority>0.5</priority>
