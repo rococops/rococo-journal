@@ -170,7 +170,7 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
       "name": "如何预约？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "请通过在线咨询表格告知希望预约的日期，或通过KakaoTalk联系我们。通常在1-2个工作日内确认预约。"
+        "text": "请通过在线咨询表格告知希望预约的日期，或通过微信、LINE或邮件联系我们。通常在1-2个工作日内确认预约。"
       }
     },
     {
@@ -222,7 +222,7 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
       </ul>
     </nav>
     <div class="lang-switcher"><button class="lang-btn" id="langBtn">🌐 GLOBAL &#9662;</button><div class="lang-dropdown" id="langDropdown"><a href="/" class="lang-option">🇰🇷 한국어</a><a href="/en/" class="lang-option">🇺🇸 English</a><a href="/ja/" class="lang-option">🇯🇵 日本語</a><a href="/zh/" class="lang-option active">🇨🇳 中文</a></div></div>
-    <a href="https://pf.kakao.com/_xdBpRl" target="_blank" class="btn-consult">KakaoTalk咨询</a>
+    <a href="mailto:rococo2015@naver.com" class="btn-consult">在线咨询</a>
   </div>
 </header>
 
@@ -231,10 +231,7 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
   <h1>整形外科专科医生<br>为您提供韩国专业整形服务</h1>
   <p>金相浩院长亲自负责从初诊咨询到术后护理的全程诊疗。坚持院长一对一直接诊疗，绝不转交给协调员。</p>
   <div class="cta-group">
-    <a href="https://pf.kakao.com/_xdBpRl" target="_blank" class="btn-kakao">
-      <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><ellipse cx="14" cy="13" rx="12" ry="10" fill="#3C1E1E"/><path d="M10.5 10.5c0-1.1.9-2 2-2h3c1.1 0 2 .9 2 2v2a2 2 0 01-2 2h-.8l-1.7 2.2v-2.2h-.5a2 2 0 01-2-2v-2z" fill="#FEE500"/></svg>
-      KakaoTalk在线咨询
-    </a>
+    <a href="#consult" class="btn-kakao">在线咨询</a>
     <a href="tel:+82221352702" class="btn-phone">📞 +82-2-2135-2702</a>
   </div>
 </section>
@@ -750,12 +747,17 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
       <p>请发送您的问题和照片，我们将在1-2个工作日内通过邮件回复。</p>
       <span class="lang-note">✓ 中文：专属咨询人员 &nbsp;·&nbsp; 英语：院长直接沟通 &nbsp;·&nbsp; 日语：欢迎携带翻译</span>
     </a>
-    <a href="https://pf.kakao.com/_xdBpRl" class="consult-card" target="_blank" rel="noopener">
+    <div class="consult-card">
       <div class="consult-icon">&#128172;</div>
-      <h3>KakaoTalk</h3>
-      <p>通过KakaoTalk即时咨询。请下载应用程序后发送消息。</p>
-      <span class="lang-note">✓ 韩语优先 · 支持英语</span>
-    </a>
+      <h3>消息咨询</h3>
+      <ul style="list-style:none;padding:0;margin:0.25rem 0 0;">
+        <li><a style="display:block;padding:0.55rem 0;color:#222;text-decoration:none;font-size:0.92rem;border-bottom:1px solid #eee;" href="mailto:rococo2015@naver.com">&#128231;&nbsp; Email &nbsp;—&nbsp; rococo2015@naver.com</a></li>
+        <li><a style="display:block;padding:0.55rem 0;color:#222;text-decoration:none;font-size:0.92rem;border-bottom:1px solid #eee;" href="https://www.instagram.com/rococo_clinic/" target="_blank" rel="noopener">&#128247;&nbsp; Instagram &nbsp;—&nbsp; @rococo_clinic</a></li>
+        <li><a style="display:block;padding:0.55rem 0;color:#222;text-decoration:none;font-size:0.92rem;border-bottom:1px solid #eee;" href="https://line.me/ti/p/~rococops" target="_blank" rel="noopener">&#128154;&nbsp; LINE &nbsp;—&nbsp; ID: rococops</a></li>
+        <li><span style="display:block;padding:0.55rem 0;color:#222;text-decoration:none;font-size:0.92rem;border-bottom:1px solid #eee;border-bottom:none;">&#128172;&nbsp; WeChat &nbsp;—&nbsp; ID: rococops</span></li>
+      </ul>
+      <span class="lang-note">※ 微信请在App内通过ID搜索添加</span>
+    </div>
   </div>
   <p class="consult-phone">电话: <a href="tel:+82221352702">+82-2-2135-2702</a></p>
 </section>
@@ -765,7 +767,7 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
   <p class="section-sub">专为考虑赴韩整形的国际患者整理</p>
   <div class="faq-list">
     <details class="faq-item"><summary>可以用中文咨询吗？</summary><p>我们设有专属中文咨询人员，可全程以中文为您服务。英语咨询由金相镐院长亲自接待。日语患者欢迎携带翻译陪同。</p></details>
-    <details class="faq-item"><summary>如何预约？</summary><p>请通过在线咨询表格告知希望预约的日期，或通过KakaoTalk联系我们。通常在1-2个工作日内确认预约。</p></details>
+    <details class="faq-item"><summary>如何预约？</summary><p>请通过在线咨询表格告知希望预约的日期，或通过微信、LINE或邮件联系我们。通常在1-2个工作日内确认预约。</p></details>
     <details class="faq-item"><summary>一个人来也可以吗？</summary><p>完全可以。金院长可以用英语沟通，许多海外患者都是独自前来。到院后工作人员会全程协助您。</p></details>
     <details class="faq-item"><summary>恢复期大概需要多长时间？</summary><p>因手术项目而异。一般参考：颧骨缩小2-3周主要肿胀消退，鼻整形2-3周，眼部整形1-2周。最终效果需3-6个月后完全显现。咨询时会提供详细的恢复时间表。</p></details>
     <details class="faq-item"><summary>手术费用大概是多少？</summary><p>费用因手术项目和个人情况而有所不同。请通过在线咨询表格告知您的需求，我们将在了解您的情况后提供详细报价。</p></details>
@@ -831,13 +833,7 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
   </div>
 </footer>
 
-<a href="https://pf.kakao.com/_xdBpRl" target="_blank" rel="noopener" class="kakao-float">
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="14" cy="13" rx="12" ry="10" fill="#3C1E1E"/>
-    <path d="M10.5 10.5c0-1.1.9-2 2-2h3c1.1 0 2 .9 2 2v2a2 2 0 01-2 2h-.8l-1.7 2.2v-2.2h-.5a2 2 0 01-2-2v-2z" fill="#FEE500"/>
-  </svg>
-  KakaoTalk咨询
-</a>
+<a href="#consult" class="kakao-float">&#128172;<span style="font-size:11px;display:block;">咨询</span></a>
 
 <script>
 (function(){

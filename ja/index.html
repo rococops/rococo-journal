@@ -170,7 +170,7 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
       "name": "予約はどのようにするのですか？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "オンライン相談フォームからご希望の日程をお送りいただくか、カカオトークでご連絡ください。通常1〜2営業日以内にご確認のご連絡を差し上げます。"
+        "text": "オンライン相談フォームからご希望の日程をお送りいただくか、LINE・WeChat・メールでご連絡ください。通常1〜2営業日以内にご確認のご連絡を差し上げます。"
       }
     },
     {
@@ -222,7 +222,7 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
       </ul>
     </nav>
     <div class="lang-switcher"><button class="lang-btn" id="langBtn">🌐 GLOBAL &#9662;</button><div class="lang-dropdown" id="langDropdown"><a href="/" class="lang-option">🇰🇷 한국어</a><a href="/en/" class="lang-option">🇺🇸 English</a><a href="/ja/" class="lang-option active">🇯🇵 日本語</a><a href="/zh/" class="lang-option">🇨🇳 中文</a></div></div>
-    <a href="https://pf.kakao.com/_xdBpRl" target="_blank" class="btn-consult">カカオトーク相談</a>
+    <a href="mailto:rococo2015@naver.com" class="btn-consult">お問い合わせ</a>
   </div>
 </header>
 
@@ -231,10 +231,7 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
   <h1>形成外科専門医による<br>韓国の美容整形</h1>
   <p>キム・サンホ院長が初診から術後ケアまで一貫して担当。コーディネーター任せにしない、院長直接診療を徹底しています。</p>
   <div class="cta-group">
-    <a href="https://pf.kakao.com/_xdBpRl" target="_blank" class="btn-kakao">
-      <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><ellipse cx="14" cy="13" rx="12" ry="10" fill="#3C1E1E"/><path d="M10.5 10.5c0-1.1.9-2 2-2h3c1.1 0 2 .9 2 2v2a2 2 0 01-2 2h-.8l-1.7 2.2v-2.2h-.5a2 2 0 01-2-2v-2z" fill="#FEE500"/></svg>
-      カカオトークで問い合わせ
-    </a>
+    <a href="#consult" class="btn-kakao">お問い合わせ</a>
     <a href="tel:+82221352702" class="btn-phone">📞 +82-2-2135-2702</a>
   </div>
 </section>
@@ -750,12 +747,17 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
       <p>ご質問や写真をお送りください。1〜2営業日以内にメールでご返信します。</p>
       <span class="lang-note">✓ 英語：院長が直接対応 &nbsp;·&nbsp; 中国語：専任スタッフ在籍 &nbsp;·&nbsp; 日本語：通訳同伴歓迎</span>
     </a>
-    <a href="https://pf.kakao.com/_xdBpRl" class="consult-card" target="_blank" rel="noopener">
+    <div class="consult-card">
       <div class="consult-icon">&#128172;</div>
-      <h3>カカオトーク</h3>
-      <p>カカオトークでのリアルタイム相談。アプリをダウンロードしてメッセージをお送りください。</p>
-      <span class="lang-note">✓ 韓国語推奨・英語対応可</span>
-    </a>
+      <h3>メッセージで相談</h3>
+      <ul style="list-style:none;padding:0;margin:0.25rem 0 0;">
+        <li><a style="display:block;padding:0.55rem 0;color:#222;text-decoration:none;font-size:0.92rem;border-bottom:1px solid #eee;" href="mailto:rococo2015@naver.com">&#128231;&nbsp; Email &nbsp;—&nbsp; rococo2015@naver.com</a></li>
+        <li><a style="display:block;padding:0.55rem 0;color:#222;text-decoration:none;font-size:0.92rem;border-bottom:1px solid #eee;" href="https://www.instagram.com/rococo_clinic/" target="_blank" rel="noopener">&#128247;&nbsp; Instagram &nbsp;—&nbsp; @rococo_clinic</a></li>
+        <li><a style="display:block;padding:0.55rem 0;color:#222;text-decoration:none;font-size:0.92rem;border-bottom:1px solid #eee;" href="https://line.me/ti/p/~rococops" target="_blank" rel="noopener">&#128154;&nbsp; LINE &nbsp;—&nbsp; ID: rococops</a></li>
+        <li><span style="display:block;padding:0.55rem 0;color:#222;text-decoration:none;font-size:0.92rem;border-bottom:1px solid #eee;border-bottom:none;">&#128172;&nbsp; WeChat &nbsp;—&nbsp; ID: rococops</span></li>
+      </ul>
+      <span class="lang-note">※ WeChatはアプリでIDを検索して追加してください</span>
+    </div>
   </div>
   <p class="consult-phone">電話: <a href="tel:+82221352702">+82-2-2135-2702</a></p>
 </section>
@@ -765,7 +767,7 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
   <p class="section-sub">韓国での美容整形を検討されている方へ</p>
   <div class="faq-list">
     <details class="faq-item"><summary>日本語でのカウンセリングはできますか？</summary><p>英語でのカウンセリングはキム・サンホ院長が直接対応します。中国語は専任スタッフが担当します。日本語は通訳の同伴を歓迎しております。</p></details>
-    <details class="faq-item"><summary>予約はどのようにするのですか？</summary><p>オンライン相談フォームからご希望の日程をお送りいただくか、カカオトークでご連絡ください。通常1〜2営業日以内にご確認のご連絡を差し上げます。</p></details>
+    <details class="faq-item"><summary>予約はどのようにするのですか？</summary><p>オンライン相談フォームからご希望の日程をお送りいただくか、LINE・WeChat・メールでご連絡ください。通常1〜2営業日以内にご確認のご連絡を差し上げます。</p></details>
     <details class="faq-item"><summary>一人で来院しても大丈夫ですか？</summary><p>はい、大丈夫です。英語でのコミュニケーションが可能ですので、韓国語ができなくても安心してご来院いただけます。多くの海外の患者様が一人で来院されています。</p></details>
     <details class="faq-item"><summary>ダウンタイム（回復期間）はどのくらいですか？</summary><p>術式によって異なります。目安として：頬骨縮小術 2〜3週間、鼻整形 2〜3週間、目の整形 1〜2週間で大きな腫れが引きます。最終的な仕上がりは3〜6ヶ月後です。カウンセリング時に詳しくご説明します。</p></details>
     <details class="faq-item"><summary>手術費用はどのくらいですか？</summary><p>術式や個々の状態によって異なるため、一概にはお伝えできません。オンライン相談フォームにてご希望やお悩みをお送りいただければ、詳細なお見積りをお出しいたします。</p></details>
@@ -831,13 +833,7 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
   </div>
 </footer>
 
-<a href="https://pf.kakao.com/_xdBpRl" target="_blank" rel="noopener" class="kakao-float">
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="14" cy="13" rx="12" ry="10" fill="#3C1E1E"/>
-    <path d="M10.5 10.5c0-1.1.9-2 2-2h3c1.1 0 2 .9 2 2v2a2 2 0 01-2 2h-.8l-1.7 2.2v-2.2h-.5a2 2 0 01-2-2v-2z" fill="#FEE500"/>
-  </svg>
-  カカオトーク相談
-</a>
+<a href="#consult" class="kakao-float">&#128172;<span style="font-size:11px;display:block;">お問い合わせ</span></a>
 
 <script>
 (function(){
