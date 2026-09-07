@@ -23,7 +23,10 @@ export default async function handler(req, res) {
       .select('id, name, phone, contact_method, visit_type, category, date, time, status, note, created_at')
       .order('date', { ascending: true }).order('time', { ascending: true });
     if (month) {
-      query = query.gte('date', `${month}-01`).lte('date', `${month}-31`);
+      // 월 마지막 날을 실제로 계산 (28~31일). -31 하드코딩 시 30일 이하 달에서 DB 오류
+      const [y, m] = month.split('-').map(Number);
+      const lastDay = new Date(y, m, 0).getDate();
+      query = query.gte('date', `${month}-01`).lte('date', `${month}-${String(lastDay).padStart(2,'0')}`);
     }
     const { data, error } = await query.limit(500);
     if (error) return res.status(500).json({ error: error.message });
