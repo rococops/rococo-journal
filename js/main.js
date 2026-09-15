@@ -85,4 +85,22 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // 스크롤 리빌 — .reveal/.reveal-left/.reveal-right 요소가 화면에 들어오면 나타남
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  if (revealEls.length) {
+    if ('IntersectionObserver' in window) {
+      const revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      revealEls.forEach(function (el) { revealObserver.observe(el); });
+    } else {
+      revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+    }
+  }
+
 });
