@@ -51,17 +51,35 @@ function esc(s) {
 const nav = navHtml('../', null);
 const totalCount = populated.reduce((sum, p) => sum + p.count, 0);
 
-const cards = populated.map(p => `      <a href="../${p.catPath}/${p.subDir}/reviews/" class="cta-card">
-        <div class="cta-card-inner">
-          <span class="cta-label">${esc(CAT_NAMES[p.catPath])}</span>
-          <h3 class="cta-title">${esc(p.subName)}</h3>
-          <p class="cta-desc">환자분들이 직접 남기신 후기 ${p.count}건</p>
-          <span class="cta-btn">후기 보러가기 →</span>
-        </div>
-      </a>`).join('\n');
+// 카테고리(광대성형/코성형/...)별로 묶어서 — cta-card(검정, 1~2개용 강조 패턴)를
+// 27개 반복하면 새까만 벽이 되어버려서, 흰 배경 카드 그리드 + 카테고리 그룹핑으로 변경
+const byCat = new Map();
+for (const p of populated) {
+  if (!byCat.has(p.catPath)) byCat.set(p.catPath, []);
+  byCat.get(p.catPath).push(p);
+}
+
+const groups = Object.keys(CAT_NAMES)
+  .filter(catPath => byCat.has(catPath))
+  .map(catPath => {
+    const items = byCat.get(catPath);
+    const cards = items.map(p => `        <a href="../${p.catPath}/${p.subDir}/reviews/" class="card review-hub-card">
+          <div class="card-body">
+            <p class="card-title">${esc(p.subName)}</p>
+            <p class="card-desc">환자분들이 직접 남기신 후기 ${p.count}건</p>
+            <span class="review-hub-link">후기 보러가기 →</span>
+          </div>
+        </a>`).join('\n');
+    return `    <div class="review-hub-group">
+      <h2 class="section-label">${esc(CAT_NAMES[catPath])}</h2>
+      <div class="card-grid">
+${cards}
+      </div>
+    </div>`;
+  }).join('\n');
 
 const emptyState = populated.length === 0
-  ? `      <p style="color:var(--gray-500);">아직 준비 중입니다. 곧 카테고리별 수술후기를 만나보실 수 있어요.</p>`
+  ? `    <p style="color:var(--gray-500);">아직 준비 중입니다. 곧 카테고리별 수술후기를 만나보실 수 있어요.</p>`
   : '';
 
 const html = `<!DOCTYPE html>
@@ -135,9 +153,7 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
 
 <section class="section">
   <div class="container">
-    <div class="cta-grid">
-${cards}${emptyState}
-    </div>
+${groups}${emptyState}
   </div>
 </section>
 
