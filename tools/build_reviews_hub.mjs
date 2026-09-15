@@ -27,9 +27,10 @@ function findSubName(catPath, subDir) {
 }
 
 const curated = JSON.parse(readFileSync(join(ROOT, 'postscript_curated.json'), 'utf8'));
+// 정렬은 최신순 고정(빈님 확인: "수술후기 들어가면 최신글이 나와야지" / BEST·베스트순 없앰)
 const usable = curated
   .filter(r => r.cat && r.isauth === 'Y')
-  .sort((a, b) => b.score - a.score);
+  .sort((a, b) => (b.udate||'').localeCompare(a.udate||''));
 
 console.log(`전체 후기: ${usable.length}건`);
 
@@ -62,7 +63,7 @@ const rows = usable.map((r) => {
   return `      <a href="../${catPath}/${subDir}/reviews/${r.num}/" class="review-row" data-cat="${dataCat}">
         ${thumb}
         <div class="review-row-body">
-          <p class="review-row-title">${r.isbest === 'Y' ? '<span class="review-row-best">BEST</span>' : ''}<span class="review-row-tag">${esc(subName)}</span>${esc(r.subject.trim() || subName + ' 후기')}</p>
+          <p class="review-row-title"><span class="review-row-tag">${esc(subName)}</span>${esc(r.subject.trim() || subName + ' 후기')}</p>
           <p class="review-row-desc">${esc(desc)}</p>
           <p class="review-row-meta">${esc(masked)}님 후기 · ${(r.udate||'').slice(0,7).replace('-','.')}</p>
         </div>

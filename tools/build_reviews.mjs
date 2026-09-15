@@ -82,7 +82,6 @@ function generateReviewPage(r, cfg) {
     </div>
     <div class="article-hero-inner">
       <div class="article-hero-text">
-        <span class="eyebrow">PATIENT REVIEW · 환자 후기${r.isbest === 'Y' ? ' · BEST' : ''}</span>
         <h1 class="article-title">${esc(title)}</h1>
         <p class="article-summary">${esc(description)}</p>
         <div class="article-meta">
@@ -151,7 +150,9 @@ function generateReviewIndex(reviews, cfg) {
   // 후기 목록 — 사진 유무 관계없이 하나의 컴팩트 row 리스트로 통일.
   // 원본 사진 품질이 들쭉날쭉(검열바·콜라주 등)해서 큰 카드로 쓰면 지저분해짐 —
   // 작은 정사각 썸네일 하나로 줄여서 텍스트 중심 리스트로 (빈님 피드백 반영)
-  const rows = reviews.map((r) => {
+  // 정렬은 최신순 고정(빈님 확인: "수술후기 들어가면 최신글이 나와야지" / BEST·베스트순 없앰)
+  const dateSorted = [...reviews].sort((a, b) => (b.udate||'').localeCompare(a.udate||''));
+  const rows = dateSorted.map((r) => {
     const masked = maskName(r.writer);
     const desc = r.contents_text.slice(0, 60).replace(/\s+/g,' ').trim();
     const thumb = r.photos.length
@@ -164,7 +165,7 @@ function generateReviewIndex(reviews, cfg) {
     return `      <a href="${href}" class="review-row">
         ${thumb}
         <div class="review-row-body">
-          <p class="review-row-title">${r.isbest === 'Y' ? '<span class="review-row-best">BEST</span>' : ''}${esc(r.subject.trim() || cfg.subName + ' 후기')}</p>
+          <p class="review-row-title">${esc(r.subject.trim() || cfg.subName + ' 후기')}</p>
           <p class="review-row-desc">${esc(desc)}</p>
           <p class="review-row-meta">${esc(masked)}님 후기 · ${(r.udate||'').slice(0,7).replace('-','.')}</p>
         </div>
