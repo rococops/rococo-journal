@@ -374,7 +374,8 @@ ${FOOTER(root)}
 
 // ── 실행 — 분류(cat)되고 불만어감(flag_bad) 아닌 모든 후기를, 서브카테고리별로 전부 발행 ──
 const curated = JSON.parse(readFileSync(join(ROOT, 'postscript_curated.json'), 'utf8'));
-const usable = curated.filter(r => r.cat && !r.flag_bad);
+// isauth='Y'(본원 인증완료) 아닌 글은 절대 발행하지 않음 — 빈님 확인: "미인증 글은 올리면 안 됨"
+const usable = curated.filter(r => r.cat && !r.flag_bad && r.isauth === 'Y');
 
 const groups = new Map(); // "catPath/subDir" -> rows[]
 for (const r of usable) {

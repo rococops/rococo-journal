@@ -1,6 +1,7 @@
 *.sql
 postscript_safe.json
 postscript_curated.json
+_미분류후기*.md
 .claude/
 .env
 .env.local
