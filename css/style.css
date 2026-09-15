@@ -351,6 +351,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
+.card[hidden] { display: none; }
 .card {
   display: block;
   border: 1px solid var(--gray-200);
@@ -359,6 +360,22 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   transition: box-shadow var(--transition);
 }
 .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+
+/* 사진 없는 후기용 텍스트 리스트 (썸네일 없이) */
+.review-list { display: flex; flex-direction: column; }
+.review-row[hidden] { display: none; }
+.review-row {
+  display: block;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--gray-200);
+  transition: opacity var(--transition);
+}
+.review-row:last-child { border-bottom: none; }
+.review-row:hover { opacity: 0.7; }
+.review-row-title { font-size: 15px; font-weight: 700; color: var(--black); margin-bottom: 0.35rem; }
+.review-row-desc { font-size: 13px; color: var(--gray-500); line-height: 1.5; margin-bottom: 0.35rem; }
+.review-row-meta { font-size: 11px; color: var(--gray-400); }
+
 .card-img {
   position: relative;
   aspect-ratio: 16/10;

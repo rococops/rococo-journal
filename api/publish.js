@@ -1,4 +1,5 @@
 import * as cheerio from 'cheerio';
+import { navHtml, CAT_NAMES } from '../tools/nav.mjs';
 
 const GITHUB_REPO = 'rococops/rococo-journal';
 const GITHUB_API  = 'https://api.github.com';
@@ -44,11 +45,6 @@ const SUBCATS = [
   {catPath:'anti-aging',subDir:'chin',            subName:'무턱성형',              subNameEn:'Chin Augmentation',         keywords:'무턱수술 무턱성형',            thumbPool:['5-1.jpg','5-2.jpg']},
   {catPath:'anti-aging',subDir:'fat-graft',       subName:'미세지방이식',          subNameEn:'Micro Fat Grafting',        keywords:'미세지방이식 지방이식',        thumbPool:['6-1.jpg','6-2.jpg']},
 ];
-
-const CAT_NAMES = {
-  cheekbone: '광대성형', nose: '코성형', nostril: '콧구멍성형',
-  forehead: '이마성형', eye: '눈성형', 'anti-aging': '동안성형',
-};
 
 // ── HTML 정제 ──────────────────────────────────────────────────
 function fixSrc(src) {
@@ -160,87 +156,6 @@ function buildArticleBlocks(html, altText) {
 }
 
 // ── 페이지 템플릿 ──────────────────────────────────────────────
-function navHtml(root, activeCat) {
-  const a = (cat) => cat === activeCat ? 'active' : '';
-  return `<nav class="gnb" id="gnb">
-      <div class="gnb-header">
-        <span class="gnb-title">Menu</span>
-        <button class="gnb-close" id="gnbClose" aria-label="메뉴 닫기">&#x2715;</button>
-      </div>
-      <ul>
-        <li class="has-sub ${a('cheekbone')}"><a href="${root}cheekbone/">광대성형</a>
-          <ul class="sub-menu">
-            <li><a href="${root}cheekbone/quick/">15분 광대축소술</a></li>
-            <li><a href="${root}cheekbone/fat-graft/">심부볼·관자 지방이식</a></li>
-            <li><a href="${root}cheekbone/liposuction/">광대라인 지방흡입</a></li>
-            <li><a href="${root}cheekbone/rear/">뒷광대축소술</a></li>
-            <li><a href="${root}cheekbone/revision/">광대 재수술</a></li>
-          </ul>
-        </li>
-        <li class="has-sub ${a('nose')}"><a href="${root}nose/">코성형</a>
-          <ul class="sub-menu">
-            <li><a href="${root}nose/column/">진료단상</a></li>
-            <li><a href="${root}nose/revision/">코재수술</a></li>
-            <li><a href="${root}nose/rib-cartilage/">늑연골 명품코성형</a></li>
-            <li><a href="${root}nose/septal/">비중격연골 코성형</a></li>
-            <li><a href="${root}nose/scarless/">흉터없는 코성형</a></li>
-            <li><a href="${root}nose/hump/">매부리코</a></li>
-            <li><a href="${root}nose/bulbous/">복코</a></li>
-            <li><a href="${root}nose/osteotomy/">절골술</a></li>
-            <li><a href="${root}nose/long/">긴코</a></li>
-            <li><a href="${root}nose/columella/">비주성형</a></li>
-            <li><a href="${root}nose/cat/">비순각 고양이 입매교정</a></li>
-            <li><a href="${root}nose/male/">남자의 코성형</a></li>
-            <li><a href="${root}nose/rhinitis/">비염수술</a></li>
-          </ul>
-        </li>
-        <li class="has-sub ${a('nostril')}"><a href="${root}nostril/">콧구멍성형</a>
-          <ul class="sub-menu">
-            <li><a href="${root}nostril/alar-lowering/">비공내리기</a></li>
-            <li><a href="${root}nostril/alar-raising/">콧날개올리기</a></li>
-            <li><a href="${root}nostril/v-shape/">V형 콧구멍교정</a></li>
-            <li><a href="${root}nostril/reduction/">콧구멍축소술</a></li>
-            <li><a href="${root}nostril/alar-base/">콧볼축소술</a></li>
-          </ul>
-        </li>
-        <li class="has-sub ${a('forehead')}"><a href="${root}forehead/">이마성형</a>
-          <ul class="sub-menu">
-            <li><a href="${root}forehead/endoscopic/">내시경 이마거상술</a></li>
-            <li><a href="${root}forehead/reduction/">이마축소술</a></li>
-          </ul>
-        </li>
-        <li class="has-sub ${a('eye')}"><a href="${root}eye/">눈성형</a>
-          <ul class="sub-menu">
-            <li><a href="${root}eye/correction/">눈매교정술</a></li>
-            <li><a href="${root}eye/incision/">트임성형</a></li>
-            <li><a href="${root}eye/double/">쌍커풀 자연유착법</a></li>
-            <li><a href="${root}eye/lower-fat/">눈밑지방 재배치</a></li>
-            <li><a href="${root}eye/fat-graft/">꺼진눈 지방이식</a></li>
-            <li><a href="${root}eye/brow-lift/">눈썹하거상술</a></li>
-          </ul>
-        </li>
-        <li class="has-sub ${a('anti-aging')}"><a href="${root}anti-aging/">동안성형</a>
-          <ul class="sub-menu">
-            <li><a href="${root}anti-aging/chin/">무턱성형</a></li>
-            <li><a href="${root}anti-aging/fat-graft/">미세지방이식</a></li>
-            <li><a href="${root}anti-aging/blepharoplasty/">상·하안검성형</a></li>
-            <li><a href="${root}anti-aging/lifting/">엘라스티꿈 실리프팅</a></li>
-            <li><a href="${root}anti-aging/filler-botox/">필러·보톡스</a></li>
-          </ul>
-        </li>
-        <li class="has-sub"><a href="${root}about/">About</a>
-          <ul class="sub-menu">
-            <li><a href="${root}about/">로코코 소개</a></li>
-            <li><a href="${root}about/philosophy/">철학과 강점</a></li>
-            <li><a href="${root}about/location/">오시는 길·진료시간</a></li>
-          </ul>
-        </li>
-        <li><a href="${root}counsel/">상담·예약</a></li>
-        <li><a href="${root}cases/" class="btn-consult">전후사진</a></li>
-      </ul>
-    </nav>`;
-}
-
 function generatePage({title, metaTitle, description, ogImage, ogUrl, date,
   catPath, catName, subDir, subName, subNameEn, heroImage, content, originUrl}) {
   const root = '../../../';
@@ -317,7 +232,7 @@ function generatePage({title, metaTitle, description, ogImage, ogUrl, date,
         ${content}
         <div class="inline-cta">
           <p class="inline-cta-text">${subName}에 대해 더 궁금한 점이 있으신가요?</p>
-          <a href="${root}counsel/?from=${subName}" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>
+          <a href="${root}counsel/online/?from=${subName}" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>
         </div>
       </div>
       <aside class="article-sidebar">
@@ -329,7 +244,7 @@ function generatePage({title, metaTitle, description, ogImage, ogUrl, date,
         <div class="sidebar-card">
           <p class="sidebar-title">온라인 상담</p>
           <p class="sidebar-desc">02-2135-2702<br>월·금 09:00~19:00<br>화·수·목 09:00~18:00<br>토 09:00~13:00</p>
-          <a href="${root}counsel/?from=${subName}" class="sidebar-btn">상담 신청하기 →</a>
+          <a href="${root}counsel/online/?from=${subName}" class="sidebar-btn">상담 신청하기 →</a>
         </div>
         <div class="sidebar-related">
           <p class="sidebar-title">${subName} 다른 글</p>
@@ -344,7 +259,7 @@ ${originCard}
   <div class="container">
     <div class="cta-grid">
       <a href="${root}cases/" class="cta-card"><div class="cta-card-inner"><span class="cta-label">${subName} 전후사진</span><h3 class="cta-title">실제 수술 결과를<br>직접 확인하세요</h3><p class="cta-desc">로코코에서 진행한 실제 케이스 사진을 확인하세요</p><span class="cta-btn">전후사진 보기 →</span></div></a>
-      <a href="${root}counsel/?from=${subName}" class="cta-card"><div class="cta-card-inner"><span class="cta-label">온라인 상담</span><h3 class="cta-title">궁금한 점을<br>직접 물어보세요</h3><p class="cta-desc">김상호 원장이 직접 답변해 드립니다</p><span class="cta-btn">상담 신청하기 →</span></div></a>
+      <a href="${root}counsel/online/?from=${subName}" class="cta-card"><div class="cta-card-inner"><span class="cta-label">온라인 상담</span><h3 class="cta-title">궁금한 점을<br>직접 물어보세요</h3><p class="cta-desc">김상호 원장이 직접 답변해 드립니다</p><span class="cta-btn">상담 신청하기 →</span></div></a>
     </div>
   </div>
 </section>
@@ -366,7 +281,7 @@ ${originCard}
       <div class="footer-links">
         <p class="footer-title">바로가기</p>
         <a href="https://rococops.com" target="_blank">기존 홈페이지</a>
-        <a href="${root}counsel/">온라인 상담</a>
+        <a href="${root}counsel/">상담·예약</a>
         <a href="${root}cases/">전후사진</a>
         <a href="${root}about/">About 로코코</a>
       </div>

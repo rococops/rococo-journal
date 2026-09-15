@@ -144,17 +144,81 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
     <a href="../" class="logo"><span class="logo-main">ROCOCO</span><span class="logo-sub">Journal</span></a>
     <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
     <nav class="gnb" id="gnb">
-      <div class="gnb-header"><span class="gnb-title">MENU</span><button class="gnb-close" id="gnbClose">✕</button></div>
+      <div class="gnb-header">
+        <span class="gnb-title">Menu</span>
+        <button class="gnb-close" id="gnbClose" aria-label="메뉴 닫기">&#x2715;</button>
+      </div>
       <ul>
-        <li class="has-sub"><a href="../cheekbone/">광대성형</a><ul class="sub-menu"><li><a href="../cheekbone/quick/">15분 광대축소술</a></li><li><a href="../cheekbone/fat-graft/">심부볼·관자 지방이식</a></li><li><a href="../cheekbone/liposuction/">광대라인 지방흡입</a></li><li><a href="../cheekbone/rear/">뒷광대축소술</a></li><li><a href="../cheekbone/revision/">광대 재수술</a></li></ul></li>
-        <li class="has-sub"><a href="../nose/">코성형</a><ul class="sub-menu"><li><a href="../nose/column/">진료단상</a></li><li><a href="../nose/revision/">코재수술</a></li><li><a href="../nose/septal/">비중격연골 코성형</a></li><li><a href="../nose/scarless/">흉터없는 코성형</a></li><li><a href="../nose/bulbous/">복코</a></li><li><a href="../nose/columella/">비주성형</a></li><li><a href="../nose/cat/">비순각 고양이 입매교정</a></li></ul></li>
-        <li class="has-sub"><a href="../nostril/">콧구멍성형</a><ul class="sub-menu"><li><a href="../nostril/alar-raising/">콧날개올리기</a></li><li><a href="../nostril/v-shape/">V형 콧구멍교정</a></li><li><a href="../nostril/reduction/">콧구멍축소술</a></li></ul></li>
-        <li class="has-sub"><a href="../forehead/">이마성형</a><ul class="sub-menu"><li><a href="../forehead/endoscopic/">내시경 이마거상술</a></li><li><a href="../forehead/reduction/">이마축소술</a></li></ul></li>
-        <li class="has-sub"><a href="../eye/">눈성형</a><ul class="sub-menu"><li><a href="../eye/incision/">트임성형</a></li><li><a href="../eye/double/">쌍커풀 자연유착법</a></li><li><a href="../eye/lower-fat/">눈밑지방 재배치</a></li><li><a href="../eye/fat-graft/">꺼진눈 지방이식</a></li></ul></li>
-        <li class="has-sub"><a href="../anti-aging/">동안성형</a><ul class="sub-menu"><li><a href="../anti-aging/chin/">무턱성형</a></li><li><a href="../anti-aging/fat-graft/">미세지방이식</a></li><li><a href="../anti-aging/blepharoplasty/">상·하안검성형</a></li><li><a href="../anti-aging/lifting/">엘라스티꿈 실리프팅</a></li><li><a href="../anti-aging/filler-botox/">필러·보톡스</a></li></ul></li>
-        <li class="has-sub"><a href="../about/">About</a><ul class="sub-menu"><li><a href="../about/">로코코 소개</a></li><li><a href="../about/philosophy/">철학과 강점</a></li><li><a href="../about/location/">오시는 길·진료시간</a></li><li><a href="../about/faq/">자주 묻는 질문</a></li></ul></li>
-        <li><a href="../counsel/">온라인 상담</a></li>
-        <li><a href="../reserve/">예약 신청</a></li>
+        <li class="has-sub "><a href="../cheekbone/">광대성형</a>
+          <ul class="sub-menu">
+            <li><a href="../cheekbone/quick/">15분 광대축소술</a></li>
+            <li><a href="../cheekbone/fat-graft/">심부볼·관자 지방이식</a></li>
+            <li><a href="../cheekbone/liposuction/">광대라인 지방흡입</a></li>
+            <li><a href="../cheekbone/rear/">뒷광대축소술</a></li>
+            <li><a href="../cheekbone/revision/">광대 재수술</a></li>
+          </ul>
+        </li>
+        <li class="has-sub "><a href="../nose/">코성형</a>
+          <ul class="sub-menu">
+            <li><a href="../nose/column/">진료단상</a></li>
+            <li><a href="../nose/revision/">코재수술</a></li>
+            <li><a href="../nose/rib-cartilage/">늑연골 명품코성형</a></li>
+            <li><a href="../nose/septal/">비중격연골 코성형</a></li>
+            <li><a href="../nose/scarless/">흉터없는 코성형</a></li>
+            <li><a href="../nose/hump/">매부리코</a></li>
+            <li><a href="../nose/bulbous/">복코</a></li>
+            <li><a href="../nose/osteotomy/">절골술</a></li>
+            <li><a href="../nose/long/">긴코</a></li>
+            <li><a href="../nose/columella/">비주성형</a></li>
+            <li><a href="../nose/cat/">비순각 고양이 입매교정</a></li>
+            <li><a href="../nose/male/">남자의 코성형</a></li>
+            <li><a href="../nose/rhinitis/">비염수술</a></li>
+          </ul>
+        </li>
+        <li class="has-sub "><a href="../nostril/">콧구멍성형</a>
+          <ul class="sub-menu">
+            <li><a href="../nostril/alar-lowering/">비공내리기</a></li>
+            <li><a href="../nostril/alar-raising/">콧날개올리기</a></li>
+            <li><a href="../nostril/v-shape/">V형 콧구멍교정</a></li>
+            <li><a href="../nostril/reduction/">콧구멍축소술</a></li>
+            <li><a href="../nostril/alar-base/">콧볼축소술</a></li>
+          </ul>
+        </li>
+        <li class="has-sub "><a href="../forehead/">이마성형</a>
+          <ul class="sub-menu">
+            <li><a href="../forehead/endoscopic/">내시경 이마거상술</a></li>
+            <li><a href="../forehead/reduction/">이마축소술</a></li>
+          </ul>
+        </li>
+        <li class="has-sub "><a href="../eye/">눈성형</a>
+          <ul class="sub-menu">
+            <li><a href="../eye/correction/">눈매교정술</a></li>
+            <li><a href="../eye/incision/">트임성형</a></li>
+            <li><a href="../eye/double/">쌍커풀 자연유착법</a></li>
+            <li><a href="../eye/lower-fat/">눈밑지방 재배치</a></li>
+            <li><a href="../eye/fat-graft/">꺼진눈 지방이식</a></li>
+            <li><a href="../eye/brow-lift/">눈썹하거상술</a></li>
+          </ul>
+        </li>
+        <li class="has-sub "><a href="../anti-aging/">동안성형</a>
+          <ul class="sub-menu">
+            <li><a href="../anti-aging/chin/">무턱성형</a></li>
+            <li><a href="../anti-aging/fat-graft/">미세지방이식</a></li>
+            <li><a href="../anti-aging/blepharoplasty/">상·하안검성형</a></li>
+            <li><a href="../anti-aging/lifting/">엘라스티꿈 실리프팅</a></li>
+            <li><a href="../anti-aging/filler-botox/">필러·보톡스</a></li>
+          </ul>
+        </li>
+        <li class="has-sub"><a href="../about/">About</a>
+          <ul class="sub-menu">
+            <li><a href="../about/">로코코 소개</a></li>
+            <li><a href="../about/philosophy/">철학과 강점</a></li>
+            <li><a href="../about/location/">오시는 길·진료시간</a></li>
+            <li><a href="../about/faq/">자주 묻는 질문</a></li>
+          </ul>
+        </li>
+        <li><a href="../counsel/">상담·예약</a></li>
+        <li><a href="../reviews/">수술후기</a></li>
         <li><a href="../cases/" class="btn-consult">전후사진</a></li>
       </ul>
     </nav>

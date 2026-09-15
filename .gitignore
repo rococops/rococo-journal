@@ -1,4 +1,6 @@
 *.sql
+postscript_safe.json
+postscript_curated.json
 .claude/
 .env
 .env.local

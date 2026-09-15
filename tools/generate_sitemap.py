@@ -10,7 +10,11 @@ EXTRA_PATHS = [
     ('about/', '0.5', DEFAULT_LASTMOD),
     ('about/philosophy/', '0.5', DEFAULT_LASTMOD),
     ('about/location/', '0.5', DEFAULT_LASTMOD),
-    ('counsel/', '0.5', DEFAULT_LASTMOD),
+    ('about/faq/', '0.5', DEFAULT_LASTMOD),
+    ('counsel/', '0.6', DEFAULT_LASTMOD),
+    ('counsel/online/', '0.5', DEFAULT_LASTMOD),
+    ('reserve/', '0.5', DEFAULT_LASTMOD),
+    ('reviews/', '0.7', DEFAULT_LASTMOD),
     ('cases/', '0.7', DEFAULT_LASTMOD),
 ]
 
