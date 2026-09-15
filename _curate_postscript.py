@@ -104,14 +104,30 @@ for r in rows:
         continue
     cats = _rules_all(r['subject'])
     if not cats:
-        # 제목만으로 매칭 안 되면(순수 감사글 등 시술 단서가 제목에 없는 경우) 본문 앞부분까지
-        # 같은 다중매칭 규칙으로 확장 — 그래도 안 되면 mcolumn 코드 기본값(대개 안 맞음, 최후 수단)
-        cats = _rules_all(r['subject'] + ' ' + r['contents_text'][:300])
+        # 제목만으로 매칭 안 되면(순수 감사글 등 시술 단서가 제목에 없는 경우) 본문 전체로
+        # 확장(빈님 확인: "본문 전체를 봐야겠는데" — 앞 300자 안에 키워드가 없는 경우가 있었음)
+        cats = _rules_all(r['subject'] + ' ' + r['contents_text'])
+        if not cats:
+            # 그래도 안 되면 작성자 닉네임도 확인(빈님 확인: "광대이제그만"처럼 닉네임 자체가
+            # 시술을 가리키는 경우가 있음)
+            cats = _rules_all(r['writer'] or '')
         if not cats:
             fallback = classify(r['category'], r['subject'] + ' ' + r['contents_text'][:200])
             cats = [fallback] if fallback else []
     cat = cats[0] if cats else None  # 대표 카테고리 — 개별 페이지가 실제로 생성되는 위치
     cands.append({**r, 'score': round(sc,1), 'cat': cat, 'cats': cats, 'flag_bad': any(k in r['contents_text'] for k in BAD_KW)})
+
+# 그래도 미분류인 글은 같은 작성자 닉네임의 다른(이미 분류된) 글에서 카테고리를 빌려옴
+# — 빈님 확인: "동명이인이 올린 2차후기 아닐까" (예: num=406 "지방2차 사진 다시 올려요"는
+# 같은 작성자 num=407의 후속글이고 407은 이미 코성형으로 분류돼 있었음)
+by_writer = {}
+for c in cands:
+    if c['cat'] and c['writer']:
+        by_writer.setdefault(c['writer'], c['cat'])
+for c in cands:
+    if not c['cat'] and c['writer'] in by_writer:
+        c['cat'] = by_writer[c['writer']]
+        c['cats'] = [c['cat']]
 
 cands.sort(key=lambda x: -x['score'])
 
