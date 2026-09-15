@@ -1,5 +1,5 @@
 // 사이트 공통 GNB — 모든 페이지 생성 스크립트가 여기서 가져다 씀 (api/publish.js, tools/build_reviews.mjs, tools/update_gnb.mjs)
-export const CAT_NAMES = { cheekbone: '광대성형', nose: '코성형', nostril: '콧구멍성형', forehead: '이마성형', eye: '눈성형', 'anti-aging': '동안성형' };
+export const CAT_NAMES = { cheekbone: '광대성형', nose: '코성형', nostril: '콧구멍성형', forehead: '이마성형', eye: '눈성형', 'anti-aging': '동안성형', etc: '기타' };
 
 export function navHtml(root, activeCat) {
   const a = (cat) => cat === activeCat ? 'active' : '';

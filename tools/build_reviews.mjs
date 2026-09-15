@@ -12,6 +12,7 @@ const SITE_BASE = 'https://journal.rococops.com';
 
 // 서브카테고리 자체 케이스 목록 페이지(H1)에서 subName을 읽어옴 — SUBCATS 메타를 별도로 두지 않고 재사용
 function findSubName(catPath, subDir) {
+  if (catPath === 'etc') return '기타'; // 케이스 목록 페이지가 없는 가상 카테고리 — 자동 분류 실패한 나머지
   const idxPath = join(ROOT, catPath, subDir, 'index.html');
   if (!existsSync(idxPath)) return subDir;
   const html = readFileSync(idxPath, 'utf8');

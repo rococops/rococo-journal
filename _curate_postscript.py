@@ -61,6 +61,7 @@ def _rules_all(s):
     add('필러' in s or '보톡스' in s, ['필러', '보톡스'], ('anti-aging', 'filler-botox'))
     add('무턱' in s, ['무턱'], ('anti-aging', 'chin'))
     add('미세지방' in s, ['미세지방'], ('anti-aging', 'fat-graft'))
+    add('이마' in s and '지방' in s, ['이마'], ('anti-aging', 'fat-graft'))  # 이마 지방이식 — 빈님 확인(num=30)
     add('이마' in s and '거상' in s, ['이마'], ('forehead', 'endoscopic'))
     add('이마' in s and '축소' in s, ['이마'], ('forehead', 'reduction'))
     add('15분' in s or '변형15분' in s or '변형 15분' in s or '퀵광대' in s,
@@ -127,6 +128,12 @@ for c in cands:
 for c in cands:
     if not c['cat'] and c['writer'] in by_writer:
         c['cat'] = by_writer[c['writer']]
+        c['cats'] = [c['cat']]
+
+# 그래도 안 잡히면 "기타"로 — 빈님 확인: "남은건 그냥 기타 카테고리 만들어서 넣어줘"
+for c in cands:
+    if not c['cat']:
+        c['cat'] = ('etc', 'general')
         c['cats'] = [c['cat']]
 
 cands.sort(key=lambda x: -x['score'])
