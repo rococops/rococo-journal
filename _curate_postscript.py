@@ -70,6 +70,10 @@ def _rules_all(s):
     add('관자 지방이식' in s or '심부볼' in s, ['관자 지방이식', '심부볼'], ('cheekbone', 'fat-graft'))
     add('광대' in s and '지방흡입' in s, ['광대'], ('cheekbone', 'liposuction'))
     add('광대' in s, ['광대'], ('cheekbone', 'quick'))
+    # 세부 시술명 없이 "코"/"명품코"만 있는 경우 — 간판 시술(늑연골 명품코성형)로 기본 배정.
+    # 이미 더 구체적인 nose 카테고리가 잡혔으면(예: 복코 안에 '코'가 포함됨) 중복 태그하지 않음
+    if '코' in s and not any(c[0] == 'nose' for _, c in out):
+        add(True, ['명품코', '코'], ('nose', 'rib-cartilage'))
     # 제목 내 등장 위치 순으로 정렬(먼저 나온 시술이 대표), 카테고리 중복 제거(첫 등장만 유지)
     out.sort(key=lambda x: x[0])
     seen = set()
@@ -100,9 +104,12 @@ for r in rows:
         continue
     cats = _rules_all(r['subject'])
     if not cats:
-        # 제목만으로 매칭 안 되면(날짜만 있는 제목 등) 기존 방식(제목+본문 앞부분+코드 기본값)으로 보완
-        fallback = classify(r['category'], r['subject'] + ' ' + r['contents_text'][:200])
-        cats = [fallback] if fallback else []
+        # 제목만으로 매칭 안 되면(순수 감사글 등 시술 단서가 제목에 없는 경우) 본문 앞부분까지
+        # 같은 다중매칭 규칙으로 확장 — 그래도 안 되면 mcolumn 코드 기본값(대개 안 맞음, 최후 수단)
+        cats = _rules_all(r['subject'] + ' ' + r['contents_text'][:300])
+        if not cats:
+            fallback = classify(r['category'], r['subject'] + ' ' + r['contents_text'][:200])
+            cats = [fallback] if fallback else []
     cat = cats[0] if cats else None  # 대표 카테고리 — 개별 페이지가 실제로 생성되는 위치
     cands.append({**r, 'score': round(sc,1), 'cat': cat, 'cats': cats, 'flag_bad': any(k in r['contents_text'] for k in BAD_KW)})
 
