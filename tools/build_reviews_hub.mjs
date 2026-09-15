@@ -33,24 +33,33 @@ const usable = curated
 
 console.log(`전체 후기: ${usable.length}건`);
 
+// 카테고리 필터 집계는 제목에서 태그된 모든 카테고리(cats) 기준 — 복합시술 후기는
+// 관련된 모든 상위 카테고리 필터에 다 걸림. 대표(cat) 상관없이 topCats(중복제거)로 집계.
+function topCatsOf(r) {
+  const list = (r.cats && r.cats.length ? r.cats : [r.cat]).map(c => c[0]);
+  return [...new Set(list)];
+}
+
 const catCounts = new Map();
 for (const r of usable) {
-  const catPath = r.cat[0];
-  catCounts.set(catPath, (catCounts.get(catPath) || 0) + 1);
+  for (const catPath of topCatsOf(r)) {
+    catCounts.set(catPath, (catCounts.get(catPath) || 0) + 1);
+  }
 }
 Object.keys(CAT_NAMES).filter(c => catCounts.has(c)).forEach(c => console.log(`  ${CAT_NAMES[c]}: ${catCounts.get(c)}건`));
 
 const nav = navHtml('../', null);
 
 const rows = usable.map((r) => {
-  const [catPath, subDir] = r.cat;
+  const [catPath, subDir] = r.cat; // 대표 카테고리 — 실제 페이지 위치(링크)는 항상 여기
   const subName = findSubName(catPath, subDir);
   const masked = maskName(r.writer);
   const desc = r.contents_text.slice(0, 60).replace(/\s+/g,' ').trim();
   const thumb = r.photos.length
     ? `<div class="review-row-thumb"><img src="${PHOTO_BASE}1/${r.photos[0]}" alt="" loading="lazy"></div>`
     : `<div class="review-row-thumb-empty"></div>`;
-  return `      <a href="../${catPath}/${subDir}/reviews/${r.num}/" class="review-row" data-cat="${catPath}">
+  const dataCat = topCatsOf(r).join(' ');
+  return `      <a href="../${catPath}/${subDir}/reviews/${r.num}/" class="review-row" data-cat="${dataCat}">
         ${thumb}
         <div class="review-row-body">
           <p class="review-row-title">${r.isbest === 'Y' ? '<span class="review-row-best">BEST</span>' : ''}<span class="review-row-tag">${esc(subName)}</span>${esc(r.subject.trim() || subName + ' 후기')}</p>
@@ -156,7 +165,7 @@ ${FOOTER('../')}
   var moreBtn = document.getElementById('loadMoreReviews');
   var chips = document.querySelectorAll('#reviewCatFilter .sort-btn');
   var state = { cat: 'all', shown: PAGE };
-  function matches(el){ return state.cat === 'all' || el.dataset.cat === state.cat; }
+  function matches(el){ return state.cat === 'all' || el.dataset.cat.split(' ').indexOf(state.cat) !== -1; }
   function apply(){
     var filtered = allItems.filter(matches);
     allItems.forEach(function(el){ el.hidden = true; });

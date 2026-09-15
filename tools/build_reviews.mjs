@@ -157,7 +157,11 @@ function generateReviewIndex(reviews, cfg) {
     const thumb = r.photos.length
       ? `<div class="review-row-thumb"><img src="${PHOTO_BASE}1/${r.photos[0]}" alt="" loading="lazy"></div>`
       : `<div class="review-row-thumb-empty"></div>`;
-    return `      <a href="${r.num}/" class="review-row">
+    // 복수 카테고리 태그된 글은 실제 페이지가 대표(primary) 카테고리 쪽에만 생성됨 —
+    // 지금 이 목록이 대표 카테고리가 아니면(교차 노출) 실제 위치로 경로를 잡아줌
+    const isPrimary = r.cat[0] === cfg.catPath && r.cat[1] === cfg.subDir;
+    const href = isPrimary ? `${r.num}/` : `${root}${r.cat[0]}/${r.cat[1]}/reviews/${r.num}/`;
+    return `      <a href="${href}" class="review-row">
         ${thumb}
         <div class="review-row-body">
           <p class="review-row-title">${r.isbest === 'Y' ? '<span class="review-row-best">BEST</span>' : ''}${esc(r.subject.trim() || cfg.subName + ' 후기')}</p>
@@ -263,24 +267,35 @@ const curated = JSON.parse(readFileSync(join(ROOT, 'postscript_curated.json'), '
 // flag_bad(환불/불만/실망 단어 포함) 35건은 사람이 직접 검토 후 발행 승인 — 빈님 확인: "니가 고른거라면 그냥 다 올려줘"
 const usable = curated.filter(r => r.cat && r.isauth === 'Y');
 
-const groups = new Map(); // "catPath/subDir" -> rows[]
+// 페이지 생성은 대표(primary=cat) 카테고리 위치에서만 1회 — URL 중복 방지
+const primaryGroups = new Map(); // "catPath/subDir" -> rows[]
 for (const r of usable) {
   const key = r.cat.join('/');
-  if (!groups.has(key)) groups.set(key, []);
-  groups.get(key).push(r);
+  if (!primaryGroups.has(key)) primaryGroups.set(key, []);
+  primaryGroups.get(key).push(r);
 }
 
-console.log(`대상 서브카테고리: ${groups.size}개, 총 후기: ${usable.length}건\n`);
+// 목록 노출은 제목에서 태그된 모든 카테고리(cats) 기준 — 복합시술 후기가
+// 관련 카테고리 전부에 다 보이게 (빈님 확인: "제목에 보이는 모든 키워드를 카테고리로")
+const listingGroups = new Map();
+for (const r of usable) {
+  for (const c of (r.cats && r.cats.length ? r.cats : [r.cat])) {
+    const key = c.join('/');
+    if (!listingGroups.has(key)) listingGroups.set(key, []);
+    listingGroups.get(key).push(r);
+  }
+}
+
+console.log(`대상 서브카테고리: ${listingGroups.size}개, 총 후기: ${usable.length}건\n`);
 
 let totalNew = 0, totalSkipped = 0;
-for (const [key, rows] of [...groups.entries()].sort((a, b) => b[1].length - a[1].length)) {
+for (const [key, rows] of [...primaryGroups.entries()].sort((a, b) => b[1].length - a[1].length)) {
   const [catPath, subDir] = key.split('/');
   const cfg = { catPath, subDir, subName: findSubName(catPath, subDir) };
   const sorted = rows.sort((a, b) => b.score - a.score);
   const baseDir = join(ROOT, catPath, subDir, 'reviews');
   mkdirSync(baseDir, { recursive: true });
 
-  const built = [];
   let newInGroup = 0;
   for (const r of sorted) {
     const dir = join(baseDir, String(r.num));
@@ -288,10 +303,19 @@ for (const [key, rows] of [...groups.entries()].sort((a, b) => b[1].length - a[1
     mkdirSync(dir, { recursive: true });
     writeFileSync(join(dir, 'index.html'), generateReviewPage(r, cfg), 'utf8'); // 항상 재생성(템플릿 변경 시 기존 글도 반영)
     if (isNew) { totalNew++; newInGroup++; } else { totalSkipped++; }
-    built.push(r);
   }
-  writeFileSync(join(baseDir, 'index.html'), generateReviewIndex(built, cfg), 'utf8');
-  console.log(`${key} — ${cfg.subName} (총 ${built.length}건, 신규 ${newInGroup})`);
+  console.log(`${key} — ${cfg.subName} 페이지 생성 (${sorted.length}건, 신규 ${newInGroup})`);
 }
 
-console.log(`\n완료 — 신규 생성 ${totalNew}건, 이미 있어서 건너뜀 ${totalSkipped}건`);
+// 목록(index.html)은 listingGroups 기준으로 별도 생성 — primaryGroups에 없던
+// 서브카테고리도(교차 태그만 있는 경우) 목록은 만들어야 하므로 전체를 순회
+for (const [key, rows] of [...listingGroups.entries()].sort((a, b) => b[1].length - a[1].length)) {
+  const [catPath, subDir] = key.split('/');
+  const cfg = { catPath, subDir, subName: findSubName(catPath, subDir) };
+  const sorted = [...rows].sort((a, b) => b.score - a.score);
+  const baseDir = join(ROOT, catPath, subDir, 'reviews');
+  mkdirSync(baseDir, { recursive: true });
+  writeFileSync(join(baseDir, 'index.html'), generateReviewIndex(sorted, cfg), 'utf8');
+}
+
+console.log(`\n완료 — 신규 페이지 ${totalNew}건, 이미 있어서 건너뜀 ${totalSkipped}건, 목록 페이지 ${listingGroups.size}개`);
