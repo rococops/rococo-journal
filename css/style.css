@@ -382,20 +382,71 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
 
-/* 사진 없는 후기용 텍스트 리스트 (썸네일 없이) */
+/* 후기 목록 — 사진 유무 상관없이 하나의 컴팩트 row 리스트로 통일
+   (원본 사진 품질이 들쭉날쭉해 큰 카드 그리드로 쓰면 검열바·콜라주 등으로
+   지저분해짐 — 작은 정사각 썸네일 하나로 축소해 텍스트 중심 리스트로) */
 .review-list { display: flex; flex-direction: column; }
 .review-row[hidden] { display: none; }
 .review-row {
-  display: block;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 1rem;
   padding: 1.1rem 0;
   border-bottom: 1px solid var(--gray-200);
   transition: opacity var(--transition);
+  width: 100%;
 }
 .review-row:last-child { border-bottom: none; }
-.review-row:hover { opacity: 0.7; }
-.review-row-title { font-size: 15px; font-weight: 700; color: var(--black); margin-bottom: 0.35rem; }
-.review-row-desc { font-size: 13px; color: var(--gray-500); line-height: 1.5; margin-bottom: 0.35rem; }
+.review-row:hover { opacity: 0.6; }
+.review-row-thumb {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--gray-100);
+}
+.review-row-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.review-row-thumb-empty {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius);
+  flex-shrink: 0;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+}
+.review-row-body { flex: 1; min-width: 0; }
+.review-row-title {
+  font-size: 15px; font-weight: 700; color: var(--black); margin-bottom: 0.3rem;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.review-row-desc {
+  font-size: 13px; color: var(--gray-500); line-height: 1.5; margin-bottom: 0.35rem;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
 .review-row-meta { font-size: 11px; color: var(--gray-400); }
+.review-row-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 3px;
+  padding: 1px 6px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* 전체 후기 통합 리스트(=/reviews/) — 항목이 많아 2단으로 스크롤 길이를 줄임 */
+@media (min-width: 700px) {
+  .review-list-cols { display: block; columns: 2; column-gap: 2.5rem; }
+  .review-list-cols .review-row { break-inside: avoid-column; }
+}
+.review-list-cols .review-row-thumb,
+.review-list-cols .review-row-thumb-empty { width: 48px; height: 48px; }
+.review-list-cols .review-row { padding: 0.85rem 0; gap: 0.85rem; }
+.review-list-cols .review-row-desc { display: none; }
 
 .card-img {
   position: relative;
@@ -1075,6 +1126,61 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* 수술후기 전용 히어로 — 케이스 글(.article-hero)과 구조 자체를 다르게 */
+.review-hero-banner {
+  position: relative;
+  width: 100%;
+  height: 46vh;
+  min-height: 320px;
+  max-height: 560px;
+  overflow: hidden;
+  background: var(--gray-100);
+}
+.review-hero-banner img { width: 100%; height: 100%; object-fit: cover; }
+.review-hero-best {
+  position: absolute;
+  top: 20px; left: 20px;
+  background: var(--accent);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 5px 12px;
+  border-radius: 3px;
+}
+.review-hero-body { padding: 2.5rem 0 1rem; }
+.review-hero-title {
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  max-width: 26ch;
+  margin: 0 0 1.25rem;
+}
+.review-pullquote {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1.6;
+  max-width: 60ch;
+  margin: 0 0 1.5rem;
+  padding-left: 1.1rem;
+  border-left: 3px solid var(--accent);
+}
+.review-hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--gray-400);
+}
+.review-hero-meta .meta-author { font-weight: 700; color: var(--black); }
+@media (max-width: 767px) {
+  .review-hero-banner { height: 32vh; min-height: 220px; }
+  .review-hero-title { font-size: 24px; }
+  .review-pullquote { font-size: 16px; }
 }
 
 /* 아티클 레이아웃 */

@@ -1,83 +1,69 @@
-// 사이트 전체 "수술후기" 허브 페이지(reviews/index.html) 생성.
-// {cat}/{subdir}/reviews/index.html 이 존재하는 서브카테고리를 파일시스템에서 스캔해 카드로 나열.
-// 후기 배치가 카테고리별로 추가될 때마다 이 스크립트만 재실행하면 허브가 자동으로 갱신됨.
-import { readFileSync, writeFileSync, readdirSync, existsSync, statSync } from 'node:fs';
+// 사이트 전체 "수술후기" 랜딩 페이지(reviews/index.html) 생성.
+// 빈님 피드백: 카테고리부터 고르게 하지 말고, 들어오면 전체 후기 리스트가 바로 보이고
+// 그 위에서 카테고리를 필터로 선택하는 구조가 맞다 — 그래서 카테고리 허브가 아니라
+// 전체 통합 리스트 + 상단 카테고리 필터 칩으로 재구성.
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { navHtml, CAT_NAMES } from './nav.mjs';
+import { PHOTO_BASE, maskName, esc, FOOTER } from './review_utils.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+const SITE_BASE = 'https://journal.rococops.com';
 
+const subNameCache = new Map();
 function findSubName(catPath, subDir) {
+  const key = `${catPath}/${subDir}`;
+  if (subNameCache.has(key)) return subNameCache.get(key);
   const idxPath = join(ROOT, catPath, subDir, 'index.html');
-  if (!existsSync(idxPath)) return subDir;
-  const html = readFileSync(idxPath, 'utf8');
-  const m = html.match(/<h1 class="article-title">([\s\S]*?)<\/h1>/);
-  return m ? m[1].trim() : subDir;
-}
-
-function countReviews(catPath, subDir) {
-  const reviewsDir = join(ROOT, catPath, subDir, 'reviews');
-  return readdirSync(reviewsDir).filter(name => {
-    const p = join(reviewsDir, name);
-    return /^\d+$/.test(name) && statSync(p).isDirectory();
-  }).length;
-}
-
-const populated = [];
-for (const catPath of Object.keys(CAT_NAMES)) {
-  const catDir = join(ROOT, catPath);
-  if (!existsSync(catDir)) continue;
-  for (const subDir of readdirSync(catDir)) {
-    const reviewsIdx = join(catDir, subDir, 'reviews', 'index.html');
-    if (existsSync(reviewsIdx)) {
-      populated.push({
-        catPath,
-        subDir,
-        subName: findSubName(catPath, subDir),
-        count: countReviews(catPath, subDir),
-      });
-    }
+  let name = subDir;
+  if (existsSync(idxPath)) {
+    const html = readFileSync(idxPath, 'utf8');
+    const m = html.match(/<h1 class="article-title">([\s\S]*?)<\/h1>/);
+    if (m) name = m[1].trim();
   }
+  subNameCache.set(key, name);
+  return name;
 }
 
-console.log(`수술후기 있는 서브카테고리: ${populated.length}개`);
-populated.forEach(p => console.log(`  ${p.catPath}/${p.subDir} — ${p.subName} (${p.count}건)`));
+const curated = JSON.parse(readFileSync(join(ROOT, 'postscript_curated.json'), 'utf8'));
+const usable = curated
+  .filter(r => r.cat && r.isauth === 'Y')
+  .sort((a, b) => b.score - a.score);
 
-function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+console.log(`전체 후기: ${usable.length}건`);
+
+const catCounts = new Map();
+for (const r of usable) {
+  const catPath = r.cat[0];
+  catCounts.set(catPath, (catCounts.get(catPath) || 0) + 1);
 }
+Object.keys(CAT_NAMES).filter(c => catCounts.has(c)).forEach(c => console.log(`  ${CAT_NAMES[c]}: ${catCounts.get(c)}건`));
 
 const nav = navHtml('../', null);
-const totalCount = populated.reduce((sum, p) => sum + p.count, 0);
 
-// 카테고리(광대성형/코성형/...)별로 묶어서 — cta-card(검정, 1~2개용 강조 패턴)를
-// 27개 반복하면 새까만 벽이 되어버려서, 흰 배경 카드 그리드 + 카테고리 그룹핑으로 변경
-const byCat = new Map();
-for (const p of populated) {
-  if (!byCat.has(p.catPath)) byCat.set(p.catPath, []);
-  byCat.get(p.catPath).push(p);
-}
+const rows = usable.map((r) => {
+  const [catPath, subDir] = r.cat;
+  const subName = findSubName(catPath, subDir);
+  const masked = maskName(r.writer);
+  const desc = r.contents_text.slice(0, 60).replace(/\s+/g,' ').trim();
+  const thumb = r.photos.length
+    ? `<div class="review-row-thumb"><img src="${PHOTO_BASE}1/${r.photos[0]}" alt="" loading="lazy"></div>`
+    : `<div class="review-row-thumb-empty"></div>`;
+  return `      <a href="../${catPath}/${subDir}/reviews/${r.num}/" class="review-row" data-cat="${catPath}">
+        ${thumb}
+        <div class="review-row-body">
+          <p class="review-row-title">${r.isbest === 'Y' ? '<span class="review-row-best">BEST</span>' : ''}<span class="review-row-tag">${esc(subName)}</span>${esc(r.subject.trim() || subName + ' 후기')}</p>
+          <p class="review-row-desc">${esc(desc)}</p>
+          <p class="review-row-meta">${esc(masked)}님 후기 · ${(r.udate||'').slice(0,7).replace('-','.')}</p>
+        </div>
+      </a>`;
+}).join('\n');
 
-const groups = Object.keys(CAT_NAMES)
-  .filter(catPath => byCat.has(catPath))
-  .map(catPath => {
-    const items = byCat.get(catPath);
-    const rows = items.map(p => `        <a href="../${p.catPath}/${p.subDir}/reviews/" class="review-hub-row">
-          <span class="review-hub-row-name">${esc(p.subName)}</span>
-          <span class="review-hub-row-count">${p.count}건</span>
-        </a>`).join('\n');
-    return `    <div class="review-hub-group">
-      <p class="review-hub-group-label">${esc(CAT_NAMES[catPath])}</p>
-      <div class="review-hub-list">
-${rows}
-      </div>
-    </div>`;
-  }).join('\n');
-
-const emptyState = populated.length === 0
-  ? `    <p style="color:var(--gray-500);">아직 준비 중입니다. 곧 카테고리별 수술후기를 만나보실 수 있어요.</p>`
-  : '';
+const filterChips = ['all', ...Object.keys(CAT_NAMES).filter(c => catCounts.has(c))].map(c => {
+  if (c === 'all') return `<button type="button" class="sort-btn active" data-cat="all">전체 (${usable.length})</button>`;
+  return `<button type="button" class="sort-btn" data-cat="${c}">${esc(CAT_NAMES[c])} (${catCounts.get(c)})</button>`;
+}).join('\n      ');
 
 const html = `<!DOCTYPE html>
 <html lang="ko">
@@ -100,15 +86,15 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>수술후기 (${totalCount}건) — 로코코성형외과 김상호 원장</title>
-<meta name="description" content="로코코성형외과에서 시술받으신 환자분들이 직접 남기신 수술후기 ${totalCount}건을 시술별로 확인하세요.">
+<title>수술후기 (${usable.length}건) — 로코코성형외과 김상호 원장</title>
+<meta name="description" content="로코코성형외과에서 시술받으신 환자분들이 직접 남기신 수술후기 ${usable.length}건.">
 <meta property="og:title" content="수술후기 | 로코코 저널">
-<meta property="og:description" content="환자분들이 직접 남기신 수술후기를 시술별로 확인하세요.">
+<meta property="og:description" content="환자분들이 직접 남기신 수술후기를 확인하세요.">
 <meta property="og:url" content="https://journal.rococops.com/reviews/">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://journal.rococops.com/reviews/">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"CollectionPage","name":"수술후기 — 로코코성형외과","description":"환자분들이 직접 남기신 수술후기 ${totalCount}건","url":"https://journal.rococops.com/reviews/","inLanguage":"ko","publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}}
+{"@context":"https://schema.org","@type":"CollectionPage","name":"수술후기 — 로코코성형외과","description":"환자분들이 직접 남기신 수술후기 ${usable.length}건","url":"https://journal.rococops.com/reviews/","inLanguage":"ko","publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}}
 </script>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
@@ -140,9 +126,8 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
     </div>
     <div class="article-hero-inner" style="grid-template-columns: 1fr;">
       <div class="article-hero-text">
-        <span class="eyebrow">PATIENT REVIEWS · 환자 후기</span>
         <h1 class="article-title">수술후기</h1>
-        <p class="article-summary">로코코성형외과에서 시술받으신 환자분들이 직접 남기신 후기 ${totalCount}건을 시술별로 확인하세요.</p>
+        <p class="article-summary">로코코성형외과에서 시술받으신 환자분들이 직접 남기신 후기 ${usable.length}건입니다.</p>
       </div>
     </div>
   </div>
@@ -150,41 +135,47 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
 
 <section class="section">
   <div class="container">
-${groups}${emptyState}
+    <div class="sort-toggle" id="reviewCatFilter" style="margin-bottom:1.5rem;flex-wrap:wrap;">
+      ${filterChips}
+    </div>
+    <div class="review-list review-list-cols" id="review-list">
+${rows}
+    </div>
+    <div style="text-align:center;margin-top:2rem;">
+      <button type="button" class="sort-btn" id="loadMoreReviews" style="padding:0.7rem 2rem;">더보기</button>
+    </div>
   </div>
 </section>
 
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-info">
-        <p class="footer-logo">ROCOCO <em>Journal</em></p>
-        <p>로코코성형외과의원</p>
-        <p>서울특별시 강남구 논현로 842 (신사동 599) 압구정빌딩 3층</p>
-        <p>대표원장 김상호 · 02-2135-2702</p>
-        <p>사업자등록번호 211-09-48591</p>
-      </div>
-      <div class="footer-hours">
-        <p class="footer-title">진료시간</p>
-        <p>월·금 — 09:00 ~ 19:00</p>
-        <p>화·수·목 — 09:00 ~ 18:00</p>
-        <p>토 — 09:00 ~ 13:00</p>
-        <p>일·공휴일 휴진</p>
-      </div>
-      <div class="footer-links">
-        <p class="footer-title">바로가기</p>
-        <a href="https://rococops.com" target="_blank">기존 홈페이지</a>
-        <a href="../counsel/">상담·예약</a>
-        <a href="../cases/">전후사진</a>
-        <a href="../about/">About 로코코</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 Rococo Plastic Surgery. All rights reserved.</p>
-    </div>
-  </div>
-</footer>
-<script src="../js/main.js"></script>
+${FOOTER('../')}
+<script>
+(function(){
+  var PAGE = 30;
+  var list = document.getElementById('review-list');
+  var allItems = Array.prototype.slice.call(list.querySelectorAll('.review-row'));
+  var moreBtn = document.getElementById('loadMoreReviews');
+  var chips = document.querySelectorAll('#reviewCatFilter .sort-btn');
+  var state = { cat: 'all', shown: PAGE };
+  function matches(el){ return state.cat === 'all' || el.dataset.cat === state.cat; }
+  function apply(){
+    var filtered = allItems.filter(matches);
+    allItems.forEach(function(el){ el.hidden = true; });
+    filtered.slice(0, state.shown).forEach(function(el){ el.hidden = false; });
+    moreBtn.hidden = filtered.length <= state.shown;
+  }
+  chips.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      chips.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      state.cat = btn.dataset.cat;
+      state.shown = PAGE;
+      apply();
+    });
+  });
+  moreBtn.addEventListener('click', function(){ state.shown += PAGE; apply(); });
+  apply();
+})();
+</script>
 </body>
 </html>
 `;

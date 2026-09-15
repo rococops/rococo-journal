@@ -4,6 +4,9 @@ postscript_curated.json
 _미분류후기*.md
 _불만어감후기*.md
 .claude/
+.agents/
+.impeccable/
+skills-lock.json
 .env
 .env.local
 node_modules/

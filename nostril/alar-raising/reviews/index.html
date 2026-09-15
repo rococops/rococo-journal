@@ -116,7 +116,6 @@
     </div>
     <div class="article-hero-inner">
       <div class="article-hero-text">
-        <span class="eyebrow">PATIENT REVIEWS · 환자 후기</span>
         <h1 class="article-title">콧날개올리기 수술후기</h1>
         <p class="article-summary">콧날개올리기을 받으신 환자분들이 직접 남기신 후기 2건입니다.</p>
         <div class="article-meta">
@@ -134,73 +133,41 @@
       <h2 class="section-label">콧날개올리기 수술후기 (2건)</h2>
       <a href="../" style="font-size:0.85rem;color:var(--gray-600);">← 콧날개올리기 케이스 글 보기</a>
     </div>
-
-    <div id="photo-section">
-      
-      <div class="card-grid" id="photo-grid">
-      <a href="677/" class="card" data-date="2020-05-25">
-        <div class="card-img">
-          <img src="https://rococops.com/files/postscript/attach1/1_2020052544876876.png" alt="양0링님 후기" loading="lazy">
-          <span class="card-best">BEST</span>
-          <span class="card-tag">사진 후기</span>
-        </div>
-        <div class="card-body">
-          <p class="card-title">콧날개 올리기 후기 + 콧볼축소 광대축소</p>
-          <p class="card-desc">위에가 전 아래가 후 사진입니다 코만 봐주세용! 후기가 너무긴데 긴거싫으신분들 마지막 줄만 읽으세영 안</p>
+    <div class="review-list review-list-cols" id="review-list">
+      <a href="677/" class="review-row">
+        <div class="review-row-thumb"><img src="https://rococops.com/files/postscript/attach1/1_2020052544876876.png" alt="" loading="lazy"></div>
+        <div class="review-row-body">
+          <p class="review-row-title"><span class="review-row-best">BEST</span>콧날개 올리기 후기 + 콧볼축소 광대축소</p>
+          <p class="review-row-desc">위에가 전 아래가 후 사진입니다 코만 봐주세용! 후기가 너무긴데 긴거싫으신분들 마지막 줄만 읽</p>
+          <p class="review-row-meta">양0링님 후기 · 2020.05</p>
         </div>
       </a>
-      <a href="696/" class="card" data-date="2021-12-27">
-        <div class="card-img">
-          <img src="https://rococops.com/files/postscript/attach1/1_202112271187717676.jpg" alt="키키님 후기" loading="lazy">
-          <span class="card-best">BEST</span>
-          <span class="card-tag">사진 후기</span>
-        </div>
-        <div class="card-body">
-          <p class="card-title">콧날개 올리기 단독수술 후기</p>
-          <p class="card-desc">위에 사진이 수술 전이고 아래가 수술 4주 후입니다 콧날개가 내려와서 들창코처럼 보이는 게 스트레스였고 실리콘이나 연골은</p>
+      <a href="696/" class="review-row">
+        <div class="review-row-thumb"><img src="https://rococops.com/files/postscript/attach1/1_202112271187717676.jpg" alt="" loading="lazy"></div>
+        <div class="review-row-body">
+          <p class="review-row-title"><span class="review-row-best">BEST</span>콧날개 올리기 단독수술 후기</p>
+          <p class="review-row-desc">위에 사진이 수술 전이고 아래가 수술 4주 후입니다 콧날개가 내려와서 들창코처럼 보이는 게 스트레스였고</p>
+          <p class="review-row-meta">키키님 후기 · 2021.12</p>
         </div>
       </a>
-      </div>
-      <div style="text-align:center;margin-top:2rem;">
-        <button type="button" class="sort-btn" id="loadMorePhoto" style="padding:0.7rem 2rem;">더보기 →</button>
-      </div>
     </div>
-
+    <div style="text-align:center;margin-top:2rem;">
+      <button type="button" class="sort-btn" id="loadMoreReviews" style="padding:0.7rem 2rem;">더보기</button>
+    </div>
 
     <script>
       (function(){
-        var PAGE = 9;
-        function setupSection(containerId, moreBtnId, itemSelector){
-          var container = document.getElementById(containerId);
-          if (!container) return null;
-          var items = Array.prototype.slice.call(container.querySelectorAll(itemSelector));
-          var moreBtn = document.getElementById(moreBtnId);
-          var shown = PAGE;
-          function apply(){
-            items.forEach(function(el, i){ el.hidden = i >= shown; });
-            if (moreBtn) moreBtn.hidden = shown >= items.length;
-          }
-          if (moreBtn) moreBtn.addEventListener('click', function(){ shown += PAGE; apply(); });
-          apply();
-          return { reset: function(){ shown = PAGE; apply(); } };
+        var PAGE = 30;
+        var list = document.getElementById('review-list');
+        var items = Array.prototype.slice.call(list.querySelectorAll('.review-row'));
+        var moreBtn = document.getElementById('loadMoreReviews');
+        var shown = PAGE;
+        function apply(){
+          items.forEach(function(el, i){ el.hidden = i >= shown; });
+          if (moreBtn) moreBtn.hidden = shown >= items.length;
         }
-        var photoPager = setupSection('photo-grid', 'loadMorePhoto', '.card');
-        var textPager = setupSection('text-list', 'loadMoreText', '.review-row');
-
-        var filterBtns = document.querySelectorAll('#reviewFilter .sort-btn');
-        var photoSection = document.getElementById('photo-section');
-        var textSection = document.getElementById('text-section');
-        filterBtns.forEach(function(btn){
-          btn.addEventListener('click', function(){
-            filterBtns.forEach(function(b){ b.classList.remove('active'); });
-            btn.classList.add('active');
-            var f = btn.dataset.filter;
-            if (photoSection) photoSection.hidden = (f === 'text');
-            if (textSection) textSection.hidden = (f === 'photo');
-            if (photoPager) photoPager.reset();
-            if (textPager) textPager.reset();
-          });
-        });
+        if (moreBtn) moreBtn.addEventListener('click', function(){ shown += PAGE; apply(); });
+        apply();
       })();
     </script>
   </div>
@@ -217,8 +184,10 @@
       </div>
       <div class="footer-hours">
         <p class="footer-title">진료시간</p>
-        <p>월·금 — 09:00 ~ 19:00</p><p>화·수·목 — 09:00 ~ 18:00</p>
-        <p>토 — 09:00 ~ 13:00</p><p>일·공휴일 휴진</p>
+        <p>월·금 — 09:00 ~ 19:00</p>
+        <p>화·수·목 — 09:00 ~ 18:00</p>
+        <p>토 — 09:00 ~ 13:00</p>
+        <p>일·공휴일 휴진</p>
       </div>
       <div class="footer-links">
         <p class="footer-title">바로가기</p>

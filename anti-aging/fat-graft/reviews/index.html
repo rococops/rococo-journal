@@ -116,7 +116,6 @@
     </div>
     <div class="article-hero-inner">
       <div class="article-hero-text">
-        <span class="eyebrow">PATIENT REVIEWS · 환자 후기</span>
         <h1 class="article-title">미세지방이식 수술후기</h1>
         <p class="article-summary">미세지방이식을 받으신 환자분들이 직접 남기신 후기 1건입니다.</p>
         <div class="article-meta">
@@ -134,56 +133,33 @@
       <h2 class="section-label">미세지방이식 수술후기 (1건)</h2>
       <a href="../" style="font-size:0.85rem;color:var(--gray-600);">← 미세지방이식 케이스 글 보기</a>
     </div>
-
-
-    <div id="text-section" style="margin-top:0;">
-      
-      <div class="review-list" id="text-list">
+    <div class="review-list review-list-cols" id="review-list">
       <a href="405/" class="review-row">
-        <p class="review-row-title"><span class="review-row-best">BEST</span>미세지방이식 2차까지 해또욤~~^^</p>
-        <p class="review-row-desc">안녕하세요~~~ ^^ 여니에요 ㅎㅎ 메리메리 추석입니다!!! 3주전에 지방 2차 완료 하고 후기를 써 내려가고 있네요~~ 얼굴공개 ... 하핫</p>
-        <p class="review-row-meta">여니님 후기 · 미세지방이식</p>
+        <div class="review-row-thumb-empty"></div>
+        <div class="review-row-body">
+          <p class="review-row-title"><span class="review-row-best">BEST</span>미세지방이식 2차까지 해또욤~~^^</p>
+          <p class="review-row-desc">안녕하세요~~~ ^^ 여니에요 ㅎㅎ 메리메리 추석입니다!!! 3주전에 지방 2차 완료 하고 후</p>
+          <p class="review-row-meta">여니님 후기 · 2014.09</p>
+        </div>
       </a>
-      </div>
-      <div style="text-align:center;margin-top:2rem;">
-        <button type="button" class="sort-btn" id="loadMoreText" style="padding:0.7rem 2rem;">더보기 →</button>
-      </div>
+    </div>
+    <div style="text-align:center;margin-top:2rem;">
+      <button type="button" class="sort-btn" id="loadMoreReviews" style="padding:0.7rem 2rem;">더보기</button>
     </div>
 
     <script>
       (function(){
-        var PAGE = 9;
-        function setupSection(containerId, moreBtnId, itemSelector){
-          var container = document.getElementById(containerId);
-          if (!container) return null;
-          var items = Array.prototype.slice.call(container.querySelectorAll(itemSelector));
-          var moreBtn = document.getElementById(moreBtnId);
-          var shown = PAGE;
-          function apply(){
-            items.forEach(function(el, i){ el.hidden = i >= shown; });
-            if (moreBtn) moreBtn.hidden = shown >= items.length;
-          }
-          if (moreBtn) moreBtn.addEventListener('click', function(){ shown += PAGE; apply(); });
-          apply();
-          return { reset: function(){ shown = PAGE; apply(); } };
+        var PAGE = 30;
+        var list = document.getElementById('review-list');
+        var items = Array.prototype.slice.call(list.querySelectorAll('.review-row'));
+        var moreBtn = document.getElementById('loadMoreReviews');
+        var shown = PAGE;
+        function apply(){
+          items.forEach(function(el, i){ el.hidden = i >= shown; });
+          if (moreBtn) moreBtn.hidden = shown >= items.length;
         }
-        var photoPager = setupSection('photo-grid', 'loadMorePhoto', '.card');
-        var textPager = setupSection('text-list', 'loadMoreText', '.review-row');
-
-        var filterBtns = document.querySelectorAll('#reviewFilter .sort-btn');
-        var photoSection = document.getElementById('photo-section');
-        var textSection = document.getElementById('text-section');
-        filterBtns.forEach(function(btn){
-          btn.addEventListener('click', function(){
-            filterBtns.forEach(function(b){ b.classList.remove('active'); });
-            btn.classList.add('active');
-            var f = btn.dataset.filter;
-            if (photoSection) photoSection.hidden = (f === 'text');
-            if (textSection) textSection.hidden = (f === 'photo');
-            if (photoPager) photoPager.reset();
-            if (textPager) textPager.reset();
-          });
-        });
+        if (moreBtn) moreBtn.addEventListener('click', function(){ shown += PAGE; apply(); });
+        apply();
       })();
     </script>
   </div>
@@ -200,8 +176,10 @@
       </div>
       <div class="footer-hours">
         <p class="footer-title">진료시간</p>
-        <p>월·금 — 09:00 ~ 19:00</p><p>화·수·목 — 09:00 ~ 18:00</p>
-        <p>토 — 09:00 ~ 13:00</p><p>일·공휴일 휴진</p>
+        <p>월·금 — 09:00 ~ 19:00</p>
+        <p>화·수·목 — 09:00 ~ 18:00</p>
+        <p>토 — 09:00 ~ 13:00</p>
+        <p>일·공휴일 휴진</p>
       </div>
       <div class="footer-links">
         <p class="footer-title">바로가기</p>

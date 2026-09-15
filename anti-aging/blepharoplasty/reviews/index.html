@@ -116,7 +116,6 @@
     </div>
     <div class="article-hero-inner">
       <div class="article-hero-text">
-        <span class="eyebrow">PATIENT REVIEWS · 환자 후기</span>
         <h1 class="article-title">상·하안검성형 수술후기</h1>
         <p class="article-summary">상·하안검성형을 받으신 환자분들이 직접 남기신 후기 2건입니다.</p>
         <div class="article-meta">
@@ -134,61 +133,41 @@
       <h2 class="section-label">상·하안검성형 수술후기 (2건)</h2>
       <a href="../" style="font-size:0.85rem;color:var(--gray-600);">← 상·하안검성형 케이스 글 보기</a>
     </div>
-
-
-    <div id="text-section" style="margin-top:0;">
-      
-      <div class="review-list" id="text-list">
+    <div class="review-list review-list-cols" id="review-list">
       <a href="51/" class="review-row">
-        <p class="review-row-title"><span class="review-row-best">BEST</span>완전 멋지신 김상호쌤!</p>
-        <p class="review-row-desc">새해 복 많이 받으세요 김상호쌤^^ 벌써 수술한지 3주가 지났네용. ㅎㅎㅎ 어린나이에 수술하려고 마음먹고나서 혹시나 너무 성형이 티나게 되지는 않을까</p>
-        <p class="review-row-meta">이0은님 후기 · 상·하안검성형</p>
+        <div class="review-row-thumb-empty"></div>
+        <div class="review-row-body">
+          <p class="review-row-title"><span class="review-row-best">BEST</span>완전 멋지신 김상호쌤!</p>
+          <p class="review-row-desc">새해 복 많이 받으세요 김상호쌤^^ 벌써 수술한지 3주가 지났네용. ㅎㅎㅎ 어린나이에 수술하려고 마음</p>
+          <p class="review-row-meta">이0은님 후기 · 2011.01</p>
+        </div>
       </a>
       <a href="45/" class="review-row">
-        <p class="review-row-title">26살 싸나이 눈 코 후기입니다~ (김상호 원장님 감사합니다~)</p>
-        <p class="review-row-desc">안녕하세요~ 9월 17일 눈과 코한 전남 공보의(공중보건의사)입니다~ 지금 보건지소에서 진료보다 잠깐 짬이나 후기 올립니다~ㅎㅎ 선생님덕분에 요즘 환자</p>
-        <p class="review-row-meta">MJ님 후기 · 상·하안검성형</p>
+        <div class="review-row-thumb-empty"></div>
+        <div class="review-row-body">
+          <p class="review-row-title">26살 싸나이 눈 코 후기입니다~ (김상호 원장님 감사합니다~)</p>
+          <p class="review-row-desc">안녕하세요~ 9월 17일 눈과 코한 전남 공보의(공중보건의사)입니다~ 지금 보건지소에서 진료보다 잠깐</p>
+          <p class="review-row-meta">MJ님 후기 · 2010.10</p>
+        </div>
       </a>
-      </div>
-      <div style="text-align:center;margin-top:2rem;">
-        <button type="button" class="sort-btn" id="loadMoreText" style="padding:0.7rem 2rem;">더보기 →</button>
-      </div>
+    </div>
+    <div style="text-align:center;margin-top:2rem;">
+      <button type="button" class="sort-btn" id="loadMoreReviews" style="padding:0.7rem 2rem;">더보기</button>
     </div>
 
     <script>
       (function(){
-        var PAGE = 9;
-        function setupSection(containerId, moreBtnId, itemSelector){
-          var container = document.getElementById(containerId);
-          if (!container) return null;
-          var items = Array.prototype.slice.call(container.querySelectorAll(itemSelector));
-          var moreBtn = document.getElementById(moreBtnId);
-          var shown = PAGE;
-          function apply(){
-            items.forEach(function(el, i){ el.hidden = i >= shown; });
-            if (moreBtn) moreBtn.hidden = shown >= items.length;
-          }
-          if (moreBtn) moreBtn.addEventListener('click', function(){ shown += PAGE; apply(); });
-          apply();
-          return { reset: function(){ shown = PAGE; apply(); } };
+        var PAGE = 30;
+        var list = document.getElementById('review-list');
+        var items = Array.prototype.slice.call(list.querySelectorAll('.review-row'));
+        var moreBtn = document.getElementById('loadMoreReviews');
+        var shown = PAGE;
+        function apply(){
+          items.forEach(function(el, i){ el.hidden = i >= shown; });
+          if (moreBtn) moreBtn.hidden = shown >= items.length;
         }
-        var photoPager = setupSection('photo-grid', 'loadMorePhoto', '.card');
-        var textPager = setupSection('text-list', 'loadMoreText', '.review-row');
-
-        var filterBtns = document.querySelectorAll('#reviewFilter .sort-btn');
-        var photoSection = document.getElementById('photo-section');
-        var textSection = document.getElementById('text-section');
-        filterBtns.forEach(function(btn){
-          btn.addEventListener('click', function(){
-            filterBtns.forEach(function(b){ b.classList.remove('active'); });
-            btn.classList.add('active');
-            var f = btn.dataset.filter;
-            if (photoSection) photoSection.hidden = (f === 'text');
-            if (textSection) textSection.hidden = (f === 'photo');
-            if (photoPager) photoPager.reset();
-            if (textPager) textPager.reset();
-          });
-        });
+        if (moreBtn) moreBtn.addEventListener('click', function(){ shown += PAGE; apply(); });
+        apply();
       })();
     </script>
   </div>
@@ -205,8 +184,10 @@
       </div>
       <div class="footer-hours">
         <p class="footer-title">진료시간</p>
-        <p>월·금 — 09:00 ~ 19:00</p><p>화·수·목 — 09:00 ~ 18:00</p>
-        <p>토 — 09:00 ~ 13:00</p><p>일·공휴일 휴진</p>
+        <p>월·금 — 09:00 ~ 19:00</p>
+        <p>화·수·목 — 09:00 ~ 18:00</p>
+        <p>토 — 09:00 ~ 13:00</p>
+        <p>일·공휴일 휴진</p>
       </div>
       <div class="footer-links">
         <p class="footer-title">바로가기</p>

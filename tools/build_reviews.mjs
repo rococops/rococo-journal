@@ -5,10 +5,10 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { navHtml, CAT_NAMES } from './nav.mjs';
+import { PHOTO_BASE, maskName, esc, FOOTER } from './review_utils.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE_BASE = 'https://journal.rococops.com';
-const PHOTO_BASE = 'https://rococops.com/files/postscript/attach';
 
 // 서브카테고리 자체 케이스 목록 페이지(H1)에서 subName을 읽어옴 — SUBCATS 메타를 별도로 두지 않고 재사용
 function findSubName(catPath, subDir) {
@@ -18,63 +18,6 @@ function findSubName(catPath, subDir) {
   const m = html.match(/<h1 class="article-title">([\s\S]*?)<\/h1>/);
   return m ? m[1].trim() : subDir;
 }
-
-// ── 익명화: 흔한 한국 성씨로 시작하는 순한글 3자(성+이름2자)만 실명으로 간주, 가운데 글자만 마스킹.
-//    나머지(닉네임/영문/숫자/2·4자 등)는 원본 그대로 사용 — 사용자 확인: "흔한 한국성씨 3자일경우만 간주해 가운데글자만 마스킹" ──
-const SURNAMES = new Set(['김','이','박','최','정','강','조','윤','장','임','한','오','서','신','권','황','안','송','전','홍','유','고','문','양','손','배','백','허','남','심','노','하','곽','성','차','주','우','구','나','민','진','지','엄','채','원','천','방','공','현','함','변','염','여','추','도','소','석','선','설','마','길','위','표','명','기','반','왕','금','옥','육','인','맹','제','계','피','연','국','예','경','봉','사','어','두','감','판','단','갈','좌','편','부','간','매','상','시','목','형']);
-
-function isRealName3(name) {
-  return /^[가-힣]{3}$/.test(name) && SURNAMES.has(name[0]);
-}
-
-function maskName(name) {
-  if (!name) return '고객';
-  name = name.trim();
-  if (!name) return '고객';
-  if (isRealName3(name)) return name[0] + '0' + name[2];
-  return name;
-}
-
-function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-const FOOTER = (root) => `<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-info">
-        <p class="footer-logo">ROCOCO <em>Journal</em></p>
-        <p>로코코성형외과의원</p>
-        <p>서울특별시 강남구 논현로 842 (신사동 599) 압구정빌딩 3층</p>
-        <p>대표원장 김상호 · 02-2135-2702</p>
-        <p>사업자등록번호 211-09-48591</p>
-      </div>
-      <div class="footer-hours">
-        <p class="footer-title">진료시간</p>
-        <p>월·금 — 09:00 ~ 19:00</p><p>화·수·목 — 09:00 ~ 18:00</p>
-        <p>토 — 09:00 ~ 13:00</p><p>일·공휴일 휴진</p>
-      </div>
-      <div class="footer-links">
-        <p class="footer-title">바로가기</p>
-        <a href="https://rococops.com" target="_blank">기존 홈페이지</a>
-        <a href="${root}counsel/">상담·예약</a>
-        <a href="${root}cases/">전후사진</a>
-        <a href="${root}about/">About 로코코</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 Rococo Plastic Surgery. All rights reserved.</p>
-    </div>
-  </div>
-</footer>
-<script src="${root}js/main.js"></script>
-<a href="https://pf.kakao.com/_xdBpRl" target="_blank" rel="noopener" class="kakao-float">
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="14" cy="13" rx="12" ry="10" fill="#3C1E1E"/>
-    <path d="M10.5 10.5c0-1.1.9-2 2-2h3c1.1 0 2 .9 2 2v2a2 2 0 01-2 2h-.8l-1.7 2.2v-2.2h-.5a2 2 0 01-2-2v-2z" fill="#FEE500"/>
-  </svg>
-  카카오톡 상담 문의
-</a>`;
 
 // ── 개별 후기 페이지 ──
 function generateReviewPage(r, cfg) {
@@ -205,102 +148,46 @@ function generateReviewIndex(reviews, cfg) {
   const catName = CAT_NAMES[cfg.catPath];
   const nav = navHtml(root, cfg.catPath);
 
-  const photoReviews = reviews.filter(r => r.photos.length);
-  const textReviews = reviews.filter(r => !r.photos.length);
-
-  // 사진 있는 후기 — 기존 카드그리드(썸네일 포함)
-  const photoCards = photoReviews.map((r) => {
+  // 후기 목록 — 사진 유무 관계없이 하나의 컴팩트 row 리스트로 통일.
+  // 원본 사진 품질이 들쭉날쭉(검열바·콜라주 등)해서 큰 카드로 쓰면 지저분해짐 —
+  // 작은 정사각 썸네일 하나로 줄여서 텍스트 중심 리스트로 (빈님 피드백 반영)
+  const rows = reviews.map((r) => {
     const masked = maskName(r.writer);
-    const photo = `${PHOTO_BASE}1/${r.photos[0]}`;
-    const desc = r.contents_text.slice(0, 70).replace(/\s+/g,' ').trim();
-    return `      <a href="${r.num}/" class="card" data-date="${(r.udate||'').slice(0,10)}">
-        <div class="card-img">
-          <img src="${photo}" alt="${esc(masked)}님 후기" loading="lazy">
-          ${r.isbest === 'Y' ? '<span class="card-best">BEST</span>' : ''}
-          <span class="card-tag">사진 후기</span>
-        </div>
-        <div class="card-body">
-          <p class="card-title">${esc(r.subject.trim() || cfg.subName + ' 후기')}</p>
-          <p class="card-desc">${esc(desc)}</p>
-        </div>
-      </a>`;
-  }).join('\n');
-
-  // 글만 있는 후기 — 썸네일 없는 텍스트 리스트 (사진 후기 자리에 가짜 이미지 채우지 않음)
-  const textRows = textReviews.map((r) => {
-    const masked = maskName(r.writer);
-    const desc = r.contents_text.slice(0, 90).replace(/\s+/g,' ').trim();
+    const desc = r.contents_text.slice(0, 60).replace(/\s+/g,' ').trim();
+    const thumb = r.photos.length
+      ? `<div class="review-row-thumb"><img src="${PHOTO_BASE}1/${r.photos[0]}" alt="" loading="lazy"></div>`
+      : `<div class="review-row-thumb-empty"></div>`;
     return `      <a href="${r.num}/" class="review-row">
-        <p class="review-row-title">${r.isbest === 'Y' ? '<span class="review-row-best">BEST</span>' : ''}${esc(r.subject.trim() || cfg.subName + ' 후기')}</p>
-        <p class="review-row-desc">${esc(desc)}</p>
-        <p class="review-row-meta">${esc(masked)}님 후기 · ${cfg.subName}</p>
+        ${thumb}
+        <div class="review-row-body">
+          <p class="review-row-title">${r.isbest === 'Y' ? '<span class="review-row-best">BEST</span>' : ''}${esc(r.subject.trim() || cfg.subName + ' 후기')}</p>
+          <p class="review-row-desc">${esc(desc)}</p>
+          <p class="review-row-meta">${esc(masked)}님 후기 · ${(r.udate||'').slice(0,7).replace('-','.')}</p>
+        </div>
       </a>`;
   }).join('\n');
 
-  // 사진/글 둘 다 있을 때만 필터·섹션 분리 표시 — 한쪽이 0건이면 굳이 나누지 않음
-  const showSplit = photoReviews.length > 0 && textReviews.length > 0;
-
-  const filterBar = showSplit ? `    <div class="sort-toggle" id="reviewFilter" style="margin-bottom:1.5rem;">
-      <button type="button" class="sort-btn active" data-filter="all">전체 (${reviews.length})</button>
-      <button type="button" class="sort-btn" data-filter="photo">사진 있는 후기 (${photoReviews.length})</button>
-      <button type="button" class="sort-btn" data-filter="text">글만 (${textReviews.length})</button>
-    </div>` : '';
-
-  const photoSection = photoReviews.length === 0 ? '' : `    <div id="photo-section">
-      ${showSplit ? `<p style="font-weight:700;font-size:0.95rem;color:var(--gray-600);margin-bottom:1rem;">사진 후기 (${photoReviews.length})</p>` : ''}
-      <div class="card-grid" id="photo-grid">
-${photoCards}
-      </div>
-      <div style="text-align:center;margin-top:2rem;">
-        <button type="button" class="sort-btn" id="loadMorePhoto" style="padding:0.7rem 2rem;">더보기 →</button>
-      </div>
-    </div>`;
-
-  const textSection = textReviews.length === 0 ? '' : `    <div id="text-section" style="margin-top:${showSplit ? '2.5rem' : '0'};">
-      ${showSplit ? `<p style="font-weight:700;font-size:0.95rem;color:var(--gray-600);margin-bottom:1rem;">글 후기 (${textReviews.length})</p>` : ''}
-      <div class="review-list" id="text-list">
-${textRows}
-      </div>
-      <div style="text-align:center;margin-top:2rem;">
-        <button type="button" class="sort-btn" id="loadMoreText" style="padding:0.7rem 2rem;">더보기 →</button>
-      </div>
+  const listSection = `    <div class="review-list review-list-cols" id="review-list">
+${rows}
+    </div>
+    <div style="text-align:center;margin-top:2rem;">
+      <button type="button" class="sort-btn" id="loadMoreReviews" style="padding:0.7rem 2rem;">더보기</button>
     </div>`;
 
   const paginationScript = `
     <script>
       (function(){
-        var PAGE = 9;
-        function setupSection(containerId, moreBtnId, itemSelector){
-          var container = document.getElementById(containerId);
-          if (!container) return null;
-          var items = Array.prototype.slice.call(container.querySelectorAll(itemSelector));
-          var moreBtn = document.getElementById(moreBtnId);
-          var shown = PAGE;
-          function apply(){
-            items.forEach(function(el, i){ el.hidden = i >= shown; });
-            if (moreBtn) moreBtn.hidden = shown >= items.length;
-          }
-          if (moreBtn) moreBtn.addEventListener('click', function(){ shown += PAGE; apply(); });
-          apply();
-          return { reset: function(){ shown = PAGE; apply(); } };
+        var PAGE = 30;
+        var list = document.getElementById('review-list');
+        var items = Array.prototype.slice.call(list.querySelectorAll('.review-row'));
+        var moreBtn = document.getElementById('loadMoreReviews');
+        var shown = PAGE;
+        function apply(){
+          items.forEach(function(el, i){ el.hidden = i >= shown; });
+          if (moreBtn) moreBtn.hidden = shown >= items.length;
         }
-        var photoPager = setupSection('photo-grid', 'loadMorePhoto', '.card');
-        var textPager = setupSection('text-list', 'loadMoreText', '.review-row');
-
-        var filterBtns = document.querySelectorAll('#reviewFilter .sort-btn');
-        var photoSection = document.getElementById('photo-section');
-        var textSection = document.getElementById('text-section');
-        filterBtns.forEach(function(btn){
-          btn.addEventListener('click', function(){
-            filterBtns.forEach(function(b){ b.classList.remove('active'); });
-            btn.classList.add('active');
-            var f = btn.dataset.filter;
-            if (photoSection) photoSection.hidden = (f === 'text');
-            if (textSection) textSection.hidden = (f === 'photo');
-            if (photoPager) photoPager.reset();
-            if (textPager) textPager.reset();
-          });
-        });
+        if (moreBtn) moreBtn.addEventListener('click', function(){ shown += PAGE; apply(); });
+        apply();
       })();
     </script>`;
 
@@ -344,7 +231,6 @@ ${textRows}
     </div>
     <div class="article-hero-inner">
       <div class="article-hero-text">
-        <span class="eyebrow">PATIENT REVIEWS · 환자 후기</span>
         <h1 class="article-title">${cfg.subName} 수술후기</h1>
         <p class="article-summary">${cfg.subName}을 받으신 환자분들이 직접 남기신 후기 ${reviews.length}건입니다.</p>
         <div class="article-meta">
@@ -362,9 +248,7 @@ ${textRows}
       <h2 class="section-label">${cfg.subName} 수술후기 (${reviews.length}건)</h2>
       <a href="${caseListRoot}" style="font-size:0.85rem;color:var(--gray-600);">← ${cfg.subName} 케이스 글 보기</a>
     </div>
-${filterBar}
-${photoSection}
-${textSection}
+${listSection}
 ${paginationScript}
   </div>
 </section>
