@@ -10,9 +10,14 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE_BASE = 'https://journal.rococops.com';
 const PHOTO_BASE = 'https://rococops.com/files/postscript/attach';
 
-// ── 파일럿 대상 설정 (사용자 확인: cheekbone/quick, 15~20건, flag_bad 제외) ──
-const PILOT = { catPath: 'cheekbone', subDir: 'quick', subName: '15분 광대축소술', subNameEn: 'Quick Cheekbone Reduction' };
-const PILOT_SIZE = 18;
+// 서브카테고리 자체 케이스 목록 페이지(H1)에서 subName을 읽어옴 — SUBCATS 메타를 별도로 두지 않고 재사용
+function findSubName(catPath, subDir) {
+  const idxPath = join(ROOT, catPath, subDir, 'index.html');
+  if (!existsSync(idxPath)) return subDir;
+  const html = readFileSync(idxPath, 'utf8');
+  const m = html.match(/<h1 class="article-title">([\s\S]*?)<\/h1>/);
+  return m ? m[1].trim() : subDir;
+}
 
 // ── 익명화: 흔한 한국 성씨로 시작하는 순한글 3자(성+이름2자)만 실명으로 간주, 가운데 글자만 마스킹.
 //    나머지(닉네임/영문/숫자/2·4자 등)는 원본 그대로 사용 — 사용자 확인: "흔한 한국성씨 3자일경우만 간주해 가운데글자만 마스킹" ──
@@ -231,14 +236,17 @@ function generateReviewIndex(reviews, cfg) {
       </a>`;
   }).join('\n');
 
-  const filterBar = `    <div class="sort-toggle" id="reviewFilter" style="margin-bottom:1.5rem;">
+  // 사진/글 둘 다 있을 때만 필터·섹션 분리 표시 — 한쪽이 0건이면 굳이 나누지 않음
+  const showSplit = photoReviews.length > 0 && textReviews.length > 0;
+
+  const filterBar = showSplit ? `    <div class="sort-toggle" id="reviewFilter" style="margin-bottom:1.5rem;">
       <button type="button" class="sort-btn active" data-filter="all">전체 (${reviews.length})</button>
       <button type="button" class="sort-btn" data-filter="photo">사진 있는 후기 (${photoReviews.length})</button>
       <button type="button" class="sort-btn" data-filter="text">글만 (${textReviews.length})</button>
-    </div>`;
+    </div>` : '';
 
-  const photoSection = `    <div id="photo-section">
-      <p style="font-weight:700;font-size:0.95rem;color:var(--gray-600);margin-bottom:1rem;">사진 후기 (${photoReviews.length})</p>
+  const photoSection = photoReviews.length === 0 ? '' : `    <div id="photo-section">
+      ${showSplit ? `<p style="font-weight:700;font-size:0.95rem;color:var(--gray-600);margin-bottom:1rem;">사진 후기 (${photoReviews.length})</p>` : ''}
       <div class="card-grid" id="photo-grid">
 ${photoCards}
       </div>
@@ -247,8 +255,8 @@ ${photoCards}
       </div>
     </div>`;
 
-  const textSection = `    <div id="text-section" style="margin-top:2.5rem;">
-      <p style="font-weight:700;font-size:0.95rem;color:var(--gray-600);margin-bottom:1rem;">글 후기 (${textReviews.length})</p>
+  const textSection = textReviews.length === 0 ? '' : `    <div id="text-section" style="margin-top:${showSplit ? '2.5rem' : '0'};">
+      ${showSplit ? `<p style="font-weight:700;font-size:0.95rem;color:var(--gray-600);margin-bottom:1rem;">글 후기 (${textReviews.length})</p>` : ''}
       <div class="review-list" id="text-list">
 ${textRows}
       </div>
@@ -286,8 +294,8 @@ ${textRows}
             filterBtns.forEach(function(b){ b.classList.remove('active'); });
             btn.classList.add('active');
             var f = btn.dataset.filter;
-            photoSection.hidden = (f === 'text');
-            textSection.hidden = (f === 'photo');
+            if (photoSection) photoSection.hidden = (f === 'text');
+            if (textSection) textSection.hidden = (f === 'photo');
             if (photoPager) photoPager.reset();
             if (textPager) textPager.reset();
           });
@@ -364,25 +372,39 @@ ${FOOTER(root)}
 </html>`;
 }
 
-// ── 실행 ──
+// ── 실행 — 분류(cat)되고 불만어감(flag_bad) 아닌 모든 후기를, 서브카테고리별로 전부 발행 ──
 const curated = JSON.parse(readFileSync(join(ROOT, 'postscript_curated.json'), 'utf8'));
-const selected = curated
-  .filter(r => r.cat && r.cat[0] === PILOT.catPath && r.cat[1] === PILOT.subDir && !r.flag_bad)
-  .sort((a, b) => b.score - a.score)
-  .slice(0, PILOT_SIZE);
+const usable = curated.filter(r => r.cat && !r.flag_bad);
 
-console.log(`파일럿 대상: ${selected.length}건 (${PILOT.catPath}/${PILOT.subDir})`);
-
-const baseDir = join(ROOT, PILOT.catPath, PILOT.subDir, 'reviews');
-mkdirSync(baseDir, { recursive: true });
-
-for (const r of selected) {
-  const dir = join(baseDir, String(r.num));
-  mkdirSync(dir, { recursive: true });
-  writeFileSync(join(dir, 'index.html'), generateReviewPage(r, PILOT), 'utf8');
+const groups = new Map(); // "catPath/subDir" -> rows[]
+for (const r of usable) {
+  const key = r.cat.join('/');
+  if (!groups.has(key)) groups.set(key, []);
+  groups.get(key).push(r);
 }
-writeFileSync(join(baseDir, 'index.html'), generateReviewIndex(selected, PILOT), 'utf8');
 
-console.log(`생성 완료:`);
-console.log(`  ${PILOT.catPath}/${PILOT.subDir}/reviews/index.html (목록)`);
-selected.forEach(r => console.log(`  ${PILOT.catPath}/${PILOT.subDir}/reviews/${r.num}/index.html  [${maskName(r.writer)}] ${r.subject.trim().slice(0,30)}`));
+console.log(`대상 서브카테고리: ${groups.size}개, 총 후기: ${usable.length}건\n`);
+
+let totalNew = 0, totalSkipped = 0;
+for (const [key, rows] of [...groups.entries()].sort((a, b) => b[1].length - a[1].length)) {
+  const [catPath, subDir] = key.split('/');
+  const cfg = { catPath, subDir, subName: findSubName(catPath, subDir) };
+  const sorted = rows.sort((a, b) => b.score - a.score);
+  const baseDir = join(ROOT, catPath, subDir, 'reviews');
+  mkdirSync(baseDir, { recursive: true });
+
+  const built = [];
+  let newInGroup = 0;
+  for (const r of sorted) {
+    const dir = join(baseDir, String(r.num));
+    if (existsSync(dir)) { totalSkipped++; built.push(r); continue; }
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(join(dir, 'index.html'), generateReviewPage(r, cfg), 'utf8');
+    totalNew++; newInGroup++;
+    built.push(r);
+  }
+  writeFileSync(join(baseDir, 'index.html'), generateReviewIndex(built, cfg), 'utf8');
+  console.log(`${key} — ${cfg.subName} (총 ${built.length}건, 신규 ${newInGroup})`);
+}
+
+console.log(`\n완료 — 신규 생성 ${totalNew}건, 이미 있어서 건너뜀 ${totalSkipped}건`);
