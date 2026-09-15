@@ -102,6 +102,27 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   margin-left: 8px;
 }
 .gnb .btn-consult:hover { background: var(--gray-800); }
+.gnb .btn-gold {
+  background: var(--accent);
+  color: var(--white) !important;
+  padding: 7px 16px !important;
+  border-radius: 20px;
+  font-size: 12px !important;
+  font-weight: 700;
+  margin-left: 4px;
+}
+.gnb .btn-gold:hover { background: #a17d54; }
+.gnb .btn-gold-outline {
+  border: 1px solid var(--accent);
+  color: var(--accent) !important;
+  background: transparent;
+  padding: 6px 15px !important;
+  border-radius: 20px;
+  font-size: 12px !important;
+  font-weight: 700;
+  margin-left: 4px;
+}
+.gnb .btn-gold-outline:hover { background: var(--accent); color: var(--white) !important; }
 
 /* 드롭다운 */
 .sub-menu {
@@ -813,22 +834,19 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   }
   .sub-menu li a:hover { color: var(--accent); }
 
-  /* 하단 상담 버튼 */
-  .gnb .btn-consult {
+  /* 하단 상담·예약/수술후기/전후사진 버튼 3종 */
+  .gnb .btn-consult,
+  .gnb .btn-gold,
+  .gnb .btn-gold-outline {
     display: block;
-    margin: 1.5rem 1.25rem 0;
+    margin: 0.75rem 1.25rem 0;
     text-align: center;
     padding: 14px !important;
     border-radius: var(--radius);
     font-size: 14px !important;
     font-weight: 700 !important;
   }
-  /* 상담·예약 단독 링크 */
-  .gnb > ul > li:not(.has-sub) > a:not(.btn-consult) {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--accent);
-  }
+  .gnb .btn-consult { margin-top: 1.5rem; }
   .hero-grid { grid-template-columns: 1fr; grid-template-rows: 260px auto; }
   .hero-featured { border-right: none; border-bottom: 1px solid var(--gray-200); }
   .hero-column { padding: 1.75rem 1.25rem; }

@@ -77,9 +77,9 @@ export function navHtml(root, activeCat) {
             <li><a href="${root}about/faq/">자주 묻는 질문</a></li>
           </ul>
         </li>
-        <li><a href="${root}counsel/">상담·예약</a></li>
-        <li><a href="${root}reviews/">수술후기</a></li>
-        <li><a href="${root}cases/" class="btn-consult">전후사진</a></li>
+        <li><a href="${root}counsel/" class="btn-consult">상담·예약</a></li>
+        <li><a href="${root}reviews/" class="btn-gold-outline">수술후기</a></li>
+        <li><a href="${root}cases/" class="btn-gold">전후사진</a></li>
       </ul>
     </nav>`;
 }
