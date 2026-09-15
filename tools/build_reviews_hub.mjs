@@ -63,17 +63,14 @@ const groups = Object.keys(CAT_NAMES)
   .filter(catPath => byCat.has(catPath))
   .map(catPath => {
     const items = byCat.get(catPath);
-    const cards = items.map(p => `        <a href="../${p.catPath}/${p.subDir}/reviews/" class="card review-hub-card">
-          <div class="card-body">
-            <p class="card-title">${esc(p.subName)}</p>
-            <p class="card-desc">환자분들이 직접 남기신 후기 ${p.count}건</p>
-            <span class="review-hub-link">후기 보러가기 →</span>
-          </div>
+    const rows = items.map(p => `        <a href="../${p.catPath}/${p.subDir}/reviews/" class="review-hub-row">
+          <span class="review-hub-row-name">${esc(p.subName)}</span>
+          <span class="review-hub-row-count">${p.count}건</span>
         </a>`).join('\n');
     return `    <div class="review-hub-group">
-      <h2 class="section-label">${esc(CAT_NAMES[catPath])}</h2>
-      <div class="card-grid">
-${cards}
+      <p class="review-hub-group-label">${esc(CAT_NAMES[catPath])}</p>
+      <div class="review-hub-list">
+${rows}
       </div>
     </div>`;
   }).join('\n');

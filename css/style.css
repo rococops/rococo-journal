@@ -459,14 +459,38 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   line-height: 1.65;
   margin-bottom: 0.75rem;
 }
-.review-hub-group { margin-bottom: 3rem; }
+.review-hub-group { margin-bottom: 3.5rem; }
 .review-hub-group:last-child { margin-bottom: 0; }
-.review-hub-card .card-body { padding-bottom: 1.5rem; }
-.review-hub-link {
-  display: inline-block;
-  font-size: 12px;
+.review-hub-group-label {
+  font-size: 13px;
   font-weight: 700;
   color: var(--accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+.review-hub-list { border-top: 1px solid var(--black); }
+.review-hub-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--gray-200);
+  transition: opacity var(--transition);
+}
+.review-hub-row:hover { opacity: 0.55; }
+.review-hub-row-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--black);
+  white-space: nowrap;
+}
+.review-hub-row-count {
+  font-size: 13px;
+  color: var(--gray-400);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .card-date {
   font-size: 11px;
