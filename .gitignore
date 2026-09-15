@@ -2,6 +2,7 @@
 postscript_safe.json
 postscript_curated.json
 _미분류후기*.md
+_불만어감후기*.md
 .claude/
 .env
 .env.local

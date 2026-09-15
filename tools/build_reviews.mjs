@@ -139,7 +139,7 @@ function generateReviewPage(r, cfg) {
     </div>
     <div class="article-hero-inner">
       <div class="article-hero-text">
-        <span class="eyebrow">PATIENT REVIEW · 환자 후기</span>
+        <span class="eyebrow">PATIENT REVIEW · 환자 후기${r.isbest === 'Y' ? ' · BEST' : ''}</span>
         <h1 class="article-title">${esc(title)}</h1>
         <p class="article-summary">${esc(description)}</p>
         <div class="article-meta">
@@ -216,6 +216,7 @@ function generateReviewIndex(reviews, cfg) {
     return `      <a href="${r.num}/" class="card" data-date="${(r.udate||'').slice(0,10)}">
         <div class="card-img">
           <img src="${photo}" alt="${esc(masked)}님 후기" loading="lazy">
+          ${r.isbest === 'Y' ? '<span class="card-best">BEST</span>' : ''}
           <span class="card-tag">사진 후기</span>
         </div>
         <div class="card-body">
@@ -230,7 +231,7 @@ function generateReviewIndex(reviews, cfg) {
     const masked = maskName(r.writer);
     const desc = r.contents_text.slice(0, 90).replace(/\s+/g,' ').trim();
     return `      <a href="${r.num}/" class="review-row">
-        <p class="review-row-title">${esc(r.subject.trim() || cfg.subName + ' 후기')}</p>
+        <p class="review-row-title">${r.isbest === 'Y' ? '<span class="review-row-best">BEST</span>' : ''}${esc(r.subject.trim() || cfg.subName + ' 후기')}</p>
         <p class="review-row-desc">${esc(desc)}</p>
         <p class="review-row-meta">${esc(masked)}님 후기 · ${cfg.subName}</p>
       </a>`;
@@ -375,7 +376,8 @@ ${FOOTER(root)}
 // ── 실행 — 분류(cat)되고 불만어감(flag_bad) 아닌 모든 후기를, 서브카테고리별로 전부 발행 ──
 const curated = JSON.parse(readFileSync(join(ROOT, 'postscript_curated.json'), 'utf8'));
 // isauth='Y'(본원 인증완료) 아닌 글은 절대 발행하지 않음 — 빈님 확인: "미인증 글은 올리면 안 됨"
-const usable = curated.filter(r => r.cat && !r.flag_bad && r.isauth === 'Y');
+// flag_bad(환불/불만/실망 단어 포함) 35건은 사람이 직접 검토 후 발행 승인 — 빈님 확인: "니가 고른거라면 그냥 다 올려줘"
+const usable = curated.filter(r => r.cat && r.isauth === 'Y');
 
 const groups = new Map(); // "catPath/subDir" -> rows[]
 for (const r of usable) {
@@ -398,10 +400,10 @@ for (const [key, rows] of [...groups.entries()].sort((a, b) => b[1].length - a[1
   let newInGroup = 0;
   for (const r of sorted) {
     const dir = join(baseDir, String(r.num));
-    if (existsSync(dir)) { totalSkipped++; built.push(r); continue; }
+    const isNew = !existsSync(dir);
     mkdirSync(dir, { recursive: true });
-    writeFileSync(join(dir, 'index.html'), generateReviewPage(r, cfg), 'utf8');
-    totalNew++; newInGroup++;
+    writeFileSync(join(dir, 'index.html'), generateReviewPage(r, cfg), 'utf8'); // 항상 재생성(템플릿 변경 시 기존 글도 반영)
+    if (isNew) { totalNew++; newInGroup++; } else { totalSkipped++; }
     built.push(r);
   }
   writeFileSync(join(baseDir, 'index.html'), generateReviewIndex(built, cfg), 'utf8');
