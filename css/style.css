@@ -676,6 +676,77 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .cta-card:hover .cta-btn { border-color: var(--white); }
 
 /* ===========================
+   CHOICE CARDS (상담·예약 페이지 전용 — 밝은 톤)
+   =========================== */
+.choice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.choice-card {
+  display: block;
+  padding: 3rem 2.5rem;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  background: var(--white);
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+.choice-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 16px 36px rgba(17,17,17,0.08);
+  transform: translateY(-4px);
+}
+.choice-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(184,149,106,0.1);
+  color: var(--accent);
+  margin-bottom: 1.75rem;
+}
+.choice-icon svg { width: 20px; height: 20px; }
+.choice-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 0.85rem;
+}
+.choice-title {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.45;
+  color: var(--black);
+  margin-bottom: 0.85rem;
+}
+.choice-desc {
+  font-size: 13px;
+  color: var(--gray-600);
+  line-height: 1.8;
+  margin-bottom: 1.75rem;
+}
+.choice-btn {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--black);
+  border-bottom: 1px solid var(--gray-200);
+  padding-bottom: 2px;
+  letter-spacing: 0.05em;
+  transition: border-color var(--transition), color var(--transition);
+}
+.choice-card:hover .choice-btn { border-color: var(--accent); color: var(--accent); }
+@media (max-width: 768px) {
+  .choice-grid { grid-template-columns: 1fr; }
+  .choice-card { padding: 2.25rem 1.75rem; }
+}
+
+/* ===========================
    FOOTER
    =========================== */
 .site-footer {
