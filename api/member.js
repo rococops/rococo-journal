@@ -215,6 +215,38 @@ async function handleDeleteAccount(req, res) {
   return res.status(200).json({ ok: true });
 }
 
+// 관리자(병원)용 — 다른 admin API들과 동일하게 ADMIN_PASSWORD로 인증.
+// 비밀번호를 잊은 환자는 로그인이 안 돼 스스로 탈퇴할 수 없으므로,
+// 문의를 받으면 병원이 해당 계정을 삭제해 재가입할 수 있게 해주는 용도.
+function requireAdmin(req, res) {
+  const pw = (req.headers.authorization || '').replace(/^Bearer\s+/i, '');
+  if (!pw || pw !== process.env.ADMIN_PASSWORD) {
+    res.status(401).json({ error: '인증 실패' });
+    return false;
+  }
+  return true;
+}
+
+async function handleAdminList(req, res) {
+  if (!requireAdmin(req, res)) return;
+  const { data, error } = await supabase
+    .from('members')
+    .select('id, username, name, phone, email, created_at')
+    .order('created_at', { ascending: false })
+    .limit(500);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ ok: true, members: data });
+}
+
+async function handleAdminDelete(req, res) {
+  if (!requireAdmin(req, res)) return;
+  const { id } = req.body || {};
+  if (!id) return res.status(400).json({ error: 'id 필요' });
+  const { error } = await supabase.from('members').delete().eq('id', id);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ ok: true });
+}
+
 export default async function handler(req, res) {
   const origin = req.headers.origin || '';
   const allowed = ['https://journal.rococops.com', 'https://rococo-journal-api.vercel.app'];
@@ -232,5 +264,7 @@ export default async function handler(req, res) {
   if (action === 'update-profile') return handleUpdateProfile(req, res);
   if (action === 'change-password') return handleChangePassword(req, res);
   if (action === 'delete-account') return handleDeleteAccount(req, res);
+  if (action === 'admin-list') return handleAdminList(req, res);
+  if (action === 'admin-delete') return handleAdminDelete(req, res);
   return res.status(400).json({ error: '잘못된 요청입니다.' });
 }

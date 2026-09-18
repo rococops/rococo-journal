@@ -293,6 +293,9 @@ body{overflow-x:hidden}
       <div class="nav-item" data-page="calendar">
         <span class="nav-icon">📅</span>예약 캘린더<span class="nav-badge" id="badge-calendar" style="display:none"></span>
       </div>
+      <div class="nav-item" data-page="members">
+        <span class="nav-icon">👤</span>회원 관리
+      </div>
     </div>
 
     <div class="nav-section">
@@ -396,6 +399,23 @@ body{overflow-x:hidden}
           </div>
         </div>
         <div id="consult-wrap"><p class="empty-state">불러오는 중...</p></div>
+      </div>
+    </div>
+
+    <!-- 회원 관리 -->
+    <div class="page" id="page-members">
+      <div class="page-header">
+        <h1 class="page-title">회원 관리</h1>
+        <p class="page-sub">수술후기 열람을 위해 가입한 회원 목록입니다. 아이디·비밀번호를 잊으셨다는 문의가 오면 해당 회원을 삭제해 재가입하도록 안내하세요.</p>
+      </div>
+      <div class="card">
+        <div class="consult-toolbar">
+          <input type="text" id="member-search" placeholder="이름·아이디·연락처 검색" style="padding:.45rem .7rem;border:1.5px solid var(--gray-200);border-radius:8px;font-size:.8rem;font-family:inherit;min-width:200px">
+          <div class="consult-toolbar-right">
+            <button class="btn-sm" id="reload-members-btn">↻ 새로고침</button>
+          </div>
+        </div>
+        <div id="members-wrap"><p class="empty-state">불러오는 중...</p></div>
       </div>
     </div>
 
@@ -611,6 +631,7 @@ const STATS_API = 'https://rococo-journal-api.vercel.app/api/stats';
 const INQ_API   = 'https://rococo-journal-api.vercel.app/api/inquiries';
 const RESV_API  = 'https://rococo-journal-api.vercel.app/api/reservations';
 const SCHED_API = 'https://rococo-journal-api.vercel.app/api/schedule';
+const MEMBER_API = 'https://rococo-journal-api.vercel.app/api/member';
 function authHead(extra) { return Object.assign({'Authorization':'Bearer '+savedPw}, extra||{}); }
 let savedPw = '';
 let chartDaily = null, chartPages = null;
@@ -701,8 +722,77 @@ document.querySelectorAll('.nav-item[data-page]').forEach(el => {
     if (el.dataset.page === 'dashboard') loadDashboard();
     if (el.dataset.page === 'consult') loadConsult();
     if (el.dataset.page === 'calendar') initCalendar();
+    if (el.dataset.page === 'members') loadMembers();
   });
 });
+
+// ── 회원 관리 ────────────────────────────────────
+let membersCache = [];
+
+function fmtPhone(p) {
+  const d = String(p || '').replace(/-/g, '');
+  if (d.length === 11) return d.slice(0,3) + '-' + d.slice(3,7) + '-' + d.slice(7);
+  if (d.length === 10) return d.slice(0,3) + '-' + d.slice(3,6) + '-' + d.slice(6);
+  return p || '-';
+}
+
+async function loadMembers() {
+  const wrap = document.getElementById('members-wrap');
+  wrap.innerHTML = '<p class="empty-state">불러오는 중...</p>';
+  try {
+    const res = await fetch(MEMBER_API + '?action=admin-list', { method:'POST', headers:authHead({'Content-Type':'application/json'}) });
+    const d = await res.json();
+    if (!res.ok) { wrap.innerHTML = '<p class="empty-state">' + (d.error || '불러오기 실패') + '</p>'; return; }
+    membersCache = d.members || [];
+    renderMembers();
+  } catch (e) {
+    wrap.innerHTML = '<p class="empty-state">오류: ' + e.message + '</p>';
+  }
+}
+
+function renderMembers() {
+  const wrap = document.getElementById('members-wrap');
+  const q = (document.getElementById('member-search').value || '').trim().toLowerCase();
+  const rows = membersCache.filter(m => !q
+    || (m.name || '').toLowerCase().includes(q)
+    || (m.username || '').toLowerCase().includes(q)
+    || String(m.phone || '').includes(q.replace(/-/g, '')));
+
+  if (!rows.length) {
+    wrap.innerHTML = '<p class="empty-state">' + (membersCache.length ? '검색 결과가 없습니다.' : '가입한 회원이 없습니다.') + '</p>';
+    return;
+  }
+
+  wrap.innerHTML = '<table class="data-table"><thead><tr>'
+    + '<th>아이디</th><th>이름</th><th>연락처</th><th>이메일</th><th>가입일</th><th></th>'
+    + '</tr></thead><tbody>'
+    + rows.map(m => '<tr>'
+        + '<td>' + esc(m.username) + '</td>'
+        + '<td>' + esc(m.name) + '</td>'
+        + '<td>' + esc(fmtPhone(m.phone)) + '</td>'
+        + '<td>' + esc(m.email) + '</td>'
+        + '<td>' + (m.created_at ? m.created_at.slice(0,10) : '-') + '</td>'
+        + '<td><button class="btn-sm btn-sm-danger" onclick="deleteMember(\'' + m.id + '\',\'' + esc(m.username) + '\')">삭제</button></td>'
+      + '</tr>').join('')
+    + '</tbody></table>'
+    + '<p style="font-size:.75rem;color:var(--gray-400);margin-top:.75rem">총 ' + rows.length + '명</p>';
+}
+
+async function deleteMember(id, username) {
+  if (!confirm('회원 "' + username + '"을(를) 삭제하시겠습니까?\n삭제 후 해당 환자분은 같은 연락처·이메일로 재가입할 수 있습니다.')) return;
+  try {
+    const res = await fetch(MEMBER_API + '?action=admin-delete', {
+      method:'POST', headers:authHead({'Content-Type':'application/json'}), body: JSON.stringify({ id })
+    });
+    const d = await res.json();
+    if (!res.ok) { alert(d.error || '삭제 실패'); return; }
+    membersCache = membersCache.filter(m => m.id !== id);
+    renderMembers();
+  } catch (e) { alert('오류: ' + e.message); }
+}
+
+document.getElementById('member-search').addEventListener('input', renderMembers);
+document.getElementById('reload-members-btn').addEventListener('click', loadMembers);
 
 // ── 대시보드 ─────────────────────────────────────
 async function loadDashboard() {
