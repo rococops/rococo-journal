@@ -12,3 +12,6 @@ skills-lock.json
 node_modules/
 __pycache__/
 *.pyc
+
+# 임시 테스트 파일
+_*.json
