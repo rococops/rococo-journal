@@ -126,9 +126,43 @@ async function handleView(req, res) {
 }
 
 // 상담 접수
+// 스팸 차단 — 봇은 숨겨진 필드를 채우고, 폼을 사람보다 훨씬 빨리 제출함
+function looksLikeSpam(body) {
+  if (body.website) return '봇 감지';                       // 허니팟: 화면에 안 보이는 입력란
+  const elapsed = Number(body.elapsed);
+  if (Number.isFinite(elapsed) && elapsed < 3000) return '너무 빠른 제출';
+  const text = `${body.title || ''} ${body.message || ''}`;
+  if (/https?:\/\/|\bwww\./i.test(text)) return '링크 포함';  // 상담 글에 URL이 들어갈 일은 거의 없음
+  return null;
+}
+
+// 같은 IP의 연속 등록 제한 (5분에 3건)
+async function tooManyRecent(ip) {
+  if (!ip) return false;
+  const since = new Date(Date.now() - 5 * 60 * 1000).toISOString();
+  const { count } = await supabase
+    .from('inquiries')
+    .select('id', { count: 'exact', head: true })
+    .eq('client_ip', ip)
+    .gte('created_at', since);
+  return (count || 0) >= 3;
+}
+
 async function handleSubmit(req, res) {
   const { name, phone, email, contact_method, message, source, photos, password, title } = req.body || {};
   const member = optionalMember(req);
+
+  const spam = looksLikeSpam(req.body || {});
+  if (spam) {
+    console.warn('스팸 차단:', spam);
+    // 봇에게 차단 사유를 알려주면 우회하므로 정상 응답처럼 돌려보냄
+    return res.status(200).json({ ok: true });
+  }
+
+  const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || null;
+  if (await tooManyRecent(ip)) {
+    return res.status(429).json({ error: '잠시 후 다시 시도해주세요. 짧은 시간에 너무 많이 등록되었습니다.' });
+  }
 
   if (!name || !message || !ALLOWED_CONTACT_METHODS.includes(contact_method)) {
     return res.status(400).json({ error: '필수 항목이 누락되었거나 값이 올바르지 않습니다.' });
@@ -160,7 +194,8 @@ async function handleSubmit(req, res) {
       name, phone: phone || null, email: email || null, contact_method, message, source,
       title: (title && String(title).trim()) || '상담 문의',
       photos: photoPaths, post_password_hash,
-      member_id: member ? member.sub : null
+      member_id: member ? member.sub : null,
+      client_ip: ip
     });
 
   if (dbError) {

@@ -215,6 +215,12 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
         <strong id="memberNoticeName"></strong> 회원으로 작성 중입니다. 작성하신 글은 <a href="../board/">상담 게시판</a>에서 비밀번호 없이 바로 확인하실 수 있습니다.
       </p>
 
+      <!-- 스팸 봇 차단용 — 사람 눈에는 보이지 않고, 봇이 채우면 차단됨 -->
+      <div style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true">
+        <label for="website">Website</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
       <label class="form-consent">
         <input type="checkbox" id="consent" name="consent" required>
         <span>개인정보 수집·이용에 동의합니다. (상담 답변 목적으로만 사용되며, 답변 완료 후 안전하게 보관/파기됩니다.) <a href="https://rococops.com/htm/intro_notice.php?cate=private" target="_blank">자세히 보기</a></span>
@@ -287,6 +293,8 @@ const CONSULT_API_URL = 'https://rococo-journal-api.vercel.app/api/consult';
 const form = document.getElementById('counselForm');
 const submitBtn = document.getElementById('submitBtn');
 const messageBox = document.getElementById('formMessage');
+
+var formOpenedAt = Date.now();  // 스팸 봇은 폼을 연 즉시 제출함
 
 // ── 로그인 회원이면 비밀번호 없이 본인 글 열람 가능 ──
 var memberToken = null;
@@ -414,7 +422,9 @@ form.addEventListener('submit', async function (e) {
       message: document.getElementById('message').value.trim(),
       password: document.getElementById('postPassword').value,
       photos: photoPaths,
-      source: params.get('from') || '온라인 상담 페이지'
+      source: params.get('from') || '온라인 상담 페이지',
+      website: document.getElementById('website').value,        // 허니팟(사람은 항상 빈 값)
+      elapsed: Date.now() - formOpenedAt                          // 폼을 연 뒤 제출까지 걸린 시간
     };
 
     const headers = { 'Content-Type': 'application/json' };
