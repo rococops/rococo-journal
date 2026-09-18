@@ -190,7 +190,7 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
       <div class="form-group">
         <label class="form-label" for="title">제목 <span class="required">*</span></label>
         <input class="form-input" type="text" id="title" name="title" placeholder="예) 코재수술 상담 문의" maxlength="60" required>
-        <p class="form-hint">상담 게시판 목록에는 제목과 작성자(성함 일부 가림)만 표시되며, 내용과 사진은 본인만 열람할 수 있습니다.</p>
+        <p class="form-hint">상담 내용과 답변은 본인만 열람할 수 있으며, 다른 분에게 공개되지 않습니다.</p>
       </div>
 
       <div class="form-group">
@@ -208,11 +208,11 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
       <div class="form-group" id="passwordGroup">
         <label class="form-label" for="postPassword">답변 확인용 비밀번호 <span class="required">*</span></label>
         <input class="form-input" type="password" id="postPassword" name="postPassword" placeholder="4자 이상" minlength="4" required>
-        <p class="form-hint">상담 답변은 <a href="../board/">상담 게시판</a>에서 글을 선택한 뒤 이 비밀번호를 입력하시면 확인하실 수 있습니다.</p>
+        <p class="form-hint">상담 답변은 <a href="../board/">내 상담 확인</a> 페이지에서 이름과 이 비밀번호로 조회하실 수 있습니다.</p>
       </div>
 
       <p class="form-hint" id="memberNotice" hidden style="background:var(--gray-50);padding:.75rem 1rem;border-radius:10px">
-        <strong id="memberNoticeName"></strong> 회원으로 작성 중입니다. 작성하신 글은 <a href="../board/">상담 게시판</a>에서 비밀번호 없이 바로 확인하실 수 있습니다.
+        <strong id="memberNoticeName"></strong> 회원으로 작성 중입니다. 작성하신 글은 <a href="../board/">내 상담 확인</a>에서 비밀번호 없이 바로 확인하실 수 있습니다.
       </p>
 
       <!-- 스팸 봇 차단용 — 사람 눈에는 보이지 않고, 봇이 채우면 차단됨 -->

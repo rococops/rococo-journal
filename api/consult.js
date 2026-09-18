@@ -61,32 +61,54 @@ function maskName(name) {
   return n[0] + '*'.repeat(n.length - 2) + n[n.length - 1];
 }
 
-// 게시판 목록 — 제목·작성자(마스킹)·날짜·답변여부만 공개. 내용/사진/연락처는 노출하지 않음
+// 내 상담 목록 — 전체 공개 목록은 두지 않음(상담 건수가 적어 오히려 역효과이고,
+// 제목만으로도 어떤 시술을 문의했는지 드러나 민감함).
+// 로그인 회원은 토큰으로, 비회원은 이름+비밀번호로 본인 글만 조회.
 async function handleList(req, res) {
-  const page = Math.max(1, parseInt(req.body?.page, 10) || 1);
-  const size = 15;
-  const from = (page - 1) * size;
-
   const member = optionalMember(req);
+  const { name, password } = req.body || {};
 
-  const { data, error, count } = await supabase
+  if (member) {
+    const { data, error } = await supabase
+      .from('inquiries')
+      .select('id, title, created_at, reply')
+      .eq('member_id', member.sub)
+      .order('created_at', { ascending: false })
+      .limit(50);
+    if (error) return res.status(500).json({ error: error.message });
+    return res.status(200).json({
+      ok: true, mode: 'member',
+      inquiries: (data || []).map(r => ({
+        id: r.id, title: r.title || '상담 문의', created_at: r.created_at, answered: !!r.reply, mine: true
+      }))
+    });
+  }
+
+  if (!name || !password) {
+    return res.status(400).json({ error: '이름과 비밀번호를 입력해주세요.' });
+  }
+
+  const { data, error } = await supabase
     .from('inquiries')
-    .select('id, name, title, created_at, reply, member_id', { count: 'exact' })
+    .select('id, title, created_at, reply, post_password_hash')
+    .eq('name', String(name).trim())
     .order('created_at', { ascending: false })
-    .range(from, from + size - 1);
+    .limit(50);
 
   if (error) return res.status(500).json({ error: error.message });
 
-  const list = (data || []).map(r => ({
-    id: r.id,
-    title: r.title || '상담 문의',
-    name: maskName(r.name),
-    created_at: r.created_at,
-    answered: !!r.reply,
-    mine: !!(member && r.member_id && r.member_id === member.sub)
-  }));
+  const mine = [];
+  for (const row of data || []) {
+    if (!row.post_password_hash) continue;
+    if (await bcrypt.compare(String(password), row.post_password_hash)) {
+      mine.push({ id: row.id, title: row.title || '상담 문의', created_at: row.created_at, answered: !!row.reply, mine: true });
+    }
+  }
 
-  return res.status(200).json({ ok: true, inquiries: list, total: count || 0, page, size });
+  if (!mine.length) {
+    return res.status(404).json({ error: '일치하는 상담 내역이 없습니다. 이름과 비밀번호를 확인해주세요.' });
+  }
+  return res.status(200).json({ ok: true, mode: 'guest', inquiries: mine });
 }
 
 // 글 열람 — 목록에서 글을 선택한 뒤 해당 글의 비밀번호를 입력받아 확인
