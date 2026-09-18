@@ -143,6 +143,7 @@ body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webki
 .consult-msg{font-size:.81rem;color:#444;margin-top:.22rem;line-height:1.5;white-space:pre-wrap;word-break:break-all}
 .consult-src{font-size:.7rem;color:var(--gray-400);margin-top:.12rem}
 .consult-date{font-size:.72rem;color:var(--gray-400);white-space:nowrap}
+.consult-date .d-date,.consult-date .d-time{display:block}
 /* 상담 탭 */
 .consult-tabs{display:flex;gap:.35rem;margin-bottom:1rem}
 .ctab{padding:.42rem 1rem;border:1.5px solid var(--gray-200);border-radius:8px;font-size:.78rem;font-weight:700;cursor:pointer;background:#fff;color:var(--gray-600);font-family:inherit;transition:all .15s}
@@ -243,6 +244,31 @@ body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webki
   .page-title{font-size:1.15rem}
   .cal-grid{gap:2px}
   .cal-cell{font-size:.72rem;min-height:40px;padding:.3rem .1rem}
+
+  /* 상담 목록: 모바일에서 4칸 표를 쓰면 문의 내용 칸이 눌려 세로로 길어짐
+     → 표 구조를 풀고 한 건당 카드 하나로 쌓아 전체 폭을 쓰게 함 */
+  #consult-wrap .data-table,
+  #consult-wrap .data-table tbody,
+  #consult-wrap .data-table tr,
+  #consult-wrap .data-table td{display:block;width:100%}
+  #consult-wrap .data-table thead{display:none}
+  #consult-wrap .data-table tr{
+    display:flex;flex-direction:column;
+    border:1px solid var(--gray-100);border-radius:10px;
+    padding:.85rem .9rem;margin-bottom:.7rem;background:#fff;position:relative
+  }
+  #consult-wrap .data-table tr:hover td{background:transparent}
+  #consult-wrap .data-table td{border-bottom:none;padding:0;margin-bottom:.6rem}
+  #consult-wrap .data-table td:last-child{margin-bottom:0}
+  #consult-wrap .data-table .col-chk{position:absolute;top:.85rem;right:.9rem;width:auto;padding:0;margin:0}
+  #consult-wrap .consult-msg{font-size:.82rem;word-break:break-word}
+  /* 일시는 카드 맨 위에 한 줄로 작게 */
+  #consult-wrap .consult-date{order:-1;font-size:.72rem;color:var(--gray-400);margin-bottom:.45rem}
+  #consult-wrap .consult-date .d-date,
+  #consult-wrap .consult-date .d-time{display:inline}
+  #consult-wrap .consult-date .d-time::before{content:' '}
+  #consult-wrap .consult-photos img{width:56px;height:56px}
+  #consult-wrap .status-btns{flex-wrap:wrap}
 }
 body{overflow-x:hidden}
 </style>
@@ -986,7 +1012,7 @@ function renderConsult(list, wrap) {
           </div>
         </div>
       </td>
-      <td class="consult-date">${dateStr}<br>${timeStr}</td>
+      <td class="consult-date"><span class="d-date">${dateStr}</span><span class="d-time">${timeStr}</span></td>
     </tr>`;
   }).join('');
   wrap.innerHTML = `
