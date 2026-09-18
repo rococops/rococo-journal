@@ -182,7 +182,7 @@ function setupCheck(field, inputId, btnId, hintId, validRe) {
     btn.disabled = true;
     hint.textContent = '확인 중...';
     hint.className = 'r-hint';
-    fetch(API + '/check-duplicate', {
+    fetch(API + '/member?action=check-duplicate', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ field: field, value: value })
     }).then(function (r) { return r.json(); }).then(function (d) {
@@ -231,7 +231,7 @@ document.getElementById('btn-submit').addEventListener('click', function () {
   var btn = document.getElementById('btn-submit');
   btn.disabled = true; btn.textContent = '가입 중...';
 
-  fetch(API + '/signup', {
+  fetch(API + '/member?action=signup', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username: username, password: password, name: name, phone: phone, email: email, termsAgreed: termsAgreed, privacyAgreed: privacyAgreed })
   }).then(function (r) { return r.json().then(function (d) { return { status: r.status, body: d }; }); })
@@ -242,7 +242,7 @@ document.getElementById('btn-submit').addEventListener('click', function () {
         return;
       }
       // 가입 성공 → 자동 로그인 후 원래 보려던 페이지로 이동
-      return fetch(API + '/login', {
+      return fetch(API + '/member?action=login', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: username, password: password })
       }).then(function (r) { return r.json(); }).then(function (d) {

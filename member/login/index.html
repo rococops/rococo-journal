@@ -102,7 +102,7 @@ function doLogin() {
   var btn = document.getElementById('btn-submit');
   btn.disabled = true; btn.textContent = '로그인 중...';
 
-  fetch(API + '/login', {
+  fetch(API + '/member?action=login', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username: username, password: password })
   }).then(function (r) { return r.json().then(function (d) { return { status: r.status, body: d }; }); })
