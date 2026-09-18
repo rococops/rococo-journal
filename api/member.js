@@ -111,12 +111,33 @@ async function handleLogin(req, res) {
   return res.status(200).json({ ok: true, token, name: member.name });
 }
 
+function requireMember(req, res) {
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.replace(/^Bearer\s+/i, '');
+  if (!token) { res.status(401).json({ error: '로그인이 필요합니다.' }); return null; }
+  try {
+    return jwt.verify(token, process.env.JWT_SECRET);
+  } catch (e) {
+    res.status(401).json({ error: '로그인이 만료되었습니다. 다시 로그인해주세요.' });
+    return null;
+  }
+}
+
+async function handleDeleteAccount(req, res) {
+  const payload = requireMember(req, res);
+  if (!payload) return;
+
+  const { error } = await supabase.from('members').delete().eq('id', payload.sub);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ ok: true });
+}
+
 export default async function handler(req, res) {
   const origin = req.headers.origin || '';
   const allowed = ['https://journal.rococops.com', 'https://rococo-journal-api.vercel.app'];
   res.setHeader('Access-Control-Allow-Origin', allowed.includes(origin) ? origin : allowed[0]);
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
@@ -124,5 +145,6 @@ export default async function handler(req, res) {
   if (action === 'signup') return handleSignup(req, res);
   if (action === 'login') return handleLogin(req, res);
   if (action === 'check-duplicate') return handleCheckDuplicate(req, res);
+  if (action === 'delete-account') return handleDeleteAccount(req, res);
   return res.status(400).json({ error: '잘못된 요청입니다.' });
 }

@@ -103,4 +103,28 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  // 회원 로그인 상태 표시줄 — .member-bar가 있는(게이트 통과한) 페이지에서만 동작.
+  // 토큰이 살아있으면 이름 채워서 보여주고, 로그아웃 클릭 시 토큰 지우고 새로고침
+  // (헤더의 게이트 스크립트가 새로고침 시 자동으로 로그인 페이지로 보냄).
+  var memberBar = document.getElementById('memberBar');
+  if (memberBar) {
+    try {
+      var token = localStorage.getItem('rococo_member_token');
+      var payload = token ? JSON.parse(atob(token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))) : null;
+      if (payload && payload.exp && Date.now() < payload.exp * 1000) {
+        var name = localStorage.getItem('rococo_member_name') || payload.name || '회원';
+        document.getElementById('memberBarName').textContent = name + '님';
+        memberBar.hidden = false;
+      }
+    } catch (e) {}
+    var logoutBtn = document.getElementById('memberLogoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', function () {
+        localStorage.removeItem('rococo_member_token');
+        localStorage.removeItem('rococo_member_name');
+        location.reload();
+      });
+    }
+  }
+
 });

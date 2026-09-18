@@ -2044,3 +2044,25 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     filter: none !important;
   }
 }
+
+/* ===== 회원 로그인 상태 표시줄 (수술후기 게이트 통과 페이지 상단) ===== */
+.member-bar {
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--gray-200);
+  padding: .55rem 1.25rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  font-size: .78rem;
+  color: var(--gray-600);
+}
+.member-bar[hidden] { display: none; }
+.member-bar #memberBarName { font-weight: 800; color: var(--black); }
+.member-bar a { color: var(--accent); font-weight: 700; text-decoration: none; }
+.member-bar a:hover { text-decoration: underline; }
+.member-bar button {
+  background: none; border: none; padding: 0; margin: 0;
+  font: inherit; font-size: .78rem; color: var(--gray-400); cursor: pointer; text-decoration: underline;
+}
+.member-bar button:hover { color: var(--black); }

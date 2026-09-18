@@ -38,6 +38,14 @@ export const MEMBER_GATE = (root) => `<script>
 })();
 </script>`;
 
+// 로그인 상태 표시줄 — 게이트 통과한 회원 페이지 상단에 삽입.
+// 기본 숨김(hidden) 상태로 렌더되고, main.js가 토큰에서 이름을 읽어와 채운 뒤 보여줌.
+export const MEMBER_BAR = (root) => `<div class="member-bar" id="memberBar" hidden>
+  <span id="memberBarName"></span>
+  <a href="${root}member/account/">내 정보</a>
+  <button type="button" id="memberLogoutBtn">로그아웃</button>
+</div>`;
+
 export const FOOTER = (root) => `<footer class="site-footer">
   <div class="container">
     <div class="footer-grid">

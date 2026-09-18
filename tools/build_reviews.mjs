@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { navHtml, CAT_NAMES } from './nav.mjs';
-import { PHOTO_BASE, maskName, esc, FOOTER, MEMBER_GATE } from './review_utils.mjs';
+import { PHOTO_BASE, maskName, esc, FOOTER, MEMBER_GATE, MEMBER_BAR } from './review_utils.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE_BASE = 'https://journal.rococops.com';
@@ -73,6 +73,7 @@ ${MEMBER_GATE(root)}
     ${nav}
   </div>
 </header>
+${MEMBER_BAR(root)}
 <section class="article-hero">
   <div class="container">
     <div class="article-breadcrumb">
@@ -229,6 +230,7 @@ ${MEMBER_GATE(root)}
     ${nav}
   </div>
 </header>
+${MEMBER_BAR(root)}
 <section class="article-hero">
   <div class="container">
     <div class="article-breadcrumb">

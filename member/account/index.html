@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  try {
+    var t = localStorage.getItem('rococo_member_token');
+    if (t) {
+      var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
+      if (payload.exp && Date.now() < payload.exp * 1000) return;
+      localStorage.removeItem('rococo_member_token');
+    }
+  } catch(e) {}
+  location.replace('../login/?return=' + encodeURIComponent(location.pathname));
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>내 정보 — 로코코성형외과 김상호 원장</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://journal.rococops.com/member/account/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<style>
+.member-section { padding: 3rem 0 5rem; }
+.member-wrap { max-width: 420px; margin: 0 auto; }
+.rsec { background: #fff; border-radius: 14px; padding: 1.75rem; margin-bottom: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 6px 20px -4px rgba(0,0,0,.08); border: 1px solid rgba(0,0,0,.04); }
+.acct-row { display: flex; justify-content: space-between; padding: .75rem 0; border-bottom: 1px solid var(--gray-100); font-size: .88rem; }
+.acct-row:last-child { border-bottom: none; }
+.acct-row span:first-child { color: var(--gray-400); font-weight: 700; }
+.acct-row span:last-child { color: var(--black); font-weight: 700; }
+.r-submit { width: 100%; padding: 1rem; background: var(--black); color: #fff; border: none; border-radius: 12px; font-size: .95rem; font-weight: 800; font-family: inherit; cursor: pointer; margin-top: .5rem; }
+.r-submit:hover { background: #222; }
+.danger-btn { width: 100%; padding: .85rem; background: #fff; color: #c0392b; border: 1.5px solid #f0d4d0; border-radius: 12px; font-size: .85rem; font-weight: 700; font-family: inherit; cursor: pointer; margin-top: .6rem; }
+.danger-btn:hover { background: #fdf3f2; border-color: #c0392b; }
+</style>
+</head>
+<body>
+
+<div class="gnb-overlay" id="gnbOverlay"></div>
+<header class="site-header" id="header">
+  <div class="header-inner">
+    <a href="../../" class="logo"><span class="logo-main">ROCOCO</span><span class="logo-sub">Journal</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+    <nav class="gnb" id="gnb">
+      <div class="gnb-header"><span class="gnb-title">Menu</span><button class="gnb-close" id="gnbClose" aria-label="메뉴 닫기">&#x2715;</button></div>
+      <ul>
+        <li><a href="../../counsel/" class="btn-consult">상담·예약</a></li>
+        <li><a href="../../reviews/" class="btn-gold-outline">수술후기</a></li>
+        <li><a href="../../cases/" class="btn-gold">전후사진</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="article-hero">
+  <div class="container">
+    <div class="article-breadcrumb"><a href="../../">홈</a><span>›</span><span>내 정보</span></div>
+    <div class="article-hero-inner" style="grid-template-columns:1fr">
+      <div class="article-hero-text">
+        <span class="eyebrow">MEMBER</span>
+        <h1 class="article-title">내 정보</h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="member-section">
+  <div class="container">
+    <div class="member-wrap">
+      <div class="rsec">
+        <div class="acct-row"><span>아이디</span><span id="acct-username">-</span></div>
+        <div class="acct-row"><span>이름</span><span id="acct-name">-</span></div>
+        <button class="r-submit" id="btn-logout">로그아웃</button>
+      </div>
+      <div class="rsec">
+        <button class="danger-btn" id="btn-delete">회원탈퇴</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 2025 Rococo Plastic Surgery. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+<script src="../../js/main.js"></script>
+<script>
+var API = 'https://rococo-journal-api.vercel.app/api';
+
+(function () {
+  var token = localStorage.getItem('rococo_member_token');
+  if (!token) return;
+  try {
+    var payload = JSON.parse(atob(token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
+    document.getElementById('acct-username').textContent = payload.username || '-';
+    document.getElementById('acct-name').textContent = payload.name || '-';
+  } catch (e) {}
+})();
+
+document.getElementById('btn-logout').addEventListener('click', function () {
+  localStorage.removeItem('rococo_member_token');
+  localStorage.removeItem('rococo_member_name');
+  location.href = '../../';
+});
+
+document.getElementById('btn-delete').addEventListener('click', function () {
+  if (!confirm('정말 탈퇴하시겠습니까? 탈퇴 후에는 수술후기 열람을 위해 다시 가입하셔야 합니다.')) return;
+
+  var btn = this;
+  btn.disabled = true; btn.textContent = '처리 중...';
+  var token = localStorage.getItem('rococo_member_token');
+
+  fetch(API + '/member?action=delete-account', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }
+  }).then(function (r) { return r.json().then(function (d) { return { status: r.status, body: d }; }); })
+    .then(function (res) {
+      if (res.status !== 200) {
+        alert(res.body.error || '탈퇴 처리 중 오류가 발생했습니다.');
+        btn.disabled = false; btn.textContent = '회원탈퇴';
+        return;
+      }
+      localStorage.removeItem('rococo_member_token');
+      localStorage.removeItem('rococo_member_name');
+      alert('탈퇴가 완료되었습니다.');
+      location.href = '../../';
+    }).catch(function (e) {
+      alert('오류: ' + e.message);
+      btn.disabled = false; btn.textContent = '회원탈퇴';
+    });
+});
+</script>
+</body>
+</html>
