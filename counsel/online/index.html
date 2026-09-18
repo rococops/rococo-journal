@@ -188,6 +188,12 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
       </div>
 
       <div class="form-group">
+        <label class="form-label" for="title">제목 <span class="required">*</span></label>
+        <input class="form-input" type="text" id="title" name="title" placeholder="예) 코재수술 상담 문의" maxlength="60" required>
+        <p class="form-hint">상담 게시판 목록에는 제목과 작성자(성함 일부 가림)만 표시되며, 내용과 사진은 본인만 열람할 수 있습니다.</p>
+      </div>
+
+      <div class="form-group">
         <label class="form-label" for="message">문의 내용 <span class="required">*</span></label>
         <textarea class="form-textarea" id="message" name="message" placeholder="궁금한 점이나 상담받고 싶은 시술 내용을 자유롭게 적어주세요." required></textarea>
       </div>
@@ -199,11 +205,15 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
         <div class="photo-preview" id="photoPreview"></div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" id="passwordGroup">
         <label class="form-label" for="postPassword">답변 확인용 비밀번호 <span class="required">*</span></label>
         <input class="form-input" type="password" id="postPassword" name="postPassword" placeholder="4자 이상" minlength="4" required>
-        <p class="form-hint">상담 답변은 <a href="../lookup/">상담 답변 확인</a> 페이지에서 이름과 이 비밀번호로 조회하실 수 있습니다.</p>
+        <p class="form-hint">상담 답변은 <a href="../board/">상담 게시판</a>에서 글을 선택한 뒤 이 비밀번호를 입력하시면 확인하실 수 있습니다.</p>
       </div>
+
+      <p class="form-hint" id="memberNotice" hidden style="background:var(--gray-50);padding:.75rem 1rem;border-radius:10px">
+        <strong id="memberNoticeName"></strong> 회원으로 작성 중입니다. 작성하신 글은 <a href="../board/">상담 게시판</a>에서 비밀번호 없이 바로 확인하실 수 있습니다.
+      </p>
 
       <label class="form-consent">
         <input type="checkbox" id="consent" name="consent" required>
@@ -277,6 +287,29 @@ const CONSULT_API_URL = 'https://rococo-journal-api.vercel.app/api/consult';
 const form = document.getElementById('counselForm');
 const submitBtn = document.getElementById('submitBtn');
 const messageBox = document.getElementById('formMessage');
+
+// ── 로그인 회원이면 비밀번호 없이 본인 글 열람 가능 ──
+var memberToken = null;
+(function () {
+  try {
+    var t = localStorage.getItem('rococo_member_token');
+    if (!t) return;
+    var raw = atob(t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'));
+    var payload = JSON.parse(decodeURIComponent(raw.split('').map(function (c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join('')));
+    if (!payload.exp || Date.now() >= payload.exp * 1000) return;
+    memberToken = t;
+    var name = localStorage.getItem('rococo_member_name') || payload.name || '';
+    document.getElementById('memberNoticeName').textContent = name ? name + '님' : '회원';
+    document.getElementById('memberNotice').hidden = false;
+    // 회원은 글 비밀번호가 필수가 아님
+    var pwInput = document.getElementById('postPassword');
+    pwInput.required = false;
+    document.getElementById('passwordGroup').hidden = true;
+    if (name) document.getElementById('name').value = name;
+  } catch (e) {}
+})();
 
 // ── 사진 첨부 ──────────────────────────────────
 const photoInput = document.getElementById('photos');
@@ -374,6 +407,7 @@ form.addEventListener('submit', async function (e) {
     submitBtn.textContent = '전송 중...';
     const payload = {
       name: document.getElementById('name').value.trim(),
+      title: document.getElementById('title').value.trim(),
       phone: phone,
       email: email,
       contact_method: contactMethod,
@@ -383,9 +417,12 @@ form.addEventListener('submit', async function (e) {
       source: params.get('from') || '온라인 상담 페이지'
     };
 
+    const headers = { 'Content-Type': 'application/json' };
+    if (memberToken) headers['Authorization'] = 'Bearer ' + memberToken;
+
     const res = await fetch(CONSULT_API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: headers,
       body: JSON.stringify(payload)
     });
 
