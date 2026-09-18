@@ -39,12 +39,40 @@ export const MEMBER_GATE = (root) => `<script>
 </script>`;
 
 // 로그인 상태 표시줄 — 게이트 통과한 회원 페이지 상단에 삽입.
-// 기본 숨김(hidden) 상태로 렌더되고, main.js가 토큰에서 이름을 읽어와 채운 뒤 보여줌.
+// 동작 스크립트를 main.js가 아니라 여기에 직접 인라인으로 넣음: main.js는 별도 파일이라
+// 브라우저/CDN에 이전 버전으로 캐시되면 표시줄만 안 뜨는 문제가 실제로 발생했음.
 export const MEMBER_BAR = (root) => `<div class="member-bar" id="memberBar" hidden>
   <span id="memberBarName"></span>
   <a href="${root}member/account/">내 정보</a>
   <button type="button" id="memberLogoutBtn">로그아웃</button>
-</div>`;
+</div>
+<script>
+(function(){
+  var bar = document.getElementById('memberBar');
+  if (!bar) return;
+  try {
+    var t = localStorage.getItem('rococo_member_token');
+    if (t) {
+      var raw = atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'));
+      // atob는 바이트 단위라 한글(멀티바이트 UTF-8)이 깨짐 — %XX로 풀어서 다시 디코딩
+      var payload = JSON.parse(decodeURIComponent(raw.split('').map(function(c){
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join('')));
+      if (payload.exp && Date.now() < payload.exp * 1000) {
+        var name = localStorage.getItem('rococo_member_name') || payload.name || '회원';
+        document.getElementById('memberBarName').textContent = name + '님';
+        bar.hidden = false;
+      }
+    }
+  } catch(e) {}
+  var btn = document.getElementById('memberLogoutBtn');
+  if (btn) btn.addEventListener('click', function(){
+    localStorage.removeItem('rococo_member_token');
+    localStorage.removeItem('rococo_member_name');
+    location.reload();
+  });
+})();
+</script>`;
 
 export const FOOTER = (root) => `<footer class="site-footer">
   <div class="container">

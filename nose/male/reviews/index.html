@@ -124,6 +124,33 @@
   <a href="../../../member/account/">내 정보</a>
   <button type="button" id="memberLogoutBtn">로그아웃</button>
 </div>
+<script>
+(function(){
+  var bar = document.getElementById('memberBar');
+  if (!bar) return;
+  try {
+    var t = localStorage.getItem('rococo_member_token');
+    if (t) {
+      var raw = atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'));
+      // atob는 바이트 단위라 한글(멀티바이트 UTF-8)이 깨짐 — %XX로 풀어서 다시 디코딩
+      var payload = JSON.parse(decodeURIComponent(raw.split('').map(function(c){
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join('')));
+      if (payload.exp && Date.now() < payload.exp * 1000) {
+        var name = localStorage.getItem('rococo_member_name') || payload.name || '회원';
+        document.getElementById('memberBarName').textContent = name + '님';
+        bar.hidden = false;
+      }
+    }
+  } catch(e) {}
+  var btn = document.getElementById('memberLogoutBtn');
+  if (btn) btn.addEventListener('click', function(){
+    localStorage.removeItem('rococo_member_token');
+    localStorage.removeItem('rococo_member_name');
+    location.reload();
+  });
+})();
+</script>
 <section class="article-hero">
   <div class="container">
     <div class="article-breadcrumb">

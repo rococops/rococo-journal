@@ -96,9 +96,13 @@ var API = 'https://rococo-journal-api.vercel.app/api';
   var token = localStorage.getItem('rococo_member_token');
   if (!token) return;
   try {
-    var payload = JSON.parse(atob(token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
+    var raw = atob(token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'));
+    // atob는 바이트 단위라 한글(멀티바이트 UTF-8)이 깨짐 — %XX로 풀어서 다시 디코딩
+    var payload = JSON.parse(decodeURIComponent(raw.split('').map(function (c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join('')));
     document.getElementById('acct-username').textContent = payload.username || '-';
-    document.getElementById('acct-name').textContent = payload.name || '-';
+    document.getElementById('acct-name').textContent = localStorage.getItem('rococo_member_name') || payload.name || '-';
   } catch (e) {}
 })();
 
