@@ -21,6 +21,23 @@ export function esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+// 수술후기 열람 게이트 — 회원 로그인(JWT, localStorage)이 없으면 login 페이지로 즉시 리다이렉트.
+// <head> 최상단에 넣어서 콘텐츠가 그려지기 전에 판단되도록 함(깜빡임/노출 방지).
+// 토큰 서명 검증은 서버(로그인 시점)에서만 하고, 여기서는 존재 여부 + exp(만료)만 클라이언트에서 가볍게 확인.
+export const MEMBER_GATE = (root) => `<script>
+(function(){
+  try {
+    var t = localStorage.getItem('rococo_member_token');
+    if (t) {
+      var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
+      if (payload.exp && Date.now() < payload.exp * 1000) return;
+      localStorage.removeItem('rococo_member_token');
+    }
+  } catch(e) {}
+  location.replace('${root}member/login/?return=' + encodeURIComponent(location.pathname));
+})();
+</script>`;
+
 export const FOOTER = (root) => `<footer class="site-footer">
   <div class="container">
     <div class="footer-grid">

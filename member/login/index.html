@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>로그인 — 로코코성형외과 김상호 원장</title>
+<meta name="description" content="수술후기 열람을 위한 로코코 저널 로그인.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://journal.rococops.com/member/login/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<style>
+.member-section { padding: 3rem 0 5rem; }
+.member-wrap { max-width: 420px; margin: 0 auto; }
+.rsec { background: #fff; border-radius: 14px; padding: 1.75rem; margin-bottom: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 6px 20px -4px rgba(0,0,0,.08); border: 1px solid rgba(0,0,0,.04); }
+.r-group { margin-bottom: 1.1rem; }
+.r-label { display: block; font-size: .8rem; font-weight: 800; color: var(--black); margin-bottom: .45rem; }
+.r-input { width: 100%; padding: .75rem 1rem; border: 1.5px solid var(--gray-200); border-radius: 10px; font-size: 16px; font-family: inherit; color: var(--black); background: #fff; transition: border .15s; }
+.r-input:focus { outline: none; border-color: var(--accent); }
+.r-error { color: #c0392b; font-size: .82rem; margin-top: .6rem; display: none; text-align: center; }
+.r-error.show { display: block; }
+.r-submit { width: 100%; padding: 1rem; background: var(--black); color: #fff; border: none; border-radius: 12px; font-size: .95rem; font-weight: 800; font-family: inherit; cursor: pointer; transition: all .15s; margin-top: .5rem; }
+.r-submit:hover { background: #222; box-shadow: 0 4px 16px rgba(0,0,0,.2); }
+.r-submit:disabled { background: var(--gray-200); color: var(--gray-400); cursor: not-allowed; box-shadow: none; }
+.member-foot { text-align: center; font-size: .84rem; color: var(--gray-600); margin-top: 1.25rem; }
+.member-foot a { color: var(--accent); font-weight: 700; text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="gnb-overlay" id="gnbOverlay"></div>
+<header class="site-header" id="header">
+  <div class="header-inner">
+    <a href="../../" class="logo"><span class="logo-main">ROCOCO</span><span class="logo-sub">Journal</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+    <nav class="gnb" id="gnb">
+      <div class="gnb-header"><span class="gnb-title">Menu</span><button class="gnb-close" id="gnbClose" aria-label="메뉴 닫기">&#x2715;</button></div>
+      <ul>
+        <li><a href="../../counsel/" class="btn-consult">상담·예약</a></li>
+        <li><a href="../../reviews/" class="btn-gold-outline">수술후기</a></li>
+        <li><a href="../../cases/" class="btn-gold">전후사진</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="article-hero">
+  <div class="container">
+    <div class="article-breadcrumb"><a href="../../">홈</a><span>›</span><span>로그인</span></div>
+    <div class="article-hero-inner" style="grid-template-columns:1fr">
+      <div class="article-hero-text">
+        <span class="eyebrow">MEMBER</span>
+        <h1 class="article-title">로그인</h1>
+        <p class="article-summary">수술후기는 로그인 후 열람하실 수 있습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="member-section">
+  <div class="container">
+    <div class="member-wrap">
+      <div class="rsec">
+        <div class="r-group">
+          <label class="r-label" for="f-username">아이디</label>
+          <input class="r-input" type="text" id="f-username" autocomplete="username">
+        </div>
+        <div class="r-group">
+          <label class="r-label" for="f-password">비밀번호</label>
+          <input class="r-input" type="password" id="f-password" autocomplete="current-password">
+        </div>
+        <p class="r-error" id="err-login">아이디 또는 비밀번호가 올바르지 않습니다.</p>
+        <button class="r-submit" id="btn-submit">로그인</button>
+        <p class="member-foot">아직 계정이 없으신가요? <a href="../signup/" id="signup-link">회원가입</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 2025 Rococo Plastic Surgery. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+<script src="../../js/main.js"></script>
+<script>
+var API = 'https://rococo-journal-api.vercel.app/api';
+var params = new URLSearchParams(location.search);
+var returnTo = params.get('return') || '../../reviews/';
+document.getElementById('signup-link').href = '../signup/?return=' + encodeURIComponent(returnTo);
+
+function doLogin() {
+  var username = document.getElementById('f-username').value.trim();
+  var password = document.getElementById('f-password').value;
+  var errEl = document.getElementById('err-login');
+  errEl.classList.remove('show');
+  if (!username || !password) return;
+
+  var btn = document.getElementById('btn-submit');
+  btn.disabled = true; btn.textContent = '로그인 중...';
+
+  fetch(API + '/login', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: username, password: password })
+  }).then(function (r) { return r.json().then(function (d) { return { status: r.status, body: d }; }); })
+    .then(function (res) {
+      btn.disabled = false; btn.textContent = '로그인';
+      if (res.status !== 200 || !res.body.token) {
+        errEl.textContent = res.body.error || '아이디 또는 비밀번호가 올바르지 않습니다.';
+        errEl.classList.add('show');
+        return;
+      }
+      localStorage.setItem('rococo_member_token', res.body.token);
+      localStorage.setItem('rococo_member_name', res.body.name);
+      location.href = returnTo;
+    }).catch(function (e) {
+      btn.disabled = false; btn.textContent = '로그인';
+      errEl.textContent = '오류: ' + e.message;
+      errEl.classList.add('show');
+    });
+}
+
+document.getElementById('btn-submit').addEventListener('click', doLogin);
+document.getElementById('f-password').addEventListener('keydown', function (e) { if (e.key === 'Enter') doLogin(); });
+</script>
+</body>
+</html>

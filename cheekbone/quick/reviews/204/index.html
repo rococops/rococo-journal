@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<script>
+(function(){
+  try {
+    var t = localStorage.getItem('rococo_member_token');
+    if (t) {
+      var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
+      if (payload.exp && Date.now() < payload.exp * 1000) return;
+      localStorage.removeItem('rococo_member_token');
+    }
+  } catch(e) {}
+  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+})();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>15분 광대! — 15분 광대축소술 수술후기 | 로코코성형외과</title>

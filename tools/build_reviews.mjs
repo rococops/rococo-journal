@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { navHtml, CAT_NAMES } from './nav.mjs';
-import { PHOTO_BASE, maskName, esc, FOOTER } from './review_utils.mjs';
+import { PHOTO_BASE, maskName, esc, FOOTER, MEMBER_GATE } from './review_utils.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE_BASE = 'https://journal.rococops.com';
@@ -45,6 +45,7 @@ function generateReviewPage(r, cfg) {
   return `<!DOCTYPE html>
 <html lang="ko">
 <head>
+${MEMBER_GATE(root)}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(title)} — ${cfg.subName} 수술후기 | 로코코성형외과</title>
@@ -200,6 +201,7 @@ ${rows}
   return `<!DOCTYPE html>
 <html lang="ko">
 <head>
+${MEMBER_GATE(root)}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${cfg.subName} 수술후기 (${reviews.length}건) — 로코코성형외과 김상호 원장</title>

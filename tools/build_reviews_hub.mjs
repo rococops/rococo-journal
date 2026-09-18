@@ -6,7 +6,7 @@ import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { navHtml, CAT_NAMES } from './nav.mjs';
-import { PHOTO_BASE, maskName, esc, FOOTER } from './review_utils.mjs';
+import { PHOTO_BASE, maskName, esc, FOOTER, MEMBER_GATE } from './review_utils.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE_BASE = 'https://journal.rococops.com';
@@ -78,6 +78,7 @@ const filterChips = ['all', ...Object.keys(CAT_NAMES).filter(c => catCounts.has(
 const html = `<!DOCTYPE html>
 <html lang="ko">
 <head>
+${MEMBER_GATE('../')}
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0Y6WHB6J6X"></script>
 <script>
