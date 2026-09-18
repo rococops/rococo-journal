@@ -148,6 +148,39 @@ async function handleView(req, res) {
 }
 
 // 상담 접수
+// 한글 비중이 낮으면 외국어 문의로 판단 (해외 환자 문의는 영어·중국어가 대부분)
+function isForeign(text) {
+  const s = String(text || '');
+  const letters = s.replace(/[\s\d\p{P}\p{S}]/gu, '');
+  if (letters.length < 10) return false;
+  const hangul = (letters.match(/[가-힣]/g) || []).length;
+  return hangul / letters.length < 0.3;
+}
+
+// 외국어 문의를 한국어로 번역해 원장님이 바로 읽을 수 있게 함.
+// DEEPL_API_KEY가 없으면 번역 없이 진행(접수 자체는 정상 처리).
+async function translateToKorean(text) {
+  const key = process.env.DEEPL_API_KEY;
+  if (!key || !text) return null;
+  try {
+    const endpoint = key.endsWith(':fx')
+      ? 'https://api-free.deepl.com/v2/translate'
+      : 'https://api.deepl.com/v2/translate';
+    const r = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Authorization': `DeepL-Auth-Key ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: [String(text).slice(0, 4000)], target_lang: 'KO' })
+    });
+    if (!r.ok) { console.error('DeepL 실패:', r.status); return null; }
+    const d = await r.json();
+    const first = d?.translations?.[0];
+    return first ? { text: first.text, lang: first.detected_source_language } : null;
+  } catch (e) {
+    console.error('번역 오류:', e);
+    return null;
+  }
+}
+
 // 스팸 차단 — 봇은 숨겨진 필드를 채우고, 폼을 사람보다 훨씬 빨리 제출함
 function looksLikeSpam(body) {
   if (body.website) return '봇 감지';                       // 허니팟: 화면에 안 보이는 입력란
@@ -210,6 +243,13 @@ async function handleSubmit(req, res) {
   const photoPaths = Array.isArray(photos) ? photos.filter(p => typeof p === 'string').slice(0, 5) : [];
   const post_password_hash = password ? await bcrypt.hash(String(password), 10) : null;
 
+  // 외국어 문의면 한국어 번역본을 함께 저장 (번역 실패해도 접수는 진행)
+  let translated = null;
+  if (isForeign(message)) {
+    const full = title ? `${title}\n\n${message}` : message;
+    translated = await translateToKorean(full);
+  }
+
   const { error: dbError } = await supabase
     .from('inquiries')
     .insert({
@@ -217,7 +257,9 @@ async function handleSubmit(req, res) {
       title: (title && String(title).trim()) || '상담 문의',
       photos: photoPaths, post_password_hash,
       member_id: member ? member.sub : null,
-      client_ip: ip
+      client_ip: ip,
+      message_ko: translated ? translated.text : null,
+      source_lang: translated ? translated.lang : null
     });
 
   if (dbError) {

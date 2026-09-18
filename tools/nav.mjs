@@ -77,7 +77,13 @@ export function navHtml(root, activeCat) {
             <li><a href="${root}about/faq/">자주 묻는 질문</a></li>
           </ul>
         </li>
-        <li><a href="${root}counsel/" class="btn-consult">상담·예약</a></li>
+        <li class="has-sub"><a href="${root}counsel/" class="btn-consult">상담·예약</a>
+          <ul class="sub-menu">
+            <li><a href="${root}counsel/online/">온라인 상담</a></li>
+            <li><a href="${root}reserve/">예약 신청</a></li>
+            <li><a href="${root}counsel/board/">내 상담 확인</a></li>
+          </ul>
+        </li>
         <li><a href="${root}reviews/" class="btn-gold-outline">수술후기</a></li>
         <li><a href="${root}cases/" class="btn-gold">전후사진</a></li>
       </ul>
