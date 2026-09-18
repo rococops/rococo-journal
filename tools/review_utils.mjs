@@ -41,7 +41,13 @@ export const MEMBER_GATE = (root) => `<script>
 // 로그인 상태 표시줄 — 게이트 통과한 회원 페이지 상단에 삽입.
 // 동작 스크립트를 main.js가 아니라 여기에 직접 인라인으로 넣음: main.js는 별도 파일이라
 // 브라우저/CDN에 이전 버전으로 캐시되면 표시줄만 안 뜨는 문제가 실제로 발생했음.
-export const MEMBER_BAR = (root) => `<div class="member-bar" id="memberBar" hidden>
+export const MEMBER_BAR = (root) => `<style>
+/* 헤더가 fixed라 표시줄이 그 밑에 깔려 안 보이는 문제 방지 — style.css가 캐시돼도
+   위치는 항상 맞도록 여기 인라인으로 둠 */
+.member-bar { margin-top: var(--header-h, 60px); }
+.member-bar:not([hidden]) ~ .article-hero { margin-top: 0; }
+</style>
+<div class="member-bar" id="memberBar" hidden>
   <span id="memberBarName"></span>
   <a href="${root}member/account/">내 정보</a>
   <button type="button" id="memberLogoutBtn">로그아웃</button>

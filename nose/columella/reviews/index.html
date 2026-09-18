@@ -119,6 +119,12 @@
     </nav>
   </div>
 </header>
+<style>
+/* 헤더가 fixed라 표시줄이 그 밑에 깔려 안 보이는 문제 방지 — style.css가 캐시돼도
+   위치는 항상 맞도록 여기 인라인으로 둠 */
+.member-bar { margin-top: var(--header-h, 60px); }
+.member-bar:not([hidden]) ~ .article-hero { margin-top: 0; }
+</style>
 <div class="member-bar" id="memberBar" hidden>
   <span id="memberBarName"></span>
   <a href="../../../member/account/">내 정보</a>

@@ -2045,8 +2045,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   }
 }
 
-/* ===== 회원 로그인 상태 표시줄 (수술후기 게이트 통과 페이지 상단) ===== */
+/* ===== 회원 로그인 상태 표시줄 (수술후기 게이트 통과 페이지 상단) =====
+   헤더가 position:fixed라 그냥 두면 표시줄이 헤더 밑에 깔려 안 보임 —
+   헤더 높이만큼 내려주고, 대신 뒤따르는 히어로의 헤더 여백은 제거(중복 방지) */
 .member-bar {
+  margin-top: var(--header-h);
   background: var(--gray-50);
   border-bottom: 1px solid var(--gray-200);
   padding: .55rem 1.25rem;
@@ -2057,6 +2060,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-size: .78rem;
   color: var(--gray-600);
 }
+.member-bar:not([hidden]) ~ .article-hero { margin-top: 0; }
 .member-bar[hidden] { display: none; }
 .member-bar #memberBarName { font-weight: 800; color: var(--black); }
 .member-bar a { color: var(--accent); font-weight: 700; text-decoration: none; }
