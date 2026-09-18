@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     if (!authCheck(req, res)) return;
     const { data, error } = await supabase
       .from('inquiries')
-      .select('id, name, phone, email, contact_method, message, source, status, note, created_at, photos, reply, replied_at, message_ko, source_lang')
+      .select('id, name, phone, email, contact_method, message, source, status, note, created_at, photos, reply, replied_at')
       .order('created_at', { ascending: false })
       .limit(200);
     if (error) return res.status(500).json({ error: error.message });

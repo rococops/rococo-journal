@@ -185,8 +185,6 @@ body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webki
 .btn-memo-toggle{background:none;border:none;font-size:.7rem;color:var(--gray-400);cursor:pointer;font-family:inherit;padding:0;margin-top:.3rem;text-decoration:underline}
 .btn-memo-toggle:hover{color:var(--gray-600)}
 .badge-email{background:#e3f0fb;color:#1565c0}
-.consult-translated{margin-top:.5rem;padding:.6rem .75rem;background:#f5f8fc;border-left:3px solid #1565c0;border-radius:0 6px 6px 0;font-size:.79rem;line-height:1.6;color:#334;white-space:pre-wrap;word-break:break-word}
-.translated-label{display:block;font-size:.68rem;font-weight:800;color:#1565c0;letter-spacing:.04em;margin-bottom:.3rem}
 .consult-photos{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.5rem}
 .consult-photos img{width:64px;height:64px;object-fit:cover;border-radius:6px;border:1px solid var(--gray-200)}
 .reply-area{margin-top:.55rem;display:none}
@@ -974,7 +972,6 @@ function renderConsult(list, wrap) {
       </td>
       <td>
         <div class="consult-msg">${esc(q.message)}</div>
-        ${q.message_ko ? `<div class="consult-translated"><span class="translated-label">🌐 번역${q.source_lang ? ` (${esc(q.source_lang)})` : ''}</span>${esc(q.message_ko)}</div>` : ''}
         ${(q.photo_urls && q.photo_urls.length) ? `<div class="consult-photos">${q.photo_urls.map(u => `<a href="${u}" target="_blank" rel="noopener"><img src="${u}" alt="첨부 사진"></a>`).join('')}</div>` : ''}
         <button class="btn-memo-toggle" onclick="toggleReply(this)">${q.reply ? '💬 답변 보기' : '+ 답변 작성'}</button>
         <div class="reply-area ${q.reply ? 'open' : ''}">
