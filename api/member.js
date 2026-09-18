@@ -123,6 +123,89 @@ function requireMember(req, res) {
   }
 }
 
+async function handleMe(req, res) {
+  const payload = requireMember(req, res);
+  if (!payload) return;
+
+  const { data: member, error } = await supabase
+    .from('members')
+    .select('username, name, phone, email, created_at')
+    .eq('id', payload.sub)
+    .maybeSingle();
+
+  if (error) return res.status(500).json({ error: error.message });
+  if (!member) return res.status(404).json({ error: '회원 정보를 찾을 수 없습니다.' });
+  return res.status(200).json({ ok: true, member });
+}
+
+async function handleUpdateProfile(req, res) {
+  const payload = requireMember(req, res);
+  if (!payload) return;
+
+  const { name, phone, email } = req.body || {};
+  if (!name || !name.trim()) return res.status(400).json({ error: '이름을 입력해주세요.' });
+  if (!phone || !PHONE_RE.test(phone)) return res.status(400).json({ error: '연락처 형식이 올바르지 않습니다.' });
+  if (!email || !EMAIL_RE.test(email)) return res.status(400).json({ error: '이메일 형식이 올바르지 않습니다.' });
+
+  const normalizedPhone = phone.replace(/-/g, '');
+  const normalizedEmail = email.toLowerCase();
+
+  // 본인 것을 제외하고 다른 회원이 같은 연락처/이메일을 쓰고 있는지 확인
+  const { count: dupCount, error: dupError } = await supabase
+    .from('members')
+    .select('id', { count: 'exact', head: true })
+    .or(`email.eq.${normalizedEmail},phone.eq.${normalizedPhone}`)
+    .neq('id', payload.sub);
+
+  if (dupError) return res.status(500).json({ error: dupError.message });
+  if (dupCount > 0) return res.status(409).json({ error: '이미 사용 중인 이메일 또는 연락처입니다.' });
+
+  const { error } = await supabase
+    .from('members')
+    .update({ name: name.trim(), phone: normalizedPhone, email: normalizedEmail })
+    .eq('id', payload.sub);
+
+  if (error) {
+    if (error.code === '23505') return res.status(409).json({ error: '이미 사용 중인 이메일 또는 연락처입니다.' });
+    return res.status(500).json({ error: error.message });
+  }
+  return res.status(200).json({ ok: true, name: name.trim() });
+}
+
+async function handleChangePassword(req, res) {
+  const payload = requireMember(req, res);
+  if (!payload) return;
+
+  const { currentPassword, newPassword } = req.body || {};
+  if (!currentPassword || !newPassword) {
+    return res.status(400).json({ error: '현재 비밀번호와 새 비밀번호를 입력해주세요.' });
+  }
+  if (newPassword.length < 8) {
+    return res.status(400).json({ error: '새 비밀번호는 8자 이상 입력해주세요.' });
+  }
+
+  const { data: member, error } = await supabase
+    .from('members')
+    .select('password_hash')
+    .eq('id', payload.sub)
+    .maybeSingle();
+
+  if (error) return res.status(500).json({ error: error.message });
+  if (!member) return res.status(404).json({ error: '회원 정보를 찾을 수 없습니다.' });
+
+  const valid = await bcrypt.compare(currentPassword, member.password_hash);
+  if (!valid) return res.status(401).json({ error: '현재 비밀번호가 올바르지 않습니다.' });
+
+  const password_hash = await bcrypt.hash(newPassword, 10);
+  const { error: updateError } = await supabase
+    .from('members')
+    .update({ password_hash })
+    .eq('id', payload.sub);
+
+  if (updateError) return res.status(500).json({ error: updateError.message });
+  return res.status(200).json({ ok: true });
+}
+
 async function handleDeleteAccount(req, res) {
   const payload = requireMember(req, res);
   if (!payload) return;
@@ -145,6 +228,9 @@ export default async function handler(req, res) {
   if (action === 'signup') return handleSignup(req, res);
   if (action === 'login') return handleLogin(req, res);
   if (action === 'check-duplicate') return handleCheckDuplicate(req, res);
+  if (action === 'me') return handleMe(req, res);
+  if (action === 'update-profile') return handleUpdateProfile(req, res);
+  if (action === 'change-password') return handleChangePassword(req, res);
   if (action === 'delete-account') return handleDeleteAccount(req, res);
   return res.status(400).json({ error: '잘못된 요청입니다.' });
 }
