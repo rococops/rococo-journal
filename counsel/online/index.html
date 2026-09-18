@@ -157,8 +157,16 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="phone">전화번호 <span class="required">*</span></label>
-        <input class="form-input" type="tel" id="phone" name="phone" placeholder="010-0000-0000" required>
+        <label class="form-label" for="phone">전화번호</label>
+        <input class="form-input" type="tel" id="phone" name="phone" placeholder="010-0000-0000">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="email">이메일</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="example@email.com">
+        <p class="form-hint">전화번호와 이메일 중 <strong>최소 하나</strong>는 입력해주세요.<br>
+          <strong>해외에 거주하시는 분(Overseas patients)</strong>은 국내 전화번호 없이 이메일만 입력하시고, 아래에서 <strong>'이메일 답변'</strong>을 선택해주세요.<br>
+          <span style="color:var(--gray-400)">If you live outside Korea, please leave the phone field blank, enter your email address, and select "이메일 답변 (Email)" below.</span></p>
       </div>
 
       <div class="form-group">
@@ -172,12 +180,29 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
             <input type="radio" name="contact_method" value="카카오톡">
             카카오톡 상담
           </label>
+          <label class="radio-option">
+            <input type="radio" name="contact_method" value="이메일">
+            이메일 답변 (Email)
+          </label>
         </div>
       </div>
 
       <div class="form-group">
         <label class="form-label" for="message">문의 내용 <span class="required">*</span></label>
         <textarea class="form-textarea" id="message" name="message" placeholder="궁금한 점이나 상담받고 싶은 시술 내용을 자유롭게 적어주세요." required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="photos">사진 첨부 <span style="font-weight:400;color:var(--gray-400)">(선택, 최대 5장)</span></label>
+        <input class="form-input" type="file" id="photos" name="photos" accept="image/*" multiple>
+        <p class="form-hint">정면·측면 등 여러 각도의 사진을 올려주시면 더 정확한 상담이 가능합니다. 사진은 비공개로 원장님과 담당자만 열람합니다.</p>
+        <div class="photo-preview" id="photoPreview"></div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="postPassword">답변 확인용 비밀번호 <span class="required">*</span></label>
+        <input class="form-input" type="password" id="postPassword" name="postPassword" placeholder="4자 이상" minlength="4" required>
+        <p class="form-hint">상담 답변은 <a href="../lookup/">상담 답변 확인</a> 페이지에서 이름과 이 비밀번호로 조회하실 수 있습니다.</p>
       </div>
 
       <label class="form-consent">
@@ -253,30 +278,121 @@ const form = document.getElementById('counselForm');
 const submitBtn = document.getElementById('submitBtn');
 const messageBox = document.getElementById('formMessage');
 
+// ── 사진 첨부 ──────────────────────────────────
+const photoInput = document.getElementById('photos');
+const photoPreview = document.getElementById('photoPreview');
+let selectedFiles = [];
+
+// 휴대폰 원본 사진은 수 MB라 서버 업로드 한도를 넘김 — 브라우저에서 미리 축소해서 전송
+function resizeToDataUrl(file, maxSide = 1600) {
+  return new Promise(function (resolve, reject) {
+    const reader = new FileReader();
+    reader.onload = function () {
+      const img = new Image();
+      img.onload = function () {
+        let { width, height } = img;
+        if (width > maxSide || height > maxSide) {
+          const ratio = Math.min(maxSide / width, maxSide / height);
+          width = Math.round(width * ratio);
+          height = Math.round(height * ratio);
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width; canvas.height = height;
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', 0.82));
+      };
+      img.onerror = reject;
+      img.src = reader.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+photoInput.addEventListener('change', function () {
+  selectedFiles = Array.from(photoInput.files).slice(0, 5);
+  photoPreview.innerHTML = '';
+  selectedFiles.forEach(function (file) {
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(file);
+    photoPreview.appendChild(img);
+  });
+  if (photoInput.files.length > 5) {
+    photoPreview.insertAdjacentHTML('beforeend', '<p class="form-hint">최대 5장까지만 첨부됩니다.</p>');
+  }
+});
+
 form.addEventListener('submit', async function (e) {
   e.preventDefault();
   messageBox.className = 'form-message';
 
   const params = new URLSearchParams(window.location.search);
-  const payload = {
-    name: document.getElementById('name').value.trim(),
-    phone: document.getElementById('phone').value.trim(),
-    contact_method: form.querySelector('input[name="contact_method"]:checked')?.value || '',
-    message: document.getElementById('message').value.trim(),
-    source: params.get('from') || '온라인 상담 페이지'
-  };
+  const phone = document.getElementById('phone').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const contactMethod = form.querySelector('input[name="contact_method"]:checked')?.value || '';
+
+  if (!phone && !email) {
+    messageBox.textContent = '전화번호 또는 이메일 중 하나는 입력해주세요.';
+    messageBox.classList.add('show', 'error');
+    return;
+  }
+  if (contactMethod === '이메일' && !email) {
+    messageBox.textContent = '이메일로 답변받으시려면 이메일을 입력해주세요.';
+    messageBox.classList.add('show', 'error');
+    return;
+  }
+  if (contactMethod !== '이메일' && !phone) {
+    messageBox.textContent = '전화·카카오톡으로 답변받으시려면 전화번호를 입력해주세요. (해외 거주 시 이메일 답변을 선택해주세요)';
+    messageBox.classList.add('show', 'error');
+    return;
+  }
+  // 국내 번호 형식만 받음 — 해외 거주자는 이메일 답변으로 안내
+  if (phone && !/^0\d{1,2}-?\d{3,4}-?\d{4}$/.test(phone)) {
+    messageBox.textContent = '전화번호는 국내 번호 형식으로 입력해주세요. 해외에 계시면 전화번호를 비우고 이메일 답변을 선택해주세요.';
+    messageBox.classList.add('show', 'error');
+    return;
+  }
 
   submitBtn.disabled = true;
   submitBtn.textContent = '전송 중...';
 
   try {
+    // 사진 먼저 업로드하고 저장 경로만 받아서 접수 요청에 포함
+    const photoPaths = [];
+    for (let i = 0; i < selectedFiles.length; i++) {
+      submitBtn.textContent = '사진 업로드 중 (' + (i + 1) + '/' + selectedFiles.length + ')...';
+      const dataUrl = await resizeToDataUrl(selectedFiles[i]);
+      const upRes = await fetch(CONSULT_API_URL + '?action=upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dataUrl: dataUrl })
+      });
+      const upData = await upRes.json();
+      if (upRes.ok && upData.path) photoPaths.push(upData.path);
+    }
+
+    submitBtn.textContent = '전송 중...';
+    const payload = {
+      name: document.getElementById('name').value.trim(),
+      phone: phone,
+      email: email,
+      contact_method: contactMethod,
+      message: document.getElementById('message').value.trim(),
+      password: document.getElementById('postPassword').value,
+      photos: photoPaths,
+      source: params.get('from') || '온라인 상담 페이지'
+    };
+
     const res = await fetch(CONSULT_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
 
-    if (!res.ok) throw new Error('전송 실패');
+    if (!res.ok) {
+      const errData = await res.json().catch(function () { return {}; });
+      throw new Error(errData.error || '전송 실패');
+    }
 
     messageBox.textContent = '상담 신청이 접수되었습니다. 빠르게 연락드리겠습니다.';
     messageBox.classList.add('show', 'success');

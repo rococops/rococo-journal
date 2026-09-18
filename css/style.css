@@ -741,6 +741,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   transition: border-color var(--transition), color var(--transition);
 }
 .choice-card:hover .choice-btn { border-color: var(--accent); color: var(--accent); }
+.choice-note { text-align: center; font-size: .82rem; color: var(--gray-600); margin-top: 1.75rem; }
+.choice-note a { color: var(--accent); font-weight: 700; text-decoration: underline; }
 @media (max-width: 768px) {
   .choice-grid { grid-template-columns: 1fr; }
   .choice-card { padding: 2.25rem 1.75rem; }
@@ -1594,6 +1596,20 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .form-consent input { margin-top: 3px; accent-color: var(--accent); }
 .form-consent a { color: var(--accent); text-decoration: underline; }
+.form-hint {
+  font-size: .76rem;
+  color: var(--gray-600);
+  line-height: 1.7;
+  margin-top: .45rem;
+}
+.form-hint a { color: var(--accent); text-decoration: underline; }
+.photo-preview { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .6rem; }
+.photo-preview img {
+  width: 72px; height: 72px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--gray-200);
+}
 .form-submit {
   padding: 1rem;
   font-size: 14px;
