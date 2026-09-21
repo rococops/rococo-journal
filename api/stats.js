@@ -15,8 +15,18 @@ export default async function handler(req, res) {
     return res.status(401).json({ error: '비밀번호가 올바르지 않습니다.' });
   }
 
-  const todayStart = new Date();
-  todayStart.setHours(0, 0, 0, 0);
+  // Vercel 서버는 UTC로 동작해서 그냥 setHours(0,0,0,0)을 쓰면
+  // "오늘"이 한국시간 오전 9시에 리셋됨 → 한국시간(UTC+9) 기준으로 직접 계산
+  const KST_OFFSET = 9 * 60 * 60 * 1000;
+  function kstDateStr(dateLike) {
+    return new Date(new Date(dateLike).getTime() + KST_OFFSET).toISOString().slice(0, 10);
+  }
+  function kstMidnightUtc(dateLike) {
+    const k = new Date(new Date(dateLike).getTime() + KST_OFFSET);
+    return new Date(Date.UTC(k.getUTCFullYear(), k.getUTCMonth(), k.getUTCDate()) - KST_OFFSET);
+  }
+
+  const todayStart = kstMidnightUtc(Date.now());
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
   const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
 
@@ -54,11 +64,10 @@ export default async function handler(req, res) {
   // 최근 30일 일별 방문수
   const dailyCounts = {};
   for (let i = 29; i >= 0; i--) {
-    const d = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
-    dailyCounts[d.toISOString().slice(0, 10)] = 0;
+    dailyCounts[kstDateStr(Date.now() - i * 24 * 60 * 60 * 1000)] = 0;
   }
   for (const row of (monthRes.data || [])) {
-    const day = new Date(row.created_at).toISOString().slice(0, 10);
+    const day = kstDateStr(row.created_at);
     if (day in dailyCounts) dailyCounts[day]++;
   }
   const dailyViews = Object.entries(dailyCounts).map(([date, count]) => ({ date, count }));
