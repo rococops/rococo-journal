@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"15분 변형광대, 심부볼 지방이식 9일차","reviewBody":"15분 변형광대 수술 받은지 9일차입니다. 원장님 감사해요.. 아직 붓기가 많이 있지만 부드러운 인상을 갖게 해주셔서 고마워요.^^ 저희엄마께서 올해 제일 잘 한일이라고 ㅋㅋ 하시고요 저희언니는 땡김이 하는 동안 베스킨 소녀같다구 ㅎㅎ 광대뼈는","url":"https://journal.rococops.com/cheekbone/quick/reviews/527/","datePublished":"2016-03-07","inLanguage":"ko-KR","author":{"@type":"Person","name":"pink"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"15분 변형광대, 심부볼 지방이식 9일차","item":"https://journal.rococops.com/cheekbone/quick/reviews/527/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"15분 변형광대, 심부볼 지방이식 9일차","reviewBody":"15분 변형광대 수술 받은지 9일차입니다. 원장님 감사해요.. 아직 붓기가 많이 있지만 부드러운 인상을 갖게 해주셔서 고마워요.^^ 저희엄마께서 올해 제일 잘 한일이라고 ㅋㅋ 하시고요 저희언니는 땡김이 하는 동안 베스킨 소녀같다구 ㅎㅎ 광대뼈는","url":"https://journal.rococops.com/cheekbone/quick/reviews/527/","datePublished":"2016-03-07","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"pink"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"15분 변형광대, 심부볼 지방이식 9일차","item":"https://journal.rococops.com/cheekbone/quick/reviews/527/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>15분 변형광대 수술 받은지 9일차입니다.</p>
         <p>원장님 감사해요.. 아직 붓기가 많이 있지만 부드러운 인상을 갖게 해주셔서 고마워요.^^ 저희엄마께서 올해 제일 잘 한일이라고 ㅋㅋ 하시고요 저희언니는 땡김이 하는 동안 베스킨 소녀같다구 ㅎㅎ 광대뼈는 없어지고 볼살 때문에 어려보인다고 난리였어요^^ 확실히 인상이 부드러워지고 어려보이네요 감사합니다.^^</p>
         <p>로코코 성형외과는 소개로 알게됐고요. 평소에 광대뼈 때문에 볼살이 빠지면 안된다고 같이 일하던 언니에게 얘기하니 아는 친구가 로코코 성형외과에서 수술했는데 예뻐졌다고 한번 알아보라고 해서 예전에 인터넷 검색을 해봤어요. 뼈 수술이라 선듯 수술할 생각은 못했는데요 수술받은날 느낀건 환자 입장에서 아주 easy going하다 느꼈어요. 뼈수술이고 뭔가 큰 수술같은데 간단히 끝나버린 느낌? 그 만큼 환자의 편의를 많이 봐주셔서이구나 느꼈어요. 수술 침대에 누으면서 겁이 살짝나서 간호사분께 수술 시간이 얼마나 걸리냐고 물어보니 15분이라고 하셔서 15분이면 끝난다 생각하니 마음이 놓였어요 마취 주사도 얼굴에 놓음 많이 아플텐데 잠시 수면 마취할 동안 광대부위에 따로 마취주사 놓으시고 다시 잠들었다 일어나니 수술이 다 끝나있었어요. 광대수술 받으면 효과가 좋은 얼굴이라고 하셨고요 심볼부위 지방이식도 했는데 전엔 홀쭉했던 볼이 지금은 세수 한다고 앞으로 숙이면 볼에 물풍선 두개가 있는거 같네요 ㅋㅋㅋ 귀여운 볼살 ㅋㅋ</p>
@@ -199,6 +213,7 @@
         <img src="https://rococops.com/files/postscript/attach1/1_2016030794668326.jpeg" alt="pink님 후기 사진" loading="lazy">
         <img src="https://rococops.com/files/postscript/attach2/2_2016030794668326.jpeg" alt="pink님 후기 사진" loading="lazy">
         <img src="https://rococops.com/files/postscript/attach3/3_2016030794668326.jpeg" alt="pink님 후기 사진" loading="lazy">
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

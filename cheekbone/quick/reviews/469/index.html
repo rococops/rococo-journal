@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"광대축소술을 계획하시는 분들을 위한 후기 ^^","reviewBody":"안녕하세요. ^^ 저는 8월 25일에 변형15분광대축소술+아큐스컬프+미니리프팅+심부볼지방이식 수술을 받았습니다. 오늘은 수술 후 4일째 되는 날인데요. 제가 잘 붓는 체질이라 아직은 붓기 때문에 결과가 잘 보이진 않지만, 수술부위를 손으로 만졌을 때","url":"https://journal.rococops.com/cheekbone/quick/reviews/469/","datePublished":"2015-08-29","inLanguage":"ko-KR","author":{"@type":"Person","name":"이0리"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"광대축소술을 계획하시는 분들을 위한 후기 ^^","item":"https://journal.rococops.com/cheekbone/quick/reviews/469/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"광대축소술을 계획하시는 분들을 위한 후기 ^^","reviewBody":"안녕하세요. ^^ 저는 8월 25일에 변형15분광대축소술+아큐스컬프+미니리프팅+심부볼지방이식 수술을 받았습니다. 오늘은 수술 후 4일째 되는 날인데요. 제가 잘 붓는 체질이라 아직은 붓기 때문에 결과가 잘 보이진 않지만, 수술부위를 손으로 만졌을 때","url":"https://journal.rococops.com/cheekbone/quick/reviews/469/","datePublished":"2015-08-29","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"이0리"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"광대축소술을 계획하시는 분들을 위한 후기 ^^","item":"https://journal.rococops.com/cheekbone/quick/reviews/469/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요. ^^</p>
         <p>저는 8월 25일에 변형15분광대축소술+아큐스컬프+미니리프팅+심부볼지방이식 수술을 받았습니다. 오늘은 수술 후 4일째 되는 날인데요. 제가 잘 붓는 체질이라 아직은 붓기 때문에 결과가 잘 보이진 않지만, 수술부위를 손으로 만졌을 때 경계가 느껴지는 걸 보면 광대뼈가 확실히 들어갔어요. ^^</p>
         <p>광대축소수술을 계획하시는 분들에게 도움이 되고자 그리고 원장님과 로코코 전직원분들을 위해 작게나마 감사의 표시를 하고자 수술 후기를 쓰려고 합니다. ^^</p>
@@ -242,6 +256,7 @@
         <p>수술 후 다음 날 부터는 씹을 때 통증이 현저하게 줄어들어서 둘째 날부터는 돼지고기 수육을 천천히 씹어 먹으면서 힘을 냈어요. ㅎㅎ 셋째 날 부터는 마음대로 씹어 먹었고 넷째 날인 오늘은 정말 그 어떤 통증하나 없어요. 입도 잘 벌어져요. ㅎㅎ붓기는 수술 후 둘째 날이 최고였는데 얼음찜질을 하니까 오후부터 살짝 가라앉더니 지금은 수술한 당일 정도의 붓기입니다. 아직 붓기는 상당하지만 회복은 잘 하고 있는 것 같아요. ^^</p>
         <p>성심껏 수술해 주신 원장님과 수술실에서 저의 무례함에도 불구하고 재밌게 응대해주신 간호사님들 그리고 언제나 카톡으로 친절하게 답변해주시는 직원 분들 모두 감사드립니다. ^^</p>
         <p>붓기 가라앉으면 사진 첨부해서 올리겠습니다. ^^</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

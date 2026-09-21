@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"15분광대!","reviewBody":"안녕하세요ㅎㅎ 15분 광대를 한지 벌써 이주가 다 돼가네요 아무래도 뼈를 건드는 큰수술이라는 생각에 1년동안 고민만 한 거 같아요ㅠㅠ 그러다 한번 질러보자 라는 생각으로 당일 수술예약까지 잡고 서울로 올라가버렸네요ㅋㅋㅋㅋ 상담받을때는 변형15분","url":"https://journal.rococops.com/cheekbone/quick/reviews/459/","datePublished":"2015-07-22","inLanguage":"ko-KR","author":{"@type":"Person","name":"김0씨"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"15분광대!","item":"https://journal.rococops.com/cheekbone/quick/reviews/459/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"15분광대!","reviewBody":"안녕하세요ㅎㅎ 15분 광대를 한지 벌써 이주가 다 돼가네요 아무래도 뼈를 건드는 큰수술이라는 생각에 1년동안 고민만 한 거 같아요ㅠㅠ 그러다 한번 질러보자 라는 생각으로 당일 수술예약까지 잡고 서울로 올라가버렸네요ㅋㅋㅋㅋ 상담받을때는 변형15분","url":"https://journal.rococops.com/cheekbone/quick/reviews/459/","datePublished":"2015-07-22","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"김0씨"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"15분광대!","item":"https://journal.rococops.com/cheekbone/quick/reviews/459/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요ㅎㅎ</p>
         <p>15분 광대를 한지 벌써 이주가 다 돼가네요</p>
         <p>아무래도 뼈를 건드는 큰수술이라는 생각에 1년동안 고민만 한 거 같아요ㅠㅠ</p>
@@ -203,6 +217,7 @@
         <p>입이 안벌려지고 씹을때 좀 아프긴 했는데 먹고자하는 욕구만 있다면 충분히 먹어져요ㅋㅋㅋㅋㅋ</p>
         <p>일주일째까지는 얼굴에 큰 붓기가 안빠져있어서 망했다 후회도 약간..ㅎㅎ 했지만</p>
         <p>일주일지나니 쏙쏙 빠져서 지금은 얼굴라인이 전호다 훨씬 매끄럽고 부드러운 인상이 됐어요! 너무 만족합니당!ㅋㅋㅋㅋㅋ 감사드려요 원장님!!</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

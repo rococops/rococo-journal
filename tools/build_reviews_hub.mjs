@@ -105,7 +105,7 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://journal.rococops.com/reviews/">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"CollectionPage","name":"수술후기 — 로코코성형외과","description":"환자분들이 직접 남기신 수술후기 ${usable.length}건","url":"https://journal.rococops.com/reviews/","inLanguage":"ko","publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}}
+{"@context":"https://schema.org","@type":"CollectionPage","name":"수술후기 — 로코코성형외과","description":"환자분들이 직접 남기신 수술후기 ${usable.length}건","url":"https://journal.rococops.com/reviews/","inLanguage":"ko","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}}
 </script>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
@@ -150,11 +150,13 @@ ${MEMBER_BAR('../')}
     <div class="sort-toggle" id="reviewCatFilter" style="margin-bottom:1.5rem;flex-wrap:wrap;">
       ${filterChips}
     </div>
+    <div class="paywalled" data-nosnippet>
     <div class="review-list review-list-cols" id="review-list">
 ${rows}
     </div>
     <div style="text-align:center;margin-top:2rem;">
       <button type="button" class="sort-btn" id="loadMoreReviews" style="padding:0.7rem 2rem;">더보기</button>
+    </div>
     </div>
   </div>
 </section>

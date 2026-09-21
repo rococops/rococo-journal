@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"15분만!!","reviewBody":"후기를썼다 지웠다 반복하다결국또다시쓰네요 저의정체가드러나면안되요~실명거론은말아주세요~^^ 45도까지하고싶었지만 사정상 15분만..하고왔네요 몇달전부터후기만읽고 상담예약도했다가안가고 고민고민끝에 오늘상담!간김에일저지르자~ 후기대로통증도없고 일상생","url":"https://journal.rococops.com/cheekbone/quick/reviews/563/","datePublished":"2016-09-23","inLanguage":"ko-KR","author":{"@type":"Person","name":"비밀로"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"15분만!!","item":"https://journal.rococops.com/cheekbone/quick/reviews/563/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"15분만!!","reviewBody":"후기를썼다 지웠다 반복하다결국또다시쓰네요 저의정체가드러나면안되요~실명거론은말아주세요~^^ 45도까지하고싶었지만 사정상 15분만..하고왔네요 몇달전부터후기만읽고 상담예약도했다가안가고 고민고민끝에 오늘상담!간김에일저지르자~ 후기대로통증도없고 일상생","url":"https://journal.rococops.com/cheekbone/quick/reviews/563/","datePublished":"2016-09-23","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"비밀로"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"15분만!!","item":"https://journal.rococops.com/cheekbone/quick/reviews/563/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>후기를썼다 지웠다 반복하다결국또다시쓰네요</p>
         <p>저의정체가드러나면안되요~실명거론은말아주세요~^^</p>
         <p>45도까지하고싶었지만 사정상 15분만..하고왔네요</p>
@@ -214,6 +228,7 @@
         <p>사람의말한마디말한마디느낌이 신뢰를주는게 참 신기하죠.</p>
         <p>무튼내일눈뜨고붓기가없길간절히바라며....</p>
         <p>다음에 코수술도해야겠어요~오늘실장님과대충상담만했는데 원장님뵈면한번더제대로여쭤봐야겠어요~~ㅎ</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"15분광대했어요^^*이렇게 서프라이즈할수가~~!!","reviewBody":"안녕하세요^^* 금요일 급하게 가서 15분 광대 수술한 김**입니당~!! 그날 안하면 또 미루고 생각하고 다음에 할까?라는 생각할까봐 그냥 바로 가서 일을 저질르고 말았답니다~!! 원래 너무 겁이 많아서..얼마나 긴장을 했는지.. 다행히 선생님","url":"https://journal.rococops.com/cheekbone/quick/reviews/172/","datePublished":"2012-04-22","inLanguage":"ko-KR","author":{"@type":"Person","name":"새로운인생"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"15분광대했어요^^*이렇게 서프라이즈할수가~~!!","item":"https://journal.rococops.com/cheekbone/quick/reviews/172/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"15분광대했어요^^*이렇게 서프라이즈할수가~~!!","reviewBody":"안녕하세요^^* 금요일 급하게 가서 15분 광대 수술한 김**입니당~!! 그날 안하면 또 미루고 생각하고 다음에 할까?라는 생각할까봐 그냥 바로 가서 일을 저질르고 말았답니다~!! 원래 너무 겁이 많아서..얼마나 긴장을 했는지.. 다행히 선생님","url":"https://journal.rococops.com/cheekbone/quick/reviews/172/","datePublished":"2012-04-22","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"새로운인생"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"15분광대했어요^^*이렇게 서프라이즈할수가~~!!","item":"https://journal.rococops.com/cheekbone/quick/reviews/172/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요^^*</p>
         <p>금요일 급하게 가서 15분 광대 수술한 김**입니당~!!</p>
         <p>그날 안하면 또 미루고 생각하고 다음에 할까?라는 생각할까봐 그냥 바로 가서 일을 저질르고 말았답니다~!!</p>
@@ -204,6 +218,7 @@
         <p>참~!! 저희집에 골든리트리버를 키우는데..어제 제 광대를 치고 뛰어가더라구요 ㅠㅠ아직도 광대가 욱씬욱씬..혹시 광대가 잘못됐을까봐 걱정이예요..</p>
         <p>이렇게 빠르고 안전하고 아프지도 않고 이뻐질수 있다니 너무 신기할따름입니다..</p>
         <p>로코코 모든 분들께 너무 감사해요..내일 뵐께요^^*</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"코 재수술 한달 차","reviewBody":"안녕하세요. 로코코에게 감사의 말 전할 겸, 저와 비슷한 케이스인 분들께 도움이 됐음 해서 수술한 지 한 달 차에 후기 남깁니다. 저는 원래 얇은 피부에 코 뼈 자체가 작고 연골이 많이 발달되지 않은 코에요. 10년 전 수술에서 콧대 2-3mm","url":"https://journal.rococops.com/nose/revision/reviews/726/","datePublished":"2023-12-25","inLanguage":"ko-KR","author":{"@type":"Person","name":"로코코최고"},"itemReviewed":{"@type":"MedicalProcedure","name":"코재수술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"코재수술","item":"https://journal.rococops.com/nose/revision/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/revision/reviews/"},{"@type":"ListItem","position":5,"name":"코 재수술 한달 차","item":"https://journal.rococops.com/nose/revision/reviews/726/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"코 재수술 한달 차","reviewBody":"안녕하세요. 로코코에게 감사의 말 전할 겸, 저와 비슷한 케이스인 분들께 도움이 됐음 해서 수술한 지 한 달 차에 후기 남깁니다. 저는 원래 얇은 피부에 코 뼈 자체가 작고 연골이 많이 발달되지 않은 코에요. 10년 전 수술에서 콧대 2-3mm","url":"https://journal.rococops.com/nose/revision/reviews/726/","datePublished":"2023-12-25","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"로코코최고"},"itemReviewed":{"@type":"MedicalProcedure","name":"코재수술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"코재수술","item":"https://journal.rococops.com/nose/revision/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/revision/reviews/"},{"@type":"ListItem","position":5,"name":"코 재수술 한달 차","item":"https://journal.rococops.com/nose/revision/reviews/726/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요. 로코코에게 감사의 말 전할 겸, 저와 비슷한 케이스인 분들께 도움이 됐음 해서 수술한 지 한 달 차에 후기 남깁니다.</p>
         <p>저는 원래 얇은 피부에 코 뼈 자체가 작고 연골이 많이 발달되지 않은 코에요. 10년 전 수술에서 콧대 2-3mm 실리콘에 코끝 귀 연골로 수술받았었고 염증은 없었지만 코가 점점 들려서 짧아지고 피부가 타이트헤졌어요.</p>
         <p>수술 전 사진처럼 절개선 쪽 비주가 안쪽으로 쑥 들어가 있었고 코가 들려서 콧구멍 노출이 심했어요.</p>
@@ -200,6 +214,7 @@
         <p>수술 후 사진처럼 코 길이 연장된 것, 비주 볼륨이 좋아진 것, 들린 코 교정에 너무 만족하고 있어요.</p>
         <p>아직 한 달 차라 오전 오후 붓기가 다르고 코 끝이 주먹코처럼 통통하지만 원장님 블로그 포스팅들 보며 인내의 시간을 보내고 있어요ㅎㅎ 앞으로의 경과를 계속 지켜봐야겠지만 원장님께 감사의 인사드립니다.</p>
         <img src="https://rococops.com/files/postscript/attach1/1_20231225870938541.jpeg" alt="로코코최고님 후기 사진" loading="lazy">
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">코재수술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=코재수술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

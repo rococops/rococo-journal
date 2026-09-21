@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"15분 변형 광대 6개월 후기","reviewBody":"안녕하세요 원장님! 심한 광대를 가지고 있는편은 아니었지만 항상 사진을 찍거나 거울을 볼때 가장 큰 고민이 광대였습니다. 수술 하기 일년전에 병원에 방문해서 상담을 받았었는데 효과가 큰 타입은 아니라고 수술해도 큰 효과 없을거라고, 라인이 부드러","url":"https://journal.rococops.com/cheekbone/quick/reviews/618/","datePublished":"2018-01-30","inLanguage":"ko-KR","author":{"@type":"Person","name":"광대빠이"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"15분 변형 광대 6개월 후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/618/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"15분 변형 광대 6개월 후기","reviewBody":"안녕하세요 원장님! 심한 광대를 가지고 있는편은 아니었지만 항상 사진을 찍거나 거울을 볼때 가장 큰 고민이 광대였습니다. 수술 하기 일년전에 병원에 방문해서 상담을 받았었는데 효과가 큰 타입은 아니라고 수술해도 큰 효과 없을거라고, 라인이 부드러","url":"https://journal.rococops.com/cheekbone/quick/reviews/618/","datePublished":"2018-01-30","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"광대빠이"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"15분 변형 광대 6개월 후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/618/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요 원장님!</p>
         <p>심한 광대를 가지고 있는편은 아니었지만 항상 사진을 찍거나 거울을 볼때 가장 큰 고민이 광대였습니다.</p>
         <p>수술 하기 일년전에 병원에 방문해서 상담을 받았었는데</p>
@@ -202,6 +216,7 @@
         <p>수술이 끝나고 나서 침대에 누운상태로 얼음을 눈? 부분에 올려주시더라고요. 아프진 않았는데 얼얼했고 얼음때문에 얼굴이랑 눈알이 시리다는 느낌이 더 강했습니다. 끝나고 옷 갈아입고 약국가서 약을 타야되는데 약국이 어디있는지 몰라서 한참 헤맸던 기억이 나네요ㅋㅋㅋㅋ</p>
         <p>말씀하신거 처럼 있던 광대가 싹 없어지고 그런건 아니지만 확실히 옆광대가 부드러워졌어요! 감사합니당</p>
         <p>감사합니다! 원장님! 그리고 간호사분들도요!</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

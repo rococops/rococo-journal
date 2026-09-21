@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"잔붓기까지 다 빠진 모양입니다.","reviewBody":"원장님, 지난 해 12월 초, 부산에서 올라가 변형광대 수술 받았던 사람입니다. 수술 후 회복과정이 너무나 순조롭길개 용기를 내어서 2012년 1월에는 이마거상술까지 받았죠. 한 두달 지나면서 붓기가 거의 빠지더군요. 그리고 환한 얼굴이 되어","url":"https://journal.rococops.com/cheekbone/quick/reviews/212/","datePublished":"2012-09-07","inLanguage":"ko-KR","author":{"@type":"Person","name":"황토지기"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"잔붓기까지 다 빠진 모양입니다.","item":"https://journal.rococops.com/cheekbone/quick/reviews/212/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"잔붓기까지 다 빠진 모양입니다.","reviewBody":"원장님, 지난 해 12월 초, 부산에서 올라가 변형광대 수술 받았던 사람입니다. 수술 후 회복과정이 너무나 순조롭길개 용기를 내어서 2012년 1월에는 이마거상술까지 받았죠. 한 두달 지나면서 붓기가 거의 빠지더군요. 그리고 환한 얼굴이 되어","url":"https://journal.rococops.com/cheekbone/quick/reviews/212/","datePublished":"2012-09-07","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"황토지기"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"잔붓기까지 다 빠진 모양입니다.","item":"https://journal.rococops.com/cheekbone/quick/reviews/212/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>원장님,</p>
         <p>지난 해 12월 초, 부산에서 올라가 변형광대 수술 받았던 사람입니다. 수술 후 회복과정이 너무나 순조롭길개 용기를 내어서 2012년 1월에는 이마거상술까지 받았죠.</p>
         <p>한 두달 지나면서 붓기가 거의 빠지더군요. 그리고 환한 얼굴이 되어 뿌듯하게 지냈습니다. 우선 광대가 부드러워지니 측면으로 있을 때에도 부담이 없구요, 이마가 올라가니 얼굴 전체에 생기가 돌아 기쁘기 이를 데 없습니다.</p>
@@ -201,6 +215,7 @@
         <p>오늘 아침 일찍 일어나 거울 보면서 후기를 올릴 생각을 했어요. 사실 이런 글 올리는 건, 젊은 사람들 몫이라고 생각하고 있었거든요. 근데 기쁘고 만족스런 마음을 알리고 싶습니다.</p>
         <p>감사합니다. 원장님!</p>
         <p>앞으로 남은 생을 더 예쁘게 지낼 수 있도록 좋은 시술 부탁드려요. 아마 또 찾아뵈올 날이 올 것 같습니다.</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

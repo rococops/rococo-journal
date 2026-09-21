@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"개원을 진심으로 축하드려요 ^^","reviewBody":"울딸 복코 수술하기까지 중1부터 고 3까지 장장 6년 사연도 많지요. 아무튼 고 2 겨울방학 때 원장님 뵈었을 때 내동생 같으면 말리겠다고 한창 공부해야할 시기에 수술은 미뤘으면 좋겠다고 너무나 부드러운 말로 타일러주시고 입시끝나고 오면 언제든 해","url":"https://journal.rococops.com/nose/bulbous/reviews/56/","datePublished":"2011-04-08","inLanguage":"ko-KR","author":{"@type":"Person","name":"안0맘"},"itemReviewed":{"@type":"MedicalProcedure","name":"복코","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"복코","item":"https://journal.rococops.com/nose/bulbous/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/bulbous/reviews/"},{"@type":"ListItem","position":5,"name":"개원을 진심으로 축하드려요 ^^","item":"https://journal.rococops.com/nose/bulbous/reviews/56/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"개원을 진심으로 축하드려요 ^^","reviewBody":"울딸 복코 수술하기까지 중1부터 고 3까지 장장 6년 사연도 많지요. 아무튼 고 2 겨울방학 때 원장님 뵈었을 때 내동생 같으면 말리겠다고 한창 공부해야할 시기에 수술은 미뤘으면 좋겠다고 너무나 부드러운 말로 타일러주시고 입시끝나고 오면 언제든 해","url":"https://journal.rococops.com/nose/bulbous/reviews/56/","datePublished":"2011-04-08","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"안0맘"},"itemReviewed":{"@type":"MedicalProcedure","name":"복코","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"복코","item":"https://journal.rococops.com/nose/bulbous/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/bulbous/reviews/"},{"@type":"ListItem","position":5,"name":"개원을 진심으로 축하드려요 ^^","item":"https://journal.rococops.com/nose/bulbous/reviews/56/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>울딸 복코 수술하기까지 중1부터 고 3까지 장장 6년 사연도 많지요.</p>
         <p>아무튼 고 2 겨울방학 때 원장님 뵈었을 때 내동생 같으면 말리겠다고 한창 공부해야할 시기에 수술은 미뤘으면 좋겠다고 너무나 부드러운 말로 타일러주시고</p>
         <p>입시끝나고 오면 언제든 해주시겠다던 약속까지 지켜주셔서</p>
@@ -207,6 +221,7 @@
         <p>개원 진심으로 축하드리고</p>
         <p>오랫동안 사람들에게 명품솜씨 베풀어주시길 기도합니다.</p>
         <p>김상호 원장님 감사드립니다.</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">복코에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=복코후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"앞으로 저는 원장님께만 수술받을거에요^^","reviewBody":"안녕하세요, 호주에서 한국으로 3주여정을잡고 입국해 수술을 진행했었어요 . 처음엔 다른병원들은 돈만이체해주면 미리 수술예약날짜까지 다잡을수있는데 원장님상담전엔 안된다는 병원측말에 엄청깐깐하다고 불편해했었습니다 하지만 병원에 도착한날 병원스텝분들과","url":"https://journal.rococops.com/etc/general/reviews/666/","datePublished":"2019-12-20","inLanguage":"ko-KR","author":{"@type":"Person","name":"❤️정 에스더"},"itemReviewed":{"@type":"MedicalProcedure","name":"기타","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"기타","item":"https://journal.rococops.com/etc/"},{"@type":"ListItem","position":3,"name":"기타","item":"https://journal.rococops.com/etc/general/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/etc/general/reviews/"},{"@type":"ListItem","position":5,"name":"앞으로 저는 원장님께만 수술받을거에요^^","item":"https://journal.rococops.com/etc/general/reviews/666/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"앞으로 저는 원장님께만 수술받을거에요^^","reviewBody":"안녕하세요, 호주에서 한국으로 3주여정을잡고 입국해 수술을 진행했었어요 . 처음엔 다른병원들은 돈만이체해주면 미리 수술예약날짜까지 다잡을수있는데 원장님상담전엔 안된다는 병원측말에 엄청깐깐하다고 불편해했었습니다 하지만 병원에 도착한날 병원스텝분들과","url":"https://journal.rococops.com/etc/general/reviews/666/","datePublished":"2019-12-20","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"❤️정 에스더"},"itemReviewed":{"@type":"MedicalProcedure","name":"기타","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"기타","item":"https://journal.rococops.com/etc/"},{"@type":"ListItem","position":3,"name":"기타","item":"https://journal.rococops.com/etc/general/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/etc/general/reviews/"},{"@type":"ListItem","position":5,"name":"앞으로 저는 원장님께만 수술받을거에요^^","item":"https://journal.rococops.com/etc/general/reviews/666/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,9 +203,11 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요, 호주에서 한국으로 3주여정을잡고 입국해 수술을 진행했었어요 . 처음엔 다른병원들은 돈만이체해주면 미리 수술예약날짜까지 다잡을수있는데 원장님상담전엔 안된다는 병원측말에 엄청깐깐하다고 불편해했었습니다</p>
         <p>하지만 병원에 도착한날 병원스텝분들과 원장님뵙고나니까 왜 그렇게 까다로왔는지 알겠더라고요. 일단 원장님이 굉장히 완벽주의시라 얼굴전체의조화랑 수술후의예상을갖고 소신있게 상담과결정을해주십니다 . 사실 이전에도 강남여러유명병원에서 수술받은경험이 있었지만 이렇게까지 자상하고 꼼꼼히 해주신대는 없었어요 ㅠ</p>
         <p>지금 결과는 아직한달이채안됐지만 당연히 너무만족하고요 제가족이나 지인에게 자신있게 추천할수있는병원입니다. 사실 원장님도 원장님이시지만 수술방에계시는 다른간호사 스탭분들도 굉장히 진지하고 꼼꼼하세요. 사실 다른병원에서 수술받을때 준비하는과정에서 간호사스탭분들끼리 사적인얘기나 농담하시는게 좀불편하게들리고도 했었거든요... 이병원은 제가 수술대에 눕는순간부터 모든스탭분들이 저에게 집중해주시고 하다못해 상담실장님은 수술방까지따라오셔 마취되기전까지 걱정말라며 제손잡고계셨답다 ㅋㅋㅋ 제가 원래 이런걸한번도 써본적없는데 너무 실력있는원장님과 스탭분들이세요 . 그래서 다음에 만날날이 더 기대됩니다. 감사합니다 . (참고로 제가 사진을잘안찍어놔서 사진은 수술전당일사진 수술후3주경과에요)</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">기타에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=기타후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

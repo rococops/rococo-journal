@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"존경하는 선생님께","reviewBody":"선생님 안녕하세요~ 아이디 조회하면 실명이 보이실테니 제가 누군진 언급안해도 아시리라 생각해요^0^ 지난 토요일, 경과보러 새벽차 타고 상경했는데 기억나실지 모르겠어요. 선약이있어 급히 나오느라 제대로된 감사인사도 못 드린것 같아서 마음 한 구석에","url":"https://journal.rococops.com/etc/general/reviews/522/","datePublished":"2016-02-25","inLanguage":"ko-KR","author":{"@type":"Person","name":"Y"},"itemReviewed":{"@type":"MedicalProcedure","name":"기타","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"기타","item":"https://journal.rococops.com/etc/"},{"@type":"ListItem","position":3,"name":"기타","item":"https://journal.rococops.com/etc/general/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/etc/general/reviews/"},{"@type":"ListItem","position":5,"name":"존경하는 선생님께","item":"https://journal.rococops.com/etc/general/reviews/522/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"존경하는 선생님께","reviewBody":"선생님 안녕하세요~ 아이디 조회하면 실명이 보이실테니 제가 누군진 언급안해도 아시리라 생각해요^0^ 지난 토요일, 경과보러 새벽차 타고 상경했는데 기억나실지 모르겠어요. 선약이있어 급히 나오느라 제대로된 감사인사도 못 드린것 같아서 마음 한 구석에","url":"https://journal.rococops.com/etc/general/reviews/522/","datePublished":"2016-02-25","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"Y"},"itemReviewed":{"@type":"MedicalProcedure","name":"기타","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"기타","item":"https://journal.rococops.com/etc/"},{"@type":"ListItem","position":3,"name":"기타","item":"https://journal.rococops.com/etc/general/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/etc/general/reviews/"},{"@type":"ListItem","position":5,"name":"존경하는 선생님께","item":"https://journal.rococops.com/etc/general/reviews/522/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,11 +203,13 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>선생님 안녕하세요~ 아이디 조회하면 실명이 보이실테니 제가 누군진 언급안해도 아시리라 생각해요^0^</p>
         <p>지난 토요일, 경과보러 새벽차 타고 상경했는데 기억나실지 모르겠어요. 선약이있어 급히 나오느라 제대로된 감사인사도 못 드린것 같아서 마음 한 구석에 많이 남아있어요:( 어차피 직접보면 떨려서 제대로 못 전할거 이렇게 글로나마 담아보려해요ㅎㅎ</p>
         <p>사실 신중한 성격탓에 수술을 결심하기까지 몇 년의 시간이 걸렸어요. 남들 눈에 잘 띄지않는 콤플렉스 때문에 굳이 칼까지 대야할까, 시간이 지나면 신경쓰지않을 날도 오지않겠냐며 다독이며 보류도 해봤지만.. 평생 제 눈에 불편하고 신경쓰이던게 한 순간에 사라지진 않더라구요ㅜ &quot;해야겠구나&quot;</p>
         <p>결심하고나니 저의 계획은 일사천리로 진행!</p>
         <p>제 얼굴에대해 자세히 분석하고 틈틈히 수술방법도 알아보며 선생님과의 원활한 대화를 위해 차곡차곡 준비해갔어요</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">기타에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=기타후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

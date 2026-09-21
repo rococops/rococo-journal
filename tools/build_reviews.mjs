@@ -59,7 +59,7 @@ ${MEMBER_GATE(root)}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"${titleJ}","reviewBody":"${descJ}","url":"${ogUrl}","datePublished":"${dateStr}","inLanguage":"ko-KR","author":{"@type":"Person","name":"${masked}"},"itemReviewed":{"@type":"MedicalProcedure","name":"${cfg.subName}","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"${SITE_BASE}"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"${SITE_BASE}"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"${SITE_BASE}/"},{"@type":"ListItem","position":2,"name":"${catName}","item":"${SITE_BASE}/${cfg.catPath}/"},{"@type":"ListItem","position":3,"name":"${cfg.subName}","item":"${SITE_BASE}/${cfg.catPath}/${cfg.subDir}/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"${SITE_BASE}/${cfg.catPath}/${cfg.subDir}/reviews/"},{"@type":"ListItem","position":5,"name":"${titleJ}","item":"${ogUrl}"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"${titleJ}","reviewBody":"${descJ}","url":"${ogUrl}","datePublished":"${dateStr}","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"${masked}"},"itemReviewed":{"@type":"MedicalProcedure","name":"${cfg.subName}","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"${SITE_BASE}"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"${SITE_BASE}"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"${SITE_BASE}/"},{"@type":"ListItem","position":2,"name":"${catName}","item":"${SITE_BASE}/${cfg.catPath}/"},{"@type":"ListItem","position":3,"name":"${cfg.subName}","item":"${SITE_BASE}/${cfg.catPath}/${cfg.subDir}/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"${SITE_BASE}/${cfg.catPath}/${cfg.subDir}/reviews/"},{"@type":"ListItem","position":5,"name":"${titleJ}","item":"${ogUrl}"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="${root}css/style.css">
@@ -101,7 +101,9 @@ ${MEMBER_BAR(root)}
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         ${content}
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">${cfg.subName}에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="${root}counsel/online/?from=${cfg.subName}후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>
@@ -175,11 +177,13 @@ function generateReviewIndex(reviews, cfg) {
       </a>`;
   }).join('\n');
 
-  const listSection = `    <div class="review-list review-list-cols" id="review-list">
+  const listSection = `    <div class="paywalled" data-nosnippet>
+    <div class="review-list review-list-cols" id="review-list">
 ${rows}
     </div>
     <div style="text-align:center;margin-top:2rem;">
       <button type="button" class="sort-btn" id="loadMoreReviews" style="padding:0.7rem 2rem;">더보기</button>
+    </div>
     </div>`;
 
   const paginationScript = `
@@ -214,7 +218,7 @@ ${MEMBER_GATE(root)}
 <meta property="og:type" content="website">
 <link rel="canonical" href="${SITE_BASE}/${cfg.catPath}/${cfg.subDir}/reviews/">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"CollectionPage","name":"${cfg.subName} 수술후기 — 로코코성형외과","description":"${cfg.subName} 환자 후기 ${reviews.length}건","url":"${SITE_BASE}/${cfg.catPath}/${cfg.subDir}/reviews/","inLanguage":"ko","about":{"@type":"MedicalProcedure","name":"${cfg.subName}"},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"${SITE_BASE}"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"${SITE_BASE}/"},{"@type":"ListItem","position":2,"name":"${catName}","item":"${SITE_BASE}/${cfg.catPath}/"},{"@type":"ListItem","position":3,"name":"${cfg.subName}","item":"${SITE_BASE}/${cfg.catPath}/${cfg.subDir}/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"${SITE_BASE}/${cfg.catPath}/${cfg.subDir}/reviews/"}]}]
+[{"@context":"https://schema.org","@type":"CollectionPage","name":"${cfg.subName} 수술후기 — 로코코성형외과","description":"${cfg.subName} 환자 후기 ${reviews.length}건","url":"${SITE_BASE}/${cfg.catPath}/${cfg.subDir}/reviews/","inLanguage":"ko","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"about":{"@type":"MedicalProcedure","name":"${cfg.subName}"},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"${SITE_BASE}"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"${SITE_BASE}/"},{"@type":"ListItem","position":2,"name":"${catName}","item":"${SITE_BASE}/${cfg.catPath}/"},{"@type":"ListItem","position":3,"name":"${cfg.subName}","item":"${SITE_BASE}/${cfg.catPath}/${cfg.subDir}/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"${SITE_BASE}/${cfg.catPath}/${cfg.subDir}/reviews/"}]}]
 </script>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">

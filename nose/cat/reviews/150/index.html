@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"코+고양이+무턱","reviewBody":"안녕하세요^.^ 저는1월9일에 실리콘콧대+귀연골, 고양이, 무턱 이렇게 수술했어요~ 항상 입이 돌출되어보이는 저에게는 엄청 드라마틱한 수술이었어요 ㅎㅎ 친구가 1년 전에 김상호 선생님께 코수술을 받았었거든요 친구가 너무너무 맘에들어해서 저도 1","url":"https://journal.rococops.com/nose/cat/reviews/150/","datePublished":"2012-01-16","inLanguage":"ko-KR","author":{"@type":"Person","name":"로코코로"},"itemReviewed":{"@type":"MedicalProcedure","name":"비순각 고양이 입매교정","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"비순각 고양이 입매교정","item":"https://journal.rococops.com/nose/cat/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/cat/reviews/"},{"@type":"ListItem","position":5,"name":"코+고양이+무턱","item":"https://journal.rococops.com/nose/cat/reviews/150/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"코+고양이+무턱","reviewBody":"안녕하세요^.^ 저는1월9일에 실리콘콧대+귀연골, 고양이, 무턱 이렇게 수술했어요~ 항상 입이 돌출되어보이는 저에게는 엄청 드라마틱한 수술이었어요 ㅎㅎ 친구가 1년 전에 김상호 선생님께 코수술을 받았었거든요 친구가 너무너무 맘에들어해서 저도 1","url":"https://journal.rococops.com/nose/cat/reviews/150/","datePublished":"2012-01-16","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"로코코로"},"itemReviewed":{"@type":"MedicalProcedure","name":"비순각 고양이 입매교정","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"비순각 고양이 입매교정","item":"https://journal.rococops.com/nose/cat/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/cat/reviews/"},{"@type":"ListItem","position":5,"name":"코+고양이+무턱","item":"https://journal.rococops.com/nose/cat/reviews/150/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요^.^</p>
         <p>저는1월9일에 실리콘콧대+귀연골, 고양이, 무턱</p>
         <p>이렇게 수술했어요~ 항상 입이 돌출되어보이는 저에게는 엄청 드라마틱한 수술이었어요 ㅎㅎ 친구가 1년 전에 김상호 선생님께</p>
@@ -216,6 +230,7 @@
         <p>친구들한테도 김상호선생님이 최고라고 다 여기서 하라고 광고하고다녀요 ㅋㅋㅋ</p>
         <p>멋쟁이 선생님 예쁘게 해주셔서 넘넘 감사해요!!^^</p>
         <p>그럼 한달 뒤에 뵙겠습니당^^*</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">비순각 고양이 입매교정에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=비순각 고양이 입매교정후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

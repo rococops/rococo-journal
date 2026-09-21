@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"늑연골 코재수술 후기~","reviewBody":"안녕하세요~ 저는 8월 31일날 늑연골 코재수술했어요~ 이미 여러번의 수술로 마음의상처도크고 다시한들 원하는코가 나올수있을까라는 생각에 여러번 고민끝에 결심하게되었어요.. 로코코는 4년전쯤 소개로 알게되어 비공내리기만했었는데 너무 만족스런 결과였","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/564/","datePublished":"2016-09-26","inLanguage":"ko-KR","author":{"@type":"Person","name":"김0아"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"늑연골 코재수술 후기~","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/564/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"늑연골 코재수술 후기~","reviewBody":"안녕하세요~ 저는 8월 31일날 늑연골 코재수술했어요~ 이미 여러번의 수술로 마음의상처도크고 다시한들 원하는코가 나올수있을까라는 생각에 여러번 고민끝에 결심하게되었어요.. 로코코는 4년전쯤 소개로 알게되어 비공내리기만했었는데 너무 만족스런 결과였","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/564/","datePublished":"2016-09-26","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"김0아"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"늑연골 코재수술 후기~","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/564/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요~</p>
         <p>저는 8월 31일날 늑연골 코재수술했어요~</p>
         <p>이미 여러번의 수술로 마음의상처도크고 다시한들 원하는코가 나올수있을까라는 생각에 여러번 고민끝에 결심하게되었어요..</p>
@@ -211,6 +225,7 @@
         <p>후기같은거 안쓰는저에게 이런 자심감이 생긴건 원장님 덕분이에요~정말정말 감사해요..ㅠ.ㅜ</p>
         <p>저에게 새로운 코와 인생을 선물해준 로코코성형외과는 정말 히트다히트~!!!ㅋㅋㅋㅋ</p>
         <p>붓기다빠지고 완전히 자리잡으면 포토후기 또남길께요~~~~~</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">늑연골 명품코성형에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=늑연골 명품코성형후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

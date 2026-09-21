@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"상담후 후기글","reviewBody":"수술후 감사글과 관련하여 조회수가 높아 이글을보고 혹시나 이글을보고 도움을 받으시는 분이 있을까하는 마음에 적어봅니다. 저는 아직수술 받지 않았기에 어느정도는 필터링해서 봐주시길 바랍니다. 저도 로코코에서 수술 받으신분들의 후기를 보고 수술 결정에 있","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/683/","datePublished":"2020-11-16","inLanguage":"ko-KR","author":{"@type":"Person","name":"쭌"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"상담후 후기글","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/683/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"상담후 후기글","reviewBody":"수술후 감사글과 관련하여 조회수가 높아 이글을보고 혹시나 이글을보고 도움을 받으시는 분이 있을까하는 마음에 적어봅니다. 저는 아직수술 받지 않았기에 어느정도는 필터링해서 봐주시길 바랍니다. 저도 로코코에서 수술 받으신분들의 후기를 보고 수술 결정에 있","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/683/","datePublished":"2020-11-16","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"쭌"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"상담후 후기글","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/683/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>수술후 감사글과 관련하여 조회수가 높아 이글을보고 혹시나 이글을보고 도움을 받으시는 분이 있을까하는 마음에 적어봅니다. 저는 아직수술 받지 않았기에 어느정도는 필터링해서 봐주시길 바랍니다. 저도 로코코에서 수술 받으신분들의 후기를 보고 수술 결정에 있어 많은 도움을 받았기에 감사한 마음으로 적어봅니다.</p>
         <p>성인이되고 외모 가꾸는것에 관심이 많아졌고 막연히 잘생겨지고 싶다고 생각했습니다. 그래서 인터넷도 찾아보고 직접 성형외과도 다녀보고 성형을 할지말지 고민만 하다가 윤곽수술하고 코수술은 무조건 부작용이 발생한다는 소리를 듣고 부작용이 그나마 가장 없는 눈 수술 턱 보톡스만 하고 만족하고 살고 있었습니다.</p>
         <p>그러다가 유튜브로 로코코 성형외과를 우연히 접하게되고 15분 광대 축소라는 수술법에 혹해서 로코코성형외과와 관련된 모든 정보를 여러 커뮤니티에서 다 찾아보고 홈페이지부터 블로그까지 거의 모든글을 정독했습니다. 다른 성형외과는 찾아보면 찾아볼수록 뭔가 끌리지 않아서 성형을 포기했지만 로코코 성형외과는 알면 알수록 다욱더 끌리더라구요 아마 로코코 성형외과가 없었더라면 저는 타병원에서 받은 눈매교정술하고 턱보톡스에 만족하면서 평생을 살았을것 같습니다.</p>
@@ -202,6 +216,7 @@
         <p>고작 상담만 받은거지만 뭔가 주제넘게 너무 많은 글을 쓴것 같네요... 전부다 개인적인 생각이니 각자 신중히 고민하시고 수술받으시길 바랄게요!</p>
         <p>상담만하고 글을 쓰는것이지만 몇달후에는 수술 받고 수술 후기글도 남기겠습니다. 로코코 성형외과를 알게되어 너무 감사하고 저는 정말 운이 좋은 사람 이라고 생각됩니다.</p>
         <p>만일 성형을 고민하고 계시다면 로코코에서 받으셨으면 좋겠습니다. 정말 여기만큼 괜찮을 곳 없다고 생각합니다. 몇달후에는 직접수술받고 수술 후기글 남기겠습니다. 귀찮아서 살면서 후기 한번도 작성안해 봤는데 로코코 성형외과라는 존재에 너무 감사해 상담후기글을 남겼고 곧 수술후기글도 남기겠습니다.</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">늑연골 명품코성형에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=늑연골 명품코성형후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

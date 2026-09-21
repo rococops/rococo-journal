@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"내인생의 첫 성형(45세 주부)","reviewBody":"몇년의 긴 고민끝에 드디어 내 정든 광대를 놓아주어야 겠다고 맘먹었다.누구라도 그러하겠지만 성형수술을 한다는 것은 너무나 큰 결심임과 동시에 수많은 망설임끝에 결정을 하게된다. 성격상 의심이 많고 직업상 예민보스인 내가 남편몰래 얼마나 많은 광","url":"https://journal.rococops.com/cheekbone/quick/reviews/616/","datePublished":"2018-01-12","inLanguage":"ko-KR","author":{"@type":"Person","name":"페니와이즈"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"내인생의 첫 성형(45세 주부)","item":"https://journal.rococops.com/cheekbone/quick/reviews/616/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"내인생의 첫 성형(45세 주부)","reviewBody":"몇년의 긴 고민끝에 드디어 내 정든 광대를 놓아주어야 겠다고 맘먹었다.누구라도 그러하겠지만 성형수술을 한다는 것은 너무나 큰 결심임과 동시에 수많은 망설임끝에 결정을 하게된다. 성격상 의심이 많고 직업상 예민보스인 내가 남편몰래 얼마나 많은 광","url":"https://journal.rococops.com/cheekbone/quick/reviews/616/","datePublished":"2018-01-12","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"페니와이즈"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"내인생의 첫 성형(45세 주부)","item":"https://journal.rococops.com/cheekbone/quick/reviews/616/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>몇년의 긴 고민끝에 드디어 내 정든 광대를 놓아주어야 겠다고 맘먹었다.누구라도 그러하겠지만 성형수술을 한다는 것은 너무나 큰 결심임과 동시에 수많은 망설임끝에 결정을 하게된다.</p>
         <p>성격상 의심이 많고 직업상 예민보스인 내가 남편몰래 얼마나 많은 광대뼈 관련 자료들을 검색하고 검토해봤는지는 구지 말하지 않겠다.</p>
         <p>이곳 로코코를 눈여겨 본 것은 김상호선생님의 15분광대축소술의 오리지널리티에대한 신뢰와 수많은 사람들의 수술에 대한 후기들을 읽으며 점차 믿음이 생기기 시작해서였다.</p>
@@ -212,6 +226,7 @@
         <p>음악소리에 맞춰 수술하는 소리가 생생히 들리는것이 마치</p>
         <p>영화 '베이비 드라이버'의 오마주같이 느껴졌다.</p>
         <p>이 선생님 힙스터구만....(선생님 고맙습니다)</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

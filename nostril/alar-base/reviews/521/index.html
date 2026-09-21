@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"콧볼축소한지 10일 됬어요~","reviewBody":"원체 콧볼자체가 많이 크진 않지만 셀카만 찍으면 유난히 도드라져 보이는 콧볼탓에 스트레스 많이 받았었어요! 지방에 사는지라 아침 9시 상담 예약 맞추려고 전날 밤 12시 버스타고(하필 동서울터미널 버스가 다 끊겨서 수원가는 버스 탔어요ㅠㅠ) 4시간","url":"https://journal.rococops.com/nostril/alar-base/reviews/521/","datePublished":"2016-02-23","inLanguage":"ko-KR","author":{"@type":"Person","name":"배0영"},"itemReviewed":{"@type":"MedicalProcedure","name":"콧볼축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"콧구멍성형","item":"https://journal.rococops.com/nostril/"},{"@type":"ListItem","position":3,"name":"콧볼축소술","item":"https://journal.rococops.com/nostril/alar-base/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nostril/alar-base/reviews/"},{"@type":"ListItem","position":5,"name":"콧볼축소한지 10일 됬어요~","item":"https://journal.rococops.com/nostril/alar-base/reviews/521/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"콧볼축소한지 10일 됬어요~","reviewBody":"원체 콧볼자체가 많이 크진 않지만 셀카만 찍으면 유난히 도드라져 보이는 콧볼탓에 스트레스 많이 받았었어요! 지방에 사는지라 아침 9시 상담 예약 맞추려고 전날 밤 12시 버스타고(하필 동서울터미널 버스가 다 끊겨서 수원가는 버스 탔어요ㅠㅠ) 4시간","url":"https://journal.rococops.com/nostril/alar-base/reviews/521/","datePublished":"2016-02-23","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"배0영"},"itemReviewed":{"@type":"MedicalProcedure","name":"콧볼축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"콧구멍성형","item":"https://journal.rococops.com/nostril/"},{"@type":"ListItem","position":3,"name":"콧볼축소술","item":"https://journal.rococops.com/nostril/alar-base/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nostril/alar-base/reviews/"},{"@type":"ListItem","position":5,"name":"콧볼축소한지 10일 됬어요~","item":"https://journal.rococops.com/nostril/alar-base/reviews/521/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>원체 콧볼자체가 많이 크진 않지만 셀카만 찍으면 유난히 도드라져 보이는 콧볼탓에 스트레스 많이 받았었어요!</p>
         <p>지방에 사는지라 아침 9시 상담 예약 맞추려고 전날 밤 12시 버스타고(하필 동서울터미널 버스가 다 끊겨서 수원가는 버스 탔어요ㅠㅠ) 4시간 걸려서 수원에서 또 서울까지 버스타고 와서는 버스에 지갑 두고 내려서 길가는 시민분께 도움받아서 겨우겨우 고생해서 왔었네요ㅠㅠ</p>
         <p>수술중간에는 아픈거 하나 없었고요 저는 싸이 신곡들으면서 침대에 누워서 롤러코스터 타는 신기한 꿈을 꿨었어요ㅋㅋ</p>
@@ -198,6 +212,7 @@
         <p>욕심내서 더 줄일수도 있었지만 오히려 너무 많이 줄인게 아닌가 하는 생각을 하셨다는 원장님말에 안심됬습니다ㅋㅋ 제 표정에서 느끼셨다지요?</p>
         <p>아참! 콧볼 여쭤볼때 광대뼈도 여쭤볼걸 그랬나봐요~ 학기중에 아르바이트 열심히 해서 올 여름에는 변형광대도 받아볼까요? 한번 천천히 생각해봐야겠어요!</p>
         <p>날이 아직 추운데 감기 조심하시고요~ 다음에는 광대로 한번 찾아뵐게요!</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">콧볼축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=콧볼축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

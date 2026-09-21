@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"15분 변형광대 + 관자지방이식 후기","reviewBody":"5월 15일에 수술받고 오늘이 1일차에서 2일차 넘어가는 밤인데 수술 당일차에 붓기가 워낙 심해서 그런지, 더이상 붓기가 심해지는 느낌은 아직 없네요ㅎㅎㅎㅎ 워낙 많은 후기를 보고가서 그런지 아픔에 대한 두려움이 없이 수술받을 준비를 하니까 하나도 안","url":"https://journal.rococops.com/cheekbone/quick/reviews/592/","datePublished":"2017-05-17","inLanguage":"ko-KR","author":{"@type":"Person","name":"강0혁"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"15분 변형광대 + 관자지방이식 후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/592/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"15분 변형광대 + 관자지방이식 후기","reviewBody":"5월 15일에 수술받고 오늘이 1일차에서 2일차 넘어가는 밤인데 수술 당일차에 붓기가 워낙 심해서 그런지, 더이상 붓기가 심해지는 느낌은 아직 없네요ㅎㅎㅎㅎ 워낙 많은 후기를 보고가서 그런지 아픔에 대한 두려움이 없이 수술받을 준비를 하니까 하나도 안","url":"https://journal.rococops.com/cheekbone/quick/reviews/592/","datePublished":"2017-05-17","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"강0혁"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"15분 변형광대 + 관자지방이식 후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/592/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,8 +203,10 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>5월 15일에 수술받고 오늘이 1일차에서 2일차 넘어가는 밤인데 수술 당일차에 붓기가 워낙 심해서 그런지, 더이상 붓기가 심해지는 느낌은 아직 없네요ㅎㅎㅎㅎ 워낙 많은 후기를 보고가서 그런지 아픔에 대한 두려움이 없이 수술받을 준비를 하니까 하나도 안떨리고 편안하게 수술받았어요~ 또 원장님을 믿은것도 있고요ㅋㅋㅋ 수술할땐 다 괜찮았는데 오히려 수면마취 후유증이 조금 강했네요ㅜㅜ 술진탕먹고 다음날 숙취로 고생하는 그런느낌적인 느낌이랄까... 뭐 이것도 하루정도 지나니까 말끔해졌어요~</p>
         <p>아직 붓기때문에 결과는 모르겠어요. 분명 잘됐겠죠 뭐! 다만 허벅지에 지방이 많이 빠졌는지 허벅지가 제일 아프네요 하하.....^^; 지금은 붓기때문에 완전 괴물?같이 생겼는데 얼른 붓기빠져서 멀쩡한 얼굴 보고싶어요~! 안전하게 수술해주셔서 감사합니다. 조만간 실밥빼러 갈게요~</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

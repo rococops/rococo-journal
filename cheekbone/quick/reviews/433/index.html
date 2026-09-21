@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"선생님이ㅠㅠㅠ","reviewBody":"광대수술하고싶은데수술하지말래요ㅠㅠㅠㅠ 3년전 유명대형성형외과에서 안면윤곽수술을했는데 .. 광대도크고 턱도큰얼굴이었어요 수술후 많이작아진얼굴에 자신감을갖고살았는데 요즘얼굴이작은여자들을보면서 더욕심이생기더라구요.45도광대는밋밋할정도로없는데 그래서지","url":"https://journal.rococops.com/cheekbone/quick/reviews/433/","datePublished":"2015-03-25","inLanguage":"ko-KR","author":{"@type":"Person","name":"김"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"선생님이ㅠㅠㅠ","item":"https://journal.rococops.com/cheekbone/quick/reviews/433/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"선생님이ㅠㅠㅠ","reviewBody":"광대수술하고싶은데수술하지말래요ㅠㅠㅠㅠ 3년전 유명대형성형외과에서 안면윤곽수술을했는데 .. 광대도크고 턱도큰얼굴이었어요 수술후 많이작아진얼굴에 자신감을갖고살았는데 요즘얼굴이작은여자들을보면서 더욕심이생기더라구요.45도광대는밋밋할정도로없는데 그래서지","url":"https://journal.rococops.com/cheekbone/quick/reviews/433/","datePublished":"2015-03-25","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"김"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"선생님이ㅠㅠㅠ","item":"https://journal.rococops.com/cheekbone/quick/reviews/433/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,12 +203,14 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>광대수술하고싶은데수술하지말래요ㅠㅠㅠㅠ</p>
         <p>3년전 유명대형성형외과에서 안면윤곽수술을했는데 ..</p>
         <p>광대도크고 턱도큰얼굴이었어요 수술후 많이작아진얼굴에 자신감을갖고살았는데</p>
         <p>요즘얼굴이작은여자들을보면서 더욕심이생기더라구요.45도광대는밋밋할정도로없는데 그래서지방이식도했었구요. 옆광대는 시간이지날수록 더튀어나오는느낌이들었어요 턱은뾰족한데 광대는 넙적한느낌ㅠㅠ 광툭튀?는아닌데 넙적해여~~비대칭도있구요.남들은모르는데 나만아는~ㅋ그래서 폭풍검색후 로코코를방문했습니당 ㅋ 기대잔득했는데 선생님이하지말래용ㅋㅋㅋ광대뼈가아니라 머리뼈래요ㅋㅋㅋㅋㅋㅋㅋ ㅋㅋㅋ나왜이렇게웃기징ㅋㅋㅋㅠㅠ</p>
         <p>네알겠습니다 하고일어나는데 원장님이 저에게 딴데서꼬셔도절대하지말아요~~!라고말씀하시심.....</p>
         <p>실망감을안고 2차 상담을받으러 다른병원 ㄱㄱ했습니다ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ대박찔림..원장님 죄송합니다ㅠㅋㅋㅋ예약은해논거고. 하려면선생님께했지 다른곳에서할생각은없었어요 ㅎ 가자마자 ct 엑스레이를찍었답니다 어머 방사능.. 암튼 그러고 선생님과상담을받았는데 이게뭔말인지 대수술을권하더라구요 그곳도 퀵광대 뭐이런걸로유명한곳이었는데ㅋㅋ3년전 윤곽수술할때 너무고생을했던지라 ..못한다고하고 나왔습니당 .뭐물어보고싶지도않더라구요 로코코에서멘붕이와서그런가봐요.ㅠ진짜하고싶었는데..암튼 ...여기서 비포에프터사진보고 후기읽어보고 선생님말씀읽어보고 잠은안오고심심해서 이렇게써봅니다ㅋㅋㅋㅋㅋㅋㅋ하고싶어서요 저는효과가별로없을거라하셨는데 후기읽어보니 뭐대부분효과별로없을거라고 말씀하셨네용? ㅋㅋㅋㅋㅋ네?ㅋㅋ그러고 본인은효과를만족해하는? 내일다시전화하고 가보렴니다ㅋㅋㅋ내일도내치시면.. 저 ..그자리에서 웁니다ㅠㅠ</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

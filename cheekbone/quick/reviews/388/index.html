@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"12년도에 변형광대 받은 썰~","reviewBody":"원장님 안녕하세요 저 2012.10.22날 변형광대받았엇어요ㅎㅎ지금 현재 까지도 부작용없이 지내는점 우선으로감사합니다 .실명과 지역은거론하지말아쥬세요ㅠ.ㅠ 저~ 광대한후에 다들 어딘가 이뻐졋다고.달라졋어 하는데 워낙 회복기간이며뭐며 짧았어서 수술이라곤","url":"https://journal.rococops.com/cheekbone/quick/reviews/388/","datePublished":"2014-08-01","inLanguage":"ko-KR","author":{"@type":"Person","name":"비밀"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"12년도에 변형광대 받은 썰~","item":"https://journal.rococops.com/cheekbone/quick/reviews/388/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"12년도에 변형광대 받은 썰~","reviewBody":"원장님 안녕하세요 저 2012.10.22날 변형광대받았엇어요ㅎㅎ지금 현재 까지도 부작용없이 지내는점 우선으로감사합니다 .실명과 지역은거론하지말아쥬세요ㅠ.ㅠ 저~ 광대한후에 다들 어딘가 이뻐졋다고.달라졋어 하는데 워낙 회복기간이며뭐며 짧았어서 수술이라곤","url":"https://journal.rococops.com/cheekbone/quick/reviews/388/","datePublished":"2014-08-01","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"비밀"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"12년도에 변형광대 받은 썰~","item":"https://journal.rococops.com/cheekbone/quick/reviews/388/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,11 +203,13 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>원장님 안녕하세요 저 2012.10.22날 변형광대받았엇어요ㅎㅎ지금 현재 까지도 부작용없이 지내는점 우선으로감사합니다 .실명과 지역은거론하지말아쥬세요ㅠ.ㅠ 저~ 광대한후에 다들 어딘가 이뻐졋다고.달라졋어 하는데 워낙 회복기간이며뭐며 짧았어서 수술이라곤 의심자체를안해성 들키면안되요ㅋㅋ첨보는사람들은 인상이 선해보인다고도 해요ㅋㅋㅋㅋ감사해요 이런인상 만들어주신점..매번 속으로 참 좋은 의사만났엇다 이것도 내복이구나 행복했답니다ㅎㅎ 뭐지 그이후로 코 실리콘제거도 받았엇는데ㅠㅠ 솔직히 제거만두고 수술한다는게 좀..서로 난감하지싶었는데 너무 친절히 해주셔서 눈물났어요 징짜ㅜ그것도 흉생기지 말라고 비개방으로해주시고...정말 인상 만큼이나 좋은 성격에 두번 감동받았어요 그 마저도 잘마쳐주셔서 정말 잘지내고있습니다</p>
         <p>뭐 딱히제가 감사표현을 어찌하나 싶던차에 모바일로도 후기남길수있게되어 원장님 결과물 몇장 사진으로 남깁니다ㅋ 날이많이더워요 건강여념 하시구 지금 그모습으로 더많은 아픔을 씻어주세요 ^^안녕~</p>
         <img src="https://rococops.com/files/postscript/attach1/CYMERA_20140801_094034-1.jpg" alt="비밀님 후기 사진" loading="lazy">
         <img src="https://rococops.com/files/postscript/attach2/CYMERA_20140801_093452-1.jpg" alt="비밀님 후기 사진" loading="lazy">
         <img src="https://rococops.com/files/postscript/attach3/CYMERA_20140801_094532.jpg" alt="비밀님 후기 사진" loading="lazy">
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

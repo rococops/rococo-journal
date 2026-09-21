@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"3주 조금 넘은 변형광대 + 지방이식","reviewBody":"안녕하세요 원장님! 예전에 수술에 대해서 고민 할 때 올라와있는 후기글들을 정주행 했던 기억이 있어 저두 작성해봤습니다! 일단 읽는 분들을 위해 먼저 말하자면 한달 정도밖에 안되긴 했지만 인생에서 정말 가장 잘한 것 중에 하나가 원장님께 변형광대","url":"https://journal.rococops.com/cheekbone/quick/reviews/732/","datePublished":"2024-05-27","inLanguage":"ko-KR","author":{"@type":"Person","name":"하리보33"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"3주 조금 넘은 변형광대 + 지방이식","item":"https://journal.rococops.com/cheekbone/quick/reviews/732/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"3주 조금 넘은 변형광대 + 지방이식","reviewBody":"안녕하세요 원장님! 예전에 수술에 대해서 고민 할 때 올라와있는 후기글들을 정주행 했던 기억이 있어 저두 작성해봤습니다! 일단 읽는 분들을 위해 먼저 말하자면 한달 정도밖에 안되긴 했지만 인생에서 정말 가장 잘한 것 중에 하나가 원장님께 변형광대","url":"https://journal.rococops.com/cheekbone/quick/reviews/732/","datePublished":"2024-05-27","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"하리보33"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"3주 조금 넘은 변형광대 + 지방이식","item":"https://journal.rococops.com/cheekbone/quick/reviews/732/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요 원장님! 예전에 수술에 대해서 고민 할 때 올라와있는 후기글들을 정주행 했던 기억이 있어 저두 작성해봤습니다!</p>
         <p>일단 읽는 분들을 위해 먼저 말하자면 한달 정도밖에 안되긴 했지만 인생에서 정말 가장 잘한 것 중에 하나가 원장님께 변형광대 받은거라고 생각될 만큼 그냥 너무너무너무 행복해요 거울, 카메라 볼 때 마다 그냥 웃음이 날 정도로요 ㅎㅎ</p>
         <p>수술 과정이라던지 이런거는 아래 글들에 정리가 이미 많이 돼서 개인적인 경험만 조금 추가해보자면</p>
@@ -199,6 +213,7 @@
         <p>얼굴 전체를 봤을때의 변화 - 오랜만에 만나는 모든 사람들한테 진짜 거의 10이면 10 다 왜이렇게 예뻐졌냐고 물어보면서 얼굴을 막 살펴보더라구요! 근데 아무도 뭘 했는지 찾지는 못했어요. 사실 원장님이 효과가 막 엄청 드라마틱하기는 어려울 수 있다 하셨는데 얼굴 전체를 봤을때 수술티는 안나지만 정말 인상 자체가 예뻐지는 면에서는 드라마틱하게 변한 것 같아요. 촌스러웠던 부분이 싹 사라지고 훨신 어리고 여리여리 해졌다 할까? 여튼 그런 느낌입니다.</p>
         <p>지방이식 - 저도 생각하고 갔던 부분은 아니라 추천해주셨을 때 살짝 고민했는데 심부볼, 관자, 눈밑+팔자 이렇게 3부분 지방이식도 결국 원장님 말씀 믿고 하기로 했어요! 결론은... 하길 너어어어ㅓ어무 잘했습니다. 얼굴이 너무 퉁퉁해지면 어떻게하지? 무계 때문에 쳐지면 어떻게하지? 지방이식 부작용, 얼굴 살집, 부자연스러운 땡글함 등등 이것도 엄청 걱정이 많았는데... 지방이식 하니까 얼굴이 진짜 어려보여요 제가 얼굴에 살이 그렇게 없는 편도 아니였지만 원장님이 엄청 미세하고 섬세하게 딱 예뻐보이고 필요한 부분에 넣어주신 것 같아요! 저 조차도 뭐가 달라졌는지는 모르겠는데 예뻐진듯한 그런 느낌을 받아요 ㅎㅎ 원장님이 추천하시면 그냥 걱정 없이.. 받으세요... 원장님의 눈이 정확한 것 같습니다!</p>
         <p>마지막으로 (다 읽으실지는 모르겠지만) 원장님 너무너무 감사합니다! 진짜 금손이세요!!! 다른 분들이 미적 감각이 뛰어나시다고 했는데 무슨말인지 몸소 느끼고 있습니다 ㅎㅎ</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

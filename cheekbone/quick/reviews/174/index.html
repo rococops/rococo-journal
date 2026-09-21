@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"오늘 수술! 오늘 후기!","reviewBody":"안녕하세요! 오늘 10시 수술예약했던 여자입니당~ㅋ 제가 후기를 쓸 날이 올 줄은 몰랐네요~ 여기 들어와서 가장 많은 정보를 얻었던 것이 수술후기 였고, 꼭 해야겠다고 마음먹게 한 글들도 다 여기 수술후기에서 보았던 글이에요^^ 그래서 저도 고민","url":"https://journal.rococops.com/cheekbone/quick/reviews/174/","datePublished":"2012-04-30","inLanguage":"ko-KR","author":{"@type":"Person","name":"예뻐지고파"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"오늘 수술! 오늘 후기!","item":"https://journal.rococops.com/cheekbone/quick/reviews/174/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"오늘 수술! 오늘 후기!","reviewBody":"안녕하세요! 오늘 10시 수술예약했던 여자입니당~ㅋ 제가 후기를 쓸 날이 올 줄은 몰랐네요~ 여기 들어와서 가장 많은 정보를 얻었던 것이 수술후기 였고, 꼭 해야겠다고 마음먹게 한 글들도 다 여기 수술후기에서 보았던 글이에요^^ 그래서 저도 고민","url":"https://journal.rococops.com/cheekbone/quick/reviews/174/","datePublished":"2012-04-30","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"예뻐지고파"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"오늘 수술! 오늘 후기!","item":"https://journal.rococops.com/cheekbone/quick/reviews/174/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요! 오늘 10시 수술예약했던 여자입니당~ㅋ</p>
         <p>제가 후기를 쓸 날이 올 줄은 몰랐네요~</p>
         <p>여기 들어와서 가장 많은 정보를 얻었던 것이 수술후기 였고,</p>
@@ -215,6 +229,7 @@
         <p>그리고 이런 수술 개발(?)해 주셔서 너무 감사합니다.</p>
         <p>싸랑해요~~ㅎㅎ</p>
         <p>*도움이 되신다면 3일뒤에 비교사진 올리도록 할꼐요^^*</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

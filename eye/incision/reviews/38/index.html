@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"눈뒷트임, 코수술 후기입니다~~^^","reviewBody":"김상호 원장님께 수술 받았습니다~~^^ 사실 처음 병원에 갔을때 코성형만 계획을 하고 있었어요~ 평소 눈매가 좀 사나워 보이고, 인상이 차가워 보인다는 말을 좀 들었던터라, 코 상담하면서 슬쩍 뒷트임 하면 어떨까요? 라고하니","url":"https://journal.rococops.com/eye/incision/reviews/38/","datePublished":"2010-07-06","inLanguage":"ko-KR","author":{"@type":"Person","name":"이0주"},"itemReviewed":{"@type":"MedicalProcedure","name":"트임성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"눈성형","item":"https://journal.rococops.com/eye/"},{"@type":"ListItem","position":3,"name":"트임성형","item":"https://journal.rococops.com/eye/incision/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/eye/incision/reviews/"},{"@type":"ListItem","position":5,"name":"눈뒷트임, 코수술 후기입니다~~^^","item":"https://journal.rococops.com/eye/incision/reviews/38/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"눈뒷트임, 코수술 후기입니다~~^^","reviewBody":"김상호 원장님께 수술 받았습니다~~^^ 사실 처음 병원에 갔을때 코성형만 계획을 하고 있었어요~ 평소 눈매가 좀 사나워 보이고, 인상이 차가워 보인다는 말을 좀 들었던터라, 코 상담하면서 슬쩍 뒷트임 하면 어떨까요? 라고하니","url":"https://journal.rococops.com/eye/incision/reviews/38/","datePublished":"2010-07-06","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"이0주"},"itemReviewed":{"@type":"MedicalProcedure","name":"트임성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"눈성형","item":"https://journal.rococops.com/eye/"},{"@type":"ListItem","position":3,"name":"트임성형","item":"https://journal.rococops.com/eye/incision/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/eye/incision/reviews/"},{"@type":"ListItem","position":5,"name":"눈뒷트임, 코수술 후기입니다~~^^","item":"https://journal.rococops.com/eye/incision/reviews/38/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>김상호 원장님께 수술 받았습니다~~^^</p>
         <p>사실 처음 병원에 갔을때 코성형만 계획을 하고 있었어요~</p>
         <p>평소 눈매가 좀 사나워 보이고, 인상이 차가워 보인다는 말을</p>
@@ -215,6 +229,7 @@
         <p>티나지 않고 자연스러워 보인다고들 하네요~^^</p>
         <p>김상호 원장님~ 이쁘게 해주셔서 넘넘 감사해요~~^^</p>
         <p>정말 신의손이신듯^^ 잘생기시구,친절하시기까지~~ 감사드려용~</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">트임성형에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=트임성형후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

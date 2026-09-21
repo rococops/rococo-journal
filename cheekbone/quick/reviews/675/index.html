@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"광대수술8년차후기","reviewBody":"안녕하세요 지금 거울보다가 갑자기 생각나서 글을 적습니다. 광대수술은 8년정도 되었구요, 그당시 20대 후반이었는데 지금은 30중반을 넘어섰네요. 갑자기 글을쓰는 이유는 옆광대뼈로인한 스트레스가 지금은 없어지고 너무나도 제 본래였던것으로","url":"https://journal.rococops.com/cheekbone/quick/reviews/675/","datePublished":"2020-05-10","inLanguage":"ko-KR","author":{"@type":"Person","name":"유유"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"광대수술8년차후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/675/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"광대수술8년차후기","reviewBody":"안녕하세요 지금 거울보다가 갑자기 생각나서 글을 적습니다. 광대수술은 8년정도 되었구요, 그당시 20대 후반이었는데 지금은 30중반을 넘어섰네요. 갑자기 글을쓰는 이유는 옆광대뼈로인한 스트레스가 지금은 없어지고 너무나도 제 본래였던것으로","url":"https://journal.rococops.com/cheekbone/quick/reviews/675/","datePublished":"2020-05-10","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"유유"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"광대수술8년차후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/675/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요</p>
         <p>지금 거울보다가 갑자기 생각나서 글을 적습니다.</p>
         <p>광대수술은 8년정도 되었구요,</p>
@@ -202,6 +216,7 @@
         <p>수술 후 변한 가장 큰 부분은 머리를 언제든 귀 뒤로 넘길 수 있고, 머리 묶어도 옆에 잔머리 안내려도 되고, 광대밑 그늘지지 않는점.. 이제는 익숙해져버린 제 평생의 컴플렉스였던 부분들이 편리해졌다는 것입니다.</p>
         <p>저 또한 일반사람으로써 뼈에 손을 댄다는것이 너무 무섭고 걱정되고 두려웠는데, 몇 년이 지나고나서의 후기도 필요할듯 싶어 적어봅니다.</p>
         <p>강추드립니다!</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

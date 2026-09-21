@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"눈밑지방 변형15분","reviewBody":"선생니임~~~♥♥ 바쁘시죠? 저수술한지 벌써 2주하고몇일이 흘렀네용 세상에서 젤루빠른게 시간인것 같아 슬퍼요.난 한게없는데 시간은 안기다려주고흑 선생님께 감사하단말만으로두 두페이지넘게 쓸수있는데 아직 수술안하신 분들이 제 글 볼수도있으니까 제","url":"https://journal.rococops.com/eye/lower-fat/reviews/535/","datePublished":"2016-04-18","inLanguage":"ko-KR","author":{"@type":"Person","name":"사랑해용"},"itemReviewed":{"@type":"MedicalProcedure","name":"눈밑지방 재배치","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"눈성형","item":"https://journal.rococops.com/eye/"},{"@type":"ListItem","position":3,"name":"눈밑지방 재배치","item":"https://journal.rococops.com/eye/lower-fat/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/eye/lower-fat/reviews/"},{"@type":"ListItem","position":5,"name":"눈밑지방 변형15분","item":"https://journal.rococops.com/eye/lower-fat/reviews/535/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"눈밑지방 변형15분","reviewBody":"선생니임~~~♥♥ 바쁘시죠? 저수술한지 벌써 2주하고몇일이 흘렀네용 세상에서 젤루빠른게 시간인것 같아 슬퍼요.난 한게없는데 시간은 안기다려주고흑 선생님께 감사하단말만으로두 두페이지넘게 쓸수있는데 아직 수술안하신 분들이 제 글 볼수도있으니까 제","url":"https://journal.rococops.com/eye/lower-fat/reviews/535/","datePublished":"2016-04-18","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"사랑해용"},"itemReviewed":{"@type":"MedicalProcedure","name":"눈밑지방 재배치","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"눈성형","item":"https://journal.rococops.com/eye/"},{"@type":"ListItem","position":3,"name":"눈밑지방 재배치","item":"https://journal.rococops.com/eye/lower-fat/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/eye/lower-fat/reviews/"},{"@type":"ListItem","position":5,"name":"눈밑지방 변형15분","item":"https://journal.rococops.com/eye/lower-fat/reviews/535/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>선생니임~~~♥♥</p>
         <p>바쁘시죠?</p>
         <p>저수술한지 벌써 2주하고몇일이 흘렀네용</p>
@@ -207,6 +221,7 @@
         <p>잘생긴 선생님덕분에 수술너무 편하게 받았습니다.선생님 블로그를 통해서 우리환자들을 일순위로 생각하는마음,직원들에게 엄하지만 항상 사랑하는마음 그리구 짜왕을 좋아하시는 인간적인 선생님을 알게되서 더 믿음이가고 같은 시대에 태어나 이런 선생님을 만나게 된것에 진심으로 감사해요. 나중에 저에게 자식이 생긴다면 저의 자식도 부탁드릴수 있도록 영원히 사셨으면 하는 욕심도 얼마나 생기는지요!얼굴 이쁘게 해주신만큼 내면도 아름답고 성숙한 사람이 되도록 하겠습니다!살도 많이빼고 공부도 열심히 해서 꼭 선생님이랑 결혼할꺼에요~~~&gt;.&lt;</p>
         <p>아!선샘님 근데 저 안약을 일주일넣다가 말았는데 큰문제는 없는거죠? 붓기에 지장을 미치는것 뿐이죠???말 안들어서 죄송해요흑..</p>
         <p>선생님!!건강하셔야해요!!!존경하고 사랑합니당♥</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">눈밑지방 재배치에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=눈밑지방 재배치후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

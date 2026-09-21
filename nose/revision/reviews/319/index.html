@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"쌍꺼플 절개 1년 후 매몰로 AS 재수술 받았어요","reviewBody":"작년 2월에 로코코에서 쌍꺼플절개&변형광대 했습니다. 벌써 1년 반이라는 시간이 흘렀고, 쌍꺼플에 대한 두가지 반응이 있었죠, -완전 자연스럽게 됐다. 티 안나서 좋겠다\"와. -자연스럽긴 한데 한 번 더 해야겠다. 수술을 다시해야 되나?","url":"https://journal.rococops.com/nose/revision/reviews/319/","datePublished":"2013-09-13","inLanguage":"ko-KR","author":{"@type":"Person","name":"이0용"},"itemReviewed":{"@type":"MedicalProcedure","name":"코재수술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"코재수술","item":"https://journal.rococops.com/nose/revision/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/revision/reviews/"},{"@type":"ListItem","position":5,"name":"쌍꺼플 절개 1년 후 매몰로 AS 재수술 받았어요","item":"https://journal.rococops.com/nose/revision/reviews/319/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"쌍꺼플 절개 1년 후 매몰로 AS 재수술 받았어요","reviewBody":"작년 2월에 로코코에서 쌍꺼플절개&변형광대 했습니다. 벌써 1년 반이라는 시간이 흘렀고, 쌍꺼플에 대한 두가지 반응이 있었죠, -완전 자연스럽게 됐다. 티 안나서 좋겠다\"와. -자연스럽긴 한데 한 번 더 해야겠다. 수술을 다시해야 되나?","url":"https://journal.rococops.com/nose/revision/reviews/319/","datePublished":"2013-09-13","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"이0용"},"itemReviewed":{"@type":"MedicalProcedure","name":"코재수술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"코재수술","item":"https://journal.rococops.com/nose/revision/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/revision/reviews/"},{"@type":"ListItem","position":5,"name":"쌍꺼플 절개 1년 후 매몰로 AS 재수술 받았어요","item":"https://journal.rococops.com/nose/revision/reviews/319/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>작년 2월에 로코코에서 쌍꺼플절개&amp;변형광대 했습니다.</p>
         <p>벌써 1년 반이라는 시간이 흘렀고,</p>
         <p>쌍꺼플에 대한 두가지 반응이 있었죠,</p>
@@ -251,6 +265,7 @@
         <p>내일 실밥 풀러가는데 다시 뵈어요~</p>
         <p>오늘도 하루 마무리 잘하세요^^</p>
         <img src="https://rococops.com/files/postscript/attach1/1_201309131519070891.jpg" alt="이0용님 후기 사진" loading="lazy">
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">코재수술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=코재수술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

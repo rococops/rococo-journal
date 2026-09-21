@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"완전 멋지신 김상호쌤!","reviewBody":"새해 복 많이 받으세요 김상호쌤^^ 벌써 수술한지 3주가 지났네용. ㅎㅎㅎ 어린나이에 수술하려고 마음먹고나서 혹시나 너무 성형이 티나게 되지는 않을까 걱정도 많이하고 병원도 몇군데 상담받았어요. 한병원에서는 안검하수가 굉장히 심한","url":"https://journal.rococops.com/anti-aging/blepharoplasty/reviews/51/","datePublished":"2011-01-06","inLanguage":"ko-KR","author":{"@type":"Person","name":"이0은"},"itemReviewed":{"@type":"MedicalProcedure","name":"상·하안검성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"동안성형","item":"https://journal.rococops.com/anti-aging/"},{"@type":"ListItem","position":3,"name":"상·하안검성형","item":"https://journal.rococops.com/anti-aging/blepharoplasty/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/anti-aging/blepharoplasty/reviews/"},{"@type":"ListItem","position":5,"name":"완전 멋지신 김상호쌤!","item":"https://journal.rococops.com/anti-aging/blepharoplasty/reviews/51/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"완전 멋지신 김상호쌤!","reviewBody":"새해 복 많이 받으세요 김상호쌤^^ 벌써 수술한지 3주가 지났네용. ㅎㅎㅎ 어린나이에 수술하려고 마음먹고나서 혹시나 너무 성형이 티나게 되지는 않을까 걱정도 많이하고 병원도 몇군데 상담받았어요. 한병원에서는 안검하수가 굉장히 심한","url":"https://journal.rococops.com/anti-aging/blepharoplasty/reviews/51/","datePublished":"2011-01-06","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"이0은"},"itemReviewed":{"@type":"MedicalProcedure","name":"상·하안검성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"동안성형","item":"https://journal.rococops.com/anti-aging/"},{"@type":"ListItem","position":3,"name":"상·하안검성형","item":"https://journal.rococops.com/anti-aging/blepharoplasty/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/anti-aging/blepharoplasty/reviews/"},{"@type":"ListItem","position":5,"name":"완전 멋지신 김상호쌤!","item":"https://journal.rococops.com/anti-aging/blepharoplasty/reviews/51/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>새해 복 많이 받으세요 김상호쌤^^</p>
         <p>벌써 수술한지 3주가 지났네용.</p>
         <p>ㅎㅎㅎ 어린나이에 수술하려고 마음먹고나서</p>
@@ -230,6 +244,7 @@
         <p>김상호원장님을 만난건 진짜 행운인듯~</p>
         <p>병원스텝분들도 너무 감사하고, 모두 새해 복 많이받으세요~</p>
         <p>김상호원장님 2월달에 리터치할때 뵈요♡</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">상·하안검성형에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=상·하안검성형후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

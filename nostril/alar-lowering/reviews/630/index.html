@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"원장님 안녕하세요~?^^","reviewBody":"원장님 안녕하세요~? 저를 기억하시려는지 모르겠네요 저는 타 병원에서 몇번의 잘못된 코수술때문에 몇년을 고생하다가 원장님께 비공내리기와 휜코교정수술을 받았던 김지원 이라고 합니다. 2016년 가을쯤 수술했던걸로 기억합니다. 그동안 바빠서 후기를 올려","url":"https://journal.rococops.com/nostril/alar-lowering/reviews/630/","datePublished":"2018-09-21","inLanguage":"ko-KR","author":{"@type":"Person","name":"김0원"},"itemReviewed":{"@type":"MedicalProcedure","name":"비공내리기","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"콧구멍성형","item":"https://journal.rococops.com/nostril/"},{"@type":"ListItem","position":3,"name":"비공내리기","item":"https://journal.rococops.com/nostril/alar-lowering/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nostril/alar-lowering/reviews/"},{"@type":"ListItem","position":5,"name":"원장님 안녕하세요~?^^","item":"https://journal.rococops.com/nostril/alar-lowering/reviews/630/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"원장님 안녕하세요~?^^","reviewBody":"원장님 안녕하세요~? 저를 기억하시려는지 모르겠네요 저는 타 병원에서 몇번의 잘못된 코수술때문에 몇년을 고생하다가 원장님께 비공내리기와 휜코교정수술을 받았던 김지원 이라고 합니다. 2016년 가을쯤 수술했던걸로 기억합니다. 그동안 바빠서 후기를 올려","url":"https://journal.rococops.com/nostril/alar-lowering/reviews/630/","datePublished":"2018-09-21","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"김0원"},"itemReviewed":{"@type":"MedicalProcedure","name":"비공내리기","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"콧구멍성형","item":"https://journal.rococops.com/nostril/"},{"@type":"ListItem","position":3,"name":"비공내리기","item":"https://journal.rococops.com/nostril/alar-lowering/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nostril/alar-lowering/reviews/"},{"@type":"ListItem","position":5,"name":"원장님 안녕하세요~?^^","item":"https://journal.rococops.com/nostril/alar-lowering/reviews/630/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>원장님 안녕하세요~?</p>
         <p>저를 기억하시려는지 모르겠네요 저는 타 병원에서 몇번의 잘못된 코수술때문에 몇년을 고생하다가 원장님께 비공내리기와 휜코교정수술을 받았던 김지원 이라고 합니다. 2016년 가을쯤 수술했던걸로 기억합니다. 그동안 바빠서 후기를 올려야지 생각만하고 2년이 지나서야 이렇게 후기를 늦게나마 올리네요^.^; 사실 게으른 저의 성격탓도 있겠죠;; 게으른 저의 성격에도 불구하고 이렇게 후기를 올리는 가장 큰 이유는요 물론 수술에 대한 만족도가 높았지만(정말 맘에 듭니다!200%) 저는 몇번의 잘못된 코수술로 심각한 우울증과 자살충동까지 느꼈던 사람으로써 혹시 저처럼 잘못된 수술로 고통받는 사람이 있다면 제 글을 보고 용기를 가졌으면 하는 바램에 이렇게 글을 쓰게 되었습니다.</p>
         <p>첫단추를 잘 끼워야 한다는 말이 있잖아요... 저의 고통이 시작된건 바로 잘못된 첫수술로 비극이 시작되었죠, 한창 멋부리고 예쁘게 꾸미고 다닐나이에... 망쳐버린 코수술은 제 인생을 바꿔놓을만큼 저에게는 큰 컴플렉스가 되었어요.. 거기에 인중축소수술까지.. 물론 저는 성인이고 제가 결정한거라 저에게도 책임이 없는건 아니었어요, 그렇지만 한번의 잘못된 선택이 몇년동안 저를 이렇게 불행하게 만들줄은 몰랐습니다. 잘못된 첫 코수술과 인중축소술로 저는 그후 코 재수술을 4차례나 더 받게되었어요, 수술을 받을때마다 그 전보다 좋아지겠지..좋아질거야.. 하늘이 원망스러울만큼 제가 원하는대로 결과물은 나오지 않았습니다. 그렇게 4년동안 지옥같은 나날을 보내던중 3번째 재수술을하고 너무나 만족스럽지 못해 수술한지 2주도 안되었을거에요.. 저는 벼랑끝에 선 심정으로 그전부터 알고 있었던 로코코 성형외과로 가서 상담을 받게 되었어요.. 우선 다른의사선생님들처럼 원하는대로 해주겠다 완벽하게 바꿔주겠다는 말이 아닌 현실적으로 말씀해주셔서 믿음이 갔구요.. 저는 정말 마지막 수술이다 생각을 하고 결정을 했고 결과는 너무나 만족스러웠습니다..ㅠㅠ</p>
@@ -198,6 +212,7 @@
         <p>직접 찾아뵙고 감사하다고 말씀드려야하는데 일산쪽에 살다보니 서울에 나갈일이 많이 없네요;; 나중에 필러나 보톡스 맞으러 가겠습니다~ 코수술을 여러번 했어도 수술할때는 늘 불안하고 많이 무섭거든요;; 로코코가 좋았던 또 다른한가지는요.. 이거 정말 중요한데요.. 수술할때 간호사쌤들의 배려입니다. 어떤 타병원에서는요 제가 가장마지막저녁 타임 수술이었는데 본인들 약속있다면서 저더러 알아서 옷갈아입고 나가래더군요 본인들은 밖에서 화장하고 있고..정말 어이가 없었거든요 그런데 로코코는 정말 감동받았어요 쌤들이 편안하게 분위기도 만들어주시고 무엇보다 춥지 않아서 좋았어요 그동안 수술했던 병원들은 침대에 누우면 너무 너무 너무 추웠거든요;; 물론 긴장했던 탓도 있었겠지만.. 그런데 로코코는 이불덮어주고 머리에 띠두르는 그런 사소한 작은 부분까지 세심하게 신경써주는 모습을 보고 정말 감동받았습니다. ㅠㅠ 거기에 만족스러운 수술결과까지.. 원래는 짧고 간단하게 쓰려고 했는데 쓰다보니 너무 두서없고 정신없게 쓴거 같네요, 이해부탁드립니다^.^;</p>
         <p>몇년동안 지옥같은 삶을 살았는데 제 삶을 바꿔주신 원장님께 다시한번 진심으로 감사드리구요, 서울가게되면 꼭 들리겠습니다~ 그리고 이 글을 보고계시는 혹시라도 저처럼 잘못된 코수술 때문에 고통받는 분들이 계신다면 망설이지 마시구요 꼭 선생님께 상담받아보셨으면 좋겠습니다~ 제 글이 조금이나마 도움이 되셨으면 좋겠어요..! 긴 글 끝까지 읽어주셔서 너무나 감사드리구요~ 모두들 행복하세요~!</p>
         <p>감사합니다~*^.^*</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">비공내리기에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=비공내리기후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

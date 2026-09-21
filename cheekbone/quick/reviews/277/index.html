@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"변형광대2일차! 참을수 없어 올립니다!!","reviewBody":"수술하고 후기까지 쓰게 될줄이야 처음써봅니다! 그만큼 만족도가 높다는거겠죠?^ㅠ^ 제목보고 놀라셨을거예요 원장님ㅋㅋ 왜 다른사람들이 후기를 직접 쓰게되는지 이해가 되더라구요 저는 수술을 참 많이했습니다. 쌍커플3번 지방이식2차 미스코2번 파워","url":"https://journal.rococops.com/cheekbone/quick/reviews/277/","datePublished":"2013-03-19","inLanguage":"ko-KR","author":{"@type":"Person","name":"후훗"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"변형광대2일차! 참을수 없어 올립니다!!","item":"https://journal.rococops.com/cheekbone/quick/reviews/277/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"변형광대2일차! 참을수 없어 올립니다!!","reviewBody":"수술하고 후기까지 쓰게 될줄이야 처음써봅니다! 그만큼 만족도가 높다는거겠죠?^ㅠ^ 제목보고 놀라셨을거예요 원장님ㅋㅋ 왜 다른사람들이 후기를 직접 쓰게되는지 이해가 되더라구요 저는 수술을 참 많이했습니다. 쌍커플3번 지방이식2차 미스코2번 파워","url":"https://journal.rococops.com/cheekbone/quick/reviews/277/","datePublished":"2013-03-19","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"후훗"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"변형광대2일차! 참을수 없어 올립니다!!","item":"https://journal.rococops.com/cheekbone/quick/reviews/277/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>수술하고 후기까지 쓰게 될줄이야 처음써봅니다! 그만큼 만족도가 높다는거겠죠?^ㅠ^ 제목보고 놀라셨을거예요 원장님ㅋㅋ</p>
         <p>왜 다른사람들이 후기를 직접 쓰게되는지 이해가 되더라구요</p>
         <p>저는 수술을 참 많이했습니다.</p>
@@ -215,6 +229,7 @@
         <p>결론은 광대가 쏙! 들어가고 통증 없으며 스티커를 떼고 나서 붓기를 잘 모르겠지만 지금은 걍 라면먹고 잔 다음날 같은 느낌이며 밥 먹는데는 무리가 없다는 겁니다!</p>
         <p>모든 수술이든 간판,규모 보지마시고 실력을믿고 수술하세요 여러분! 그래야 열심히 일해서 모은돈 허공에 날린것 같지도 않고 뿌듯하답니다.ㅎㅎ감사합니다 원장님!</p>
         <p>ps. 피부과레이져 시술 받고 계신분들은 수술 최소2주 최대한달 뒤에 받으시래요 붓기가 더 오래갈 수 있답니다!</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

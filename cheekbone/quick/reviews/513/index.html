@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"3일업뎃:15분변형패키지+턱라인흡입","reviewBody":"안녕하세요 오늘이 3일째 날입니다 ㅎㅎ 내일 실밥제거하러 가는날인데 그전에 3일동안 업데이트해드려요. 저 같은경우도 수술하기전에 후기를 다 외울정도로 엄청 많이 봤는데 대부분 2~3일째에 가장 많이 부었다고하더라구요. 그래서 오늘 긴장했는데..음..","url":"https://journal.rococops.com/cheekbone/quick/reviews/513/","datePublished":"2016-01-29","inLanguage":"ko-KR","author":{"@type":"Person","name":"루루루"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"3일업뎃:15분변형패키지+턱라인흡입","item":"https://journal.rococops.com/cheekbone/quick/reviews/513/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"3일업뎃:15분변형패키지+턱라인흡입","reviewBody":"안녕하세요 오늘이 3일째 날입니다 ㅎㅎ 내일 실밥제거하러 가는날인데 그전에 3일동안 업데이트해드려요. 저 같은경우도 수술하기전에 후기를 다 외울정도로 엄청 많이 봤는데 대부분 2~3일째에 가장 많이 부었다고하더라구요. 그래서 오늘 긴장했는데..음..","url":"https://journal.rococops.com/cheekbone/quick/reviews/513/","datePublished":"2016-01-29","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"루루루"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"3일업뎃:15분변형패키지+턱라인흡입","item":"https://journal.rococops.com/cheekbone/quick/reviews/513/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,12 +203,14 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요 오늘이 3일째 날입니다 ㅎㅎ 내일 실밥제거하러 가는날인데 그전에 3일동안 업데이트해드려요. 저 같은경우도 수술하기전에 후기를 다 외울정도로 엄청 많이 봤는데 대부분 2~3일째에 가장 많이 부었다고하더라구요. 그래서 오늘 긴장했는데..음.. 이게 부은건지 안부은건지 .. 테이핑때문에 잘 모르겠네요 ㅎㅎ 확실히 땡기미를 착용하지않으면 넓적해보이는데 이게 붓기때문인지 테이핑때문인지는 잘 모르겠어요. 어찌되었던 보다싶히 슈렉처럼 얼굴이 막 붓지는 않아요~~ 완전 쵝오 ! ㅎㅎ</p>
         <p>김상호 원장님은 너무 솔직하시고 조곤조곤 잘 설명해주셔서 좋았구요 안에 언니분들도 너무 다들 착하고 이쁘셔서 이곳 추천해요.</p>
         <p>저처럼 후기들 둘러보면서 망설이시는 분들 ~ 특히 저보다 광대가 더 나왓다면 더웃더 추천입니다.</p>
         <p>일주일째에 테이핑 빼고 나면 업데이트하겠습니다~</p>
         <img src="https://rococops.com/files/postscript/attach1/2_2016012990442517.png" alt="루루루님 후기 사진" loading="lazy">
         <img src="https://rococops.com/files/postscript/attach2/3_2016012990442517.png" alt="루루루님 후기 사진" loading="lazy">
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"신의손 김상호 원장님~ 너무 감사합니다","reviewBody":"저는 40대 남자입니다 성형에 관심도 없다가 코가 휘어져 3년전쯤 (광역시)가장 큰곳을 찾 가벼운마음으로 교정한다고 생각하고 수술을 하였습니다 휜거 비중격하고 실리콘으로 조금 새우고 코끝 등등 수술후 마음에 들지는 않았지만 휜거 교정되었다는 생각으","url":"https://journal.rococops.com/nose/male/reviews/655/","datePublished":"2019-06-27","inLanguage":"ko-KR","author":{"@type":"Person","name":"오0환"},"itemReviewed":{"@type":"MedicalProcedure","name":"남자의 코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"남자의 코성형","item":"https://journal.rococops.com/nose/male/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/male/reviews/"},{"@type":"ListItem","position":5,"name":"신의손 김상호 원장님~ 너무 감사합니다","item":"https://journal.rococops.com/nose/male/reviews/655/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"신의손 김상호 원장님~ 너무 감사합니다","reviewBody":"저는 40대 남자입니다 성형에 관심도 없다가 코가 휘어져 3년전쯤 (광역시)가장 큰곳을 찾 가벼운마음으로 교정한다고 생각하고 수술을 하였습니다 휜거 비중격하고 실리콘으로 조금 새우고 코끝 등등 수술후 마음에 들지는 않았지만 휜거 교정되었다는 생각으","url":"https://journal.rococops.com/nose/male/reviews/655/","datePublished":"2019-06-27","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"오0환"},"itemReviewed":{"@type":"MedicalProcedure","name":"남자의 코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"남자의 코성형","item":"https://journal.rococops.com/nose/male/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/male/reviews/"},{"@type":"ListItem","position":5,"name":"신의손 김상호 원장님~ 너무 감사합니다","item":"https://journal.rococops.com/nose/male/reviews/655/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>저는 40대 남자입니다</p>
         <p>성형에 관심도 없다가 코가 휘어져 3년전쯤 (광역시)가장 큰곳을 찾 가벼운마음으로 교정한다고 생각하고 수술을 하였습니다 휜거 비중격하고 실리콘으로 조금 새우고 코끝 등등 수술후 마음에 들지는 않았지만 휜거 교정되었다는 생각으로 긍정적으로 받아 들이고 있따가 5~6개월쯤 되닌깐 구축현상이 일어나더군요 콧구멍이 틀어지고 점점 더 짝짜기가 되고 세모 콧구멍에다가 콧구멍이 들리고 있었습니다</p>
         <p>아무리 결혼한 40대 남자라도 이건 좀 아니라 생각들고 거울보기가 힘이 들어서 (광역시)(개인적인 생각입니다 )가장 잘한다고 판단되었던 병원을 찾아가 재수술을 하였습니다 당연히 1차수술후 구축현상도 좋아질 기대도 했고 미용적으로도 좋아질꺼라 기대도 했습니다 재수술이라 가격도 좀 비싼편이였습니다 일단 일주일후 붕대를 풀어보니 비주가 너무 짧아서 돼지코 같았고....콧구멍은 더 세모지게 보였습니다 병원에서는 시간지나면 좋아지고 모양 바뀐다고 2~3개월 뒤에 애기하자고 하였습니다 2개월이 지나고 3개월이 가까워 왔을때에도 돼지코에다가 세모 콧구멍은 전혀~ 1도 좋아질 기미도 안보였고 병원에서는 잘되었다고 그전보다 훨씬 좋은데 왜그러냐고...정말 어이없는 말만하고 우기기만 했었고...싸울 기력도 없었던 저는 그냥 ... 그냥 참울했습니다 상상이상으로..... 매일 마스크 착용하고 다니고 극 우울증에 사회생활 아무것도 하지 못했습니다</p>
@@ -216,6 +230,7 @@
         <p>정말 무조껀....</p>
         <p>거울보기 힘든시간을 거울보는 행복한 시간으로 바꿔 주신 로코코 그리고 원장님에게 감사한 마음으로 살겠습니다 원장님 감사합니다 ~</p>
         <p>(몇개월뒤 조금더 자연스러워지면 사진도 함께 첨부해서 다시글올리겠습니다)</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">남자의 코성형에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=남자의 코성형후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

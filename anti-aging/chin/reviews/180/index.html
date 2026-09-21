@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"무턱교정 수술후기","reviewBody":"무턱교정수술을 한지 세달 정도 지난 것 같습니다. 뜬금없지만 들어온김에 올려봅니다. 워낙 간단한 수술이라 원장님께서 제 얼굴을 기억못하실 지도 모르겠네요. 수술상담과 당일 수술등도 순식간에 끝나버릴 정도였으니깐요 ㅎㅎ; 아무튼 결과는 만족스럽습","url":"https://journal.rococops.com/anti-aging/chin/reviews/180/","datePublished":"2012-05-28","inLanguage":"ko-KR","author":{"@type":"Person","name":"강0혜"},"itemReviewed":{"@type":"MedicalProcedure","name":"무턱성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"동안성형","item":"https://journal.rococops.com/anti-aging/"},{"@type":"ListItem","position":3,"name":"무턱성형","item":"https://journal.rococops.com/anti-aging/chin/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/anti-aging/chin/reviews/"},{"@type":"ListItem","position":5,"name":"무턱교정 수술후기","item":"https://journal.rococops.com/anti-aging/chin/reviews/180/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"무턱교정 수술후기","reviewBody":"무턱교정수술을 한지 세달 정도 지난 것 같습니다. 뜬금없지만 들어온김에 올려봅니다. 워낙 간단한 수술이라 원장님께서 제 얼굴을 기억못하실 지도 모르겠네요. 수술상담과 당일 수술등도 순식간에 끝나버릴 정도였으니깐요 ㅎㅎ; 아무튼 결과는 만족스럽습","url":"https://journal.rococops.com/anti-aging/chin/reviews/180/","datePublished":"2012-05-28","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"강0혜"},"itemReviewed":{"@type":"MedicalProcedure","name":"무턱성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"동안성형","item":"https://journal.rococops.com/anti-aging/"},{"@type":"ListItem","position":3,"name":"무턱성형","item":"https://journal.rococops.com/anti-aging/chin/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/anti-aging/chin/reviews/"},{"@type":"ListItem","position":5,"name":"무턱교정 수술후기","item":"https://journal.rococops.com/anti-aging/chin/reviews/180/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>무턱교정수술을 한지 세달 정도 지난 것 같습니다.</p>
         <p>뜬금없지만 들어온김에 올려봅니다.</p>
         <p>워낙 간단한 수술이라 원장님께서 제 얼굴을 기억못하실 지도 모르겠네요.</p>
@@ -205,6 +219,7 @@
         <img src="https://rococops.com/files/postscript/attach1/1_201205281348808441.jpg" alt="강0혜님 후기 사진" loading="lazy">
         <img src="https://rococops.com/files/postscript/attach2/2_201205281348808441.jpg" alt="강0혜님 후기 사진" loading="lazy">
         <img src="https://rococops.com/files/postscript/attach3/3_201205281348808441.jpg" alt="강0혜님 후기 사진" loading="lazy">
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">무턱성형에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=무턱성형후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

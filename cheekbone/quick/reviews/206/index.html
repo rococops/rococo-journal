@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"화욜 변형광대요 ㅎㅎ","reviewBody":"후기 쓴글이 전부날라가서 다시 쓸게요 흑흑 ㅠ ㅠ 어제 변형광대 했는데 회사때문에 스케쥴 계속 바꾸고 간호사 언니 번거롭게 해서 얼마나 죄송했는지 심지어 비도 오고 늦게출발하는 바람에 수술당일날까지 지각하는바람에 정말 할말이 없었습니다 죄송","url":"https://journal.rococops.com/cheekbone/quick/reviews/206/","datePublished":"2012-08-22","inLanguage":"ko-KR","author":{"@type":"Person","name":"영광"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"화욜 변형광대요 ㅎㅎ","item":"https://journal.rococops.com/cheekbone/quick/reviews/206/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"화욜 변형광대요 ㅎㅎ","reviewBody":"후기 쓴글이 전부날라가서 다시 쓸게요 흑흑 ㅠ ㅠ 어제 변형광대 했는데 회사때문에 스케쥴 계속 바꾸고 간호사 언니 번거롭게 해서 얼마나 죄송했는지 심지어 비도 오고 늦게출발하는 바람에 수술당일날까지 지각하는바람에 정말 할말이 없었습니다 죄송","url":"https://journal.rococops.com/cheekbone/quick/reviews/206/","datePublished":"2012-08-22","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"영광"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"화욜 변형광대요 ㅎㅎ","item":"https://journal.rococops.com/cheekbone/quick/reviews/206/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>후기 쓴글이 전부날라가서 다시 쓸게요 흑흑 ㅠ ㅠ</p>
         <p>어제 변형광대 했는데 회사때문에 스케쥴 계속 바꾸고</p>
         <p>간호사 언니 번거롭게 해서 얼마나 죄송했는지</p>
@@ -211,6 +225,7 @@
         <p>아니면 땡김이 풀러 가는날 매직스펀지를 붙여주시는건가요??</p>
         <p>어쨋든 원장님 감사합니다 ㅎㅎ 욱씬거리고 밥먹을때불편한게 있지만</p>
         <p>좋아요 ㅎㅎㅎ 수고하세요 ~ ^^금욜날뵈요</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

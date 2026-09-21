@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"12/29일에 수술한 양희경이에요~","reviewBody":"12/29일에 수술한 양희경이에요~ 매번 까먹고 수술후기 못남겼는데 오늘에야 ㅎㅎ;;;;;;;; 오늘로 수술한지 딱 보름 됐는데 이렇게 이쁜 코 만들어 주셔서 거울 볼때마다 원장님한테 넘넘 감사한 마음이 마구들어요... ㅎㅎ 10월쯤엔가","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/8/","datePublished":"2009-01-13","inLanguage":"ko-KR","author":{"@type":"Person","name":"랑"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"12/29일에 수술한 양희경이에요~","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/8/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"12/29일에 수술한 양희경이에요~","reviewBody":"12/29일에 수술한 양희경이에요~ 매번 까먹고 수술후기 못남겼는데 오늘에야 ㅎㅎ;;;;;;;; 오늘로 수술한지 딱 보름 됐는데 이렇게 이쁜 코 만들어 주셔서 거울 볼때마다 원장님한테 넘넘 감사한 마음이 마구들어요... ㅎㅎ 10월쯤엔가","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/8/","datePublished":"2009-01-13","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"랑"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"12/29일에 수술한 양희경이에요~","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/8/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>12/29일에 수술한 양희경이에요~</p>
         <p>매번 까먹고 수술후기 못남겼는데 오늘에야 ㅎㅎ;;;;;;;;</p>
         <p>오늘로 수술한지 딱 보름 됐는데 이렇게 이쁜 코 만들어 주셔서 거울 볼때마다 원장님한테 넘넘 감사한 마음이 마구들어요... ㅎㅎ</p>
@@ -197,6 +211,7 @@
         <p>사실 수술하는 날도 별 걱정 없었어요 그냥 원장님 믿으니까! ㅋㅋ 역시나 결과는 정말 감동의 물결!!! ㅎㅎ 주위사람들도 놀라고 저도 엄청 놀랐던게, 멍 같은거 전혀 없고 생각보다 붓지도 않았다는거 였어요! 수술 당일날 모습 본 사람들 죄다 놀래더라구요~ 그리고 일주일 지나고 실밥 다 풀고, 왠만큼 붓기도 가라앉으니까 더더더 놀라운 모습이! ㅋㅋ 말 안하면 사람들 다 수술한거 모르더라구요 그저 왜이렇게 갑자기 예뻐졌냐, 살도 빠졌니? 하는 말들만 할뿐.... 훗~ 요즘 그래서 자꾸 이사람 저사람 만나고 싶어져요 예뼈졌단 소리 들으려고 ㅋㅋ</p>
         <p>부모님도 저도 코 볼때마다 매번 참 감탄+놀라움의 연속이에요 ㅋㅋ 전혀 생각 못했는데 원장님 말 듣고 앞턱 같이 한 것도 정말 대만족스러운 결과가... 입이 뭔가 작아보이고 다부져보인달까... 암튼 처음엔 앞턱 수술은 반대하셨던 부모님들도 이젠 같이 하길 잘했다고 그러세요 ㅎㅎ 아, 선물로 턱살 날려주신것도 감사해요! 사실 이건 비포 애프터 사진 보기 전에는 뭐가 달라진건지 잘 몰랐었는데, 원장님 방에서 민망한 사진들 나란히 놓고 보니.... 놀랍더라구요 ㅋㅋ</p>
         <p>암튼 홈피사진 당첨? 되서 선물받고, 완전 리뉴얼 된 얼굴도 선물받고, 이것 말고도 여러가지... 원장님한테서 왕창 선물받고 가는 기분이에요... 정말정말 감사합니다~! 앞으로 제 마음 한쪽에 김상호 원장님 고이 담아놓을게요♡ ㅎㅎ</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">늑연골 명품코성형에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=늑연골 명품코성형후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

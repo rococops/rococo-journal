@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"감사한 김상호원장님(비공내리기수술이후)","reviewBody":"안녕하세요 원장님 12월 2일에 비공내리기 수술 진행한 ***입니다 ^^ 이런 후기글은 태어나서 처음 써봐요. 그만큼 원장님께 너무 감사한 마음이 커서 글을 남기게 되네요. 저는 이미 오래 전 다른 병원에서 코성형을 한 상태였는데 콧구멍이 비대","url":"https://journal.rococops.com/nostril/alar-lowering/reviews/667/","datePublished":"2020-01-12","inLanguage":"ko-KR","author":{"@type":"Person","name":"***"},"itemReviewed":{"@type":"MedicalProcedure","name":"비공내리기","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"콧구멍성형","item":"https://journal.rococops.com/nostril/"},{"@type":"ListItem","position":3,"name":"비공내리기","item":"https://journal.rococops.com/nostril/alar-lowering/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nostril/alar-lowering/reviews/"},{"@type":"ListItem","position":5,"name":"감사한 김상호원장님(비공내리기수술이후)","item":"https://journal.rococops.com/nostril/alar-lowering/reviews/667/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"감사한 김상호원장님(비공내리기수술이후)","reviewBody":"안녕하세요 원장님 12월 2일에 비공내리기 수술 진행한 ***입니다 ^^ 이런 후기글은 태어나서 처음 써봐요. 그만큼 원장님께 너무 감사한 마음이 커서 글을 남기게 되네요. 저는 이미 오래 전 다른 병원에서 코성형을 한 상태였는데 콧구멍이 비대","url":"https://journal.rococops.com/nostril/alar-lowering/reviews/667/","datePublished":"2020-01-12","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"***"},"itemReviewed":{"@type":"MedicalProcedure","name":"비공내리기","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"콧구멍성형","item":"https://journal.rococops.com/nostril/"},{"@type":"ListItem","position":3,"name":"비공내리기","item":"https://journal.rococops.com/nostril/alar-lowering/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nostril/alar-lowering/reviews/"},{"@type":"ListItem","position":5,"name":"감사한 김상호원장님(비공내리기수술이후)","item":"https://journal.rococops.com/nostril/alar-lowering/reviews/667/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요 원장님 12월 2일에 비공내리기 수술 진행한 ***입니다 ^^</p>
         <p>이런 후기글은 태어나서 처음 써봐요. 그만큼 원장님께 너무 감사한 마음이 커서 글을 남기게 되네요.</p>
         <p>저는 이미 오래 전 다른 병원에서 코성형을 한 상태였는데 콧구멍이 비대칭이라 스트레스를 많이 받았었어요. 사람들은 잘 모르지만 거울을 보거나 사진을 찍을 때마다 제 눈에만 저의 단점이 부각되어 보였었어요. 그래서 인터넷에서 성형 방법을 찾아보다가 비공내리기란 수술을 알게 되었고 원장님의 블로그 글만을 읽어도 전문성과 신뢰감이 느껴져 병원에 상담가게 됐어요.</p>
@@ -204,6 +218,7 @@
         <p>물론 아무리 수술을 잘 하는 병원이라고 해도 개인마다 수술 결과와 만족도가 달라서 반드시 이곳에서 하면 모두가 수술이 잘 될거라고 보장할 순 없어요. 그렇지만 비공내리기 수술에 대한 인터넷의 나쁜 글만을 보고 판단해서 단점을 개선할 좋은 기회를 놓치지 않으셨으면 해요. 여러 병원에서 상담을 하고 더 다양한 후기를 읽어보시고서 판단하셨으면 좋겠어요. 저도 워낙 정보가 없는 상태에서 수술을 한 거라 많은 용기가 필요했어요.</p>
         <p>다시 한 번 선천적으로 비대칭이기도 했던 콧구멍을 최대한 대칭이 맞도록 신경써서 수술해주신 김상호 원장님께 정말 감사드리고요. 거울을 보면 정말 원장님의 섬세한 눈썰미와 그에 따르는 실력이 느껴져요^^ 처음부터 로코코를 알아서 코성형을 이곳에서 했다면 제 코 모양이 지금보다 더 예쁘지 않았을까란 생각까지도 듭니다^^</p>
         <p>이제 2월 초에 한 번 더 방문하기로 했는데 그때가지도 관리 잘 해서 이상 없이 갈게요. 병원을 찾는 사람에 대한 원장님의 진심과 뛰어난 실력이 더 많은 사람들에게 이로움으로 전해지길 응원합니다~^^</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">비공내리기에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=비공내리기후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

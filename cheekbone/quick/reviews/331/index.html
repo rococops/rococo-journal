@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"1년 전 변형광대수술.","reviewBody":"안녕하세요. 김상호원장님. 1년이 지난 후 이렇게 한번 더 홈페이지를 찾게 되었습니다. 서랍을 정리하는 도중에 로코코 진료예약카드를 발견했는데 원장님이 생각나서 이렇게 글을 남깁니다. 수술을 한 지 벌써 1년이 흘렀습니다. 그 당시 감사하다는 인","url":"https://journal.rococops.com/cheekbone/quick/reviews/331/","datePublished":"2013-10-28","inLanguage":"ko-KR","author":{"@type":"Person","name":"앨리"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"1년 전 변형광대수술.","item":"https://journal.rococops.com/cheekbone/quick/reviews/331/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"1년 전 변형광대수술.","reviewBody":"안녕하세요. 김상호원장님. 1년이 지난 후 이렇게 한번 더 홈페이지를 찾게 되었습니다. 서랍을 정리하는 도중에 로코코 진료예약카드를 발견했는데 원장님이 생각나서 이렇게 글을 남깁니다. 수술을 한 지 벌써 1년이 흘렀습니다. 그 당시 감사하다는 인","url":"https://journal.rococops.com/cheekbone/quick/reviews/331/","datePublished":"2013-10-28","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"앨리"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"1년 전 변형광대수술.","item":"https://journal.rococops.com/cheekbone/quick/reviews/331/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,12 +203,14 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요. 김상호원장님.</p>
         <p>1년이 지난 후 이렇게 한번 더 홈페이지를 찾게 되었습니다.</p>
         <p>서랍을 정리하는 도중에 로코코 진료예약카드를 발견했는데 원장님이 생각나서 이렇게 글을 남깁니다.</p>
         <p>수술을 한 지 벌써 1년이 흘렀습니다. 그 당시 감사하다는 인사만 드리구 후기는 쓰지 않은 것이 생각났어요.ㅎㅎ</p>
         <p>저는 치아교정을 하고난 후 볼살이 쏙 빠져 옆광대가 두드러져 보이는 경우였습니다. 솔직히 뼈라는 부분이 중요하다 보니 그 당시 여러 병원을 상담하러 다녔었는데요. 원장님의 솔직한 상담이 마음에 들었었습니다. 그렇게 드라마틱한 변화는 없을 테지만 윤곽은 부드러워 질 것이라고. 또 팜플렛에 있는 수술전후 갤러리처럼 더 많은 효과를 보려면 지방이식?을 하는 것도 좋은 방법이라 하셨습니다. 완전 솔직한 상담! ㅋㅋ 기왕 하는거 그냥 광대 축소술보다 변형광대가 더 효과가 좋다고 하셔서 변형광대를 했었고 붓기는 빨리 빠지는 편이었습니다. 그 때 엄마 아빠랑 같이 방문했었는데 30분만에 끝난 것 보고 놀라워 하셨던 얼굴이 생각나요!! 그리고 수술 후 빠르게 얼굴 형태가 자리를 잡았지만 눈 한쪽의 관자놀이 부분이 약간 감각이 없다가 6~7개월 후 감각이 돌아오더라구요. 원장님이 잘해주셨다는 믿음이 있었기에 뭐 그렇게 불안하지 않았습니다! (전화도 하지 않았어요...ㅋㅋㅋ)</p>
         <p>평소에 이마를 드러내는 것을 싫어하고, 바람이 흩날릴 때 얼굴을 숙이며 다녔지만 지금은 당당히 앞머리를 길러서 다니고 있습니다.현재는 얼굴윤곽이 많이 부드러워졌고 자신감도 생겼습니다. 사람들이 &quot;와, 너 수술했구나?&quot; 할 정도로 알아보지는 못하지만 저는 오히려 자연스러움이 마음에 들었습니다. 요즘은 자연스러운 게 대세라던데요?! 원장님은 당연히 저를 기억하지 못하시겠지만 항상 감사하게 생각하고 있습니다. 원장님 감사합니다!</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

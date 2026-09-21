@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"아무도 모르게 예뻐지기^^","reviewBody":"안녕하세요 원장님~^^ 이틀전에 매몰법으로 눈 수술한 환자(?)에요. '요즘 쌍꺼풀 수술은 수술도 아니다'라는 말이 정말 공감됐던게 수술이 제가 생각했던 것 보다도 훨씬 간단해서 그동안 수없이 고민하고 걱정했던게 허무할 정도네요..ㅋㅋ 저는","url":"https://journal.rococops.com/eye/double/reviews/233/","datePublished":"2012-12-28","inLanguage":"ko-KR","author":{"@type":"Person","name":"삐삐"},"itemReviewed":{"@type":"MedicalProcedure","name":"쌍커풀 자연유착법","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"눈성형","item":"https://journal.rococops.com/eye/"},{"@type":"ListItem","position":3,"name":"쌍커풀 자연유착법","item":"https://journal.rococops.com/eye/double/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/eye/double/reviews/"},{"@type":"ListItem","position":5,"name":"아무도 모르게 예뻐지기^^","item":"https://journal.rococops.com/eye/double/reviews/233/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"아무도 모르게 예뻐지기^^","reviewBody":"안녕하세요 원장님~^^ 이틀전에 매몰법으로 눈 수술한 환자(?)에요. '요즘 쌍꺼풀 수술은 수술도 아니다'라는 말이 정말 공감됐던게 수술이 제가 생각했던 것 보다도 훨씬 간단해서 그동안 수없이 고민하고 걱정했던게 허무할 정도네요..ㅋㅋ 저는","url":"https://journal.rococops.com/eye/double/reviews/233/","datePublished":"2012-12-28","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"삐삐"},"itemReviewed":{"@type":"MedicalProcedure","name":"쌍커풀 자연유착법","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"눈성형","item":"https://journal.rococops.com/eye/"},{"@type":"ListItem","position":3,"name":"쌍커풀 자연유착법","item":"https://journal.rococops.com/eye/double/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/eye/double/reviews/"},{"@type":"ListItem","position":5,"name":"아무도 모르게 예뻐지기^^","item":"https://journal.rococops.com/eye/double/reviews/233/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요 원장님~^^</p>
         <p>이틀전에 매몰법으로 눈 수술한 환자(?)에요.</p>
         <p>'요즘 쌍꺼풀 수술은 수술도 아니다'라는 말이 정말 공감됐던게</p>
@@ -257,6 +271,7 @@
         <img src="https://rococops.com/files/postscript/attach1/1_2012122842944049.jpg" alt="삐삐님 후기 사진" loading="lazy">
         <img src="https://rococops.com/files/postscript/attach2/2_2012122842944049.jpg" alt="삐삐님 후기 사진" loading="lazy">
         <img src="https://rococops.com/files/postscript/attach3/3_2012122842944049.jpg" alt="삐삐님 후기 사진" loading="lazy">
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">쌍커풀 자연유착법에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=쌍커풀 자연유착법후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"김상호원장님, 정말 최고예요!!!!^^***********************","reviewBody":"저 6월 10일날 수술한 김지혜예요~~ㅋㅋ히히히 저는 동네병원이 저를 속여서 안녹는필러가 코에 삐뚤어지게 자리잡혀 있었는데요....ㅠㅠ 원장님께서 제거해주시고, 코도 이쁘게 만들어 주셨어요!!!!!! 제가 가장 이쁘다고 생각하는 코가 이","url":"https://journal.rococops.com/anti-aging/filler-botox/reviews/19/","datePublished":"2009-06-24","inLanguage":"ko-KR","author":{"@type":"Person","name":"김0혜"},"itemReviewed":{"@type":"MedicalProcedure","name":"필러·보톡스","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"동안성형","item":"https://journal.rococops.com/anti-aging/"},{"@type":"ListItem","position":3,"name":"필러·보톡스","item":"https://journal.rococops.com/anti-aging/filler-botox/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/anti-aging/filler-botox/reviews/"},{"@type":"ListItem","position":5,"name":"김상호원장님, 정말 최고예요!!!!^^***********************","item":"https://journal.rococops.com/anti-aging/filler-botox/reviews/19/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"김상호원장님, 정말 최고예요!!!!^^***********************","reviewBody":"저 6월 10일날 수술한 김지혜예요~~ㅋㅋ히히히 저는 동네병원이 저를 속여서 안녹는필러가 코에 삐뚤어지게 자리잡혀 있었는데요....ㅠㅠ 원장님께서 제거해주시고, 코도 이쁘게 만들어 주셨어요!!!!!! 제가 가장 이쁘다고 생각하는 코가 이","url":"https://journal.rococops.com/anti-aging/filler-botox/reviews/19/","datePublished":"2009-06-24","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"김0혜"},"itemReviewed":{"@type":"MedicalProcedure","name":"필러·보톡스","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"동안성형","item":"https://journal.rococops.com/anti-aging/"},{"@type":"ListItem","position":3,"name":"필러·보톡스","item":"https://journal.rococops.com/anti-aging/filler-botox/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/anti-aging/filler-botox/reviews/"},{"@type":"ListItem","position":5,"name":"김상호원장님, 정말 최고예요!!!!^^***********************","item":"https://journal.rococops.com/anti-aging/filler-botox/reviews/19/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>저 6월 10일날 수술한 김지혜예요~~ㅋㅋ히히히</p>
         <p>저는 동네병원이 저를 속여서 안녹는필러가 코에 삐뚤어지게</p>
         <p>자리잡혀 있었는데요....ㅠㅠ 원장님께서 제거해주시고,</p>
@@ -215,6 +229,7 @@
         <p>김상호 원장님도 다음달까지 몸 건강히 안녕히 계시구요,,</p>
         <p>원장님은 정말 최고예용^^** 히히히히히히</p>
         <p>최고최고최고최고최고최고최고최고최고최고최고최고최고최고최고최고최고♥♥♥</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">필러·보톡스에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=필러·보톡스후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

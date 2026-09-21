@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"전지전능하신 김상호 원장님께","reviewBody":"코 재수술후에. 안녕하세요?저 4월23일날 코 재수술한 이쁜이예요. 감히 이쁜이라고 쓸수 있었던건 모두다 전지전능하신 김상호 원장님 덕분이죠>.< 일년전 정말 미계한수준의 성형정보로 인한 수술실패로 자신감도 없어지고.친구들","url":"https://journal.rococops.com/nose/revision/reviews/16/","datePublished":"2009-04-30","inLanguage":"ko-KR","author":{"@type":"Person","name":"이0이"},"itemReviewed":{"@type":"MedicalProcedure","name":"코재수술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"코재수술","item":"https://journal.rococops.com/nose/revision/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/revision/reviews/"},{"@type":"ListItem","position":5,"name":"전지전능하신 김상호 원장님께","item":"https://journal.rococops.com/nose/revision/reviews/16/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"전지전능하신 김상호 원장님께","reviewBody":"코 재수술후에. 안녕하세요?저 4월23일날 코 재수술한 이쁜이예요. 감히 이쁜이라고 쓸수 있었던건 모두다 전지전능하신 김상호 원장님 덕분이죠>.< 일년전 정말 미계한수준의 성형정보로 인한 수술실패로 자신감도 없어지고.친구들","url":"https://journal.rococops.com/nose/revision/reviews/16/","datePublished":"2009-04-30","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"이0이"},"itemReviewed":{"@type":"MedicalProcedure","name":"코재수술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"코재수술","item":"https://journal.rococops.com/nose/revision/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/revision/reviews/"},{"@type":"ListItem","position":5,"name":"전지전능하신 김상호 원장님께","item":"https://journal.rococops.com/nose/revision/reviews/16/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>코 재수술후에.</p>
         <p>안녕하세요?저 4월23일날 코 재수술한 이쁜이예요.</p>
         <p>감히 이쁜이라고 쓸수 있었던건 모두다 전지전능하신 김상호 원장님 덕분이죠&gt;.&lt;</p>
@@ -234,6 +248,7 @@
         <p>김상호원장님과 간호사 언니들 정말 존경스럽구요♡</p>
         <p>번창하시길 바랍니다~일교차가 심하네요.모쪼록 건강에 유의하세요.</p>
         <p>다시만날때까지 안녕히 계세요~^ㅇ^*</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">코재수술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=코재수술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"코수술후기","reviewBody":"안녕하세요^^ 전 코수술을 한지 딱 한달하구 하루 지난 여성입니다 ^^ 원장님께서 저 코를 넘 이뿌게 만들어주신 고마움을 후기로나마...ㅋㅋ 인사차 ㅁ몇글자 남길려구해요. 병원을 찾게된건 아는지인이 잘하는 곳 병원 몇곳을 말해줬는데 상담받기전","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/419/","datePublished":"2014-12-02","inLanguage":"ko-KR","author":{"@type":"Person","name":"천사"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"코수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/419/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"코수술후기","reviewBody":"안녕하세요^^ 전 코수술을 한지 딱 한달하구 하루 지난 여성입니다 ^^ 원장님께서 저 코를 넘 이뿌게 만들어주신 고마움을 후기로나마...ㅋㅋ 인사차 ㅁ몇글자 남길려구해요. 병원을 찾게된건 아는지인이 잘하는 곳 병원 몇곳을 말해줬는데 상담받기전","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/419/","datePublished":"2014-12-02","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"천사"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"코수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/419/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요^^</p>
         <p>전 코수술을 한지 딱 한달하구 하루 지난 여성입니다 ^^</p>
         <p>원장님께서 저 코를 넘 이뿌게 만들어주신 고마움을 후기로나마...ㅋㅋ</p>
@@ -243,6 +257,7 @@
         <p>이번 원장님께서 넘 이뿌게 만들어주셔서...넘 감사한 맘으로 하루하루 거울보는 즐거움에 지내고있어요</p>
         <p>사진으로 전과 후를 보여주고는 싶은데.....개인보호차...전 소중하니깐요~~^^</p>
         <p>그리고 김포공항에서 오시는분들 9호선 급행을 타서 고속터미널에서 3호선을 가라타면 더 시간을 아낄수 있는다 팁 ㅋㅋ</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">늑연골 명품코성형에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=늑연골 명품코성형후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

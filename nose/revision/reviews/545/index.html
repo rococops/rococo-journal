@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"원장님 넘 감사해요 ^^","reviewBody":"작년 9월말에 코재수술하고 일주일전에 코끝에이에스 수술하고 글올려요 ^^ 아 모르고 리얼셀카 거기다올렸는데 잘못올려서 여기다 다시올려용 20살때부터 두세차례 과도한코수술로 부작용나서 코끝에 구멍도생기고 결국 구축도오고 ..ㅠㅠ 나중에는 구멍매꾸는수","url":"https://journal.rococops.com/nose/revision/reviews/545/","datePublished":"2016-07-06","inLanguage":"ko-KR","author":{"@type":"Person","name":"이0히"},"itemReviewed":{"@type":"MedicalProcedure","name":"코재수술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"코재수술","item":"https://journal.rococops.com/nose/revision/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/revision/reviews/"},{"@type":"ListItem","position":5,"name":"원장님 넘 감사해요 ^^","item":"https://journal.rococops.com/nose/revision/reviews/545/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"원장님 넘 감사해요 ^^","reviewBody":"작년 9월말에 코재수술하고 일주일전에 코끝에이에스 수술하고 글올려요 ^^ 아 모르고 리얼셀카 거기다올렸는데 잘못올려서 여기다 다시올려용 20살때부터 두세차례 과도한코수술로 부작용나서 코끝에 구멍도생기고 결국 구축도오고 ..ㅠㅠ 나중에는 구멍매꾸는수","url":"https://journal.rococops.com/nose/revision/reviews/545/","datePublished":"2016-07-06","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"이0히"},"itemReviewed":{"@type":"MedicalProcedure","name":"코재수술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"코재수술","item":"https://journal.rococops.com/nose/revision/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/revision/reviews/"},{"@type":"ListItem","position":5,"name":"원장님 넘 감사해요 ^^","item":"https://journal.rococops.com/nose/revision/reviews/545/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,12 +203,14 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>작년 9월말에 코재수술하고 일주일전에 코끝에이에스 수술하고 글올려요 ^^ 아 모르고 리얼셀카 거기다올렸는데 잘못올려서 여기다 다시올려용</p>
         <p>20살때부터 두세차례 과도한코수술로 부작용나서 코끝에 구멍도생기고 결국 구축도오고 ..ㅠㅠ 나중에는 구멍매꾸는수술로만 이년을 버티다가 원장님을만났어요 ~안그래도작은코 작아질대로작아져서 너무스트레스받아서 대인기피증에 살은살대로찌고 너무힘들었었는데 실리콘이랑 늑연골로 콧대 귀연골로코끝 비공내리기 해주시고 일주일전에는 새롭게다시디자인해주셔서 코끝좀더올려주시고 콧대도 더이뿌게 만들어주셔서 너무너무 감사해요 ~^^ 사람욕심이 ..넘 이뿌게 해주시다보니까 더더 바라게되서 많이 귀찮게 해드린거같아서 죄송해요 ~그거 다맞춰서 이뿌게 해주시고 감사해용 ㅠㅠ</p>
         <p>안전하게 이뿌게해주셔서 다시감사드려요 ~ㅠㅠ 날 많이 더워지는데 더위조심하시궁 광대하러 다시 찾아뵐게요 ^^!</p>
         <img src="https://rococops.com/files/postscript/attach1/1_201607061636028505.png" alt="이0히님 후기 사진" loading="lazy">
         <img src="https://rococops.com/files/postscript/attach2/2_201607061636028505.png" alt="이0히님 후기 사진" loading="lazy">
         <img src="https://rococops.com/files/postscript/attach3/3_201607061636028505.png" alt="이0히님 후기 사진" loading="lazy">
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">코재수술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=코재수술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

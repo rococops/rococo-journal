@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"후회 없는 선택이었어요 (코재수술+눈성형)","reviewBody":"처음 타병원에서 코수술 (복코)을 했던게 2006년도 였고, 그럭 저럭 괜찮다고 살아 오다가 코 끝이 더 이뻐지고 싶은 미련을 버리지 못해 올해 재수술을 결심하게 되었어요. 예전부터 코재성형은 오앤영에서 해야지라고 했었는데,우연히 인터넷 검색을","url":"https://journal.rococops.com/nose/revision/reviews/77/","datePublished":"2011-06-05","inLanguage":"ko-KR","author":{"@type":"Person","name":"유0연"},"itemReviewed":{"@type":"MedicalProcedure","name":"코재수술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"코재수술","item":"https://journal.rococops.com/nose/revision/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/revision/reviews/"},{"@type":"ListItem","position":5,"name":"후회 없는 선택이었어요 (코재수술+눈성형)","item":"https://journal.rococops.com/nose/revision/reviews/77/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"후회 없는 선택이었어요 (코재수술+눈성형)","reviewBody":"처음 타병원에서 코수술 (복코)을 했던게 2006년도 였고, 그럭 저럭 괜찮다고 살아 오다가 코 끝이 더 이뻐지고 싶은 미련을 버리지 못해 올해 재수술을 결심하게 되었어요. 예전부터 코재성형은 오앤영에서 해야지라고 했었는데,우연히 인터넷 검색을","url":"https://journal.rococops.com/nose/revision/reviews/77/","datePublished":"2011-06-05","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"유0연"},"itemReviewed":{"@type":"MedicalProcedure","name":"코재수술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"코재수술","item":"https://journal.rococops.com/nose/revision/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/revision/reviews/"},{"@type":"ListItem","position":5,"name":"후회 없는 선택이었어요 (코재수술+눈성형)","item":"https://journal.rococops.com/nose/revision/reviews/77/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>처음 타병원에서 코수술 (복코)을 했던게 2006년도 였고, 그럭 저럭 괜찮다고 살아 오다가 코 끝이 더 이뻐지고 싶은 미련을 버리지 못해 올해 재수술을 결심하게 되었어요.</p>
         <p>예전부터 코재성형은 오앤영에서 해야지라고 했었는데,우연히 인터넷 검색을 하던중 로코코를 알게 되었고, 원장님 글들과 수술 전후 사진들에 신뢰가 가서 상담 예약을 잡고 한국에 오게 되었습니다.</p>
         <p>웃으면서 맞아주신 선생님 첫인상이 너무 친근해서 상담내내 이런 저런 궁금한점들 물어보기 맘이 편했는데요. 제 코수술에 대한 계획 또한 제가 원하던 방향과 잘 맞아 떨어졌고, 무엇보다도, 김상호 원장님의 자신감과 솔직한 수술 결과 예측에 믿음이 갔습니다. 다른 코전문병원 몇군데에도 상담예약을 잡아 두었었지만, 가보지도 않고 로코코에서 하기로 제 마음은 결정되었죠.</p>
@@ -198,6 +212,7 @@
         <p>성형외과 의사이기전에 마음이 따뜻한 분이라는 인상을 원장님께 항상 받았습니다. 제가 걱정이 많은 성격이라 수술후에 이것 저것 질문도 많고 걱정도 하고 했는데, 수술후 치료 받으로 갈때마다 너무나 자상하게 대해주시고, 궁금한점 친절하게 대답해 주셔서 감사드려요!</p>
         <p>다시 돌아가서 선택할 기회가 주어진다고 하더라도 김상호 원장님께 갈거 같아요.</p>
         <p>진심으로 고맙습니다. 출국전에 한번 뵈러 갈께요! ^^</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">코재수술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=코재수술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

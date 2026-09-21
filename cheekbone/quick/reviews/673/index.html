@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"퀵광대+심부볼 지방이식 3년 지난 후기","reviewBody":"제가 2017년 2월에 수술을 받았으니, 3년이 좀 더 지났네요. 사실 오래 전에 받은 수술이라 상세한 수술 및 회복과정에 대한 후기는 들려드릴수가 없구요.. 한가지 분영한건 자연스러운 광대수술은 이곳에서 받아야한다는 겁니다! 저는 광대가 튀어나","url":"https://journal.rococops.com/cheekbone/quick/reviews/673/","datePublished":"2020-03-28","inLanguage":"ko-KR","author":{"@type":"Person","name":"코코"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"퀵광대+심부볼 지방이식 3년 지난 후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/673/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"퀵광대+심부볼 지방이식 3년 지난 후기","reviewBody":"제가 2017년 2월에 수술을 받았으니, 3년이 좀 더 지났네요. 사실 오래 전에 받은 수술이라 상세한 수술 및 회복과정에 대한 후기는 들려드릴수가 없구요.. 한가지 분영한건 자연스러운 광대수술은 이곳에서 받아야한다는 겁니다! 저는 광대가 튀어나","url":"https://journal.rococops.com/cheekbone/quick/reviews/673/","datePublished":"2020-03-28","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"코코"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"퀵광대+심부볼 지방이식 3년 지난 후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/673/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>제가 2017년 2월에 수술을 받았으니, 3년이 좀 더 지났네요. 사실 오래 전에 받은 수술이라 상세한 수술 및 회복과정에 대한 후기는 들려드릴수가 없구요.. 한가지 분영한건 자연스러운 광대수술은 이곳에서 받아야한다는 겁니다!</p>
         <p>저는 광대가 튀어나온게 싫었지만, 또 광대가 너무 없으면 얼굴에 입체감이 없어 부자연스러울 것 같다고 생각했습니다. 제가 외모 컴플렉스 때문에 쌍커플,코,광대수술을 했는데요 아이러니하게도 저는 자연스러움을 추구합니다..ㅎ 그래서 제 지인들은 너는 수술한 곳이 많은데도 자연미인 같다는 얘기를 많이합니다ㅋ</p>
         <p>제가 지금껏 수술한 곳들 중에서 로코코에서 받은 광대수술에 대한 만족도가 가장 높고, 100점 만점에 99점 드릴 수 있기에 이렇게 태어나 처음으로 수술후기를 쓰게 되었네요.</p>
@@ -201,6 +215,7 @@
         <img src="https://rococops.com/files/postscript/attach1/1_20200328821716126.jpg" alt="코코님 후기 사진" loading="lazy">
         <img src="https://rococops.com/files/postscript/attach2/2_20200328821716126.jpg" alt="코코님 후기 사진" loading="lazy">
         <img src="https://rococops.com/files/postscript/attach3/3_20200328821716126.jpg" alt="코코님 후기 사진" loading="lazy">
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"변형 15분 광대 고민하시는 분들을 위해서[수술당일]","reviewBody":"29일 오후에 예약해서 30일 오후 1시 예약 했어요. 입안 절개로 하는 무서운 광대 수술만 알고 있다가 말만 들어도 마음이 가벼워 지는 15분 광대 축소술.. 퀵 광대 등등.. 제 결정은 로코코 였습니다. 생생 리얼 스토리가 결정하는데 큰","url":"https://journal.rococops.com/cheekbone/quick/reviews/181/","datePublished":"2012-05-31","inLanguage":"ko-KR","author":{"@type":"Person","name":"원래작은광대"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"변형 15분 광대 고민하시는 분들을 위해서[수술당일]","item":"https://journal.rococops.com/cheekbone/quick/reviews/181/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"변형 15분 광대 고민하시는 분들을 위해서[수술당일]","reviewBody":"29일 오후에 예약해서 30일 오후 1시 예약 했어요. 입안 절개로 하는 무서운 광대 수술만 알고 있다가 말만 들어도 마음이 가벼워 지는 15분 광대 축소술.. 퀵 광대 등등.. 제 결정은 로코코 였습니다. 생생 리얼 스토리가 결정하는데 큰","url":"https://journal.rococops.com/cheekbone/quick/reviews/181/","datePublished":"2012-05-31","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"원래작은광대"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"변형 15분 광대 고민하시는 분들을 위해서[수술당일]","item":"https://journal.rococops.com/cheekbone/quick/reviews/181/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>29일 오후에 예약해서 30일 오후 1시 예약 했어요.</p>
         <p>입안 절개로 하는 무서운 광대 수술만 알고 있다가 말만 들어도 마음이 가벼워 지는 15분 광대 축소술.. 퀵 광대 등등.. 제 결정은 로코코 였습니다. 생생 리얼 스토리가 결정하는데 큰 역할을 했어요.</p>
         <p>처음 전화로 예약할 때에는 무뚝뚝한 상담원님이 예약은 해 드리지만 수술 날짜는 잡기 힘들다며 다음주 월요일 까지는 예약이 다 잡혀 있으니 상담이라도 잡아 주시겠다고 하셨었어요.</p>
@@ -236,6 +250,7 @@
         <p>상담 예약만 하고 병원 와서는 당장 수술 하겠다고 하는 저에게 꼼꼼하게 하나하나 설명해 주시고 또 마취 되서 제가 하는 잠꼬대 같은 말에 일일이 대답도 해 주시고.. 편안한 마음으로 수술 받게 해 주셔서 진심으로 고맙습니다. 3일 후 뵙겠습니다.</p>
         <p>원장님께서 퇴원하는 순간 까지도 괜찮냐며 아픈곳 없냐며 확인해 주시고.. 친절한 매니저님께서 대리기사님도 불러주신다고 하시고 주차권 등등 꼼꼼히 잘 챙겨 주시고 .. 수술 받은 분들이 자발적인 수술 후기 올리는 이유를 알겠더라구요 ^^</p>
         <p>며칠 후 저도 다른 분들 처럼 핀 빼러;;; 가면서 또 궁금해 하실만한 것들 올려 볼께요 ~ 핀.. 빼는거... 아플까요? ㅠㅠㅠㅠ</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

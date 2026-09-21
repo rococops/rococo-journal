@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"심부볼+앞볼 지방이식/눈밑필러 후 솔직한 후기","reviewBody":"안녕하세요. 저는 로코코에서는 이번이 두번째 수술인 20대 후반 남성입니다. 제가 쓴 무턱수술 후기도 여기 있으니 궁금하신 분들은 읽어보셔도 좋을 것 같아요. 결과가 좋으니 또 수술을 받았겠죠? 사실 원장님께 감사한 마음에 좀 더 빨리 후기를 쓰고","url":"https://journal.rococops.com/cheekbone/fat-graft/reviews/461/","datePublished":"2015-08-01","inLanguage":"ko-KR","author":{"@type":"Person","name":"준"},"itemReviewed":{"@type":"MedicalProcedure","name":"심부볼·관자 지방이식","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"심부볼·관자 지방이식","item":"https://journal.rococops.com/cheekbone/fat-graft/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/fat-graft/reviews/"},{"@type":"ListItem","position":5,"name":"심부볼+앞볼 지방이식/눈밑필러 후 솔직한 후기","item":"https://journal.rococops.com/cheekbone/fat-graft/reviews/461/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"심부볼+앞볼 지방이식/눈밑필러 후 솔직한 후기","reviewBody":"안녕하세요. 저는 로코코에서는 이번이 두번째 수술인 20대 후반 남성입니다. 제가 쓴 무턱수술 후기도 여기 있으니 궁금하신 분들은 읽어보셔도 좋을 것 같아요. 결과가 좋으니 또 수술을 받았겠죠? 사실 원장님께 감사한 마음에 좀 더 빨리 후기를 쓰고","url":"https://journal.rococops.com/cheekbone/fat-graft/reviews/461/","datePublished":"2015-08-01","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"준"},"itemReviewed":{"@type":"MedicalProcedure","name":"심부볼·관자 지방이식","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"심부볼·관자 지방이식","item":"https://journal.rococops.com/cheekbone/fat-graft/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/fat-graft/reviews/"},{"@type":"ListItem","position":5,"name":"심부볼+앞볼 지방이식/눈밑필러 후 솔직한 후기","item":"https://journal.rococops.com/cheekbone/fat-graft/reviews/461/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요. 저는 로코코에서는 이번이 두번째 수술인 20대 후반 남성입니다. 제가 쓴 무턱수술 후기도 여기 있으니 궁금하신 분들은 읽어보셔도 좋을 것 같아요. 결과가 좋으니 또 수술을 받았겠죠?</p>
         <p>사실 원장님께 감사한 마음에 좀 더 빨리 후기를 쓰고 싶었지만 무조건 수술은 1개월은 되고 나서 후기를 써야 후기다운 후기가 나온다고 생각해서 참고 있다가 딱 1개월째가 되는 오늘 후기를 쓰네요.</p>
         <p>저번글에도 나와 있지만 저의 경우 얼굴의 비대칭이 좀 심한편이라 사실 의사분들 입장에서도 좀 난감해하더군요. 아무래도 비대칭은 일반적인 수술하고는 수술법이 다를테니까요.</p>
@@ -216,6 +230,7 @@
         <p>원장님께선 말투도 무뚝뚝하시고 카리스마 있으셔서 처음엔 환자들도 무섭다는 글을 많이 읽어봤는데, 수술후에도 이렇게 신경써주시고 성의있는 조치를 취해주는 병원은 절대 많이 없다고 저는 자신합니다. 인터넷에 널린 성형 피해글만 봐도 수술전후 의사의 태도가 돌변한데에 대한 배신감 가득한 글들이 얼마나 많은데요..</p>
         <p>제가 애프터서비스로 받은 시술도 붓기가 꽤 발생하는지라 받은후 2주쯤가량에 또 걱정되는 마음에 수술후 상담을 드렸더니 제 고민글보다도 긴 분량으로 원장님께서 답장을 주셨어요. 또 맘에 안드는 부분이 있으면 언제든 찾아오면 그부분에 대해서는 끝까지 추가적인 시술을 해주신다고 하셨구요. 이런 부분만 봐도 제가 병원 선택을 잘했구나 하는 마음을 갖게 되네요.</p>
         <p>어쨌든 제가 이런글을 써서 병원에 저처럼 떼쓰는(?)환자가 늘어날까봐 좀 걱정되기도 하네요. 전혀 맘고생이 없었다고 하면 거짓말이겠지만 결과적으로 눈밑필러도 지방이식도 매우 만족스럽게 받았습니다. 로코코에서 수술 받으시는 분들은 원장님의 디자인 실력과 뭣보다 이런 의사로서의 책임감 부분에서 좀 더 마음놓고 수술 받을 수 있으실 것 같아요. 사실 수술전 친절한 병원은 널리고 널렸지만 수술후까지 친절하고 책임을 다하는 병원은 찾기 힘들것 같거든요. 병원 홈페이지 로코코의 약속에 '끝까지 책임을 다하는 의사'라는 부분이 사실이란 걸 알았습니다. 왠지 다음에 또 찾아뵐 것 같아요.</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">심부볼·관자 지방이식에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=심부볼·관자 지방이식후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

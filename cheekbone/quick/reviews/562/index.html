@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"2년 전에 받은 변형퀵광대","reviewBody":"원장님 안녕하세요. 딱 2년전 추석 연휴 즈음 수술 받고 9월이 되니 다시 생각 나서 글 올립니다 ㅎㅎ 처음에 상담받을 당시, 세 달뒤에 결혼식이라 붓기때문에 고민했는데 많이 안붓게 잘 해주시겠다고 하시더니 진짜 약속 지키셨어요 ㅎ 덕분에 결혼식때 얼","url":"https://journal.rococops.com/cheekbone/quick/reviews/562/","datePublished":"2016-09-23","inLanguage":"ko-KR","author":{"@type":"Person","name":"Vischic"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"2년 전에 받은 변형퀵광대","item":"https://journal.rococops.com/cheekbone/quick/reviews/562/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"2년 전에 받은 변형퀵광대","reviewBody":"원장님 안녕하세요. 딱 2년전 추석 연휴 즈음 수술 받고 9월이 되니 다시 생각 나서 글 올립니다 ㅎㅎ 처음에 상담받을 당시, 세 달뒤에 결혼식이라 붓기때문에 고민했는데 많이 안붓게 잘 해주시겠다고 하시더니 진짜 약속 지키셨어요 ㅎ 덕분에 결혼식때 얼","url":"https://journal.rococops.com/cheekbone/quick/reviews/562/","datePublished":"2016-09-23","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"Vischic"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"2년 전에 받은 변형퀵광대","item":"https://journal.rococops.com/cheekbone/quick/reviews/562/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,8 +203,10 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>원장님 안녕하세요. 딱 2년전 추석 연휴 즈음 수술 받고 9월이 되니 다시 생각 나서 글 올립니다 ㅎㅎ 처음에 상담받을 당시, 세 달뒤에 결혼식이라 붓기때문에 고민했는데 많이 안붓게 잘 해주시겠다고 하시더니 진짜 약속 지키셨어요 ㅎ 덕분에 결혼식때 얼굴도 아주 자연스러웠고 지금까지 너무 만족스럽게 잘 살고 있습니다. ^^ 원장님의 최대장점은 실력도 실력이지만 성형외과의사로서 꼭 필요한 미적감각을 타고나신거라고 생각됩니다. 저도 미술전공이다보니 미세한 디테일 하나에 자연스러움/부자연스러움의 갭이 엄청나다는걸 몸으로 느끼고 있어서 수술전에 많이 고민했었는데. 원장님의 포트폴리오나 상담할 때 집도하실 때 그 후의 조언들을 들어보면 타고나신게 느껴져요. 타고난 미적감각은 돈 주고도 살수 없는 거잖아요 ^^ 천직이신듯 ㅎㅎ 오래오래 현업에 계셔주세요. 아 제가 너무 만족해서 소개시켜준 언니도 매우 만족스럽게 수술받고 아직도 가끔식 언니랑 원장님 얘기 합니다. 저희가 부르는 원장님 호칭은 '단호박' 이에요 ㅋㅋㅋ 상담할때도 그 후에도 환자의 과한욕심은 칼같이 잘라버리시는게 너무 웃겨서 ㅎㅎㅎ. &quot;아, 그건 안해도 되요.&quot; &quot;해도 효과 없어요.&quot; &quot;안돼요 지방 더 넣으면 이상해요&quot; &quot;절대 염증 안생겨요&quot; ㅋㅋㅋㅋ 그런 단호박 같은 매력이 있어요.</p>
         <p>원장님, 건강유지 하시면서 더 많은 분들께 행복을 주시길 바랄께요. 좋은하루 보내세요 단호박원장님 ^^ ㅎㅎ</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"쌍커풀..솔직하신 원장님 싸랑해여!!","reviewBody":"안녕하세요 원장님ㅠㅠ 먼저 감사하다는 말씀 드릴께요.. 저는 원래 광대때문에 엄마랑 상담을 갔었는데 실망하지말라면서 별로 추천하고싶지 않다는 원장님의 솔직한 답변에 무한신뢰가 갔습니다 그래서 저는 코는요? 했더니 원장님께서 제 딸래미라면 수술","url":"https://journal.rococops.com/eye/double/reviews/142/","datePublished":"2011-12-14","inLanguage":"ko-KR","author":{"@type":"Person","name":"원장님감사합니다"},"itemReviewed":{"@type":"MedicalProcedure","name":"쌍커풀 자연유착법","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"눈성형","item":"https://journal.rococops.com/eye/"},{"@type":"ListItem","position":3,"name":"쌍커풀 자연유착법","item":"https://journal.rococops.com/eye/double/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/eye/double/reviews/"},{"@type":"ListItem","position":5,"name":"쌍커풀..솔직하신 원장님 싸랑해여!!","item":"https://journal.rococops.com/eye/double/reviews/142/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"쌍커풀..솔직하신 원장님 싸랑해여!!","reviewBody":"안녕하세요 원장님ㅠㅠ 먼저 감사하다는 말씀 드릴께요.. 저는 원래 광대때문에 엄마랑 상담을 갔었는데 실망하지말라면서 별로 추천하고싶지 않다는 원장님의 솔직한 답변에 무한신뢰가 갔습니다 그래서 저는 코는요? 했더니 원장님께서 제 딸래미라면 수술","url":"https://journal.rococops.com/eye/double/reviews/142/","datePublished":"2011-12-14","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"원장님감사합니다"},"itemReviewed":{"@type":"MedicalProcedure","name":"쌍커풀 자연유착법","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"눈성형","item":"https://journal.rococops.com/eye/"},{"@type":"ListItem","position":3,"name":"쌍커풀 자연유착법","item":"https://journal.rococops.com/eye/double/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/eye/double/reviews/"},{"@type":"ListItem","position":5,"name":"쌍커풀..솔직하신 원장님 싸랑해여!!","item":"https://journal.rococops.com/eye/double/reviews/142/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요 원장님ㅠㅠ 먼저 감사하다는 말씀 드릴께요..</p>
         <p>저는 원래 광대때문에 엄마랑 상담을 갔었는데 실망하지말라면서</p>
         <p>별로 추천하고싶지 않다는 원장님의 솔직한 답변에 무한신뢰가 갔습니다</p>
@@ -211,6 +225,7 @@
         <p>눈 하나 했을뿐인데 광대가 안보이더라구요.....-.-</p>
         <p>제가 이쁘다소리는 한번도 못들어봤는데 요새 계속 듣구삽니다..</p>
         <p>원장님 사랑해요~~~~~~~~~~~~~~~고맙습니다!!!!!!!!!!!</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">쌍커풀 자연유착법에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=쌍커풀 자연유착법후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

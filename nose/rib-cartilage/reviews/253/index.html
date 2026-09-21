@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"수술당일후 일주일 회복기간 생생후기.","reviewBody":"드디어 안올것만 같았던 일주일..하고도(하나..둘..)11차입니다! 일주일만에 적으려고 했었으나.. 워낙바쁘게 사는지라 조금 늦었습니다만. 거두절미하고 보고 느낀대로 글로 남겨드립니다. 수술직후 당일 -> 리프팅 시술을 받은 관자놀이 쪽","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/253/","datePublished":"2013-02-01","inLanguage":"ko-KR","author":{"@type":"Person","name":"홍"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"수술당일후 일주일 회복기간 생생후기.","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/253/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"수술당일후 일주일 회복기간 생생후기.","reviewBody":"드디어 안올것만 같았던 일주일..하고도(하나..둘..)11차입니다! 일주일만에 적으려고 했었으나.. 워낙바쁘게 사는지라 조금 늦었습니다만. 거두절미하고 보고 느낀대로 글로 남겨드립니다. 수술직후 당일 -> 리프팅 시술을 받은 관자놀이 쪽","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/253/","datePublished":"2013-02-01","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"홍"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"수술당일후 일주일 회복기간 생생후기.","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/253/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>드디어 안올것만 같았던 일주일..하고도(하나..둘..)11차입니다!</p>
         <p>일주일만에 적으려고 했었으나.. 워낙바쁘게 사는지라 조금 늦었습니다만.</p>
         <p>거두절미하고 보고 느낀대로 글로 남겨드립니다.</p>
@@ -206,6 +220,7 @@
         <p>하지만 저는 평소 붓기도 잘붓지만 빠질때는 또 쭉빠지는 체질인지라. 8일차부터는 눈에 뛸정도로 붓기가 빠지기 시작하였고 11일차인 오늘은 저를 모르는 이가 보았을때 붓기인지 볼살인지 자세히 보지않으면 구별이 가지 않을정도로 호전되었으며. 수술당일을 제외 일주일 되던날 8일차에 주변 정형외과를 방문하여. 머리쪽 스템플러를 제거하였습니다. 제거 2~3시간이후 관자놀이 주변의 욱신거림이 굉장히 호전되어 이전보다 훨신 욱신거림이 줄었습니다. (욱신거림이 전혀 없는건 아닙니다. 가끔 땡기는 느낌을 받을때도 있구요.)</p>
         <p>제가 글로써 수술이후 가장궁금해 하실 부분들을 그리고 수술이전에 제가 가장 궁금했던 부분들을 토대로 글로 적어 보았습니다. 이후 공감하시는 분들도 있으실테고 다르게 느끼시는 분들도 있을꺼라고 생각되지만 최대한 제가 느끼고 본 그대로를 표현하여보았습니다. 조금이나마 수술여부를 결정하시는대 도움이 되고자. 동변상련 이랄까요..ㅋㅋㅋ 그럼 다들 좋은하루 되시길..</p>
         <p>아참. 가장 중요한걸 끝에서야 적내요. 수술 11일차인 오늘 거울을 보면서 저는 생각합니다. 고생끝에 낙이 온다고..ㅋㅋㅋㅋ</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">늑연골 명품코성형에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=늑연골 명품코성형후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

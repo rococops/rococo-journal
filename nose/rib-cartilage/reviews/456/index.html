@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"로코코에서 수술 결정한 이유들","reviewBody":"저는 해외 거주자라 직접 병원 여러곳 이곳저곳 둘러보며 직접 얼굴 내밀고 상담 받지 못하고 인터넷으로만 여러 병원 둘러봤어요. 인터넷만으로 봐도 로코코가 좋아서 저는 한국 도착해서 다른 병원은 아예 상담도 안받고 바로 로코코로 와서 상담 및 수술 바로","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/456/","datePublished":"2015-07-07","inLanguage":"ko-KR","author":{"@type":"Person","name":"해외거주자"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"로코코에서 수술 결정한 이유들","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/456/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"로코코에서 수술 결정한 이유들","reviewBody":"저는 해외 거주자라 직접 병원 여러곳 이곳저곳 둘러보며 직접 얼굴 내밀고 상담 받지 못하고 인터넷으로만 여러 병원 둘러봤어요. 인터넷만으로 봐도 로코코가 좋아서 저는 한국 도착해서 다른 병원은 아예 상담도 안받고 바로 로코코로 와서 상담 및 수술 바로","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/456/","datePublished":"2015-07-07","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"해외거주자"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"로코코에서 수술 결정한 이유들","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/456/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>저는 해외 거주자라 직접 병원 여러곳 이곳저곳 둘러보며 직접 얼굴 내밀고 상담 받지 못하고 인터넷으로만 여러 병원 둘러봤어요. 인터넷만으로 봐도 로코코가 좋아서 저는 한국 도착해서 다른 병원은 아예 상담도 안받고 바로 로코코로 와서 상담 및 수술 바로 진행했어요.</p>
         <p>제가 로코코로 결정한 이유는</p>
         <p>1. 홈페이지에 의사 선생님이 직접 작성하신 글이 여럿 올라와있어요. 이렇게 후기 올리면 답 올려주시는 것 부터 이 수술은 어떤거다 등등 친근하게 직접 글을 써주신것에 감동했어요. 다른 홈피는 그냥 광고를 보는 것 같다면 로코코는 직접 의사쌤 얘기를 듣는 느낌이랄까요.</p>
@@ -198,6 +212,7 @@
         <p>4. 수술 시간이 짧아 붓기와 멍이 적고 회복기간이 다른 병원보다 짧더라구요. 후기를 읽어보면 왜 다들 안아프다 하시는지.. 뼈를 움직이는 큰 수술인데 안 아플수가 있나 고개 갸우뚱 하면서도 로코코가 끌리는 건 어쩔수가 없더라구요. 수술도 전신 마취가 아닌 수면 마취라는 것!</p>
         <p>5. 결과가 어떨것이다 솔직하게 얘기해주신다는 점. 한명이라도 수술 더 하기 위해 무조건 효과 있어요! 과대포장 하지 않고 상담 후 그럼 수술 안할게요 얘기 들을 지언정 솔직하게 결과를 얘기해주시는 점이 좋았어요! 저는 B랑 C 중간타입이라고 별로 효과 없을거라 하셨는데 그래도 했어요ㅎㅎ 워낙 심한 비대칭이라 광대라도 좀 비슷하게 들어가면 나중에 지방이식 등으로 비대칭 조금이나마 줄일 수 있지 않을까 해서요.</p>
         <p>어제 변형광대 + 아큐스 수술 잘 받았구요, 수술 후기는 나중에 경과 보면서 다시 올릴게요.</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">늑연골 명품코성형에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=늑연골 명품코성형후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

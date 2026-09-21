@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"15분 옆광대 아무도 모르게 했지~~ㅎㅎㅎ","reviewBody":"어릴적엔 몰랐는데 30대 중반이 되니 옆광대가 있는걸 알게됐다. 참~ 힘들다 옆광대. 몸매를 생각하자니 얼굴이 문제고 얼굴을 생각하자니 몸매가 망가지고. 밤에 어지간 하면 물이라고 마시고 잤다. 그래야 광대가 조금 덜 하니까ㅠ.ㅠ 그러다가 인터넷","url":"https://journal.rococops.com/cheekbone/quick/reviews/112/","datePublished":"2011-08-27","inLanguage":"ko-KR","author":{"@type":"Person","name":"민0맘"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"15분 옆광대 아무도 모르게 했지~~ㅎㅎㅎ","item":"https://journal.rococops.com/cheekbone/quick/reviews/112/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"15분 옆광대 아무도 모르게 했지~~ㅎㅎㅎ","reviewBody":"어릴적엔 몰랐는데 30대 중반이 되니 옆광대가 있는걸 알게됐다. 참~ 힘들다 옆광대. 몸매를 생각하자니 얼굴이 문제고 얼굴을 생각하자니 몸매가 망가지고. 밤에 어지간 하면 물이라고 마시고 잤다. 그래야 광대가 조금 덜 하니까ㅠ.ㅠ 그러다가 인터넷","url":"https://journal.rococops.com/cheekbone/quick/reviews/112/","datePublished":"2011-08-27","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"민0맘"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"15분 옆광대 아무도 모르게 했지~~ㅎㅎㅎ","item":"https://journal.rococops.com/cheekbone/quick/reviews/112/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,12 +203,14 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>어릴적엔 몰랐는데 30대 중반이 되니 옆광대가 있는걸 알게됐다.</p>
         <p>참~ 힘들다 옆광대. 몸매를 생각하자니 얼굴이 문제고 얼굴을 생각하자니 몸매가 망가지고. 밤에 어지간 하면 물이라고 마시고 잤다.</p>
         <p>그래야 광대가 조금 덜 하니까ㅠ.ㅠ</p>
         <p>그러다가 인터넷에서 로코코 15분 옆광대를 보게 됐다.정말 마법같았다. 2~3일 고민하다 수술예약을 했다. 수술한날 난 날아가는 줄 알았다. 너무좋았다. 이렇게 간단하고 붓지도 않고 멍도 안들다니... 집에 왔는데 아무도 몰라본다. 속으로 웃었다. 다음날엔 전에 회사 동생을 봤는데 역시나 몰라 본다.ㅎㅎㅎ 정말 최고였다.</p>
         <p>지금 1달 반이 지났다. 너무 예쁘고 맘에 든다. 선생님이 천사같아 보인다. 며칠전에 크게 맘먹고 무턱 수술도 했다. 내가 턱이좀 빈약해 돌출이 좀 있었다. 어찌나 손이 빠르던지..순식간에 끝났다. 수술시간이 빨라서 붓기도 멍도 별로 안생기는거 같다. 사람들이 왜 신의손이라 감동하는지 알겠다.</p>
         <p>난 지금 너무 행복하다. 그리고 로코코성형외과 분들께 너무너무 감사하다. 감사합니다.로코코~~~ㅎㅎㅎ</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

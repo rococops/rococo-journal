@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"코수술6개월차예요","reviewBody":"메부리.비중격.실리콘1미리했어요 코는 필러만 맞다가 아바타코처럼 퍼진거예요 코에 실도넣어보고 다해봤지만 길어보이는 코는 여전하더라구요 주변에서는 코수술하면 성괴 될 얼굴이라며 반대를많이했는데 고민끝에 친구 추천으로 로코코 홈페이지 들어왔는데 원장님 말","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/679/","datePublished":"2020-07-02","inLanguage":"ko-KR","author":{"@type":"Person","name":"박0림"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"코수술6개월차예요","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/679/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"코수술6개월차예요","reviewBody":"메부리.비중격.실리콘1미리했어요 코는 필러만 맞다가 아바타코처럼 퍼진거예요 코에 실도넣어보고 다해봤지만 길어보이는 코는 여전하더라구요 주변에서는 코수술하면 성괴 될 얼굴이라며 반대를많이했는데 고민끝에 친구 추천으로 로코코 홈페이지 들어왔는데 원장님 말","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/679/","datePublished":"2020-07-02","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"박0림"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"코수술6개월차예요","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/679/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,11 +203,13 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>메부리.비중격.실리콘1미리했어요 코는 필러만 맞다가 아바타코처럼 퍼진거예요 코에 실도넣어보고 다해봤지만 길어보이는 코는 여전하더라구요 주변에서는 코수술하면 성괴 될 얼굴이라며 반대를많이했는데 고민끝에 친구 추천으로 로코코 홈페이지 들어왔는데 원장님 말씀중에 환자분들 수술당일 집도의사 컨디션 걱정을 많이하시는데 저는 술담배를 안한다며 환자입장에서 먼저생각해주시고 작성한 글을보고 왠지 마음이 여기다 싶더라구요 실은 꼭 수술받고싶었던 원장님이있어서 그 병원에 예약금을 걸어둔상태였는데 로코코에서 원장님 상담을받고 또한번 감동받았어요 이렇게나 상담을 꼼꼼히 차분히 오래해주신 병원도 처음이였어요 !!!! 코수술하기에 앞서 제일 걱정했던 부분은 콧구멍이랑 분필코였는데요 콧구멍을봐도 코수술 티 전혀안나게 콧구멍이 이쁘구요 코밑에 실밥 제거하고 흉터가 엄정빨리없어졌어요 실밥이있었나싶을정도로 저는 회복이빨랐어요 멍도 아주적었구요 다들 저를보면 너 코했지 ! 이게아니라 뭐야 못본사이 왜케이뻐졌어 이러더라구요 수술한걸 아는친구들은 제가 수술1달째 붓기있던 코가 제일맘에든다며 욕심 쪼꼼더부릴걸그랬나 했더니 개구리 올챙이적 모르냐며ㅎㅎ제 남동생도 제 코 보더니 로코코에서하겠다며 수술날짜잡았어요 다음주로요^^!</p>
         <p>저 코수술하는거 엄마께서 제일반대하셨었는데 이젠 저 볼때마다 로코코에서 수술하고싶다고하시네요ㅎㅎ</p>
         <img src="https://rococops.com/files/postscript/attach1/1_20200702661477529.jpg" alt="박0림님 후기 사진" loading="lazy">
         <img src="https://rococops.com/files/postscript/attach2/2_20200702661477529.jpg" alt="박0림님 후기 사진" loading="lazy">
         <img src="https://rococops.com/files/postscript/attach3/3_20200702661477529.jpg" alt="박0림님 후기 사진" loading="lazy">
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">늑연골 명품코성형에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=늑연골 명품코성형후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

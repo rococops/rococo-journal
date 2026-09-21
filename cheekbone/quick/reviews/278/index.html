@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"변형광대 4일차  + 무턱보형물","reviewBody":"저는 3월 18일 월요일에 변형광대 + 무턱보형물 수술한 여성입니다 작년까지 광대수술은 하려고 마음은 먹었지만... 메스컴에서 부작용이다 뭐다 해서 무서워서 수술생각은 집어치우고 살았죠 .... 근데 ... 제 광대는 안되겠더라구요~~~~ 2월","url":"https://journal.rococops.com/cheekbone/quick/reviews/278/","datePublished":"2013-03-21","inLanguage":"ko-KR","author":{"@type":"Person","name":"정승*"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"변형광대 4일차  + 무턱보형물","item":"https://journal.rococops.com/cheekbone/quick/reviews/278/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"변형광대 4일차  + 무턱보형물","reviewBody":"저는 3월 18일 월요일에 변형광대 + 무턱보형물 수술한 여성입니다 작년까지 광대수술은 하려고 마음은 먹었지만... 메스컴에서 부작용이다 뭐다 해서 무서워서 수술생각은 집어치우고 살았죠 .... 근데 ... 제 광대는 안되겠더라구요~~~~ 2월","url":"https://journal.rococops.com/cheekbone/quick/reviews/278/","datePublished":"2013-03-21","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"정승*"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"변형광대 4일차  + 무턱보형물","item":"https://journal.rococops.com/cheekbone/quick/reviews/278/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,12 +203,14 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>저는 3월 18일 월요일에 변형광대 + 무턱보형물 수술한 여성입니다</p>
         <p>작년까지 광대수술은 하려고 마음은 먹었지만... 메스컴에서 부작용이다</p>
         <p>뭐다 해서 무서워서 수술생각은 집어치우고 살았죠 .... 근데 ...</p>
         <p>제 광대는 안되겠더라구요~~~~ 2월에 일단 원장선생님 한태 상담받았는데 ... 얼굴도 워낙 비대칭인데다가... 수술을해도 별효과가 없을거라구하시고...살이두꺼워서 붓기도 오래갈꺼라는 마른하늘에 날벼락같은 말씀을하셔서.... 포기하려던찬라 .... 될대로 되보자 ... 그래도 수술안한거보단 조금은 들어가겠지 ... 내 이번만은 이 광대과 이별 하겠다는 마음을 굳게 먹어 3월 18일에 예약을 잡았죠 ...수술당일 솔직히 겁도나고.... 메스컴에서본 부작용도 생각나구요 ~ ...그냥 다시 집으로 가버릴까하나 ... 수술대에 올랐습니다 ....왜이렇게 긴장이 되던지 ...</p>
         <p>처음에 마취했을땐.... 음악선 오선지에서 내가 음표가 되어 춤을 추는 듯한 기분을 들더니 .... 갑자기 선생님 얘기가 들려오고 ~ 머리 빗는 느낌이 나더라구요 ~ 그리고 다시한번 하나 둘 셋 넷 다섯 여섯 까지 센것같아요 ~ 그리고 기억이 뚝 ~ 갑자기 원장샘 목소리 들리고 .... 눈이 너무 부셔서.... &quot;눈이너무부셔요&quot; &quot;눈이너무부셔요&quot; 이랬더니 ... 괜찮아요 ..그러시고 ~ 수술끝났습니다 ..... 아하하하하 기분을 무지 좋았어요 ,,,</p>
         <p>일단 백문이불여일견이라고 이렇게 긴글쓰는것보다 사진 으로 보여드리는게 훠얼~ 낳겠죠 ?</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

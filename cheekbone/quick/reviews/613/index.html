@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"드디어 5년동안의 한을 풀었네요..","reviewBody":"진짜 고등학교때부터 지금까지 5년을 광대 때문에 스트레스를 받았던 사람입니다..다들 광대가 어딨냐고 집착이라고 그랬지만 끝내 오늘 하게 됐네요ㅎㅎ 1일차라 아직 광대가 얼만큼 줄여졌는지는 모르겠습니다. 광대때문에 많은 고민을 하고 있는 분들에게 도움을","url":"https://journal.rococops.com/cheekbone/quick/reviews/613/","datePublished":"2017-12-28","inLanguage":"ko-KR","author":{"@type":"Person","name":"광대야"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"드디어 5년동안의 한을 풀었네요..","item":"https://journal.rococops.com/cheekbone/quick/reviews/613/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"드디어 5년동안의 한을 풀었네요..","reviewBody":"진짜 고등학교때부터 지금까지 5년을 광대 때문에 스트레스를 받았던 사람입니다..다들 광대가 어딨냐고 집착이라고 그랬지만 끝내 오늘 하게 됐네요ㅎㅎ 1일차라 아직 광대가 얼만큼 줄여졌는지는 모르겠습니다. 광대때문에 많은 고민을 하고 있는 분들에게 도움을","url":"https://journal.rococops.com/cheekbone/quick/reviews/613/","datePublished":"2017-12-28","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"광대야"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"드디어 5년동안의 한을 풀었네요..","item":"https://journal.rococops.com/cheekbone/quick/reviews/613/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,7 +203,9 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>진짜 고등학교때부터 지금까지 5년을 광대 때문에 스트레스를 받았던 사람입니다..다들 광대가 어딨냐고 집착이라고 그랬지만 끝내 오늘 하게 됐네요ㅎㅎ 1일차라 아직 광대가 얼만큼 줄여졌는지는 모르겠습니다. 광대때문에 많은 고민을 하고 있는 분들에게 도움을 드리고 싶어 이렇게 글을 쓰게 됐네요. 일주일 뒤에도 후기를 올리겠습니다! 저는 수술대에 눕는게 처음이라 너무 무서웠어요 그래도 간호사분들이 친절하게 응대해주시고 특히 수술대에 누워있을때 손잡아주신 분 덕분에 안정을 가지고 수술을 하게 되었네요. 이제 마취 주사를 놓고 얼굴에 원장님이 그림 좀 그리고 나면 어느새 잠들어있어요!! 신기한 경험이에요 진짜 말그대로 롤러코스터 타는 느낌인데..어제 저녁까지 케이크 판매 알바를 해서 그런지 롤러코스터 타면서 케이크를 파는 꿈을 꿨어요..ㄷㄷ 어쨋든 너무 신기합니다 그리고 정신없이 회복방을 갔고 2시간정도 누워있다가 또 정신없이 옷갈아입고 나왔네요..ㅎㅎ 간호사분들이 친절하게 택시도 잡아주셔서 편하게 집에 도착할 수 있었습니다. 저는 엄마 몰래 알바비 모아서 했기 때문에 수술이 잘못되면 어쩌지에 대한 불안감이 정말 정말 컸어요 근데 멀쩡히 살아있구요 붓기도 아직 안 올라온건지 몰라도 정말 멀쩡하구요 불편한 점 하나 있다면 오른쪽 눈 신경이 아직 안돌아오고 있다는 정도..? 근데 내일이면 돌아오지 않을까 싶어요!! 안전하게 잘 수술해주신 원장님께 감사인사 드립니다~ㅎㅎ</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

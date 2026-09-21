@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"변형광대 9일차에요 짱짱!","reviewBody":"5월달에 상담받고 효과있을 광대라고 해서 약간 다행...인데 슬펐어요ㅜㅜ그래도 효과있다니까 더열심히 돈모아놓고 예약잡으려고 전화했는데 내일오라고 하셔서 급!하게됐어요ㅎㅎㅎ 일찍갔었어야 됐는데 딱 10시반에 가서....되게죄송했어요 저도 이비인","url":"https://journal.rococops.com/cheekbone/quick/reviews/304/","datePublished":"2013-07-11","inLanguage":"ko-KR","author":{"@type":"Person","name":"갸르미"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"변형광대 9일차에요 짱짱!","item":"https://journal.rococops.com/cheekbone/quick/reviews/304/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"변형광대 9일차에요 짱짱!","reviewBody":"5월달에 상담받고 효과있을 광대라고 해서 약간 다행...인데 슬펐어요ㅜㅜ그래도 효과있다니까 더열심히 돈모아놓고 예약잡으려고 전화했는데 내일오라고 하셔서 급!하게됐어요ㅎㅎㅎ 일찍갔었어야 됐는데 딱 10시반에 가서....되게죄송했어요 저도 이비인","url":"https://journal.rococops.com/cheekbone/quick/reviews/304/","datePublished":"2013-07-11","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"갸르미"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"변형광대 9일차에요 짱짱!","item":"https://journal.rococops.com/cheekbone/quick/reviews/304/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>5월달에 상담받고 효과있을 광대라고 해서 약간 다행...인데 슬펐어요ㅜㅜ그래도 효과있다니까 더열심히 돈모아놓고 예약잡으려고</p>
         <p>전화했는데 내일오라고 하셔서 급!하게됐어요ㅎㅎㅎ</p>
         <p>일찍갔었어야 됐는데 딱 10시반에 가서....되게죄송했어요</p>
@@ -208,6 +222,7 @@
         <p>다음주는 더빠지겠죠 붓기가~~~~진짜대박!여름이라 고민했는데 모자쓰고 머리내리고 마스크끼면 잘안보여요.</p>
         <p>근데 원장님...ㅜㅜ가끔가다가 광대를 꾹누르는것처럼 광대쪽이 땡기는데 타이레놀 먹으면되나요? 그리고 밥먹는데 안그러더니 좀전부터 갑자기 모래소리같은게 나는데 왜그런건가요...다른데는 2달정도 유동식만 먹으라고 그런다는데 괜히 겁나요!!저도 그래야될거같고..ㅠㅠㅠㅠ뼈가...잘...붙겠죠....?ㅜㅜㅜ 그럼 다다음주에 뵙겠습니다!수술잘해주셔서 감사합니다~</p>
         <img src="https://rococops.com/files/postscript/attach1/1_201307121457762519.jpg" alt="갸르미님 후기 사진" loading="lazy">
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

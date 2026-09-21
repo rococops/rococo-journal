@@ -2061,6 +2061,49 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   }
 }
 
+/* ===== 수술후기 잠금(페이월) =====
+   로그인 전에는 본문을 흐리게 가리고 안내를 덮어씌움. 예전처럼 로그인 페이지로 튕기면
+   구글이 noindex 페이지로 리디렉션된 것으로 보고 후기 전체를 색인에서 제외함 */
+.review-locked .paywalled {
+  max-height: 320px;
+  overflow: hidden;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  filter: blur(5px);
+  opacity: .5;
+  pointer-events: none;
+}
+.review-locked .paywalled::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 180px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), #fff 90%);
+}
+.paywall-notice {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  background: var(--gray-50);
+  padding: 2.25rem 1.75rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.paywall-title { font-size: 1.05rem; font-weight: 800; color: var(--black); margin-bottom: .6rem; }
+.paywall-desc { font-size: .85rem; color: var(--gray-600); line-height: 1.8; margin-bottom: 1.5rem; }
+.paywall-btn {
+  display: inline-block;
+  padding: .85rem 2rem;
+  background: var(--black);
+  color: var(--white);
+  border-radius: 999px;
+  font-size: .88rem;
+  font-weight: 800;
+}
+.paywall-btn:hover { background: var(--accent); }
+.paywall-sub { display: block; margin-top: .9rem; font-size: .82rem; color: var(--gray-600); text-decoration: underline; }
+.paywall-sub:hover { color: var(--accent); }
+
 /* ===== 회원 로그인 상태 표시줄 (수술후기 게이트 통과 페이지 상단) =====
    헤더가 position:fixed라 그냥 두면 표시줄이 헤더 밑에 깔려 안 보임 —
    헤더 높이만큼 내려주고, 대신 뒤따르는 히어로의 헤더 여백은 제거(중복 방지) */

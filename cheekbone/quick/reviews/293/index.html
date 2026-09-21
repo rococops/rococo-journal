@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"변형광대 6일~^^","reviewBody":"수술하고 다음날 바로 글을 올렸었는데 또 한번 올려요 ^^ 벌써 6일째가 됐어요~ 첫날은 불편한 점을 못 느꼈어요~ 2일째 출근을 해야해서 모자에 마스크에 땡김이 까지 하고 출근했는데 학생들부터 선생님들까지 저를 못 알아보더군요ㅋㅋ트레이닝복에 큰","url":"https://journal.rococops.com/cheekbone/quick/reviews/293/","datePublished":"2013-05-31","inLanguage":"ko-KR","author":{"@type":"Person","name":"회복중"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"변형광대 6일~^^","item":"https://journal.rococops.com/cheekbone/quick/reviews/293/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"변형광대 6일~^^","reviewBody":"수술하고 다음날 바로 글을 올렸었는데 또 한번 올려요 ^^ 벌써 6일째가 됐어요~ 첫날은 불편한 점을 못 느꼈어요~ 2일째 출근을 해야해서 모자에 마스크에 땡김이 까지 하고 출근했는데 학생들부터 선생님들까지 저를 못 알아보더군요ㅋㅋ트레이닝복에 큰","url":"https://journal.rococops.com/cheekbone/quick/reviews/293/","datePublished":"2013-05-31","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"회복중"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"변형광대 6일~^^","item":"https://journal.rococops.com/cheekbone/quick/reviews/293/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>수술하고 다음날 바로 글을 올렸었는데 또 한번 올려요 ^^</p>
         <p>벌써 6일째가 됐어요~ 첫날은 불편한 점을 못 느꼈어요~</p>
         <p>2일째 출근을 해야해서 모자에 마스크에 땡김이 까지 하고 출근했는데</p>
@@ -200,6 +214,7 @@
         <p>눈썹부터 부어 있어서 아이라인을 그리는데 쌍꺼플도 약간 평면에 가까웠어요. 지금도 붓기는 마찬가지고 옆광대는 반듯해졌는데 45도 광대부터 콧볼에서 수평을 이루는 부위는 그냥 보면 수술전과 별 다를바 없이</p>
         <p>옆으로 튀어나온 느낌? 왼쪽 오른쪽 번갈아 가면서 빠졌다 부었다 하는것 같아요. 오늘을 오른쪽 45도 광대가 더 나와보이고 부어있어요</p>
         <p>애교필러를 얼마전에 했었는데 붓기땜에 사라졌고 눈꼬리 부분도 올라가 보여요. 내일 드디어 스테이플러 제거를 하는데 붓기가 빨리 빠졌음 좋겠어요^^수술전 보다 수술후에 홈피 방문을 더 자주하게 되네요~옆광대는 부드러워진게 느껴지는데 45도 광대가 빨리 붓기가 빠져서 달라진 모습을 보고 싶어요~^^</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

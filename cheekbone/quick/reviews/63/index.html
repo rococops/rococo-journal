@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"마니망설였었는데욤,,,역시,,,,!!!!!! (15분 광대축소)","reviewBody":"음,,,,옆광대가아주살짝나온얼굴이라,,, 드라마틱한효과는못본다는,,, 원장님에솔직한답변에며칠을망설이다가,,, 비공좁히는코수술하는김에해야지싶어했는데... 역시~!!!!!!! 수술한당일날은붕대를감고있어몰랐는데,,,그담날붕대를풀어보니... 멍두업","url":"https://journal.rococops.com/cheekbone/quick/reviews/63/","datePublished":"2011-05-09","inLanguage":"ko-KR","author":{"@type":"Person","name":"안0이"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"마니망설였었는데욤,,,역시,,,,!!!!!! (15분 광대축소)","item":"https://journal.rococops.com/cheekbone/quick/reviews/63/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"마니망설였었는데욤,,,역시,,,,!!!!!! (15분 광대축소)","reviewBody":"음,,,,옆광대가아주살짝나온얼굴이라,,, 드라마틱한효과는못본다는,,, 원장님에솔직한답변에며칠을망설이다가,,, 비공좁히는코수술하는김에해야지싶어했는데... 역시~!!!!!!! 수술한당일날은붕대를감고있어몰랐는데,,,그담날붕대를풀어보니... 멍두업","url":"https://journal.rococops.com/cheekbone/quick/reviews/63/","datePublished":"2011-05-09","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"안0이"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"마니망설였었는데욤,,,역시,,,,!!!!!! (15분 광대축소)","item":"https://journal.rococops.com/cheekbone/quick/reviews/63/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>음,,,,옆광대가아주살짝나온얼굴이라,,,</p>
         <p>드라마틱한효과는못본다는,,,</p>
         <p>원장님에솔직한답변에며칠을망설이다가,,,</p>
@@ -198,6 +212,7 @@
         <p>수술한당일날은붕대를감고있어몰랐는데,,,그담날붕대를풀어보니...</p>
         <p>멍두업꼬,,,뼈를건드리는수술치곤붓기도아주살짝~뿐이없었어욤~</p>
         <p>붓기없는수술결과에병원상담실장님과수술실언니들도놀래고,,,젤놀랜건남친이었어욤 ㅋㅋㅋ아직수술한지5일밖에안됐지만,,왠만한붓기는다빠졌구욤,,얼굴옆선이매끈해져서,,제눈엔벌써~훨씬더부드러워보여욤^^~15분이라는수술시간대비완전만족합니다!!!!저처럼망설이시는분들께완전강추!!!!해욤~!!!!</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

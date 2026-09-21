@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"코 재수술(콧대 낮추기+콧볼축소) 한달차 후기","reviewBody":"저는 8년전에 지방의 작은 성형외과에서 코 수술을 받았었습니다. 콧대는 조금 있지만 콧구멍이 넓고 전체적으로 뚱뚱한 복코라, 수술을 받았는데, 결과는 폭망하였습니다. 콧대 높이 생각 안하고 넣은듯한 실리콘으로 인해 미간이 정말 말 그대로 툭 튀","url":"https://journal.rococops.com/nose/revision/reviews/695/","datePublished":"2021-12-25","inLanguage":"ko-KR","author":{"@type":"Person","name":"ㅇㅈㅇ"},"itemReviewed":{"@type":"MedicalProcedure","name":"코재수술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"코재수술","item":"https://journal.rococops.com/nose/revision/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/revision/reviews/"},{"@type":"ListItem","position":5,"name":"코 재수술(콧대 낮추기+콧볼축소) 한달차 후기","item":"https://journal.rococops.com/nose/revision/reviews/695/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"코 재수술(콧대 낮추기+콧볼축소) 한달차 후기","reviewBody":"저는 8년전에 지방의 작은 성형외과에서 코 수술을 받았었습니다. 콧대는 조금 있지만 콧구멍이 넓고 전체적으로 뚱뚱한 복코라, 수술을 받았는데, 결과는 폭망하였습니다. 콧대 높이 생각 안하고 넣은듯한 실리콘으로 인해 미간이 정말 말 그대로 툭 튀","url":"https://journal.rococops.com/nose/revision/reviews/695/","datePublished":"2021-12-25","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"ㅇㅈㅇ"},"itemReviewed":{"@type":"MedicalProcedure","name":"코재수술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"코재수술","item":"https://journal.rococops.com/nose/revision/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/revision/reviews/"},{"@type":"ListItem","position":5,"name":"코 재수술(콧대 낮추기+콧볼축소) 한달차 후기","item":"https://journal.rococops.com/nose/revision/reviews/695/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>저는 8년전에 지방의 작은 성형외과에서 코 수술을 받았었습니다.</p>
         <p>콧대는 조금 있지만 콧구멍이 넓고 전체적으로 뚱뚱한 복코라, 수술을 받았는데, 결과는 폭망하였습니다.</p>
         <p>콧대 높이 생각 안하고 넣은듯한 실리콘으로 인해 미간이 정말 말 그대로 툭 튀어나와 있었고,</p>
@@ -214,6 +228,7 @@
         <p>로코코에서의 코 재수술은 정말 후회없는 선택이었던것 같아요.</p>
         <p>금손 원장님께, 친절하게 관리해주셨던 선생님들께 다시한번 감사드립니다.</p>
         <p>다가오는 2022년도 꽃길만 걸으시길 바랍니다!</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">코재수술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=코재수술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -25,7 +38,7 @@
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://journal.rococops.com/nostril/alar-base/reviews/">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"CollectionPage","name":"콧볼축소술 수술후기 — 로코코성형외과","description":"콧볼축소술 환자 후기 4건","url":"https://journal.rococops.com/nostril/alar-base/reviews/","inLanguage":"ko","about":{"@type":"MedicalProcedure","name":"콧볼축소술"},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"콧구멍성형","item":"https://journal.rococops.com/nostril/"},{"@type":"ListItem","position":3,"name":"콧볼축소술","item":"https://journal.rococops.com/nostril/alar-base/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nostril/alar-base/reviews/"}]}]
+[{"@context":"https://schema.org","@type":"CollectionPage","name":"콧볼축소술 수술후기 — 로코코성형외과","description":"콧볼축소술 환자 후기 4건","url":"https://journal.rococops.com/nostril/alar-base/reviews/","inLanguage":"ko","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"about":{"@type":"MedicalProcedure","name":"콧볼축소술"},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"콧구멍성형","item":"https://journal.rococops.com/nostril/"},{"@type":"ListItem","position":3,"name":"콧볼축소술","item":"https://journal.rococops.com/nostril/alar-base/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nostril/alar-base/reviews/"}]}]
 </script>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
@@ -190,6 +203,7 @@
       <h2 class="section-label">콧볼축소술 수술후기 (4건)</h2>
       <a href="../" style="font-size:0.85rem;color:var(--gray-600);">← 콧볼축소술 케이스 글 보기</a>
     </div>
+    <div class="paywalled" data-nosnippet>
     <div class="review-list review-list-cols" id="review-list">
       <a href="../../../nose/revision/reviews/695/" class="review-row">
         <div class="review-row-thumb-empty"></div>
@@ -226,6 +240,7 @@
     </div>
     <div style="text-align:center;margin-top:2rem;">
       <button type="button" class="sort-btn" id="loadMoreReviews" style="padding:0.7rem 2rem;">더보기</button>
+    </div>
     </div>
 
     <script>

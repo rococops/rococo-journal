@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"8/9 토요일에 수술했어요~ 세번째이야기","reviewBody":"수술후기에 일일이 답글달아주시니 원장님 너무 감사하네요~ 오늘은 9월1일 딱 수술한지 3주째가 지났어요~ 앞에 생각보다 멍과 붓기가 심하지 않아 좋다는 후기글만 남기고 효과에대해서는 글로 설명할정도가 아니라서 못썼어요 2주째 경과보러 갈때도 양쪽","url":"https://journal.rococops.com/cheekbone/quick/reviews/401/","datePublished":"2014-09-01","inLanguage":"ko-KR","author":{"@type":"Person","name":"주말수술"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"8/9 토요일에 수술했어요~ 세번째이야기","item":"https://journal.rococops.com/cheekbone/quick/reviews/401/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"8/9 토요일에 수술했어요~ 세번째이야기","reviewBody":"수술후기에 일일이 답글달아주시니 원장님 너무 감사하네요~ 오늘은 9월1일 딱 수술한지 3주째가 지났어요~ 앞에 생각보다 멍과 붓기가 심하지 않아 좋다는 후기글만 남기고 효과에대해서는 글로 설명할정도가 아니라서 못썼어요 2주째 경과보러 갈때도 양쪽","url":"https://journal.rococops.com/cheekbone/quick/reviews/401/","datePublished":"2014-09-01","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"주말수술"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"8/9 토요일에 수술했어요~ 세번째이야기","item":"https://journal.rococops.com/cheekbone/quick/reviews/401/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,8 +203,10 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>수술후기에 일일이 답글달아주시니 원장님 너무 감사하네요~</p>
         <p>오늘은 9월1일 딱 수술한지 3주째가 지났어요~ 앞에 생각보다 멍과 붓기가 심하지 않아 좋다는 후기글만 남기고 효과에대해서는 글로 설명할정도가 아니라서 못썼어요 2주째 경과보러 갈때도 양쪽 광대가 원래 비대칭이기도 했지만 붓기도 짝짝이로 있어서 눈에 띄게 달라보이는게 신경이 쓰였는데... 정말 3주지나니 훅 붓기빠져 보이는게 수술효과가 나요 라인 정말 매끄러워져서 어제 모임에 갔더니 얼굴이 작아진거 같다, 이뻐졌다 살빠졌다 하는 소리 들었어요. 저또한 확실히 부드러워 진거 느끼구요 효과 정말 미미하다고 하셨는데 아니에요 정말 만족합니다. 경과보시고는 이제 올 필요도 없다고 하시던데 제가 봤을땐 전 전후가 이제야 나타나서 오히려 보여드리고 싶네요 근데 제가 수술전사진을 제대로 찍어놓지 않아서 답답하네요~ 원장님이 저같이 미미한데 걱정하시는 분들 위해서 제사진 저인거 모르게 눈코입 가리고 홈피에 올리셔도 괜찮을 정도인데 2주째는 좀 비교가 별로 일거 같네요~~ㅋㅋㅋㅋ 앗 그리고 광대만큼이나 평생 눈을 할까 말까 주변에서도 제가 눈이 쌍꺼풀 없는 눈 치고는 큰눈이라 하라는 사람반 하지 말라는 사람 반이였는데 나이들수록 조금 졸려 보이는듯한 느낌이 신경쓰여서 광대수술에 원장님 신뢰도 최고라 상담드렸더니 비절개 눈매 교정 권해 주셨어요~ 여러번 상담 해봤던 눈이지만 정확한 지적한 설명으로 지금 엄청 고민하고 있네요~ 근데 원장님 또 막상 눈도 생각하니 이미지 바뀔까 살짝 속쌍꺼풀로 (원장님이 이야기해주신 한지혜눈)하자니 또 아쉬울거 같아서 좀 라인크게 해도 되지 않을까 고민되네요. 요새 구하라 눈이 또 이뻐보이던데 그런라인도 어울릴까요? 이젠 할까 말까가 아니라 어떻게 할까를 고민하고 있으니 이해해주세요 아 그리고 저처럼 매일 출석 도장찍듯이 후기 읽어보구 또 읽고 고민하시는분들 하루 빨리 부드러운 인상으로 이뻐지세요 고민그만~ 확실합니다. 수술^^</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"로코코에서 이미지 변신 대성공한  (비개방 코성형+쌍커플재수술(매몰)) 후기 !","reviewBody":"코수술을 20살때부터 쭉 고민만? 하던 31세 여성이에요 ~ 이번에 로코코에서 쌍커플 재수술+비개방 코성형수술을 하고 만족도가 너무너무 높아서 저도모르게? 후기를 써야겠다고 생각해서 후기까지 쓰고 있네요 ㅋㅋㅋ... 먼저 코 ! 이번","url":"https://journal.rococops.com/nose/scarless/reviews/710/","datePublished":"2022-03-02","inLanguage":"ko-KR","author":{"@type":"Person","name":"heinyd"},"itemReviewed":{"@type":"MedicalProcedure","name":"흉터없는 코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"흉터없는 코성형","item":"https://journal.rococops.com/nose/scarless/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/scarless/reviews/"},{"@type":"ListItem","position":5,"name":"로코코에서 이미지 변신 대성공한  (비개방 코성형+쌍커플재수술(매몰)) 후기 !","item":"https://journal.rococops.com/nose/scarless/reviews/710/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"로코코에서 이미지 변신 대성공한  (비개방 코성형+쌍커플재수술(매몰)) 후기 !","reviewBody":"코수술을 20살때부터 쭉 고민만? 하던 31세 여성이에요 ~ 이번에 로코코에서 쌍커플 재수술+비개방 코성형수술을 하고 만족도가 너무너무 높아서 저도모르게? 후기를 써야겠다고 생각해서 후기까지 쓰고 있네요 ㅋㅋㅋ... 먼저 코 ! 이번","url":"https://journal.rococops.com/nose/scarless/reviews/710/","datePublished":"2022-03-02","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"heinyd"},"itemReviewed":{"@type":"MedicalProcedure","name":"흉터없는 코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"흉터없는 코성형","item":"https://journal.rococops.com/nose/scarless/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/scarless/reviews/"},{"@type":"ListItem","position":5,"name":"로코코에서 이미지 변신 대성공한  (비개방 코성형+쌍커플재수술(매몰)) 후기 !","item":"https://journal.rococops.com/nose/scarless/reviews/710/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>코수술을 20살때부터 쭉 고민만? 하던 31세 여성이에요 ~</p>
         <p>이번에 로코코에서 쌍커플 재수술+비개방 코성형수술을 하고 만족도가 너무너무 높아서</p>
         <p>저도모르게? 후기를 써야겠다고 생각해서 후기까지 쓰고 있네요 ㅋㅋㅋ...</p>
@@ -215,6 +229,7 @@
         <p>화장 할 맛 나더라구요 ! ㅎㅎ 눈도 졸려보이는 눈에서 벗어나 또렷해져서 완전 대만족해요 ~</p>
         <p>다시해도 꼭 로코코에서 할거고, 주변지인들에게도 열심히 추천하고 다니고 있어요 ㅋㅋ</p>
         <p>원장님이랑 예쁘고 친절하신 간호사 쌤들도 넘 감사했습니다 ~ ^^</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">흉터없는 코성형에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=흉터없는 코성형후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

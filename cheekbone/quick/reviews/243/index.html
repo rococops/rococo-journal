@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"변형 3일차 후기입니다.","reviewBody":"안녕하세요. 지난 토요일 마지막 수술로 변형을 하였습니다. 일단 후기에 앞서 지방에서 기차를 타고 갔기에 제 부주의로 기차를 놓치게 되어 늦게 도착한 점 정말 죄송합니다. 1시 40분에 도착하여 수술을 다 마치고 난 후 시간은 3시였습니다.","url":"https://journal.rococops.com/cheekbone/quick/reviews/243/","datePublished":"2013-01-15","inLanguage":"ko-KR","author":{"@type":"Person","name":"야호야"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"변형 3일차 후기입니다.","item":"https://journal.rococops.com/cheekbone/quick/reviews/243/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"변형 3일차 후기입니다.","reviewBody":"안녕하세요. 지난 토요일 마지막 수술로 변형을 하였습니다. 일단 후기에 앞서 지방에서 기차를 타고 갔기에 제 부주의로 기차를 놓치게 되어 늦게 도착한 점 정말 죄송합니다. 1시 40분에 도착하여 수술을 다 마치고 난 후 시간은 3시였습니다.","url":"https://journal.rococops.com/cheekbone/quick/reviews/243/","datePublished":"2013-01-15","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"야호야"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"변형 3일차 후기입니다.","item":"https://journal.rococops.com/cheekbone/quick/reviews/243/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요. 지난 토요일 마지막 수술로 변형을 하였습니다.</p>
         <p>일단 후기에 앞서 지방에서 기차를 타고 갔기에 제 부주의로 기차를 놓치게 되어 늦게 도착한 점 정말 죄송합니다.</p>
         <p>1시 40분에 도착하여 수술을 다 마치고 난 후 시간은 3시였습니다.</p>
@@ -199,6 +213,7 @@
         <p>제가 거주지가 부산이기 때문에 부산에서 수술을 하게되면 차후 관리라던지 소요시간과 부수적인 비용을 줄일 수 있단 생각에 부산 위주로 찾아보았습니다. 불과 몇 달 전만해도 없던 수술법이 부산 성형외과 중심지에 비고정 퀵광대 수술이 생겼습니다. 그래서 바로 예약을하고 결제까지 할 생각으로 갔었죠. 저는 비고정이란 메리트 때문에 퀵광대를 할 것 이며 이에대해 설명을 부탁드렸습니다. 그런데 효과가 없는 광대다.</p>
         <p>김상호원장님께서 말씀하신 것처럼 돌출광대량이 적어 효과가 미비할 것이다.라고 부산성형외과에서도 똑같이 말씀하셨습니다. 저는 보다 매끄러운 라인을 원하는 것이지 드라마틱한 효과를 원하지 않기에 괜찮다고 말하였습니다. 금요일 예약까지 잡고 결제를 하던 중에 고정을 하라고 자꾸..과할 정도로 권유를 하였습니다. 그러다 볼처짐이 올것이고 사후 책임을 다하지 못할 것이다. (???이거무슨 똥..?)이거 무슨 소리인가요. 뼈 수술을 맡기는 어찌보면 굉장히 중요한 수술인데 사후책임을 다하지못한다고 하더군요. 뒤도안돌아보고 나오는길에 로코코 예약하고 선금내고 예약했습니다. 물론 시간과 지방에 대해 부수적인 비용도 배제할 수 없는 부분이었지만 정말 잘 한 선택이었던 것 같습니다. 타 병원을 비방하는 것은 아니지만 서울에서건 특히 지방에서는 퀵광대에 대한 수술법을 정확히 확신하는 곳이 정말 드물다는 생각이 들었습니다. 이 이글을 보시는 광대에 대해 스트레스 받으시는 분들 하루이틀 알아보고 계신거 아닌 거 더 잘알아요..저도 그랬으니까요 하하 이미 다들 반전문가가 되어계시겠죠? 그렇기에 김상호원장님을 더 신뢰하게되었습니다. 일년동안 알아보고 선택한 로코코 정말 후회없는 선택이었던 것 같아요. 아직 붓기남았지만 차 후 후기에 대한 글 올리겠습니다.</p>
         <p>ps.마취 중 무슨소리 한 것인지 지금도 멜랑멜랑 하네요..헛소리 굉장히 많이 하고 온 것 같은데 웃으면서 다 받아주신 간호사선생님과 역시 훈훈한 냄새 풍기며 오신 김상호 원장님 감사합니다.</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

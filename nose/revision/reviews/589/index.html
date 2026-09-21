@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"벌써 1년이 지났네요~","reviewBody":"작년 4월 25일날 코 재수술을 했는데 코안에 박트로반 연고를 열심히 바르던게 얼마 전인 것 같은데 벌써 시간이 꽤 흘렀네요.ㅎ유명하다는 병원에서 코를 완전히 비대칭에 망쳐놔서 컴플렉스로 엄청 신경이 쓰였었는데 마지막으로 로코코를 찾았죠.가족들도 멀쩡","url":"https://journal.rococops.com/nose/revision/reviews/589/","datePublished":"2017-04-29","inLanguage":"ko-KR","author":{"@type":"Person","name":"*^^*"},"itemReviewed":{"@type":"MedicalProcedure","name":"코재수술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"코재수술","item":"https://journal.rococops.com/nose/revision/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/revision/reviews/"},{"@type":"ListItem","position":5,"name":"벌써 1년이 지났네요~","item":"https://journal.rococops.com/nose/revision/reviews/589/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"벌써 1년이 지났네요~","reviewBody":"작년 4월 25일날 코 재수술을 했는데 코안에 박트로반 연고를 열심히 바르던게 얼마 전인 것 같은데 벌써 시간이 꽤 흘렀네요.ㅎ유명하다는 병원에서 코를 완전히 비대칭에 망쳐놔서 컴플렉스로 엄청 신경이 쓰였었는데 마지막으로 로코코를 찾았죠.가족들도 멀쩡","url":"https://journal.rococops.com/nose/revision/reviews/589/","datePublished":"2017-04-29","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"*^^*"},"itemReviewed":{"@type":"MedicalProcedure","name":"코재수술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"코재수술","item":"https://journal.rococops.com/nose/revision/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/revision/reviews/"},{"@type":"ListItem","position":5,"name":"벌써 1년이 지났네요~","item":"https://journal.rococops.com/nose/revision/reviews/589/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,7 +203,9 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>작년 4월 25일날 코 재수술을 했는데 코안에 박트로반 연고를 열심히 바르던게 얼마 전인 것 같은데 벌써 시간이 꽤 흘렀네요.ㅎ유명하다는 병원에서 코를 완전히 비대칭에 망쳐놔서 컴플렉스로 엄청 신경이 쓰였었는데 마지막으로 로코코를 찾았죠.가족들도 멀쩡한 예쁜 얼굴을 왜 돈 들여서 점점 망쳐 놓냐고 하도 만류를 하셔서 인생 마지막 성형을 하겠다고 선언하고 수술 받았는데 결과는 대만족이예요.제가 콧구멍이 세모 모양처럼 빈약해서 비공내리기를 했는데 원래 콧구멍이 많이 보였는데 지금은 몰라 볼 정도로 많이 내려왔구요.비염이 심해서 코막힘으로 두통까지 겪구 겨울엔 너무 괴로웠었는데 이젠 코막히는 느낌이 뭔지 잘 못느끼겠어요.전에 타병원에서 수술하고 콧기둥도 비뚤어지고 흉이 엄청 심했는데 참 신기하게도 선생님께서 봉합을 신의 손으로 하셨는지 흉이 감쪽같이 사라졌어요.저희 언니들도 로코코 거기 유명하던데 쌤이 정말 잘하시긴 한가보다.그러더라구요.엄마도 너무 예뻐졌다고 이제야 우리 딸 정상인 얼굴로 돌아왔다고 엄청 좋아하세요.한가지 살짝 걱정 되는 건 저의 별난 손 때문에...제가 딱지 않고 그런 걸 못 보거든요.남의 다리에 앉은 딱지까지 뜯고 있는 성격이라ㅜ.ㅜ왼쪽 비공에 이식한 피부가 연고 바를 때 뿌옇게 딱지처럼 일어나서 살짝 밀어서 떨어뜨렸거든요ㅜ.ㅜ그게 모양에 큰 영향을 줄지 살짝 걱정도 되구요.선생님 정말 신의 손을 가지신 의느님이란 표현을 해도 될지...선생님도 뵙고 싶고 경과도 봐야 되는데 지방에 거주하고 있어서 스케쥴이 여의치 않네요.조만간 내원할게요.김상호 원장님 참 인간적이시고 환자의 입장에서 생각해주시는 진심이 느껴져서 수술 받으면서도 치료가서도 너무 편안했고 감사했어요. 건강하게 잘 지내시구 곧 봬용^^</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">코재수술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=코재수술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

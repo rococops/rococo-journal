@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"감사합니다!:)  (코성형+쌍커풀 매몰법)","reviewBody":"고등학교 졸업이후, 쌍커풀과 코성형에 대해서 계속 고민해 왔던 것 같네요. 성형외과를 몇군데 들러 봤지만 딱히 확신을 가질 수는 없었거든요. 별다른 계획이 없었던 휴일에, 실력있는 분이라고 익히 들어온 김상호 원장님의 로코코 성형외과를 방문하게 되었습","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/75/","datePublished":"2011-05-27","inLanguage":"ko-KR","author":{"@type":"Person","name":"sh"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"감사합니다!:)  (코성형+쌍커풀 매몰법)","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/75/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"감사합니다!:)  (코성형+쌍커풀 매몰법)","reviewBody":"고등학교 졸업이후, 쌍커풀과 코성형에 대해서 계속 고민해 왔던 것 같네요. 성형외과를 몇군데 들러 봤지만 딱히 확신을 가질 수는 없었거든요. 별다른 계획이 없었던 휴일에, 실력있는 분이라고 익히 들어온 김상호 원장님의 로코코 성형외과를 방문하게 되었습","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/75/","datePublished":"2011-05-27","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"sh"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"감사합니다!:)  (코성형+쌍커풀 매몰법)","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/75/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>고등학교 졸업이후, 쌍커풀과 코성형에 대해서 계속 고민해 왔던 것 같네요. 성형외과를 몇군데 들러 봤지만 딱히 확신을 가질 수는 없었거든요. 별다른 계획이 없었던 휴일에, 실력있는 분이라고 익히 들어온 김상호 원장님의 로코코 성형외과를 방문하게 되었습니다.</p>
         <p>제 의견을 꼼꼼히 들어주시고 그에 맞춤형 디자인을 해주시는 원장님의 모습에 숙원사업을 결심하게 되었네요.불안감을 싹 달아나버리게 만들만큼 자신감 있는 모습에 더 믿음이 갔구요.</p>
         <p>수술을 마친 후에도 경과를 보기위해서 연이어 몇일을 병원에 들렀는데,그 바쁜 와중에도 항상 직접 살펴주시는 모습에 정말 감사했습니다. 환자의 입장에서는 의사의 한마디 한마디가 참 힘이 되더라구요. 성형수술은 아픈걸 고치는게 아니라 내 얼굴을 고치는,그만큼 민감한 수술이기에 수술 후에는 확실히 예민해져 있었는데, 날이갈수록 예뻐지는 얼굴때문이기도 했지만 병원에가서 친절한 간호사 선생님과 원장님이 건네주시는 한마디 한마디에 위로와 기쁨을 받아가며 회복기를 보낸 것 같습니다.</p>
@@ -197,6 +211,7 @@
         <p>친구들이 칭찬해 주는건 물론이고, 처음에 반대하셨던 부모님까지 경과가 좋으니 마음을 놓으시고 무척 좋아하십니다. 어르신들은 눈커풀이 늘어지고 주름때문에 고민이 많으시지만 수술이라고 하면 지레 겁먹으시잖아요? 제가 로코코에서 아무탈없이 상처 아물고 과하지 않게, 고급스러운 이미지로 수술한 걸 보고 엄마도 가보고 싶다고 말씀하시셔서 모시고 한번 방문할 생각이에요.:)</p>
         <p>원장님, 진심으로 감사합니다.</p>
         <p>그럼 다음에 또 병원에서 웃는 얼굴로 뵙도록 하겠습니다~</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">늑연골 명품코성형에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=늑연골 명품코성형후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

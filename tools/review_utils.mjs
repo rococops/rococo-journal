@@ -21,20 +21,38 @@ export function esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// 수술후기 열람 게이트 — 회원 로그인(JWT, localStorage)이 없으면 login 페이지로 즉시 리다이렉트.
-// <head> 최상단에 넣어서 콘텐츠가 그려지기 전에 판단되도록 함(깜빡임/노출 방지).
-// 토큰 서명 검증은 서버(로그인 시점)에서만 하고, 여기서는 존재 여부 + exp(만료)만 클라이언트에서 가볍게 확인.
+// 수술후기 열람 게이트 — 로그인 전에는 본문을 가리고 로그인 안내를 덮어씌움.
+//
+// 예전에는 로그인 페이지로 즉시 리다이렉트했는데, 구글이 JS를 실행하면 noindex인 로그인
+// 페이지로 튕겨서 후기 502페이지가 검색 색인에서 빠지는 문제가 있었음. 구글이 공식 안내하는
+// 페이월(로그인 필요 콘텐츠) 방식으로 바꿔, 색인은 유지하면서 일반 방문자는 못 보게 함.
+// 본문에는 data-nosnippet을 붙여 검색 결과 미리보기에도 인용되지 않도록 함.
+//
+// <head>에서 body에 클래스를 미리 걸어 콘텐츠가 그려지기 전에 가려지도록 함(깜빡임 방지).
 export const MEMBER_GATE = (root) => `<script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('${root}member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="${root}member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="${root}member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>`;
 

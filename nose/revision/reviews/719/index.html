@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"코재수술+얼굴지방흡입","reviewBody":"안녕하세요 저는 작년 5월달에 다른 병원에서 코수술했었다가 휜코+메부리코+낮은코 때문에 재수술을 결심하구 이번에 로코코성형외과에서 코재수술+얼굴지방흡입을 했습니다 아무래도 코재수술은 워낙 가격이 부담스러워서 혼자 많이 고민하고 결정하는것도 쉽지 않았지","url":"https://journal.rococops.com/nose/revision/reviews/719/","datePublished":"2022-12-25","inLanguage":"ko-KR","author":{"@type":"Person","name":"ㅎㅎ"},"itemReviewed":{"@type":"MedicalProcedure","name":"코재수술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"코재수술","item":"https://journal.rococops.com/nose/revision/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/revision/reviews/"},{"@type":"ListItem","position":5,"name":"코재수술+얼굴지방흡입","item":"https://journal.rococops.com/nose/revision/reviews/719/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"코재수술+얼굴지방흡입","reviewBody":"안녕하세요 저는 작년 5월달에 다른 병원에서 코수술했었다가 휜코+메부리코+낮은코 때문에 재수술을 결심하구 이번에 로코코성형외과에서 코재수술+얼굴지방흡입을 했습니다 아무래도 코재수술은 워낙 가격이 부담스러워서 혼자 많이 고민하고 결정하는것도 쉽지 않았지","url":"https://journal.rococops.com/nose/revision/reviews/719/","datePublished":"2022-12-25","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"ㅎㅎ"},"itemReviewed":{"@type":"MedicalProcedure","name":"코재수술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"코재수술","item":"https://journal.rococops.com/nose/revision/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/revision/reviews/"},{"@type":"ListItem","position":5,"name":"코재수술+얼굴지방흡입","item":"https://journal.rococops.com/nose/revision/reviews/719/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,11 +203,13 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요 저는 작년 5월달에 다른 병원에서 코수술했었다가 휜코+메부리코+낮은코 때문에 재수술을 결심하구 이번에 로코코성형외과에서 코재수술+얼굴지방흡입을 했습니다 아무래도 코재수술은 워낙 가격이 부담스러워서 혼자 많이 고민하고 결정하는것도 쉽지 않았지만 그래도 큰 맘 먹고 수술받았습니다!</p>
         <p>상담할 때 원장선생님께 메부리코를 개선하며 높은 코를 원한다고 말씀드렸더니 저의 얼굴에 맞는 코는 높이에 한계가 있다는 점을 솔직하게 말씀해주셨고 최대한 높이는 쪽으로 수술 진행하기로 했습니다 친절하시면서도 솔직하게 말씀해주시니 오히려 더욱 믿음이 갔습니다</p>
         <p>수술은 콧대에는 메부리교정+실리콘, 코끝은 자가늑 그리고 얼굴은 심부볼쪽으로 지방흡입 수술받았습니다</p>
         <p>수술받고나서 저는 4일차,6일차,8일차 때 병원에 내원했는데 갈 때 마다 원장님께서 직접 경과봐주시더라구요 저는 그 점이 너무 좋았어요! 사진은 수술한지 8일차 때 테이프 떼자마자 찍은 사진인데요 제가 원하는 모양대로 수술이 잘 된 것 같아 너무 만족스러워서 원장선생님께 정말정말 감사드립니다 아직은 10일차라서 얼굴 붓기가 많이 남아있지만 앞으로 붓기가 더 빠지면 자연스럽게 예쁠 것 같아요 앞으로도 꾸준히 관리하면서 열심히 붓기 빼겠습니다 다시한번 감사드립니다</p>
         <img src="https://rococops.com/files/postscript/attach1/1_202212251766510396.jpeg" alt="ㅎㅎ님 후기 사진" loading="lazy">
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">코재수술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=코재수술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

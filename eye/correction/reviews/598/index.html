@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"비절개 눈매교정수술 후기 올려봅니다..^^","reviewBody":"** 수술 당일 날 아침 9시30분 수술이라 6시에 억지로 아침을 먹고 (수면마취를 하기 때문에 수술 3시간 전부터는 금식이라 합니다. 그치만 3시간 전에는 식사를 해서 혈당을 올려놔야 수면마취에서 회복시에 체력적으로 힘이","url":"https://journal.rococops.com/eye/correction/reviews/598/","datePublished":"2017-07-13","inLanguage":"ko-KR","author":{"@type":"Person","name":"선0인"},"itemReviewed":{"@type":"MedicalProcedure","name":"눈매교정술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"눈성형","item":"https://journal.rococops.com/eye/"},{"@type":"ListItem","position":3,"name":"눈매교정술","item":"https://journal.rococops.com/eye/correction/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/eye/correction/reviews/"},{"@type":"ListItem","position":5,"name":"비절개 눈매교정수술 후기 올려봅니다..^^","item":"https://journal.rococops.com/eye/correction/reviews/598/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"비절개 눈매교정수술 후기 올려봅니다..^^","reviewBody":"** 수술 당일 날 아침 9시30분 수술이라 6시에 억지로 아침을 먹고 (수면마취를 하기 때문에 수술 3시간 전부터는 금식이라 합니다. 그치만 3시간 전에는 식사를 해서 혈당을 올려놔야 수면마취에서 회복시에 체력적으로 힘이","url":"https://journal.rococops.com/eye/correction/reviews/598/","datePublished":"2017-07-13","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"선0인"},"itemReviewed":{"@type":"MedicalProcedure","name":"눈매교정술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"눈성형","item":"https://journal.rococops.com/eye/"},{"@type":"ListItem","position":3,"name":"눈매교정술","item":"https://journal.rococops.com/eye/correction/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/eye/correction/reviews/"},{"@type":"ListItem","position":5,"name":"비절개 눈매교정수술 후기 올려봅니다..^^","item":"https://journal.rococops.com/eye/correction/reviews/598/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>** 수술 당일 날</p>
         <p>아침 9시30분 수술이라 6시에 억지로 아침을 먹고</p>
         <p>(수면마취를 하기 때문에 수술 3시간 전부터는 금식이라 합니다.</p>
@@ -283,6 +297,7 @@
         <p>2주 뒤 경과볼때 다시 뵈어요!</p>
         <p>읽어주신 모든 분들도 행복하세요.^^</p>
         <img src="https://rococops.com/files/postscript/attach1/1_20210216509930729.jpg" alt="선0인님 후기 사진" loading="lazy">
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">눈매교정술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=눈매교정술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

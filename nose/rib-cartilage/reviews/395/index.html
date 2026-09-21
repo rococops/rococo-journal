@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"8/9 토요일에 수술했어요~ 두번째이야기","reviewBody":"오늘은 8/18일 월요일이에요~ 원장님이 코멘트 남겨주신것처럼 8/9 수술하고 8/11일 약간의 멍과 붓기로 회사에서 위기를 잘 넘겼으나 8/12,13일인 화요일 수요일에는 붓기가 더하고 멍도 더 진해져서 회사에서 모두가 에이~ 지방넣었","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/395/","datePublished":"2014-08-18","inLanguage":"ko-KR","author":{"@type":"Person","name":"주말수술"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"8/9 토요일에 수술했어요~ 두번째이야기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/395/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"8/9 토요일에 수술했어요~ 두번째이야기","reviewBody":"오늘은 8/18일 월요일이에요~ 원장님이 코멘트 남겨주신것처럼 8/9 수술하고 8/11일 약간의 멍과 붓기로 회사에서 위기를 잘 넘겼으나 8/12,13일인 화요일 수요일에는 붓기가 더하고 멍도 더 진해져서 회사에서 모두가 에이~ 지방넣었","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/395/","datePublished":"2014-08-18","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"주말수술"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"8/9 토요일에 수술했어요~ 두번째이야기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/395/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>오늘은 8/18일 월요일이에요~</p>
         <p>원장님이 코멘트 남겨주신것처럼 8/9 수술하고 8/11일 약간의 멍과 붓기로 회사에서 위기를 잘 넘겼으나 8/12,13일인 화요일 수요일에는 붓기가 더하고 멍도 더 진해져서</p>
         <p>회사에서 모두가 에이~ 지방넣었네~ 하는 분위기였어요~</p>
@@ -203,6 +217,7 @@
         <p>입부분을 가리고 거울보거나 하면 전혀 어색하지 않구요 아직 광대랑 볼에서 열감도 느껴지고 꿰맨자국쪽으로 잘못 머리를 빗거나 묶을때랑 잘때 건드리면 살짝 통증이 있긴하지만 괜찮아요.</p>
         <p>수술효과는 사진찍거나 거울을 보면 앞모습 옆모습 벌써 붓기 가만하더라도 살짝 부드러워진 느낌이 있어요~~</p>
         <p>저는 시간이 안맞아서 수술후 처음으로 이번주 토요일인 2주째에 경과 보러가요 또 후기 올리게요~^^</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">늑연골 명품코성형에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=늑연골 명품코성형후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

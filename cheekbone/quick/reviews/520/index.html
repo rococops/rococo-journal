@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"15분변형광대 솔직후기(4일째)","reviewBody":"후기 적는편이아닌데 후기보고 저도 도움이 많이됬고 다른 분들도 도움 되시라구 저도 남겨봐요ㅎㅎㅎ 20일 토요일 오전에 지방에서 올라가서 수술했어요. 1년정도전부터 고민하고 후기만 지켜보다가 큰 결심하고 당일상담 후 수술예약했어요 다른분들 후기보고","url":"https://journal.rococops.com/cheekbone/quick/reviews/520/","datePublished":"2016-02-23","inLanguage":"ko-KR","author":{"@type":"Person","name":"김"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"15분변형광대 솔직후기(4일째)","item":"https://journal.rococops.com/cheekbone/quick/reviews/520/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"15분변형광대 솔직후기(4일째)","reviewBody":"후기 적는편이아닌데 후기보고 저도 도움이 많이됬고 다른 분들도 도움 되시라구 저도 남겨봐요ㅎㅎㅎ 20일 토요일 오전에 지방에서 올라가서 수술했어요. 1년정도전부터 고민하고 후기만 지켜보다가 큰 결심하고 당일상담 후 수술예약했어요 다른분들 후기보고","url":"https://journal.rococops.com/cheekbone/quick/reviews/520/","datePublished":"2016-02-23","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"김"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"15분변형광대 솔직후기(4일째)","item":"https://journal.rococops.com/cheekbone/quick/reviews/520/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>후기 적는편이아닌데 후기보고 저도 도움이 많이됬고 다른 분들도 도움 되시라구 저도 남겨봐요ㅎㅎㅎ</p>
         <p>20일 토요일 오전에 지방에서 올라가서 수술했어요. 1년정도전부터 고민하고 후기만 지켜보다가 큰 결심하고 당일상담 후 수술예약했어요</p>
         <p>다른분들 후기보고 저도 효과가 작다고 하시겠구나 예상은 하고갔지만 혹시나 하는 기대감이있었는데 역시나였어요ㅠ.ㅠ</p>
@@ -221,6 +235,7 @@
         <p>테이프뗄생각에 기쁘기도하네요</p>
         <p>일주일붙이고싶지만 ㅠㅠ 얼른 붓기빠져서 얼굴라인예뻐졌으면좋겠어요!! 붓기빠지고나면 후기 다시올릴게요</p>
         <p>원장님 감사하구요 2주정도 뒤에 경과 체크하러갈때 뵙겠습니다^.^</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

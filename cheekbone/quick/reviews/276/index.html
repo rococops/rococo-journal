@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"변형15분 3주차~~!","reviewBody":"안녕하세요 원장님~! ^^ 오늘 3주째 경과보러 갔다왔던 환자(?) 입니다~^^ 정말 테잎붙이고 있던 1주일은 24시간이 이렇게 길었던가 싶더니 그후로는 후다닥 지나가네요~ 아마 수술하시는 모든 분들은 어떤 심정이신지 아실것 같다는.. ㅎㅎ","url":"https://journal.rococops.com/cheekbone/quick/reviews/276/","datePublished":"2013-03-13","inLanguage":"ko-KR","author":{"@type":"Person","name":"엠제이"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"변형15분 3주차~~!","item":"https://journal.rococops.com/cheekbone/quick/reviews/276/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"변형15분 3주차~~!","reviewBody":"안녕하세요 원장님~! ^^ 오늘 3주째 경과보러 갔다왔던 환자(?) 입니다~^^ 정말 테잎붙이고 있던 1주일은 24시간이 이렇게 길었던가 싶더니 그후로는 후다닥 지나가네요~ 아마 수술하시는 모든 분들은 어떤 심정이신지 아실것 같다는.. ㅎㅎ","url":"https://journal.rococops.com/cheekbone/quick/reviews/276/","datePublished":"2013-03-13","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"엠제이"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"변형15분 3주차~~!","item":"https://journal.rococops.com/cheekbone/quick/reviews/276/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요 원장님~! ^^ 오늘 3주째 경과보러 갔다왔던 환자(?) 입니다~^^</p>
         <p>정말 테잎붙이고 있던 1주일은 24시간이 이렇게 길었던가 싶더니 그후로는 후다닥 지나가네요~ 아마 수술하시는 모든 분들은 어떤 심정이신지 아실것 같다는.. ㅎㅎ</p>
         <p>저는 일단 처음부터 원장님께서 광대가 작고 돌출도 별로 없어서 그냥 부드러워지는 정도라고만 말씀해주셨어요. 후기 보니 저같은 진단을ㅋㅋ 받으신 분들이 꽤많으시더라구요. 사실 저도 제가 광대가 심하지않는 편이고 또 한 3년전쯤 지방이식과 1년반전 볼쪽에 지방이식을 해서 덜 도드라져 보이기도했구요~ 그치만 볼에 지방이식은 자꾸 빠져만가고.. 뭔가 눈에 확 드러날정도의 광대는 아니지만 살짝 촌시렵고 부한느낌의 광대가 싫어서 감행했답니다..ㅎ</p>
@@ -204,6 +218,7 @@
         <p>수술한 사람입장에서는 정말 그런거하나에 마음이 편안해지고 안정이되는데 로코코병원에 계신 분들은 그런마음을 다이해하시는거 같네요 ~^^</p>
         <p>수술해주시느라 애쓰신건 원장님이신데 수술받느라 수고하셨다고 말해주시는 원장님~ 전 쇼핑후 후기도 안쓰는 사람인데 저절로 후기를 남기게되네요 ^^</p>
         <p>수술을 고민하시는 분들이 후기를 보고 조금이나마 결정하는데 조금이나마 도움이 되셨음좋겠습니다! ^-^</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

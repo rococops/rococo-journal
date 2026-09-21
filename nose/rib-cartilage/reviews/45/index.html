@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"26살 싸나이 눈 코 후기입니다~ (김상호 원장님 감사합니다~)","reviewBody":"안녕하세요~ 9월 17일 눈과 코한 전남 공보의(공중보건의사)입니다~ 지금 보건지소에서 진료보다 잠깐 짬이나 후기 올립니다~ㅎㅎ 선생님덕분에 요즘 환자분들께 인기폭발입니다~ 특히 할머님들이 이쁜 총각이라 부르시네요 ㅋㅋㅋ 전 원래","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/45/","datePublished":"2010-10-13","inLanguage":"ko-KR","author":{"@type":"Person","name":"MJ"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"26살 싸나이 눈 코 후기입니다~ (김상호 원장님 감사합니다~)","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/45/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"26살 싸나이 눈 코 후기입니다~ (김상호 원장님 감사합니다~)","reviewBody":"안녕하세요~ 9월 17일 눈과 코한 전남 공보의(공중보건의사)입니다~ 지금 보건지소에서 진료보다 잠깐 짬이나 후기 올립니다~ㅎㅎ 선생님덕분에 요즘 환자분들께 인기폭발입니다~ 특히 할머님들이 이쁜 총각이라 부르시네요 ㅋㅋㅋ 전 원래","url":"https://journal.rococops.com/nose/rib-cartilage/reviews/45/","datePublished":"2010-10-13","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"MJ"},"itemReviewed":{"@type":"MedicalProcedure","name":"늑연골 명품코성형","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"코성형","item":"https://journal.rococops.com/nose/"},{"@type":"ListItem","position":3,"name":"늑연골 명품코성형","item":"https://journal.rococops.com/nose/rib-cartilage/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/"},{"@type":"ListItem","position":5,"name":"26살 싸나이 눈 코 후기입니다~ (김상호 원장님 감사합니다~)","item":"https://journal.rococops.com/nose/rib-cartilage/reviews/45/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,6 +203,7 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>안녕하세요~</p>
         <p>9월 17일 눈과 코한 전남 공보의(공중보건의사)입니다~</p>
         <p>지금 보건지소에서 진료보다 잠깐 짬이나 후기 올립니다~ㅎㅎ</p>
@@ -205,6 +219,7 @@
         <p>저같은 경우는 선생님께서 수술을 잘해주셨는지 붓기도 금방 빠진 편이고 통증도 하나도 없어서 불편한것도 잘 모르고 수술후 1주일만에 친구들이랑 놀러다녔습니다 ㅋㅋㅋ</p>
         <p>첨에 김상호 원장님과 상담할때 제가 원래 별생각없이 가서, 그냥 선생님께서 하자는대로 했습니다 ㅋㅋ 사실 가기전에 같이 했던 친구가 알아온 타병원도 한군데 가봤었는데요~ 자상하시고 친절하게 설명해주시는 모습이 믿음이 가서 친구와 같이 여기서 했는데 둘다 만족도가 높습니다~ ㅋㅋ 원장님께서도 예전에 공보의 생활하셨다며 후배를 보는 마음으로 티 안나게 잘 해주신댔는데~ 정말 그렇게 된거 같습니다~티는 안나지만 효과는 만점입니다 ㅎㅎ 수술후 티 날까봐 걱정하시는 남자분들께 김상호 원장님을 소개해드리고 싶네용~ㅎㅎ</p>
         <p>마지막으로 김상호 원장님과 바쁜 추석연휴에도 (사람 정말 많았습니다~수술후 치료하려는데 대기실에 한 50분 계시더군요 ㅡㅡ;;) 미소로 반겨주셨던 모든 스텝분들께! 모두 감사드리고 싶네요~!</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">늑연골 명품코성형에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=늑연골 명품코성형후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>

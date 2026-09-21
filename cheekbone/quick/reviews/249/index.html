@@ -3,15 +3,28 @@
 <head>
 <script>
 (function(){
+  var ok = false;
   try {
     var t = localStorage.getItem('rococo_member_token');
     if (t) {
       var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-      if (payload.exp && Date.now() < payload.exp * 1000) return;
-      localStorage.removeItem('rococo_member_token');
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
     }
   } catch(e) {}
-  location.replace('../../../../member/login/?return=' + encodeURIComponent(location.pathname));
+  if (ok) return;
+  document.documentElement.className += ' review-locked';
+  document.addEventListener('DOMContentLoaded', function(){
+    var target = document.querySelector('.paywalled');
+    if (!target) return;
+    var box = document.createElement('div');
+    box.className = 'paywall-notice';
+    box.innerHTML = '<p class="paywall-title">수술후기는 회원만 열람하실 수 있습니다</p>'
+      + '<p class="paywall-desc">실제 환자분들이 직접 남기신 후기입니다.<br>로그인하시면 전체 내용을 확인하실 수 있습니다.</p>'
+      + '<a class="paywall-btn" href="../../../../member/login/?return=' + encodeURIComponent(location.pathname) + '">로그인하고 후기 보기</a>'
+      + '<a class="paywall-sub" href="../../../../member/signup/?return=' + encodeURIComponent(location.pathname) + '">회원가입</a>';
+    target.parentNode.insertBefore(box, target);
+  });
 })();
 </script>
 <meta charset="UTF-8">
@@ -27,7 +40,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
 <script type="application/ld+json">
-[{"@context":"https://schema.org","@type":"Review","headline":"변형 7일차 후기","reviewBody":"토요일날 변형을 하여 지난주 토요일에 실밥제거하였으며 스펀지는 목요일 아침 떼내었습니다. 지방에 사는 관계로 수술후 일주일 후인 다음주 토요일에 실밥을 제거하러 정형외과에 갔습니다. 그런데 괜히 막 이러쿵저러쿵 광대 수술을 하여서 스탬플러를 제거","url":"https://journal.rococops.com/cheekbone/quick/reviews/249/","datePublished":"2013-01-21","inLanguage":"ko-KR","author":{"@type":"Person","name":"야호야"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"변형 7일차 후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/249/"}]}]
+[{"@context":"https://schema.org","@type":"Review","headline":"변형 7일차 후기","reviewBody":"토요일날 변형을 하여 지난주 토요일에 실밥제거하였으며 스펀지는 목요일 아침 떼내었습니다. 지방에 사는 관계로 수술후 일주일 후인 다음주 토요일에 실밥을 제거하러 정형외과에 갔습니다. 그런데 괜히 막 이러쿵저러쿵 광대 수술을 하여서 스탬플러를 제거","url":"https://journal.rococops.com/cheekbone/quick/reviews/249/","datePublished":"2013-01-21","inLanguage":"ko-KR","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"author":{"@type":"Person","name":"야호야"},"itemReviewed":{"@type":"MedicalProcedure","name":"15분 광대축소술","provider":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://journal.rococops.com/"},{"@type":"ListItem","position":2,"name":"광대성형","item":"https://journal.rococops.com/cheekbone/"},{"@type":"ListItem","position":3,"name":"15분 광대축소술","item":"https://journal.rococops.com/cheekbone/quick/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/"},{"@type":"ListItem","position":5,"name":"변형 7일차 후기","item":"https://journal.rococops.com/cheekbone/quick/reviews/249/"}]}]
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../../css/style.css">
@@ -190,11 +203,13 @@
   <div class="container">
     <div class="article-layout">
       <div class="article-content">
+        <div class="paywalled" data-nosnippet>
         <p>토요일날 변형을 하여 지난주 토요일에 실밥제거하였으며 스펀지는 목요일 아침 떼내었습니다.</p>
         <p>지방에 사는 관계로 수술후 일주일 후인 다음주 토요일에 실밥을 제거하러 정형외과에 갔습니다. 그런데 괜히 막 이러쿵저러쿵 광대 수술을 하여서 스탬플러를 제거 하러왔다고 말하기 굉장히 부끄러웠습니다. 그래도 여차저차 접수를 하고 대기하고있는데 간호사 분들께서 “일주일 됐데..스탬플러 제거한데” “어디어디?” 등등 안보는 척 하시면서 저를 굉장히 쳐다보시는 겁니다. 기분이 너무 나빠서 한번만 더 그러면 가서 한마디 해야겠다 마음속으로 부글부글 끓고 있었죠ㅠ_ㅠ 고맙게도? 더 이상의 내색은 없으셨고 실밥을 제거하고 드레싱하는데 간호사분께서 들어오셔서 정말 광대수술하신거예요? 물어보셔서 전 “네”라고 대답하였는데 그 뒤에 말씀이 “..정보좀 얻을 수 있을까요?” 당황ㅋㅋㅋㅋㅋㅋ 병원에서 근무하시면서 서울에서 양악이나 광대수술을 하고 드레싱을 받으러 오시는 환자분이 많이 계시다. 그런데 일주일째에 다들 오시는데 저처럼 멀쩡한 얼굴을 하고 나타나시는 분이 없으시다고 그것 때문에 인포에서 간호사분들께서 웅성웅성 하셨더라구요.</p>
         <p>그래서 아차 싶어 정보 드리고 나왔습니다. 많은 후기에서 보실 수 있듯이 큰 붓기 일주일이면 다 빠지구요. 성형이란게 90%이상이 자기만족이겠지만 전 굉장히 적은 돌출량이었음에도 줄어든 옆넓이에 만족하고있습니다. 붓기는 저는 관자놀이가 옆광대 만큼 굉장히 부어볼랐습니다. 일주일 후인 지금은 많이 들어갔네요^^</p>
         <p>멍은 전혀 없었구요.(노란멍 포함) 입 벌리는 것도 오늘 감기에 걸려 내과에 갔는데 아ㅡ해보시라는 의사선생님의 말씀에 크게 입벌렸는데 이것또한..전혀..이상이없네요..</p>
         <p>백문이불여일견. 2주후 사진첨부 후기 남기겠습니다.</p>
+        </div>
         <div class="inline-cta">
           <p class="inline-cta-text">15분 광대축소술에 대해 더 궁금한 점이 있으신가요?</p>
           <a href="../../../../counsel/online/?from=15분 광대축소술후기" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>
