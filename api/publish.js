@@ -155,6 +155,41 @@ function buildArticleBlocks(html, altText) {
   return { html: parts.join('\n        '), images };
 }
 
+// ── SEO 제목 규칙 (tools/seo_title.py 와 동일해야 함 — 수정 시 두 곳을 함께 맞출 것) ──
+// 서브카테고리 고정 문구 대신 원장님이 쓴 글 제목(H1)을 <title>로 사용.
+const SEO_BRAND_FULL = '로코코성형외과 김상호 원장';
+const SEO_BRAND_SHORT = '로코코성형외과';
+const SEO_MAX_LEN = 60;
+const SEO_DATE_ONLY = /^\s*\d{4}\s*[.\-/]?\s*(\d{1,2}\s*[.\-/]?\s*)?(\d{1,2}\.?)?\s*$/;
+
+function seoHasKeyword(h1, keywords) {
+  const h = h1.replace(/\s+/g, '');
+  const k = (keywords || '').replace(/[\s,/·]+/g, '');
+  for (let i = 0; i + 3 <= k.length; i++) {
+    if (h.includes(k.slice(i, i + 3))) return true;
+  }
+  return false;
+}
+
+function seoTitle(h1, keywords) {
+  h1 = String(h1 || '').replace(/\s+/g, ' ').trim();
+  keywords = String(keywords || '').trim();
+  let base;
+  if (!h1 || SEO_DATE_ONLY.test(h1) || h1.length < 6) {
+    const label = h1.replace(/[. ]+$/, '');
+    base = label ? `${keywords} (${label})` : keywords;
+  } else {
+    base = h1;
+    if (keywords && !seoHasKeyword(h1, keywords)) {
+      const candidate = `${h1} — ${keywords}`;
+      if (candidate.length + ` | ${SEO_BRAND_SHORT}`.length <= SEO_MAX_LEN) base = candidate;
+    }
+  }
+  let full = `${base} | ${SEO_BRAND_FULL}`;
+  if (full.length > SEO_MAX_LEN) full = `${base} | ${SEO_BRAND_SHORT}`;
+  return full;
+}
+
 // ── 페이지 템플릿 ──────────────────────────────────────────────
 function generatePage({title, metaTitle, description, ogImage, ogUrl, date,
   catPath, catName, subDir, subName, subNameEn, heroImage, content, originUrl}) {
@@ -393,7 +428,7 @@ export default async function handler(req, res) {
     });
 
     const pageHtml = generatePage({
-      title, metaTitle: `${cfg.keywords} — 로코코성형외과 김상호 원장`,
+      title, metaTitle: seoTitle(title, cfg.keywords),
       description, ogImage, ogUrl, date: pageDate,
       catPath, catName, subDir, subName: cfg.subName,
       subNameEn: cfg.subNameEn, heroImage,

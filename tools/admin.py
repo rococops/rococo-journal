@@ -9,6 +9,7 @@ from datetime import date as date_cls
 sys.path.insert(0, os.path.dirname(__file__))
 
 from clean_content import build_article_blocks, clean_text, html_escape, extract_origin_url
+from seo_title import seo_title
 from templates import (CTA_SECTION_HTML, DETAIL_PAGE, ORIGIN_LINK_CARD)
 from build_pages import (SUBCATS, CAT_NAMES, ACTIVE_MAP, THUMB_BASE_URL,
                           thumb_pool, header, footer, truncate, og_url_for)
@@ -63,7 +64,7 @@ def build_article(form):
 
     slug = next_slug()
     img_alt = f'{keywords or sub_name} 로코코성형외과'
-    meta_title = f'{keywords or sub_name} — 로코코성형외과 김상호 원장'
+    meta_title = seo_title(title, keywords or sub_name)
     cat_name = CAT_NAMES[cat_path]
     active_key = ACTIVE_MAP[cat_path]
 

@@ -10,6 +10,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from sql_parse import iter_insert_tuples, split_tuple_fields, parse_field
 from clean_content import build_article_blocks, clean_text, html_escape, first_paragraph_text, extract_origin_url
 from mcolumn_map import classify as classify_mcolumn
+from seo_title import seo_title
 from templates import (NAV_HTML, HEADER_HTML, FOOTER_HTML, CTA_SECTION_HTML,
                         DETAIL_PAGE, LIST_PAGE, CARD_HTML, SORT_SCRIPT_HTML,
                         ALL_CASES_PAGE, ORIGIN_LINK_CARD)
@@ -318,7 +319,7 @@ def build_subcat(cfg, rows, canonical_map):
             title=html_escape(title),
             title_short=html_escape(truncate(title, 24)),
             title_json=title.replace('"', '\\"'),
-            meta_title=html_escape(meta_title),
+            meta_title=html_escape(seo_title(title, keywords)),
             description=html_escape(description),
             description_json=description.replace('"', '\\"'),
             og_image=og_image,
