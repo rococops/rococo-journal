@@ -15,3 +15,7 @@ __pycache__/
 
 # 임시 테스트 파일
 _*.json
+
+# 성형 가이드: 초안 전송 토큰 / 로컬 초안 원본
+.draft_token
+drafts_local/

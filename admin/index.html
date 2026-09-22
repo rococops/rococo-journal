@@ -186,6 +186,16 @@ body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webki
 .btn-memo-toggle{background:none;border:none;font-size:.7rem;color:var(--gray-400);cursor:pointer;font-family:inherit;padding:0;margin-top:.3rem;text-decoration:underline}
 .btn-memo-toggle:hover{color:var(--gray-600)}
 .badge-email{background:#e3f0fb;color:#1565c0}
+.draft-toolbar{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.5rem}
+.draft-modal{position:fixed;inset:0;z-index:3000;background:#fff;display:flex;flex-direction:column}
+.draft-modal[hidden]{display:none}
+.draft-modal-bar{display:flex;align-items:center;justify-content:space-between;padding:.7rem 1rem;border-bottom:1px solid var(--gray-200);background:var(--gray-50)}
+.draft-modal iframe{flex:1;width:100%;border:0}
+.draft-status{display:inline-block;padding:.12rem .55rem;border-radius:999px;font-size:.68rem;font-weight:800}
+.draft-status.draft{background:#fff7e0;color:#8a6d00}
+.draft-status.published{background:#e6f4ea;color:#2e7d4f}
+.draft-row{cursor:pointer}
+.draft-row:hover td{background:var(--gray-50)}
 .consult-photos{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.5rem}
 .consult-photos img{width:64px;height:64px;object-fit:cover;border-radius:6px;border:1px solid var(--gray-200)}
 .reply-area{margin-top:.55rem;display:none}
@@ -333,6 +343,9 @@ body{overflow-x:hidden}
 
     <div class="nav-section">
       <p class="nav-label">운영</p>
+      <div class="nav-item" data-page="drafts">
+        <span class="nav-icon">📝</span>성형 가이드 초안함
+      </div>
       <div class="nav-item" data-page="write">
         <span class="nav-icon">✏️</span>새 글 작성
       </div>
@@ -433,6 +446,90 @@ body{overflow-x:hidden}
         </div>
         <div id="consult-wrap"><p class="empty-state">불러오는 중...</p></div>
       </div>
+    </div>
+
+    <!-- 성형 가이드 초안함 -->
+    <div class="page" id="page-drafts">
+      <div class="page-header">
+        <h1 class="page-title">성형 가이드 초안함</h1>
+        <p class="page-sub">키워드 기반으로 정리한 가이드 글 초안입니다. 내용을 고치고 전후사진을 넣은 뒤 발행하면 <strong>성형 가이드</strong> 메뉴에 노출됩니다.</p>
+      </div>
+
+      <div class="card" id="drafts-list-card">
+        <div class="consult-toolbar">
+          <span style="font-size:.78rem;color:var(--gray-600)">초안은 요청하시면 제가 작성해 이곳에 올려둡니다.</span>
+          <div class="consult-toolbar-right">
+            <button class="btn-sm" id="draft-new-btn">+ 빈 초안</button>
+            <button class="btn-sm" id="reload-drafts-btn">↻ 새로고침</button>
+          </div>
+        </div>
+        <div id="drafts-wrap"><p class="empty-state">불러오는 중...</p></div>
+      </div>
+
+      <div class="card" id="draft-editor" hidden>
+        <div class="field">
+          <label for="d-title">제목 (글 상단에 보이는 제목)</label>
+          <input type="text" id="d-title" maxlength="200">
+        </div>
+        <div class="field">
+          <label for="d-meta">검색 결과 제목 <span style="font-weight:400;color:var(--gray-400)">(비우면 위 제목 사용 · 키워드를 앞쪽에)</span></label>
+          <input type="text" id="d-meta" maxlength="120">
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="d-keyword">공략 키워드</label>
+            <input type="text" id="d-keyword" maxlength="100" placeholder="예: 구축코 원인">
+          </div>
+          <div class="field">
+            <label for="d-tag">목록에 보일 분류</label>
+            <input type="text" id="d-tag" maxlength="40" placeholder="예: 코재수술">
+          </div>
+        </div>
+        <div class="field">
+          <label for="d-slug">주소 (영문 소문자·숫자·하이픈)</label>
+          <input type="text" id="d-slug" maxlength="60" placeholder="예: contracted-nose-causes">
+          <p class="hint" id="d-slug-hint"></p>
+        </div>
+        <div class="field">
+          <label for="d-summary">요약 <span style="font-weight:400;color:var(--gray-400)">(검색 결과에 보이는 설명 · 150자 안팎)</span></label>
+          <textarea id="d-summary" maxlength="300" style="height:84px;font-family:inherit;font-size:.86rem"></textarea>
+          <p class="hint"><span id="d-summary-count">0</span>자</p>
+        </div>
+
+        <div class="field">
+          <label for="d-body">본문</label>
+          <div class="draft-toolbar">
+            <button type="button" class="btn-sm" data-ins="h2">소제목</button>
+            <button type="button" class="btn-sm" data-ins="h3">작은 소제목</button>
+            <button type="button" class="btn-sm" data-ins="ul">목록</button>
+            <button type="button" class="btn-sm" data-ins="b">굵게</button>
+            <button type="button" class="btn-sm" id="d-photo-btn">사진 넣기</button>
+            <input type="file" id="d-photo-input" accept="image/*" multiple hidden>
+          </div>
+          <textarea id="d-body" style="height:460px;font-family:inherit;font-size:.9rem;line-height:1.85"></textarea>
+          <p class="hint">빈 줄로 문단을 나눕니다. 사진은 커서 위치에 <strong>[[img:주소|사진 설명]]</strong> 형태로 들어가며, 설명 부분을 고쳐주세요. 위치를 옮기려면 그 한 줄을 잘라 붙여넣으면 됩니다.</p>
+        </div>
+
+        <div class="field">
+          <label for="d-sources">근거로 삼은 원장님 케이스 글 <span style="font-weight:400;color:var(--gray-400)">(한 줄에 하나 · 제목 | 주소)</span></label>
+          <textarea id="d-sources" style="height:96px;font-family:inherit;font-size:.82rem"></textarea>
+          <p class="hint">글 하단에 "이 글은 아래 실제 케이스 글을 바탕으로 정리했습니다"로 표시되어 관련 글끼리 서로 연결됩니다.</p>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary" id="d-save-btn">저장</button>
+          <button class="btn-sm" id="d-preview-btn">미리보기</button>
+          <button class="btn-sm" id="d-publish-btn" style="border-color:var(--adm);color:var(--adm)">🚀 발행</button>
+          <button class="btn-sm" id="d-close-btn">닫기</button>
+          <button class="btn-del" id="d-delete-btn" style="margin-left:auto">삭제</button>
+        </div>
+        <p class="hint" id="d-status-line"></p>
+      </div>
+    </div>
+
+    <div class="draft-modal" id="draft-preview-modal" hidden>
+      <div class="draft-modal-bar"><strong>미리보기</strong><button class="btn-sm" id="draft-preview-close">닫기</button></div>
+      <iframe id="draft-preview-frame" title="미리보기"></iframe>
     </div>
 
     <!-- 회원 관리 -->
@@ -756,7 +853,187 @@ document.querySelectorAll('.nav-item[data-page]').forEach(el => {
     if (el.dataset.page === 'consult') loadConsult();
     if (el.dataset.page === 'calendar') initCalendar();
     if (el.dataset.page === 'members') loadMembers();
+    if (el.dataset.page === 'drafts') loadDrafts();
   });
+});
+
+// ── 성형 가이드 초안함 ───────────────────────────
+const GUIDE_API = 'https://rococo-journal-api.vercel.app/api/publish';
+let currentDraftId = null;
+
+async function guideCall(action, body) {
+  const res = await fetch(GUIDE_API + '?action=' + action, {
+    method: 'POST',
+    headers: authHead({ 'Content-Type': 'application/json' }),
+    body: JSON.stringify(body || {})
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || '요청 실패 (' + res.status + ')');
+  return data;
+}
+
+async function loadDrafts() {
+  const wrap = document.getElementById('drafts-wrap');
+  wrap.innerHTML = '<p class="empty-state">불러오는 중...</p>';
+  try {
+    const d = await guideCall('draft-list');
+    if (!d.drafts.length) { wrap.innerHTML = '<p class="empty-state">초안이 없습니다.</p>'; return; }
+    wrap.innerHTML = '<table class="data-table"><thead><tr><th>제목</th><th>키워드</th><th>상태</th><th>수정일</th></tr></thead><tbody>'
+      + d.drafts.map(x => '<tr class="draft-row" data-id="' + esc(x.id) + '">'
+          + '<td>' + esc(x.title) + '</td>'
+          + '<td>' + esc(x.keyword || '-') + '</td>'
+          + '<td><span class="draft-status ' + esc(x.status) + '">' + (x.status === 'published' ? '발행됨' : '초안') + '</span></td>'
+          + '<td style="white-space:nowrap;color:var(--gray-400);font-size:.75rem">' + (x.updated_at || '').slice(0, 10) + '</td></tr>').join('')
+      + '</tbody></table>';
+    wrap.querySelectorAll('.draft-row').forEach(tr => tr.addEventListener('click', () => openDraft(tr.dataset.id)));
+  } catch (e) {
+    wrap.innerHTML = '<p class="empty-state">' + esc(e.message) + '</p>';
+  }
+}
+
+function fillEditor(d) {
+  currentDraftId = d.id || null;
+  document.getElementById('d-title').value = d.title || '';
+  document.getElementById('d-meta').value = d.meta_title || '';
+  document.getElementById('d-keyword').value = d.keyword || '';
+  document.getElementById('d-tag').value = d.tag || '';
+  document.getElementById('d-slug').value = d.slug || '';
+  document.getElementById('d-summary').value = d.summary || '';
+  document.getElementById('d-body').value = d.body || '';
+  document.getElementById('d-sources').value = (d.sources || []).map(s => (s.title || '') + ' | ' + s.url).join('\n');
+  document.getElementById('d-summary-count').textContent = (d.summary || '').length;
+  document.getElementById('d-status-line').innerHTML = d.published_url
+    ? '발행됨: <a href="' + esc(d.published_url) + '" target="_blank" rel="noopener">' + esc(d.published_url) + '</a> (수정 후 다시 발행하면 같은 주소가 갱신됩니다)' : '';
+  document.getElementById('d-delete-btn').style.display = currentDraftId ? '' : 'none';
+  document.getElementById('draft-editor').hidden = false;
+  document.getElementById('draft-editor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+async function openDraft(id) {
+  try { fillEditor((await guideCall('draft-get', { id })).draft); }
+  catch (e) { showMsg(esc(e.message), 'error'); }
+}
+
+function collectDraft() {
+  const sources = document.getElementById('d-sources').value.split('\n').map(l => l.trim()).filter(Boolean).map(l => {
+    const i = l.lastIndexOf('|');
+    return i > -1 ? { title: l.slice(0, i).trim(), url: l.slice(i + 1).trim() } : { title: '', url: l };
+  });
+  return {
+    id: currentDraftId,
+    title: document.getElementById('d-title').value.trim(),
+    meta_title: document.getElementById('d-meta').value.trim(),
+    keyword: document.getElementById('d-keyword').value.trim(),
+    tag: document.getElementById('d-tag').value.trim(),
+    slug: document.getElementById('d-slug').value.trim().toLowerCase(),
+    summary: document.getElementById('d-summary').value.trim(),
+    body: document.getElementById('d-body').value,
+    sources
+  };
+}
+
+async function saveDraft(silent) {
+  const d = await guideCall('draft-save', collectDraft());
+  currentDraftId = d.id;
+  document.getElementById('d-delete-btn').style.display = '';
+  if (!silent) showMsg('초안이 저장되었습니다.', 'success');
+  return d.id;
+}
+
+function insertAtCursor(text) {
+  const ta = document.getElementById('d-body');
+  const s = ta.selectionStart, e = ta.selectionEnd;
+  ta.value = ta.value.slice(0, s) + text + ta.value.slice(e);
+  ta.focus();
+  ta.selectionStart = ta.selectionEnd = s + text.length;
+}
+
+// 브라우저에서 미리 줄여 올림 (휴대폰 원본은 수 MB라 서버 한도를 넘음)
+function resizeImage(file, maxSide) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        let w = img.width, h = img.height;
+        if (w > maxSide || h > maxSide) { const r = Math.min(maxSide / w, maxSide / h); w = Math.round(w * r); h = Math.round(h * r); }
+        const c = document.createElement('canvas'); c.width = w; c.height = h;
+        c.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(c.toDataURL('image/jpeg', 0.85));
+      };
+      img.onerror = reject; img.src = reader.result;
+    };
+    reader.onerror = reject; reader.readAsDataURL(file);
+  });
+}
+
+document.getElementById('draft-new-btn').addEventListener('click', () => fillEditor({}));
+document.getElementById('reload-drafts-btn').addEventListener('click', loadDrafts);
+document.getElementById('d-close-btn').addEventListener('click', () => { document.getElementById('draft-editor').hidden = true; loadDrafts(); });
+document.getElementById('d-summary').addEventListener('input', e => { document.getElementById('d-summary-count').textContent = e.target.value.length; });
+
+document.querySelectorAll('.draft-toolbar [data-ins]').forEach(btn => btn.addEventListener('click', () => {
+  const t = btn.dataset.ins;
+  insertAtCursor(t === 'h2' ? '\n\n## 소제목\n\n' : t === 'h3' ? '\n\n### 작은 소제목\n\n' : t === 'ul' ? '\n\n- 항목 1\n- 항목 2\n\n' : '**굵게**');
+}));
+
+document.getElementById('d-photo-btn').addEventListener('click', () => document.getElementById('d-photo-input').click());
+document.getElementById('d-photo-input').addEventListener('change', async function () {
+  const files = Array.from(this.files);
+  const btn = document.getElementById('d-photo-btn');
+  for (let i = 0; i < files.length; i++) {
+    btn.disabled = true; btn.textContent = '업로드 중 (' + (i + 1) + '/' + files.length + ')...';
+    try {
+      const dataUrl = await resizeImage(files[i], 1600);
+      const r = await guideCall('image-upload', { dataUrl });
+      insertAtCursor('\n\n[[img:' + r.url + '|사진 설명을 입력하세요]]\n\n');
+    } catch (e) { showMsg('사진 업로드 실패: ' + esc(e.message), 'error'); }
+  }
+  btn.disabled = false; btn.textContent = '사진 넣기';
+  this.value = '';
+});
+
+document.getElementById('d-save-btn').addEventListener('click', async function () {
+  this.disabled = true;
+  try { await saveDraft(false); } catch (e) { showMsg(esc(e.message), 'error'); }
+  this.disabled = false;
+});
+
+document.getElementById('d-preview-btn').addEventListener('click', async function () {
+  this.disabled = true;
+  try {
+    const d = await guideCall('draft-preview', collectDraft());
+    document.getElementById('draft-preview-frame').srcdoc = d.html;
+    document.getElementById('draft-preview-modal').hidden = false;
+  } catch (e) { showMsg(esc(e.message), 'error'); }
+  this.disabled = false;
+});
+document.getElementById('draft-preview-close').addEventListener('click', () => { document.getElementById('draft-preview-modal').hidden = true; });
+
+document.getElementById('d-publish-btn').addEventListener('click', async function () {
+  const draft = collectDraft();
+  if (!draft.title || !draft.body) { showMsg('제목과 본문을 입력해주세요.', 'error'); return; }
+  if (/\[\[img:[^\]]*사진 설명을 입력하세요\]\]/.test(draft.body)) {
+    if (!confirm('사진 설명이 아직 기본 문구("사진 설명을 입력하세요")로 남아 있습니다. 그대로 발행할까요?')) return;
+  }
+  if (!confirm('"' + draft.title + '" 글을 발행합니다.\n사이트에 바로 공개되고 성형 가이드 목록에 노출됩니다. 진행할까요?')) return;
+  this.disabled = true; const label = this.textContent; this.textContent = '발행 중... (최대 1분)';
+  try {
+    const id = await saveDraft(true);
+    const r = await guideCall('guide-publish', { id });
+    showMsg('발행되었습니다. 반영까지 1~2분 걸립니다. <a href="' + esc(r.url) + '" target="_blank" rel="noopener">' + esc(r.url) + '</a>', 'success');
+    document.getElementById('d-status-line').innerHTML = '발행됨: <a href="' + esc(r.url) + '" target="_blank" rel="noopener">' + esc(r.url) + '</a>';
+  } catch (e) { showMsg('발행 실패: ' + esc(e.message), 'error'); }
+  this.disabled = false; this.textContent = label;
+});
+
+document.getElementById('d-delete-btn').addEventListener('click', async () => {
+  if (!currentDraftId || !confirm('이 초안을 삭제할까요? (이미 발행된 글은 사이트에 그대로 남습니다)')) return;
+  try {
+    await guideCall('draft-delete', { id: currentDraftId });
+    document.getElementById('draft-editor').hidden = true;
+    loadDrafts();
+  } catch (e) { showMsg(esc(e.message), 'error'); }
 });
 
 // ── 회원 관리 ────────────────────────────────────

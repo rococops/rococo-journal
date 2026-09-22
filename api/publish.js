@@ -1,5 +1,7 @@
 import * as cheerio from 'cheerio';
+import { createClient } from '@supabase/supabase-js';
 import { navHtml, CAT_NAMES } from '../tools/nav.mjs';
+import { GUIDE, SITE_BASE as GUIDE_SITE, generateGuidePage, generateGuideIndex, firstImage } from '../tools/guide.mjs';
 
 const GITHUB_REPO = 'rococops/rococo-journal';
 const GITHUB_API  = 'https://api.github.com';
@@ -383,14 +385,8 @@ async function pushFile(filePath, content, message, token) {
   return res.ok;
 }
 
-// ── 핸들러 ─────────────────────────────────────────────────────
-export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', 'https://journal.rococops.com');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-
+// ── 기존: 카테고리 케이스 글 발행 ────────────────────────────────
+async function handlePublishArticle(req, res) {
   const { password, catPath, subDir, title, summary, date, content } = req.body || {};
 
   // 비밀번호 확인
@@ -446,6 +442,247 @@ export default async function handler(req, res) {
       url: ogUrl,
       message: `${filePath} 생성 완료`,
     });
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ error: String(e.message) });
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// 성형 가이드 — 초안함(drafts 테이블) + 발행
+// ══════════════════════════════════════════════════════════════
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
+const IMG_BUCKET = 'guide-images';
+const SLUG_RE = /^[a-z0-9][a-z0-9-]{2,59}$/;
+
+function isAdmin(req) {
+  const pw = (req.headers.authorization || '').replace(/^Bearer\s+/i, '') || req.body?.password;
+  return !!pw && pw === process.env.ADMIN_PASSWORD;
+}
+// 로컬에서 초안을 밀어 넣는 용도(관리자 비밀번호 대신 초안 생성만 가능한 별도 토큰)
+function isDraftToken(req) {
+  const t = req.headers['x-draft-token'];
+  return !!t && !!process.env.DRAFT_API_TOKEN && t === process.env.DRAFT_API_TOKEN;
+}
+
+const kstToday = () => new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+
+function cleanDraftInput(b) {
+  const sources = Array.isArray(b.sources)
+    ? b.sources.filter(s => s && s.url).map(s => ({ title: String(s.title || '').slice(0, 200), url: String(s.url).slice(0, 500) })).slice(0, 20)
+    : [];
+  return {
+    title: String(b.title || '').trim().slice(0, 200),
+    meta_title: String(b.meta_title || '').trim().slice(0, 120),
+    keyword: String(b.keyword || '').trim().slice(0, 100),
+    summary: String(b.summary || '').trim().slice(0, 300),
+    slug: String(b.slug || '').trim().toLowerCase(),
+    tag: String(b.tag || '').trim().slice(0, 40),
+    body: String(b.body || '').slice(0, 60000),
+    sources,
+  };
+}
+
+function draftToPost(d) {
+  return {
+    slug: d.slug, title: d.title, metaTitle: d.meta_title || '', summary: d.summary,
+    keyword: d.keyword, tag: d.tag, date: d.publish_date || kstToday(), body: d.body, sources: d.sources || [],
+  };
+}
+
+// ── GitHub: 여러 파일을 커밋 한 번으로 (글·이미지·목록·사이트맵이 따로 배포되지 않게) ──
+async function ghApi(path, token, opts = {}) {
+  const r = await fetch(`${GITHUB_API}/repos/${GITHUB_REPO}${path}`, {
+    ...opts,
+    headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' },
+  });
+  if (!r.ok) throw new Error(`GitHub ${opts.method || 'GET'} ${path} → ${r.status} ${(await r.text()).slice(0, 200)}`);
+  return r.json();
+}
+
+async function ghGetText(path, token) {
+  const r = await ghFetch(path, token);
+  if (!r.ok) return null;
+  const j = await r.json();
+  return Buffer.from(j.content, 'base64').toString('utf-8');
+}
+
+async function commitFiles(files, message, token) {
+  const ref = await ghApi('/git/ref/heads/main', token);
+  const headSha = ref.object.sha;
+  const head = await ghApi(`/git/commits/${headSha}`, token);
+  const tree = [];
+  for (const f of files) {
+    const blob = await ghApi('/git/blobs', token, {
+      method: 'POST',
+      body: JSON.stringify({ content: f.base64 ?? Buffer.from(f.text, 'utf-8').toString('base64'), encoding: 'base64' }),
+    });
+    tree.push({ path: f.path, mode: '100644', type: 'blob', sha: blob.sha });
+  }
+  const newTree = await ghApi('/git/trees', token, { method: 'POST', body: JSON.stringify({ base_tree: head.tree.sha, tree }) });
+  const commit = await ghApi('/git/commits', token, { method: 'POST', body: JSON.stringify({ message, tree: newTree.sha, parents: [headSha] }) });
+  await ghApi('/git/refs/heads/main', token, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha }) });
+  return commit.sha;
+}
+
+function addSitemapUrls(xml, urls, lastmod) {
+  let out = xml;
+  for (const [loc, priority] of urls) {
+    if (out.includes(`<loc>${loc}</loc>`)) continue;
+    out = out.replace('</urlset>', `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <priority>${priority}</priority>\n  </url>\n</urlset>`);
+  }
+  return out;
+}
+
+// ── 액션 ──
+async function draftList(req, res) {
+  const { data, error } = await supabase.from('drafts')
+    .select('id, title, keyword, status, updated_at, published_url')
+    .order('updated_at', { ascending: false }).limit(200);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ ok: true, drafts: data });
+}
+
+async function draftGet(req, res) {
+  const { data, error } = await supabase.from('drafts').select('*').eq('id', req.body?.id).maybeSingle();
+  if (error) return res.status(500).json({ error: error.message });
+  if (!data) return res.status(404).json({ error: '초안을 찾을 수 없습니다.' });
+  return res.status(200).json({ ok: true, draft: data });
+}
+
+async function draftSave(req, res, { createOnly = false } = {}) {
+  const input = cleanDraftInput(req.body || {});
+  if (!input.title) return res.status(400).json({ error: '제목을 입력해주세요.' });
+  if (input.slug && !SLUG_RE.test(input.slug)) {
+    return res.status(400).json({ error: '주소(슬러그)는 영문 소문자·숫자·하이픈 3~60자로 입력해주세요.' });
+  }
+  const id = createOnly ? null : req.body?.id;
+  if (id) {
+    const { error } = await supabase.from('drafts').update({ ...input, updated_at: new Date().toISOString() }).eq('id', id);
+    if (error) return res.status(500).json({ error: error.message });
+    return res.status(200).json({ ok: true, id });
+  }
+  const { data, error } = await supabase.from('drafts').insert({ ...input, status: 'draft' }).select('id').single();
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ ok: true, id: data.id });
+}
+
+async function draftDelete(req, res) {
+  const { error } = await supabase.from('drafts').delete().eq('id', req.body?.id);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ ok: true });
+}
+
+// 편집 중 임시 이미지 — 즉시 미리보기가 되도록 공개 버킷에 올리고, 발행할 때 저장소로 옮김
+async function imageUpload(req, res) {
+  const m = String(req.body?.dataUrl || '').match(/^data:(image\/(jpeg|png|webp));base64,(.+)$/);
+  if (!m) return res.status(400).json({ error: '지원하지 않는 이미지 형식입니다.' });
+  const buf = Buffer.from(m[3], 'base64');
+  if (buf.length > 3.5 * 1024 * 1024) return res.status(413).json({ error: '이미지 용량이 너무 큽니다.' });
+  const ext = m[2] === 'png' ? 'png' : m[2] === 'webp' ? 'webp' : 'jpg';
+  const path = `${kstToday()}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+
+  let { error } = await supabase.storage.from(IMG_BUCKET).upload(path, buf, { contentType: m[1] });
+  if (error && /bucket/i.test(error.message || '')) {
+    await supabase.storage.createBucket(IMG_BUCKET, { public: true });
+    ({ error } = await supabase.storage.from(IMG_BUCKET).upload(path, buf, { contentType: m[1] }));
+  }
+  if (error) return res.status(500).json({ error: error.message });
+  const { data } = supabase.storage.from(IMG_BUCKET).getPublicUrl(path);
+  return res.status(200).json({ ok: true, url: data.publicUrl });
+}
+
+async function draftPreview(req, res) {
+  const input = cleanDraftInput(req.body || {});
+  const slug = SLUG_RE.test(input.slug) ? input.slug : 'preview';
+  const html = generateGuidePage(draftToPost({ ...input, slug }), [], { preview: true });
+  return res.status(200).json({ ok: true, html });
+}
+
+async function guidePublish(req, res) {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) return res.status(500).json({ error: 'GitHub 토큰이 설정되지 않았습니다.' });
+
+  const { data: d, error } = await supabase.from('drafts').select('*').eq('id', req.body?.id).maybeSingle();
+  if (error) return res.status(500).json({ error: error.message });
+  if (!d) return res.status(404).json({ error: '초안을 찾을 수 없습니다.' });
+  if (!d.title || !d.body) return res.status(400).json({ error: '제목과 본문이 필요합니다.' });
+  if (!d.summary) return res.status(400).json({ error: '요약(검색 결과에 보이는 설명)을 입력해주세요.' });
+  if (!SLUG_RE.test(d.slug || '')) return res.status(400).json({ error: '주소(슬러그)를 영문 소문자·숫자·하이픈으로 입력해주세요. 예: contracted-nose-causes' });
+
+  const files = [];
+  const today = kstToday();
+  let body = d.body;
+
+  // 1) 임시 이미지를 사이트 저장소로 옮기고 본문 주소를 교체 (임시 저장소가 사라져도 글은 유지)
+  const pubPrefix = `/storage/v1/object/public/${IMG_BUCKET}/`;
+  const urls = [...new Set([...body.matchAll(/\[\[img:(.+?)(?:\|.*?)?\]\]/gs)].map(m => m[1].trim()))].filter(u => u.includes(pubPrefix));
+  let n = 0;
+  for (const url of urls) {
+    const r = await fetch(url);
+    if (!r.ok) return res.status(500).json({ error: `이미지를 불러오지 못했습니다: ${url}` });
+    const buf = Buffer.from(await r.arrayBuffer());
+    const ext = (url.split('.').pop() || 'jpg').split('?')[0].toLowerCase();
+    const repoPath = `images/guide/${d.slug}-${++n}.${['jpg', 'jpeg', 'png', 'webp'].includes(ext) ? ext : 'jpg'}`;
+    files.push({ path: repoPath, base64: buf.toString('base64') });
+    body = body.split(url).join('/' + repoPath);
+  }
+
+  // 2) 목록 데이터 갱신
+  const postsRaw = await ghGetText(`${GUIDE.path}/posts.json`, token);
+  let posts = [];
+  try { posts = postsRaw ? JSON.parse(postsRaw) : []; } catch { posts = []; }
+  const existing = posts.find(p => p.slug === d.slug);
+  const date = existing?.date || today;
+  const post = { ...draftToPost({ ...d, body }), date };
+  const entry = { slug: d.slug, title: d.title, metaTitle: d.meta_title || '', summary: d.summary, keyword: d.keyword, tag: d.tag, date, image: firstImage(body) };
+  posts = [entry, ...posts.filter(p => p.slug !== d.slug)];
+
+  files.push({ path: `${GUIDE.path}/${d.slug}/index.html`, text: generateGuidePage(post, posts) });
+  files.push({ path: `${GUIDE.path}/posts.json`, text: JSON.stringify(posts, null, 1) });
+  files.push({ path: `${GUIDE.path}/index.html`, text: generateGuideIndex(posts) });
+
+  // 3) 사이트맵 반영
+  const sitemap = await ghGetText('sitemap.xml', token);
+  if (sitemap) {
+    files.push({
+      path: 'sitemap.xml',
+      text: addSitemapUrls(sitemap, [
+        [`${GUIDE_SITE}/${GUIDE.path}/`, '0.8'],
+        [`${GUIDE_SITE}/${GUIDE.path}/${d.slug}/`, '0.8'],
+      ], today),
+    });
+  }
+
+  await commitFiles(files, `성형 가이드 ${existing ? '수정' : '발행'}: ${d.title}`, token);
+
+  const url = `${GUIDE_SITE}/${GUIDE.path}/${d.slug}/`;
+  await supabase.from('drafts').update({ status: 'published', published_url: url, body, updated_at: new Date().toISOString() }).eq('id', d.id);
+  return res.status(200).json({ ok: true, url });
+}
+
+// ── 핸들러 (기존 케이스 글 발행 + 성형 가이드 액션) ─────────────────
+export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'https://journal.rococops.com');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Draft-Token');
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
+  const action = req.query?.action;
+  if (!action) return handlePublishArticle(req, res);
+
+  try {
+    if (action === 'draft-create' && (isDraftToken(req) || isAdmin(req))) return await draftSave(req, res, { createOnly: true });
+    if (!isAdmin(req)) return res.status(401).json({ error: '인증 실패' });
+    if (action === 'draft-list') return await draftList(req, res);
+    if (action === 'draft-get') return await draftGet(req, res);
+    if (action === 'draft-save') return await draftSave(req, res);
+    if (action === 'draft-delete') return await draftDelete(req, res);
+    if (action === 'image-upload') return await imageUpload(req, res);
+    if (action === 'draft-preview') return await draftPreview(req, res);
+    if (action === 'guide-publish') return await guidePublish(req, res);
+    return res.status(400).json({ error: '잘못된 요청입니다.' });
   } catch (e) {
     console.error(e);
     return res.status(500).json({ error: String(e.message) });

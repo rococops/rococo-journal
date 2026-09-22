@@ -852,6 +852,19 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* ===========================
    RESPONSIVE
    =========================== */
+/* 태블릿 폭: 메뉴 항목이 늘어도 한 줄에 들어가도록 간격 축소 */
+@media (min-width: 769px) and (max-width: 1100px) {
+  .gnb > ul > li > a { padding: 8px 6px; font-size: 12.5px; }
+  .gnb .btn-consult, .gnb .btn-gold { padding: 7px 11px !important; }
+  .gnb .btn-gold-outline { padding: 6px 10px !important; }
+  .logo-sub { display: none; }
+}
+@media (min-width: 769px) and (max-width: 900px) {
+  .gnb > ul > li > a { padding: 8px 4px; font-size: 12px; }
+  .gnb .btn-consult, .gnb .btn-gold { padding: 7px 9px !important; }
+  .gnb .btn-gold-outline { padding: 6px 8px !important; }
+}
+
 @media (max-width: 1024px) {
   .cat-grid { grid-template-columns: repeat(3, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -2060,6 +2073,44 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     filter: none !important;
   }
 }
+
+/* ===== 성형 가이드 글 본문 ===== */
+.article-content h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.5;
+  color: var(--black);
+  margin: 2.75rem 0 1rem;
+  letter-spacing: -0.01em;
+}
+.article-content h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.5;
+  color: var(--black);
+  margin: 2rem 0 .75rem;
+}
+.article-content h2:first-child, .article-content h3:first-child { margin-top: 0; }
+.article-content ul {
+  margin: 0 0 1.25rem;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+.article-content ul li { margin-bottom: .4rem; line-height: 1.8; }
+.guide-figure { margin: 1.75rem auto; max-width: 640px; }
+.guide-figure img { margin: 0 auto; max-height: 800px; width: 100%; height: auto; object-fit: contain; border-radius: var(--radius); display: block; }
+.guide-figure figcaption { font-size: .82rem; color: var(--gray-400); text-align: center; margin-top: .6rem; line-height: 1.6; }
+.guide-sources {
+  margin: 2.5rem 0 0;
+  padding: 1.25rem 1.5rem;
+  background: var(--gray-50);
+  border-radius: var(--radius);
+  font-size: .85rem;
+}
+.guide-sources-title { font-weight: 800; color: var(--black); margin-bottom: .6rem; }
+.guide-sources ul { margin: 0; padding-left: 1.1rem; }
+.guide-sources li { margin-bottom: .35rem; line-height: 1.6; }
+.guide-sources a { color: var(--accent); text-decoration: underline; }
 
 /* ===== 수술후기 잠금(페이월) =====
    로그인 전에는 본문을 흐리게 가리고 안내를 덮어씌움. 예전처럼 로그인 페이지로 튕기면
