@@ -28,5 +28,6 @@
 ## Key URLs
 - Homepage: https://journal.rococops.com/
 - All cases: https://journal.rococops.com/cases/
+- Surgery guides (성형 가이드): https://journal.rococops.com/guide/
 - About Dr. Kim: https://journal.rococops.com/about/
 - Sitemap: https://journal.rococops.com/sitemap.xml
