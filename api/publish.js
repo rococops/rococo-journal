@@ -536,9 +536,14 @@ function addSitemapUrls(xml, urls, lastmod) {
 
 // ── 액션 ──
 async function draftList(req, res) {
-  const { data, error } = await supabase.from('drafts')
-    .select('id, title, keyword, status, updated_at, published_url')
-    .order('updated_at', { ascending: false }).limit(200);
+  const base = 'id, title, keyword, status, updated_at, published_url';
+  let { data, error } = await supabase.from('drafts')
+    .select(base + ', scheduled_at, publish_error')
+    .order('updated_at', { ascending: false }).limit(300);
+  // 예약 컬럼(SQL)을 아직 안 만든 상태여도 목록은 보이도록
+  if (error && /scheduled_at|publish_error/.test(error.message || '')) {
+    ({ data, error } = await supabase.from('drafts').select(base).order('updated_at', { ascending: false }).limit(300));
+  }
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json({ ok: true, drafts: data });
 }
@@ -599,16 +604,29 @@ async function draftPreview(req, res) {
   return res.status(200).json({ ok: true, html });
 }
 
-async function guidePublish(req, res) {
-  const token = process.env.GITHUB_TOKEN;
-  if (!token) return res.status(500).json({ error: 'GitHub 토큰이 설정되지 않았습니다.' });
+// 발행 실패를 HTTP 상태코드와 함께 던지기 위한 에러
+function publishError(status, message) {
+  const e = new Error(message);
+  e.status = status;
+  return e;
+}
 
-  const { data: d, error } = await supabase.from('drafts').select('*').eq('id', req.body?.id).maybeSingle();
-  if (error) return res.status(500).json({ error: error.message });
-  if (!d) return res.status(404).json({ error: '초안을 찾을 수 없습니다.' });
-  if (!d.title || !d.body) return res.status(400).json({ error: '제목과 본문이 필요합니다.' });
-  if (!d.summary) return res.status(400).json({ error: '요약(검색 결과에 보이는 설명)을 입력해주세요.' });
-  if (!SLUG_RE.test(d.slug || '')) return res.status(400).json({ error: '주소(슬러그)를 영문 소문자·숫자·하이픈으로 입력해주세요. 예: contracted-nose-causes' });
+async function guidePublish(req, res) {
+  const url = await publishDraftById(req.body?.id);
+  return res.status(200).json({ ok: true, url });
+}
+
+// 관리자 "발행" 버튼과 예약 발행(크론)이 함께 쓰는 실제 발행 로직
+async function publishDraftById(id) {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) throw publishError(500, 'GitHub 토큰이 설정되지 않았습니다.');
+
+  const { data: d, error } = await supabase.from('drafts').select('*').eq('id', id).maybeSingle();
+  if (error) throw publishError(500, error.message);
+  if (!d) throw publishError(404, '초안을 찾을 수 없습니다.');
+  if (!d.title || !d.body) throw publishError(400, '제목과 본문이 필요합니다.');
+  if (!d.summary) throw publishError(400, '요약(검색 결과에 보이는 설명)을 입력해주세요.');
+  if (!SLUG_RE.test(d.slug || '')) throw publishError(400, '주소(슬러그)를 영문 소문자·숫자·하이픈으로 입력해주세요. 예: contracted-nose-causes');
 
   const files = [];
   const today = kstToday();
@@ -620,7 +638,7 @@ async function guidePublish(req, res) {
   let n = 0;
   for (const url of urls) {
     const r = await fetch(url);
-    if (!r.ok) return res.status(500).json({ error: `이미지를 불러오지 못했습니다: ${url}` });
+    if (!r.ok) throw publishError(500, `이미지를 불러오지 못했습니다: ${url}`);
     const buf = Buffer.from(await r.arrayBuffer());
     const ext = (url.split('.').pop() || 'jpg').split('?')[0].toLowerCase();
     const repoPath = `images/guide/${d.slug}-${++n}.${['jpg', 'jpeg', 'png', 'webp'].includes(ext) ? ext : 'jpg'}`;
@@ -658,8 +676,116 @@ async function guidePublish(req, res) {
 
   const url = `${GUIDE_SITE}/${GUIDE.path}/${d.slug}/`;
   await supabase.from('drafts').update({ status: 'published', published_url: url, body, updated_at: new Date().toISOString() }).eq('id', d.id);
-  return res.status(200).json({ ok: true, url });
+  return url;
 }
+
+// ── 예약 발행 ──────────────────────────────────────────────
+// 하루 발행 시각(한국시간). Vercel 무료 요금제 크론은 하루 1회씩만 돌 수 있어
+// vercel.json에 시각별 크론을 따로 두고, 실제 실행은 그 시각 ±59분 안에서 들쭉날쭉하게 일어난다.
+const SLOT_HOURS_KST = [9, 15, 21];
+const KST_MS = 9 * 3600 * 1000;
+
+// 한국 날짜(YYYY-MM-DD 기준 자정)를 일 단위로 다루기 위한 값: 한국시간 기준 "날짜 번호"
+const kstDayNumber = (ms) => Math.floor((ms + KST_MS) / 86400000);
+const slotToUtcIso = (dayNumber, hourKst) => new Date(dayNumber * 86400000 + hourKst * 3600000 - KST_MS).toISOString();
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+
+// 같은 키워드가 연달아 나가지 않게 키워드별로 번갈아 섞는다
+function interleaveByKeyword(drafts) {
+  const groups = new Map();
+  for (const d of drafts) {
+    const k = (d.keyword || '').trim() || '-';
+    if (!groups.has(k)) groups.set(k, []);
+    groups.get(k).push(d);
+  }
+  const lists = shuffle([...groups.values()]);
+  const out = [];
+  while (lists.some(l => l.length)) {
+    for (const l of lists) if (l.length) out.push(l.shift());
+  }
+  return out;
+}
+
+// 선택한 초안들을 이미 잡힌 예약 다음 날부터 하루 2~3편씩, 6시간 간격 시각에 배정
+async function draftSchedule(req, res) {
+  const ids = Array.isArray(req.body?.ids) ? req.body.ids.filter(Boolean).slice(0, 300) : [];
+  if (!ids.length) return res.status(400).json({ error: '예약할 초안을 선택해주세요.' });
+
+  const { data: picked, error } = await supabase.from('drafts').select('id, title, keyword, summary, slug, status, updated_at').in('id', ids);
+  if (error) return res.status(500).json({ error: error.message });
+
+  // 안전장치: 같은 주소로 이미 발행·예약된 글이 있으면 덮어쓰지 않게 빼고,
+  // 선택 안에서 주소가 겹치면(구버전/신버전) 가장 최근에 고친 것 하나만 남긴다
+  const { data: taken } = await supabase.from('drafts').select('slug').in('status', ['published', 'scheduled']);
+  const takenSlugs = new Set((taken || []).map(t => t.slug));
+  const skipped = [];
+  const bySlug = new Map();
+  for (const d of (picked || [])) {
+    if (!(d.status === 'draft' || d.status === 'failed')) { skipped.push({ title: d.title, reason: '이미 예약·발행됨' }); continue; }
+    if (!d.summary || !SLUG_RE.test(d.slug || '')) { skipped.push({ title: d.title, reason: '요약 또는 주소가 비어 있음' }); continue; }
+    if (takenSlugs.has(d.slug)) { skipped.push({ title: d.title, reason: '같은 주소로 이미 발행·예약된 글이 있음' }); continue; }
+    const prev = bySlug.get(d.slug);
+    if (prev && Date.parse(prev.updated_at) >= Date.parse(d.updated_at)) { skipped.push({ title: d.title, reason: '같은 주소의 더 최근 초안이 있음' }); continue; }
+    if (prev) skipped.push({ title: prev.title, reason: '같은 주소의 더 최근 초안이 있음' });
+    bySlug.set(d.slug, d);
+  }
+  const targets = interleaveByKeyword([...bySlug.values()]);
+  if (!targets.length) return res.status(400).json({ error: '예약할 수 있는 초안이 없습니다.', skipped });
+
+  const { data: last } = await supabase.from('drafts').select('scheduled_at')
+    .eq('status', 'scheduled').order('scheduled_at', { ascending: false }).limit(1);
+  const tomorrow = kstDayNumber(Date.now()) + 1;
+  let day = last?.[0]?.scheduled_at ? Math.max(tomorrow, kstDayNumber(Date.parse(last[0].scheduled_at)) + 1) : tomorrow;
+
+  const plan = [];
+  while (plan.length < targets.length) {
+    const hours = Math.random() < 0.5 ? SLOT_HOURS_KST : shuffle(SLOT_HOURS_KST).slice(0, 2).sort((a, b) => a - b);
+    for (const h of hours) {
+      if (plan.length >= targets.length) break;
+      plan.push({ id: targets[plan.length].id, title: targets[plan.length].title, scheduled_at: slotToUtcIso(day, h) });
+    }
+    day++;
+  }
+
+  for (const p of plan) {
+    const { error: e } = await supabase.from('drafts')
+      .update({ status: 'scheduled', scheduled_at: p.scheduled_at, publish_error: null }).eq('id', p.id);
+    if (e) return res.status(500).json({ error: e.message });
+  }
+  return res.status(200).json({ ok: true, plan, skipped });
+}
+
+async function draftUnschedule(req, res) {
+  const { error } = await supabase.from('drafts')
+    .update({ status: 'draft', scheduled_at: null }).eq('id', req.body?.id).eq('status', 'scheduled');
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ ok: true });
+}
+
+// 크론이 부르는 곳: 시간이 된 예약 글 중 가장 이른 것 1편만 발행 (한꺼번에 몰려 나가지 않게)
+async function publishDue(req, res) {
+  const { data: due, error } = await supabase.from('drafts').select('id, title')
+    .eq('status', 'scheduled').lte('scheduled_at', new Date().toISOString())
+    .order('scheduled_at', { ascending: true }).limit(1);
+  if (error) return res.status(500).json({ error: error.message });
+  if (!due?.length) return res.status(200).json({ ok: true, published: null });
+
+  const d = due[0];
+  try {
+    const url = await publishDraftById(d.id);
+    return res.status(200).json({ ok: true, published: url });
+  } catch (e) {
+    await supabase.from('drafts').update({ status: 'failed', publish_error: String(e.message).slice(0, 500) }).eq('id', d.id);
+    return res.status(200).json({ ok: false, failed: d.title, error: e.message });
+  }
+}
+
+const isCron = (req) => !!process.env.CRON_SECRET && req.headers.authorization === `Bearer ${process.env.CRON_SECRET}`;
 
 // ── 핸들러 (기존 케이스 글 발행 + 성형 가이드 액션) ─────────────────
 export default async function handler(req, res) {
@@ -667,9 +793,15 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Draft-Token');
   if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const action = req.query?.action;
+  // Vercel 크론은 GET으로 부르고 CRON_SECRET을 Authorization 헤더에 실어 보낸다
+  if (req.method === 'GET' && action === 'publish-due') {
+    if (!isCron(req)) return res.status(401).json({ error: '인증 실패' });
+    try { return await publishDue(req, res); }
+    catch (e) { console.error(e); return res.status(500).json({ error: String(e.message) }); }
+  }
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   if (!action) return handlePublishArticle(req, res);
 
   try {
@@ -682,9 +814,11 @@ export default async function handler(req, res) {
     if (action === 'image-upload') return await imageUpload(req, res);
     if (action === 'draft-preview') return await draftPreview(req, res);
     if (action === 'guide-publish') return await guidePublish(req, res);
+    if (action === 'draft-schedule') return await draftSchedule(req, res);
+    if (action === 'draft-unschedule') return await draftUnschedule(req, res);
     return res.status(400).json({ error: '잘못된 요청입니다.' });
   } catch (e) {
     console.error(e);
-    return res.status(500).json({ error: String(e.message) });
+    return res.status(e.status || 500).json({ error: String(e.message) });
   }
 }

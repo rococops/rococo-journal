@@ -194,6 +194,9 @@ body{font-family:var(--font);background:var(--gray-50);color:var(--black);-webki
 .draft-status{display:inline-block;padding:.25rem .7rem;border-radius:999px;font-size:.72rem;font-weight:800}
 .draft-status.draft{background:#fff7e0;color:#8a6d00}
 .draft-status.published{background:#e6f4ea;color:#2e7d4f}
+.draft-status.scheduled{background:#e8eefc;color:#2f4fa8}
+.draft-status.failed{background:#fdecec;color:#b42318}
+.draft-check{width:18px;height:18px;cursor:pointer}
 .draft-row{cursor:pointer}
 .draft-row:hover td{background:var(--gray-50)}
 .consult-photos{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.5rem}
@@ -457,8 +460,10 @@ body{overflow-x:hidden}
 
       <div class="card" id="drafts-list-card">
         <div class="consult-toolbar">
-          <span style="font-size:.78rem;color:var(--gray-600)">초안은 요청하시면 제가 작성해 이곳에 올려둡니다.</span>
+          <span style="font-size:.78rem;color:var(--gray-600)">검토한 초안을 체크하고 <strong>예약 발행</strong>을 누르면 다음 날부터 하루 2~3편씩, 9시·15시·21시 무렵에 자동 발행됩니다.</span>
           <div class="consult-toolbar-right">
+            <button class="btn-sm" id="draft-select-all-btn">초안 전체 선택</button>
+            <button class="btn-sm" id="draft-schedule-btn" style="border-color:var(--adm);color:var(--adm)">선택한 초안 예약 발행</button>
             <button class="btn-sm" id="draft-new-btn">+ 빈 초안</button>
             <button class="btn-sm" id="reload-drafts-btn">↻ 새로고침</button>
           </div>
@@ -520,6 +525,7 @@ body{overflow-x:hidden}
           <button class="btn btn-primary" id="d-save-btn">저장</button>
           <button class="btn-sm" id="d-preview-btn">미리보기</button>
           <button class="btn-sm" id="d-publish-btn" style="border-color:var(--adm);color:var(--adm)">🚀 발행</button>
+          <button class="btn-sm" id="d-unschedule-btn" hidden>예약 취소</button>
           <button class="btn-sm" id="d-close-btn">닫기</button>
           <button class="btn-del" id="d-delete-btn" style="margin-left:auto">삭제</button>
         </div>
@@ -872,24 +878,70 @@ async function guideCall(action, body) {
   return data;
 }
 
+const DRAFT_STATUS_LABEL = { draft: '초안', scheduled: '예약', published: '발행됨', failed: '발행 실패' };
+
+// 예약 시각을 한국시간 "10/04(토) 15시" 형태로
+function fmtKst(iso) {
+  if (!iso) return '';
+  const d = new Date(Date.parse(iso) + 9 * 3600 * 1000);
+  const wd = '일월화수목금토'[d.getUTCDay()];
+  return (d.getUTCMonth() + 1) + '/' + String(d.getUTCDate()).padStart(2, '0') + '(' + wd + ') ' + d.getUTCHours() + '시';
+}
+
 async function loadDrafts() {
   const wrap = document.getElementById('drafts-wrap');
   wrap.innerHTML = '<p class="empty-state">불러오는 중...</p>';
   try {
     const d = await guideCall('draft-list');
     if (!d.drafts.length) { wrap.innerHTML = '<p class="empty-state">초안이 없습니다.</p>'; return; }
-    wrap.innerHTML = '<table class="data-table"><thead><tr><th>제목</th><th>키워드</th><th>상태</th><th>수정일</th></tr></thead><tbody>'
-      + d.drafts.map(x => '<tr class="draft-row" data-id="' + esc(x.id) + '">'
-          + '<td>' + esc(x.title) + '</td>'
-          + '<td>' + esc(x.keyword || '-') + '</td>'
-          + '<td><span class="draft-status ' + esc(x.status) + '">' + (x.status === 'published' ? '발행됨' : '초안') + '</span></td>'
-          + '<td style="white-space:nowrap;color:var(--gray-400);font-size:.75rem">' + (x.updated_at || '').slice(0, 10) + '</td></tr>').join('')
+    // 예약된 글은 발행 순서대로 위에, 나머지는 최근 수정 순
+    const rows = [...d.drafts].sort((a, b) => {
+      const sa = a.status === 'scheduled', sb = b.status === 'scheduled';
+      if (sa !== sb) return sa ? -1 : 1;
+      if (sa && sb) return Date.parse(a.scheduled_at) - Date.parse(b.scheduled_at);
+      return 0;
+    });
+    wrap.innerHTML = '<table class="data-table"><thead><tr><th></th><th>제목</th><th>키워드</th><th>상태</th><th>예약·수정일</th></tr></thead><tbody>'
+      + rows.map(x => {
+          const selectable = x.status === 'draft' || x.status === 'failed';
+          const when = x.status === 'scheduled' ? fmtKst(x.scheduled_at) + ' 발행 예정'
+            : x.status === 'failed' ? (x.publish_error || '') : (x.updated_at || '').slice(0, 10);
+          return '<tr class="draft-row" data-id="' + esc(x.id) + '">'
+            + '<td>' + (selectable ? '<input type="checkbox" class="draft-check" value="' + esc(x.id) + '" aria-label="예약 선택">' : '') + '</td>'
+            + '<td>' + esc(x.title) + '</td>'
+            + '<td>' + esc(x.keyword || '-') + '</td>'
+            + '<td><span class="draft-status ' + esc(x.status) + '">' + (DRAFT_STATUS_LABEL[x.status] || esc(x.status)) + '</span></td>'
+            + '<td style="white-space:nowrap;color:var(--gray-600);font-size:.75rem">' + esc(when) + '</td></tr>';
+        }).join('')
       + '</tbody></table>';
+    wrap.querySelectorAll('.draft-check').forEach(cb => cb.addEventListener('click', e => e.stopPropagation()));
     wrap.querySelectorAll('.draft-row').forEach(tr => tr.addEventListener('click', () => openDraft(tr.dataset.id)));
   } catch (e) {
     wrap.innerHTML = '<p class="empty-state">' + esc(e.message) + '</p>';
   }
 }
+
+document.getElementById('draft-select-all-btn').addEventListener('click', () => {
+  const boxes = [...document.querySelectorAll('#drafts-wrap .draft-check')];
+  const allOn = boxes.length && boxes.every(b => b.checked);
+  boxes.forEach(b => { b.checked = !allOn; });
+});
+
+document.getElementById('draft-schedule-btn').addEventListener('click', async function () {
+  const ids = [...document.querySelectorAll('#drafts-wrap .draft-check:checked')].map(b => b.value);
+  if (!ids.length) { showMsg('예약할 초안을 체크해주세요.', 'error'); return; }
+  if (!confirm(ids.length + '편을 예약 발행합니다.\n다음 날부터 하루 2~3편씩, 9시·15시·21시 무렵에 키워드를 섞어 자동 발행됩니다. 진행할까요?')) return;
+  this.disabled = true;
+  try {
+    const r = await guideCall('draft-schedule', { ids });
+    const first = r.plan[0], last = r.plan[r.plan.length - 1];
+    let msg = r.plan.length + '편 예약 완료: ' + fmtKst(first.scheduled_at) + ' ~ ' + fmtKst(last.scheduled_at);
+    if (r.skipped && r.skipped.length) msg += '<br>제외 ' + r.skipped.length + '편: ' + r.skipped.slice(0, 5).map(s => esc(s.title) + ' (' + esc(s.reason) + ')').join(', ');
+    showMsg(msg, 'success');
+    loadDrafts();
+  } catch (e) { showMsg(esc(e.message), 'error'); }
+  this.disabled = false;
+});
 
 function fillEditor(d) {
   currentDraftId = d.id || null;
@@ -902,8 +954,12 @@ function fillEditor(d) {
   document.getElementById('d-body').value = d.body || '';
   document.getElementById('d-sources').value = (d.sources || []).map(s => (s.title || '') + ' | ' + s.url).join('\n');
   document.getElementById('d-summary-count').textContent = (d.summary || '').length;
-  document.getElementById('d-status-line').innerHTML = d.published_url
+  document.getElementById('d-status-line').innerHTML = d.status === 'scheduled'
+    ? '예약됨: <strong>' + esc(fmtKst(d.scheduled_at)) + '</strong> 무렵 자동 발행 (내용은 그 전까지 수정·저장하면 반영됩니다)'
+    : d.status === 'failed' ? '발행 실패: ' + esc(d.publish_error || '') + ' — 고친 뒤 다시 예약하거나 바로 발행하세요.'
+    : d.published_url
     ? '발행됨: <a href="' + esc(d.published_url) + '" target="_blank" rel="noopener">' + esc(d.published_url) + '</a> (수정 후 다시 발행하면 같은 주소가 갱신됩니다)' : '';
+  document.getElementById('d-unschedule-btn').hidden = d.status !== 'scheduled';
   document.getElementById('d-delete-btn').style.display = currentDraftId ? '' : 'none';
   document.getElementById('draft-editor').hidden = false;
   document.getElementById('draft-editor').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1025,6 +1081,17 @@ document.getElementById('d-publish-btn').addEventListener('click', async functio
     document.getElementById('d-status-line').innerHTML = '발행됨: <a href="' + esc(r.url) + '" target="_blank" rel="noopener">' + esc(r.url) + '</a>';
   } catch (e) { showMsg('발행 실패: ' + esc(e.message), 'error'); }
   this.disabled = false; this.textContent = label;
+});
+
+document.getElementById('d-unschedule-btn').addEventListener('click', async function () {
+  if (!currentDraftId || !confirm('이 글의 예약을 취소하고 초안으로 되돌릴까요?')) return;
+  try {
+    await guideCall('draft-unschedule', { id: currentDraftId });
+    showMsg('예약을 취소했습니다.', 'success');
+    this.hidden = true;
+    document.getElementById('d-status-line').innerHTML = '';
+    loadDrafts();
+  } catch (e) { showMsg(esc(e.message), 'error'); }
 });
 
 document.getElementById('d-delete-btn').addEventListener('click', async () => {

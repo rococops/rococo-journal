@@ -1,5 +1,10 @@
 {
   "functions": {
     "api/publish.js": { "maxDuration": 60 }
-  }
+  },
+  "crons": [
+    { "path": "/api/publish?action=publish-due&slot=09", "schedule": "0 0 * * *" },
+    { "path": "/api/publish?action=publish-due&slot=15", "schedule": "0 6 * * *" },
+    { "path": "/api/publish?action=publish-due&slot=21", "schedule": "0 12 * * *" }
+  ]
 }

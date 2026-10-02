@@ -2112,6 +2112,23 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .guide-sources li { margin-bottom: .35rem; line-height: 1.6; }
 .guide-sources a { color: var(--accent); text-decoration: underline; }
 
+/* 성형 가이드: 핵심 정리 박스 · 비교표 (사진 대신 쓰는 글자 기반 시각 요소) */
+.guide-callout {
+  margin: 1.75rem 0;
+  padding: 1.1rem 1.35rem;
+  background: #faf6f0;
+  border: 1px solid #ecdfcc;
+  border-radius: 8px;
+}
+.guide-callout p { margin: 0 0 .5rem; line-height: 1.75; }
+.guide-callout p:last-child { margin-bottom: 0; }
+.guide-callout ul { margin: .25rem 0 0; }
+.guide-callout li { margin-bottom: .3rem; }
+.guide-table-wrap { margin: 1.75rem 0; overflow-x: auto; }
+.guide-table { width: 100%; border-collapse: collapse; font-size: .9rem; line-height: 1.6; min-width: 420px; }
+.guide-table th, .guide-table td { padding: .65rem .8rem; border-bottom: 1px solid var(--gray-200); text-align: left; vertical-align: top; }
+.guide-table th { background: var(--gray-50); font-weight: 800; color: var(--black); white-space: nowrap; }
+
 /* ===== 수술후기 잠금(페이월) =====
    로그인 전에는 본문을 흐리게 가리고 안내를 덮어씌움. 예전처럼 로그인 페이지로 튕기면
    구글이 noindex 페이지로 리디렉션된 것으로 보고 후기 전체를 색인에서 제외함 */

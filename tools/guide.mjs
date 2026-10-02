@@ -38,12 +38,41 @@ function inline(s) {
 // 본문 문법(원장님이 초안함에서 편집하는 형식):
 //   ## 소제목 / ### 작은 소제목 / - 목록 / 빈 줄로 문단 구분 / **굵게**
 //   [[img:주소|사진 설명]]  ← 사진 자리
+//   > 로 시작하는 줄 묶음 ← "핵심 정리" 박스 (안에서 - 목록 사용 가능)
+//   | 칸 | 칸 | 로 시작하는 줄 묶음 ← 비교표 (첫 줄이 머리글, |---| 줄은 무시)
+function renderCallout(b) {
+  const lines = b.split('\n').map(l => l.replace(/^>\s?/, ''));
+  const html = [];
+  let list = [];
+  const flush = () => { if (list.length) { html.push('<ul>' + list.map(l => `<li>${inline(l)}</li>`).join('') + '</ul>'); list = []; } };
+  for (const l of lines) {
+    if (/^- /.test(l)) { list.push(l.slice(2)); continue; }
+    flush();
+    if (l.trim()) html.push(`<p>${inline(l)}</p>`);
+  }
+  flush();
+  return `<div class="guide-callout">${html.join('')}</div>`;
+}
+
+function renderTable(b) {
+  const rows = b.split('\n')
+    .filter(l => !/^\|\s*:?-{2,}/.test(l))
+    .map(l => l.replace(/^\||\|$/g, '').split('|').map(c => c.trim()));
+  const [head, ...rest] = rows;
+  return `<div class="guide-table-wrap"><table class="guide-table"><thead><tr>${head.map(c => `<th>${inline(c)}</th>`).join('')}</tr></thead>`
+    + `<tbody>${rest.map(r => `<tr>${r.map(c => `<td>${inline(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+}
+
 export function renderBody(text, altFallback = '') {
   const blocks = String(text || '').replace(/\r/g, '').split(/\n{2,}/).map(b => b.trim()).filter(Boolean);
   const out = [];
   for (const b of blocks) {
     const img = b.match(/^\[\[img:(.+?)(?:\|(.*?))?\]\]$/s);
-    if (img) {
+    if (b.split('\n').every(l => /^>/.test(l))) {
+      out.push(renderCallout(b));
+    } else if (b.split('\n').every(l => /^\|.*\|$/.test(l.trim()))) {
+      out.push(renderTable(b));
+    } else if (img) {
       const url = safeUrl(img[1]);
       if (!url) continue;
       const cap = (img[2] || '').trim();
@@ -64,6 +93,20 @@ export function renderBody(text, altFallback = '') {
 export function firstImage(body) {
   const m = String(body || '').match(/\[\[img:(.+?)(?:\|.*?)?\]\]/s);
   return m ? safeUrl(m[1]) : '';
+}
+
+// 사진 없는 글의 대표 이미지: 키워드별 표지 (images/guide/covers/*.png)
+const COVERS = [
+  [/퀵광대/, 'quick-cheekbone'],
+  [/광대/, 'cheekbone'],
+  [/비공|콧구멍|콧날개/, 'alar'],
+  [/늑연골/, 'rib-cartilage'],
+  [/재수술|구축|보형물/, 'revision'],
+];
+export function coverFor(post) {
+  const text = `${post.keyword || ''} ${post.tag || ''} ${post.title || ''}`;
+  const hit = COVERS.find(([re]) => re.test(text));
+  return `images/guide/covers/${hit ? hit[1] : 'nose'}.png`;
 }
 
 // 검색 결과용 제목: 사람이 읽는 H1과 별개로, 글마다 검색 키워드를 담은 <title>을 둘 수 있음
@@ -150,8 +193,9 @@ export function generateGuidePage(post, others = [], opts = {}) {
   const canonical = `${SITE_BASE}/${GUIDE.path}/${post.slug}/`;
   const metaTitle = metaTitleOf(post);
   const description = String(post.summary || '').trim().slice(0, 160);
-  const hero = firstImage(post.body) || `${root}${DEFAULT_IMAGE}`;
-  const ogImage = hero.startsWith('/') ? SITE_BASE + hero : (hero.startsWith('../') ? `${SITE_BASE}/${DEFAULT_IMAGE}` : hero);
+  const cover = coverFor(post);
+  const hero = firstImage(post.body) || `${root}${cover}`;
+  const ogImage = hero.startsWith('/') ? SITE_BASE + hero : (hero.startsWith('../') ? `${SITE_BASE}/${cover}` : hero);
   const date = post.date || new Date().toISOString().slice(0, 10);
   const tag = post.tag || GUIDE.name;
   const titleJ = jsonStr(post.title), descJ = jsonStr(description);
@@ -246,7 +290,7 @@ export function generateGuideIndex(posts) {
   const schema = `[{"@context":"https://schema.org","@type":"CollectionPage","name":"${GUIDE.name}","description":"${jsonStr(GUIDE.listDescription)}","url":"${canonical}","inLanguage":"ko","publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"${SITE_BASE}"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"${SITE_BASE}/"},{"@type":"ListItem","position":2,"name":"${GUIDE.name}","item":"${canonical}"}]}]`;
 
   const cards = sorted.map(p => {
-    const img = p.image || `${root}${DEFAULT_IMAGE}`;
+    const img = p.image || `${root}${coverFor(p)}`;
     const href = `${esc(p.slug)}/`;
     return `      <a href="${href}" class="card" data-date="${esc(p.date || '')}">
         <div class="card-img">
