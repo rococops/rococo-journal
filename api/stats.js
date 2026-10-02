@@ -30,11 +30,25 @@ export default async function handler(req, res) {
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
   const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
 
+  // Supabase는 한 번에 최대 1000행만 돌려준다. 그대로 쓰면 방문이 1000건을 넘는 순간
+  // 뒤쪽 날짜가 통째로 잘려서 그래프가 0으로 붙는다 → 1000행씩 나눠 끝까지 가져온다
+  async function fetchAll(buildQuery) {
+    const PAGE = 1000;
+    const all = [];
+    for (let from = 0; from < 200000; from += PAGE) {
+      const { data, error } = await buildQuery().order('created_at', { ascending: true }).range(from, from + PAGE - 1);
+      if (error) return { data: null, error };
+      all.push(...data);
+      if (data.length < PAGE) break;
+    }
+    return { data: all, error: null };
+  }
+
   const [todayRes, weekRes, totalRes, monthRes, consultRes] = await Promise.all([
     supabase.from('pageviews').select('*', { count: 'exact', head: true }).gte('created_at', todayStart.toISOString()),
-    supabase.from('pageviews').select('path, referrer, created_at').gte('created_at', sevenDaysAgo.toISOString()),
+    fetchAll(() => supabase.from('pageviews').select('path, referrer, created_at').gte('created_at', sevenDaysAgo.toISOString())),
     supabase.from('pageviews').select('*', { count: 'exact', head: true }),
-    supabase.from('pageviews').select('created_at').gte('created_at', thirtyDaysAgo.toISOString()),
+    fetchAll(() => supabase.from('pageviews').select('created_at').gte('created_at', thirtyDaysAgo.toISOString())),
     supabase.from('inquiries').select('*', { count: 'exact', head: true }).gte('created_at', thirtyDaysAgo.toISOString()),
   ]);
 
