@@ -460,7 +460,7 @@ body{overflow-x:hidden}
 
       <div class="card" id="drafts-list-card">
         <div class="consult-toolbar">
-          <span style="font-size:.78rem;color:var(--gray-600)">검토한 초안을 체크하고 <strong>예약 발행</strong>을 누르면 다음 날부터 하루 2~3편씩, 9시·15시·21시 무렵에 자동 발행됩니다.</span>
+          <span style="font-size:.78rem;color:var(--gray-600)">검토한 초안을 체크하고 <strong>예약 발행</strong>을 누르면 다음 날부터 평일(월~금)에 하루 1~2편씩, 9시·15시·21시 무렵에 자동 발행됩니다.</span>
           <div class="consult-toolbar-right">
             <button class="btn-sm" id="draft-select-all-btn">초안 전체 선택</button>
             <button class="btn-sm" id="draft-schedule-btn" style="border-color:var(--adm);color:var(--adm)">선택한 초안 예약 발행</button>
@@ -930,7 +930,7 @@ document.getElementById('draft-select-all-btn').addEventListener('click', () => 
 document.getElementById('draft-schedule-btn').addEventListener('click', async function () {
   const ids = [...document.querySelectorAll('#drafts-wrap .draft-check:checked')].map(b => b.value);
   if (!ids.length) { showMsg('예약할 초안을 체크해주세요.', 'error'); return; }
-  if (!confirm(ids.length + '편을 예약 발행합니다.\n다음 날부터 하루 2~3편씩, 9시·15시·21시 무렵에 키워드를 섞어 자동 발행됩니다. 진행할까요?')) return;
+  if (!confirm(ids.length + '편을 예약 발행합니다.\n다음 날부터 평일(월~금)에 하루 1~2편씩, 9시·15시·21시 무렵에 키워드를 섞어 자동 발행됩니다. 진행할까요?')) return;
   this.disabled = true;
   try {
     const r = await guideCall('draft-schedule', { ids });

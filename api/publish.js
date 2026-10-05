@@ -536,7 +536,7 @@ function addSitemapUrls(xml, urls, lastmod) {
 
 // ── 액션 ──
 async function draftList(req, res) {
-  const base = 'id, title, keyword, status, updated_at, published_url';
+  const base = 'id, title, keyword, slug, status, updated_at, published_url';
   let { data, error } = await supabase.from('drafts')
     .select(base + ', scheduled_at, publish_error')
     .order('updated_at', { ascending: false }).limit(300);
@@ -711,7 +711,7 @@ function interleaveByKeyword(drafts) {
   return out;
 }
 
-// 선택한 초안들을 이미 잡힌 예약 다음 날부터 하루 2~3편씩, 6시간 간격 시각에 배정
+// 선택한 초안들을 이미 잡힌 예약 다음 날부터 평일(월~금)에만 하루 1~2편씩, 9·15·21시 중 무작위 시각에 배정
 async function draftSchedule(req, res) {
   const ids = Array.isArray(req.body?.ids) ? req.body.ids.filter(Boolean).slice(0, 300) : [];
   if (!ids.length) return res.status(400).json({ error: '예약할 초안을 선택해주세요.' });
@@ -744,7 +744,11 @@ async function draftSchedule(req, res) {
 
   const plan = [];
   while (plan.length < targets.length) {
-    const hours = Math.random() < 0.5 ? SLOT_HOURS_KST : shuffle(SLOT_HOURS_KST).slice(0, 2).sort((a, b) => a - b);
+    // 날짜 번호 0 = 1970-01-01(목요일) → (day + 4) % 7 이 0이면 일요일, 6이면 토요일
+    const dow = (day + 4) % 7;
+    if (dow === 0 || dow === 6) { day++; continue; }
+    const count = Math.random() < 0.5 ? 1 : 2;
+    const hours = shuffle(SLOT_HOURS_KST).slice(0, count).sort((a, b) => a - b);
     for (const h of hours) {
       if (plan.length >= targets.length) break;
       plan.push({ id: targets[plan.length].id, title: targets[plan.length].title, scheduled_at: slotToUtcIso(day, h) });
@@ -806,6 +810,9 @@ export default async function handler(req, res) {
 
   try {
     if (action === 'draft-create' && (isDraftToken(req) || isAdmin(req))) return await draftSave(req, res, { createOnly: true });
+    // 초안 토큰으로는 목록 보기와 예약 걸기까지만 허용 (발행·삭제·수정은 관리자 비밀번호 필요)
+    if (isDraftToken(req) && action === 'draft-list') return await draftList(req, res);
+    if (isDraftToken(req) && action === 'draft-schedule') return await draftSchedule(req, res);
     if (!isAdmin(req)) return res.status(401).json({ error: '인증 실패' });
     if (action === 'draft-list') return await draftList(req, res);
     if (action === 'draft-get') return await draftGet(req, res);
