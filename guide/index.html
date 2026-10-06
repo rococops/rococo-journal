@@ -18,6 +18,20 @@
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../css/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0Y6WHB6J6X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-0Y6WHB6J6X');
+</script>
+<script>
+fetch('https://rococo-journal-api.vercel.app/api/track', {
+  method: 'POST',
+  headers: {'Content-Type': 'application/json'},
+  body: JSON.stringify({path: location.pathname, referrer: document.referrer})
+}).catch(function(){});
+</script>
 </head>
 <body>
 <div class="gnb-overlay" id="gnbOverlay"></div>

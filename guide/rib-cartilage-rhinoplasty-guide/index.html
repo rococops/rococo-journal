@@ -18,6 +18,20 @@
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="../../css/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0Y6WHB6J6X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-0Y6WHB6J6X');
+</script>
+<script>
+fetch('https://rococo-journal-api.vercel.app/api/track', {
+  method: 'POST',
+  headers: {'Content-Type': 'application/json'},
+  body: JSON.stringify({path: location.pathname, referrer: document.referrer})
+}).catch(function(){});
+</script>
 </head>
 <body>
 <div class="gnb-overlay" id="gnbOverlay"></div>
@@ -185,6 +199,8 @@
         </div>
         <div class="sidebar-related">
           <p class="sidebar-title">다른 가이드 글</p>
+          <a href="../../guide/alar-lowering-guide/" class="related-link">비공내리기 수술이란? 3세대 비공내리기의 효과와 흉터, 회복 기간</a>
+          <a href="../../guide/revision-rhinoplasty-timing/" class="related-link">코재수술 언제 받아야 할까? 6개월설의 진실과 보형물 제거수술과의 차이</a>
           <a href="../../guide/cheekbone-reduction-guide/" class="related-link">광대축소술 종류와 선택 기준 - 옆광대·45도 광대·뒷광대, 퀵광대는 누구에게 맞을까</a>
         </div>
         <div class="sidebar-related">
