@@ -901,7 +901,7 @@ async function loadDrafts() {
       if (sa && sb) return Date.parse(a.scheduled_at) - Date.parse(b.scheduled_at);
       return 0;
     });
-    wrap.innerHTML = '<table class="data-table"><thead><tr><th></th><th>제목</th><th>키워드</th><th>상태</th><th>예약·수정일</th></tr></thead><tbody>'
+    wrap.innerHTML = '<table class="data-table"><thead><tr><th></th><th>제목</th><th>키워드</th><th>상태</th><th>예약·수정일</th><th></th></tr></thead><tbody>'
       + rows.map(x => {
           const selectable = x.status === 'draft' || x.status === 'failed';
           const when = x.status === 'scheduled' ? fmtKst(x.scheduled_at) + ' 발행 예정'
@@ -911,11 +911,23 @@ async function loadDrafts() {
             + '<td>' + esc(x.title) + '</td>'
             + '<td>' + esc(x.keyword || '-') + '</td>'
             + '<td><span class="draft-status ' + esc(x.status) + '">' + (DRAFT_STATUS_LABEL[x.status] || esc(x.status)) + '</span></td>'
-            + '<td style="white-space:nowrap;color:var(--gray-600);font-size:.75rem">' + esc(when) + '</td></tr>';
+            + '<td style="white-space:nowrap;color:var(--gray-600);font-size:.75rem">' + esc(when) + '</td>'
+            + '<td><button class="btn-del draft-del" data-id="' + esc(x.id) + '" data-status="' + esc(x.status) + '" data-title="' + esc(x.title) + '">삭제</button></td></tr>';
         }).join('')
       + '</tbody></table>';
     wrap.querySelectorAll('.draft-check').forEach(cb => cb.addEventListener('click', e => e.stopPropagation()));
     wrap.querySelectorAll('.draft-row').forEach(tr => tr.addEventListener('click', () => openDraft(tr.dataset.id)));
+    // 목록에서 바로 삭제 (행 클릭으로 편집창이 열리지 않게 이벤트 차단)
+    wrap.querySelectorAll('.draft-del').forEach(btn => btn.addEventListener('click', async e => {
+      e.stopPropagation();
+      const b = e.currentTarget;
+      const note = b.dataset.status === 'scheduled' ? '\n예약도 함께 취소됩니다.'
+        : b.dataset.status === 'published' ? '\n이미 발행된 글은 사이트에 그대로 남고, 초안 기록만 지워집니다.' : '';
+      if (!confirm('"' + b.dataset.title + '" 초안을 삭제할까요?' + note)) return;
+      b.disabled = true; b.textContent = '삭제 중...';
+      try { await guideCall('draft-delete', { id: b.dataset.id }); loadDrafts(); }
+      catch (err) { alert('삭제 실패: ' + err.message); b.disabled = false; b.textContent = '삭제'; }
+    }));
   } catch (e) {
     wrap.innerHTML = '<p class="empty-state">' + esc(e.message) + '</p>';
   }
