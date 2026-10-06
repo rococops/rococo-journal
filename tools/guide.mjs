@@ -172,8 +172,25 @@ ${schema}
 </script>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="${root}css/style.css">
-</head>`;
+${preview ? '' : TRACKING}</head>`;
 }
+
+// 방문 기록(관리자 통계·글별 조회수)과 구글 애널리틱스 — 다른 페이지와 같은 코드. 관리자 미리보기에서는 넣지 않음
+const TRACKING = `<script async src="https://www.googletagmanager.com/gtag/js?id=G-0Y6WHB6J6X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-0Y6WHB6J6X');
+</script>
+<script>
+fetch('https://rococo-journal-api.vercel.app/api/track', {
+  method: 'POST',
+  headers: {'Content-Type': 'application/json'},
+  body: JSON.stringify({path: location.pathname, referrer: document.referrer})
+}).catch(function(){});
+</script>
+`;
 
 const HEADER = (root, nav) => `<div class="gnb-overlay" id="gnbOverlay"></div>
 <header class="site-header" id="header">

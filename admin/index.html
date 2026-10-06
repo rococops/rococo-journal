@@ -526,6 +526,7 @@ body{overflow-x:hidden}
           <button class="btn-sm" id="d-preview-btn">미리보기</button>
           <button class="btn-sm" id="d-publish-btn" style="border-color:var(--adm);color:var(--adm)">🚀 발행</button>
           <button class="btn-sm" id="d-unschedule-btn" hidden>예약 취소</button>
+          <button class="btn-sm" id="d-unpublish-btn" hidden>사이트에서 내리기</button>
           <button class="btn-sm" id="d-close-btn">닫기</button>
           <button class="btn-del" id="d-delete-btn" style="margin-left:auto">삭제</button>
         </div>
@@ -866,6 +867,13 @@ document.querySelectorAll('.nav-item[data-page]').forEach(el => {
 // ── 성형 가이드 초안함 ───────────────────────────
 const GUIDE_API = 'https://rococo-journal-api.vercel.app/api/publish';
 let currentDraftId = null;
+let currentDraftStatus = null;
+
+// 발행된 가이드 글을 사이트에서 내리고(글 페이지·목록·사이트맵에서 제거), 원하면 초안까지 삭제
+async function unpublishGuide(id, alsoDelete) {
+  await guideCall('guide-unpublish', { id });
+  if (alsoDelete) await guideCall('draft-delete', { id });
+}
 
 async function guideCall(action, body) {
   const res = await fetch(GUIDE_API + '?action=' + action, {
@@ -892,7 +900,8 @@ async function loadDrafts() {
   const wrap = document.getElementById('drafts-wrap');
   wrap.innerHTML = '<p class="empty-state">불러오는 중...</p>';
   try {
-    const d = await guideCall('draft-list');
+    const [d, v] = await Promise.all([guideCall('draft-list'), guideCall('guide-views').catch(() => ({ views: {} }))]);
+    const views = v.views || {};
     if (!d.drafts.length) { wrap.innerHTML = '<p class="empty-state">초안이 없습니다.</p>'; return; }
     // 예약된 글은 발행 순서대로 위에, 나머지는 최근 수정 순
     const rows = [...d.drafts].sort((a, b) => {
@@ -901,7 +910,7 @@ async function loadDrafts() {
       if (sa && sb) return Date.parse(a.scheduled_at) - Date.parse(b.scheduled_at);
       return 0;
     });
-    wrap.innerHTML = '<table class="data-table"><thead><tr><th></th><th>제목</th><th>키워드</th><th>상태</th><th>예약·수정일</th><th></th></tr></thead><tbody>'
+    wrap.innerHTML = '<table class="data-table"><thead><tr><th></th><th>제목</th><th>키워드</th><th>상태</th><th>예약·수정일</th><th>조회수<br><span style="font-weight:400">전체 / 7일</span></th><th></th></tr></thead><tbody>'
       + rows.map(x => {
           const selectable = x.status === 'draft' || x.status === 'failed';
           const when = x.status === 'scheduled' ? fmtKst(x.scheduled_at) + ' 발행 예정'
@@ -912,6 +921,8 @@ async function loadDrafts() {
             + '<td>' + esc(x.keyword || '-') + '</td>'
             + '<td><span class="draft-status ' + esc(x.status) + '">' + (DRAFT_STATUS_LABEL[x.status] || esc(x.status)) + '</span></td>'
             + '<td style="white-space:nowrap;color:var(--gray-600);font-size:.75rem">' + esc(when) + '</td>'
+            + '<td style="white-space:nowrap;font-size:.8rem;text-align:right">' + (x.status === 'published'
+                ? '<strong>' + (views[x.slug]?.total || 0).toLocaleString() + '</strong> / ' + (views[x.slug]?.week || 0).toLocaleString() : '-') + '</td>'
             + '<td><button class="btn-del draft-del" data-id="' + esc(x.id) + '" data-status="' + esc(x.status) + '" data-title="' + esc(x.title) + '">삭제</button></td></tr>';
         }).join('')
       + '</tbody></table>';
@@ -922,10 +933,14 @@ async function loadDrafts() {
       e.stopPropagation();
       const b = e.currentTarget;
       const note = b.dataset.status === 'scheduled' ? '\n예약도 함께 취소됩니다.'
-        : b.dataset.status === 'published' ? '\n이미 발행된 글은 사이트에 그대로 남고, 초안 기록만 지워집니다.' : '';
-      if (!confirm('"' + b.dataset.title + '" 초안을 삭제할까요?' + note)) return;
+        : b.dataset.status === 'published' ? '\n사이트에서도 글을 내립니다(글 페이지·가이드 목록·사이트맵에서 제거). 되돌릴 수 없습니다.' : '';
+      if (!confirm('"' + b.dataset.title + '"' + (b.dataset.status === 'published' ? ' 글을 삭제할까요?' : ' 초안을 삭제할까요?') + note)) return;
       b.disabled = true; b.textContent = '삭제 중...';
-      try { await guideCall('draft-delete', { id: b.dataset.id }); loadDrafts(); }
+      try {
+        if (b.dataset.status === 'published') await unpublishGuide(b.dataset.id, true);
+        else await guideCall('draft-delete', { id: b.dataset.id });
+        loadDrafts();
+      }
       catch (err) { alert('삭제 실패: ' + err.message); b.disabled = false; b.textContent = '삭제'; }
     }));
   } catch (e) {
@@ -957,6 +972,7 @@ document.getElementById('draft-schedule-btn').addEventListener('click', async fu
 
 function fillEditor(d) {
   currentDraftId = d.id || null;
+  currentDraftStatus = d.status || null;
   document.getElementById('d-title').value = d.title || '';
   document.getElementById('d-meta').value = d.meta_title || '';
   document.getElementById('d-keyword').value = d.keyword || '';
@@ -972,6 +988,7 @@ function fillEditor(d) {
     : d.published_url
     ? '발행됨: <a href="' + esc(d.published_url) + '" target="_blank" rel="noopener">' + esc(d.published_url) + '</a> (수정 후 다시 발행하면 같은 주소가 갱신됩니다)' : '';
   document.getElementById('d-unschedule-btn').hidden = d.status !== 'scheduled';
+  document.getElementById('d-unpublish-btn').hidden = d.status !== 'published';
   document.getElementById('d-delete-btn').style.display = currentDraftId ? '' : 'none';
   document.getElementById('draft-editor').hidden = false;
   document.getElementById('draft-editor').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1106,10 +1123,28 @@ document.getElementById('d-unschedule-btn').addEventListener('click', async func
   } catch (e) { showMsg(esc(e.message), 'error'); }
 });
 
-document.getElementById('d-delete-btn').addEventListener('click', async () => {
-  if (!currentDraftId || !confirm('이 초안을 삭제할까요? (이미 발행된 글은 사이트에 그대로 남습니다)')) return;
+document.getElementById('d-unpublish-btn').addEventListener('click', async function () {
+  if (!currentDraftId || !confirm('이 글을 사이트에서 내릴까요?\n글 페이지와 가이드 목록·사이트맵에서 빠지고, 초안은 남아 다시 발행할 수 있습니다.')) return;
+  this.disabled = true;
   try {
-    await guideCall('draft-delete', { id: currentDraftId });
+    await unpublishGuide(currentDraftId, false);
+    showMsg('사이트에서 내렸습니다. 1~2분 뒤 반영됩니다.', 'success');
+    currentDraftStatus = 'draft';
+    this.hidden = true;
+    document.getElementById('d-status-line').innerHTML = '';
+    loadDrafts();
+  } catch (e) { showMsg(esc(e.message), 'error'); }
+  this.disabled = false;
+});
+
+document.getElementById('d-delete-btn').addEventListener('click', async () => {
+  const published = currentDraftStatus === 'published';
+  if (!currentDraftId || !confirm(published
+    ? '이 글을 사이트에서 내리고 초안까지 삭제할까요?\n되돌릴 수 없습니다.'
+    : '이 초안을 삭제할까요?')) return;
+  try {
+    if (published) await unpublishGuide(currentDraftId, true);
+    else await guideCall('draft-delete', { id: currentDraftId });
     document.getElementById('draft-editor').hidden = true;
     loadDrafts();
   } catch (e) { showMsg(esc(e.message), 'error'); }

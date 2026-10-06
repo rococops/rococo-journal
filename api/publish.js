@@ -513,6 +513,8 @@ async function commitFiles(files, message, token) {
   const head = await ghApi(`/git/commits/${headSha}`, token);
   const tree = [];
   for (const f of files) {
+    // f.delete: 저장소에서 파일 삭제 (트리에 sha:null)
+    if (f.delete) { tree.push({ path: f.path, mode: '100644', type: 'blob', sha: null }); continue; }
     const blob = await ghApi('/git/blobs', token, {
       method: 'POST',
       body: JSON.stringify({ content: f.base64 ?? Buffer.from(f.text, 'utf-8').toString('base64'), encoding: 'base64' }),
@@ -532,6 +534,95 @@ function addSitemapUrls(xml, urls, lastmod) {
     out = out.replace('</urlset>', `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <priority>${priority}</priority>\n  </url>\n</urlset>`);
   }
   return out;
+}
+
+function removeSitemapUrl(xml, loc) {
+  // 해당 <loc>을 품은 <url>…</url> 블록 하나를 앞쪽 공백째 제거
+  const i = xml.indexOf(`<loc>${loc}</loc>`);
+  if (i < 0) return xml;
+  const start = xml.lastIndexOf('<url>', i);
+  const end = xml.indexOf('</url>', i);
+  if (start < 0 || end < 0) return xml;
+  let s = start;
+  while (s > 0 && /\s/.test(xml[s - 1])) s--;
+  return xml.slice(0, s) + xml.slice(end + '</url>'.length);
+}
+
+// 발행된 가이드 글 페이지를 현재 목록 기준으로 다시 만든다 (사이드바 최신 글 목록·추적 코드 갱신용)
+// 초안 기록(drafts, status=published)에 본문이 남아 있는 글만 다시 만들고, 없는 글은 기존 파일을 그대로 둔다
+async function rebuildGuidePages(posts) {
+  const slugs = posts.map(p => p.slug);
+  if (!slugs.length) return [];
+  const { data, error } = await supabase.from('drafts').select('*').eq('status', 'published').in('slug', slugs);
+  if (error) throw publishError(500, error.message);
+  const files = [];
+  for (const d of data || []) {
+    const entry = posts.find(p => p.slug === d.slug);
+    if (!entry || !d.body) continue;
+    files.push({ path: `${GUIDE.path}/${d.slug}/index.html`, text: generateGuidePage({ ...draftToPost(d), date: entry.date }, posts) });
+  }
+  return files;
+}
+
+async function readGuidePosts(token) {
+  const raw = await ghGetText(`${GUIDE.path}/posts.json`, token);
+  try { return raw ? JSON.parse(raw) : []; } catch { return []; }
+}
+
+// 발행된 가이드 글을 사이트에서 내린다: 글 페이지 삭제 + 목록·사이트맵에서 제거 + 다른 글 사이드바 갱신
+// 초안은 '초안' 상태로 되돌린다 (완전히 지우려면 이어서 draft-delete)
+async function guideUnpublish(req, res) {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) throw publishError(500, 'GitHub 토큰이 설정되지 않았습니다.');
+  const { data: d, error } = await supabase.from('drafts').select('id, slug, title, status').eq('id', req.body?.id).maybeSingle();
+  if (error) throw publishError(500, error.message);
+  if (!d) throw publishError(404, '초안을 찾을 수 없습니다.');
+  if (!SLUG_RE.test(d.slug || '')) throw publishError(400, '주소(슬러그)가 올바르지 않습니다.');
+
+  const before = await readGuidePosts(token);
+  const posts = before.filter(p => p.slug !== d.slug);
+  const files = [];
+  if (posts.length !== before.length) {
+    files.push({ path: `${GUIDE.path}/${d.slug}/index.html`, delete: true });
+    files.push({ path: `${GUIDE.path}/posts.json`, text: JSON.stringify(posts, null, 1) });
+    files.push({ path: `${GUIDE.path}/index.html`, text: generateGuideIndex(posts) });
+    files.push(...(await rebuildGuidePages(posts)));
+    const sitemap = await ghGetText('sitemap.xml', token);
+    if (sitemap) files.push({ path: 'sitemap.xml', text: removeSitemapUrl(sitemap, `${GUIDE_SITE}/${GUIDE.path}/${d.slug}/`) });
+    await commitFiles(files, `성형 가이드 내림: ${d.title}`, token);
+  }
+  await supabase.from('drafts').update({ status: 'draft', published_url: null, scheduled_at: null }).eq('id', d.id);
+  return res.status(200).json({ ok: true, removed: posts.length !== before.length });
+}
+
+// 모든 가이드 글 페이지와 목록을 현재 코드로 다시 만든다 (템플릿 변경 반영용, 내용은 그대로)
+async function guideRebuild(req, res) {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) throw publishError(500, 'GitHub 토큰이 설정되지 않았습니다.');
+  const posts = await readGuidePosts(token);
+  const files = [{ path: `${GUIDE.path}/index.html`, text: generateGuideIndex(posts) }, ...(await rebuildGuidePages(posts))];
+  await commitFiles(files, '성형 가이드 페이지 다시 만들기 (템플릿 반영)', token);
+  return res.status(200).json({ ok: true, pages: files.length });
+}
+
+// 가이드 글별 조회수: 전체 / 최근 7일 (pageviews는 1000행씩 나눠 읽음)
+async function guideViews(req, res) {
+  const weekAgo = Date.now() - 7 * 86400000;
+  const counts = {};
+  for (let from = 0; from < 500000; from += 1000) {
+    const { data, error } = await supabase.from('pageviews').select('path, created_at')
+      .like('path', `/${GUIDE.path}/%`).order('created_at', { ascending: true }).range(from, from + 999);
+    if (error) return res.status(500).json({ error: error.message });
+    for (const r of data) {
+      const m = r.path.match(new RegExp(`^/${GUIDE.path}/([a-z0-9-]+)/?`));
+      if (!m) continue;
+      const c = counts[m[1]] || (counts[m[1]] = { total: 0, week: 0 });
+      c.total++;
+      if (Date.parse(r.created_at) >= weekAgo) c.week++;
+    }
+    if (data.length < 1000) break;
+  }
+  return res.status(200).json({ ok: true, views: counts });
 }
 
 // ── 액션 ──
@@ -813,6 +904,7 @@ export default async function handler(req, res) {
     // 초안 토큰으로는 목록 보기와 예약 걸기까지만 허용 (발행·삭제·수정은 관리자 비밀번호 필요)
     if (isDraftToken(req) && action === 'draft-list') return await draftList(req, res);
     if (isDraftToken(req) && action === 'draft-schedule') return await draftSchedule(req, res);
+    if (isDraftToken(req) && action === 'guide-rebuild') return await guideRebuild(req, res);
     if (!isAdmin(req)) return res.status(401).json({ error: '인증 실패' });
     if (action === 'draft-list') return await draftList(req, res);
     if (action === 'draft-get') return await draftGet(req, res);
@@ -823,6 +915,9 @@ export default async function handler(req, res) {
     if (action === 'guide-publish') return await guidePublish(req, res);
     if (action === 'draft-schedule') return await draftSchedule(req, res);
     if (action === 'draft-unschedule') return await draftUnschedule(req, res);
+    if (action === 'guide-unpublish') return await guideUnpublish(req, res);
+    if (action === 'guide-rebuild') return await guideRebuild(req, res);
+    if (action === 'guide-views') return await guideViews(req, res);
     return res.status(400).json({ error: '잘못된 요청입니다.' });
   } catch (e) {
     console.error(e);
