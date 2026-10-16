@@ -19,3 +19,6 @@ _*.json
 # 성형 가이드: 초안 전송 토큰 / 로컬 초안 원본
 .draft_token
 drafts_local/
+
+# 세션 이관 메모 (내부 마케팅 수치 포함, 공개 저장소라 제외)
+HANDOFF.md
