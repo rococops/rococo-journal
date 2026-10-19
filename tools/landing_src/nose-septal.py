@@ -54,7 +54,7 @@ data = {
     "hero": {
         "eyebrow": "SEPTAL CARTILAGE · 비중격연골 코성형",
         "question": "비중격연골 코성형은 어떻게 수술하나요?",
-        "summary": {"text": seg('7', (38, 40)), "src": src('7')},
+        "summary": {"text": seg('214', (22, 23)), "src": src('214')},
         "stats": [
             {"from": 8, "to": 10, "unit": "mm", "label": "남겨두는 L자 지지대(L-strut) 폭",
              "quote": cut(seg('148', 10), start='빨간 화살표가', end='유지된답니다.'), "src": src('148')},
@@ -73,7 +73,7 @@ data = {
         "toc": "연골에 대해 자주 듣는 이야기",
         "title": "상담 때 자주 듣는 연골 이야기",
         "items": [seg('214', 8), seg('214', 10), seg('214', 12), seg('214', 14), seg('214', 16), seg('214', (18, 19))],
-        "note": seg('214', (22, 28)),
+        "note": seg('214', (24, 28)),
         "src": src('214')
     },
 
