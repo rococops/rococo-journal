@@ -1,0 +1,336 @@
+{
+  "_comment": "시술별 대표페이지 데이터(내시경 이마거상술). 원장님 글은 1인칭 칼럼 원문 그대로만 사용(가이드 3인칭 요약은 인용하지 않음). 문장 단위 대조: tools/verify_landing_quotes.py. 소제목·질문형 부제·라벨은 제작 문구.",
+  "page": "forehead/endoscopic",
+  "seo": {
+    "_comment": "apply=false 이면 <title>·description·H1·구조화데이터는 지금 그대로 둔다.",
+    "apply": true,
+    "title": "내시경 이마거상술 | 처진 눈썹·이마 주름, 수술 방법과 유지 기간·회복 | 로코코성형외과 김상호 원장",
+    "description": "내시경 이마거상술은 두피 속 작은 절개로 눈썹을 포함한 이마 전체를 들어올려 고정하는 수술입니다. 눈썹이 내려와 생기는 변화, 수술 방법, 효과 유지 기간, 붓기·멍과 회복을 김상호 원장의 글과 전후사진으로 정리했습니다.",
+    "h1": "내시경 이마거상술",
+    "procedure_name": "내시경 이마거상술"
+  },
+  "hero": {
+    "eyebrow": "ENDOSCOPIC FOREHEAD LIFT · 내시경 이마거상술",
+    "question": "내시경 이마거상술은 어떻게 수술하나요?",
+    "summary": {
+      "text": "이마거상술은 눈썹을 포함한 이마쪽 연부조직 전체를 들어올려서 바닥에 고정해주는 수술입니다.",
+      "src": "forehead/endoscopic/543"
+    },
+    "stats": [
+      {
+        "to": 30,
+        "unit": "분",
+        "label": "수술 시간 (수면마취)",
+        "quote": "수술은 수면마취로 시행하며 대략 30분이 걸립니다.",
+        "src": "forehead/endoscopic/337"
+      },
+      {
+        "from": 3,
+        "to": 5,
+        "unit": "군데",
+        "label": "두피 속 작은 절개 (보통 3군데 · 경우에 따라 5군데)",
+        "quote": "내시경 이마거상수술은 두피쪽에 1.5~2cm 작은 절개를 보통은 3군데, 경우에 따라서 5군데 넣습니다.",
+        "src": "forehead/endoscopic/195",
+        "extra": [
+          {
+            "quote": "두피쪽에 2~3cm 정도의 작은 절개 세 군데를 통해서",
+            "src": "forehead/endoscopic/337"
+          }
+        ]
+      },
+      {
+        "to": 5,
+        "unit": "년 이상",
+        "label": "눈썹이 올라간 효과 (대부분 최소)",
+        "quote": "그래도 제 경험상 대부분은 수술 전 보다 최소 5년 이상 눈썹이 올라간 효과를 볼 수 있습니다.",
+        "src": "forehead/endoscopic/543"
+      }
+    ],
+    "bg_image": "images/landing/nose-hump-hero.jpg",
+    "case": {
+      "src": "forehead/endoscopic/193",
+      "image": "https://rococops.com/files/editor/201706271247758434.jpg",
+      "alt": "내시경 이마거상술 전후 정면 사진",
+      "label": "CASE · 정면 전후",
+      "layout": "stack"
+    }
+  },
+  "features": {
+    "type": "SIGNS · BROW PTOSIS",
+    "toc": "눈썹이 내려올 때 생기는 변화",
+    "title": "눈썹이 아래쪽으로 내려올 때 생기는 특징적인 변화가 있습니다.",
+    "items": [
+      "안쪽에는 가로주름이 생기고",
+      "콧대 위쪽에도 가로주름이 생기고",
+      "눈이 덮이면서, 눈 바깥쪽 처짐도 생기게 됩니다.",
+      "60-70대 이상에서 눈 바깥쪽 처짐이 심해지면 거기에 눈물이 고이면서 피부가 짓무르는 문제도 생기게 됩니다."
+    ],
+    "note": "이 주름은 노화의 대표증상 중 하나인데, 절대 쌍커풀 수술이나 상안검 성형으로는 해결할 수 없고, 유일한 해결법이 다시 눈썹을 들어올려주는 이마거상술입니다.",
+    "src": "forehead/endoscopic/543"
+  },
+  "story": {
+    "title": "김상호 원장 이야기",
+    "blocks": [
+      {
+        "heading": "눈꺼풀이 처진 것이 아니라 눈썹이 내려온 것입니다",
+        "paras": [
+          "나이가 들면서 생기는 노화현상중에 쌍커풀 부위에 가장 큰 영향을 미치는 것은 눈썹이 아래쪽으로 쳐진다는 것입니다. 일반적으로 눈꺼풀이 쳐졌다.. 라고 생각하지만 윗눈꺼풀의 피부가 늘어나면서 아래쪽으로 쳐지는 것은 아주 적고, 대부분은 눈썹이 전체적으로 아래쪽으로 내려오는 것입니다. 예를 들어, 커튼이 있을 때 커튼의 천이 늘어져서 아래쪽으로 축 쳐지는 것이 아니라 커튼 위쪽에 있는 커튼 봉 자체가 아래쪽으로 내려오게 된 것이지요.",
+          "이마거상술은 눈위에서 일어나는 노화현상을 가장 근본적으로 교정하는 수술이 되겠습니다."
+        ],
+        "src": "forehead/endoscopic/201"
+      },
+      {
+        "heading": "나이와 관계없이, 눈썹이 올라가야 하는 얼굴에",
+        "paras": [
+          "많은 분들이 이마거상술은 나이드신 분들만 하는 수술이라고 생각하시는데.. 이마거상술이라는 수술은 나이에 관계 없이 눈썹이 올라가야 하는 얼굴에서 도움이 되는 수술이랍니다.",
+          "수술전에 비해 수술 후 눈썹이 위로 올라가는데 눈꼬리쪽을 조금 더 올려서 약간 쎈(?) 느낌을 만들 수도 있고, 사진에서처럼 눈썹 가운데 쪽을 조금 더 당겨서 좀 더 순한 느낌을 만들 수도 있답니다."
+        ],
+        "src": "forehead/endoscopic/200"
+      },
+      {
+        "heading": "엔도타인 없이 3포인트로 고정합니다",
+        "paras": [
+          "엔도타인 이마거상술에 비해서 어떤 장단점이 있는지 질문 받을 때가 있는데요, 저도 원래는 엔도타인 이마거상술을 했었는데.. 안쪽에 고정해 두었던 엔도타인이 2년이 지나도 흡수되지 않고 염증을 일으켜서 제거했던 case 발표를 학회에서 본 후로는 그냥 자체고정방식으로 수술법을 바꾸었고, 이후 다른 문제 없이 좋은 결과를 만들고 있습니다.",
+          "엔도타인은 2 부위를 고정하는 데 비해 저는 지금 3포인트 고정을 하고 있어 좀 더 안정감이 있고, 이마 중심부를 좀 더 확실하게 끌어 올릴 수 있으며, 몸에 이물질을 남기지 않는 다는 것도 아주 큰 장점이랍니다."
+        ],
+        "src": "forehead/endoscopic/193"
+      },
+      {
+        "heading": "미간 근육은 완전히 자르지 않습니다",
+        "paras": [
+          "눈썹을 찡그린다는 것은 눈썹을 아래쪽으로 끌어내린다는 말인데요, 이마거상술은 눈썹을 끌어 올릴 목적으로 수술하는 것이라 이 추미근을 많이 쓰면 아무래도 이마거상 수술이 재발 될 가능성이 조금이라도 더 높아집니다. 그래서, 이 추미근을 완전히 절제 하는 경우가 많습니다.",
+          "저도 예전에 그렇게 수술을 했었는데요, 질문하신 분과 비슷하게 표정이 너무 안지어져서 불편을 호소하시는 환자분이 계셨습니다. 제가 봐도 웃거나 할 때 뭔가 표정이 어색해 보여서 그 이후로는 추미근을 완전히 절제하지 않고 약간 손상을 줘서 힘을 빼놓는 정도로만 하고 있고, 수술 초기 6주정도가 재발에 영향을 미치는 시기이므로, 재발을 최소화 하기 위해서 미간 보톡스를 추천해드리고 있습니다.",
+          "오랫동안 많은 case에서 이 방법으로 수술했는데 자연스러운 정도의 표정이 남아 있으면서 아직까지 특별히 재발이 없어 좋은 방법이라 생각하고 있습니다."
+        ],
+        "src": "forehead/endoscopic/372"
+      }
+    ]
+  },
+  "icons": {
+    "scalp": "<path d=\"M22 112 C18 70 22 30 60 18 C98 30 102 70 98 112 Z\" fill=\"#f1cfb8\" stroke=\"#4a4a4a\" stroke-width=\"2.2\" stroke-linejoin=\"round\"/><path d=\"M22 70 C22 34 40 18 60 18 C80 18 98 34 98 70 C88 54 76 48 60 48 C44 48 32 54 22 70 Z\" fill=\"#6b4a3a\" fill-opacity=\".8\"/><path d=\"M60 26 L60 38 M38 36 L42 46 M82 36 L78 46\" stroke=\"#e58f7c\" stroke-width=\"3.4\" stroke-linecap=\"round\"/><path d=\"M38 84 C44 80 52 80 56 83 M64 83 C68 80 76 80 82 84\" fill=\"none\" stroke=\"#4a4a4a\" stroke-width=\"2.6\" stroke-linecap=\"round\"/>",
+    "scope": "<path d=\"M14 96 C30 60 50 40 96 30 L106 30 L106 104 L14 104 Z\" fill=\"#f1cfb8\" stroke=\"none\"/><path d=\"M14 96 C30 60 50 40 96 30\" fill=\"none\" stroke=\"#4a4a4a\" stroke-width=\"2.2\" stroke-linecap=\"round\"/><path d=\"M104 40 L46 70\" stroke=\"#4a4a4a\" stroke-width=\"5\" stroke-linecap=\"round\"/><path d=\"M104 40 L46 70\" stroke=\"#b8956a\" stroke-width=\"2\" stroke-linecap=\"round\"/><circle cx=\"44\" cy=\"71\" r=\"5\" fill=\"#fff6ea\" stroke=\"#b8956a\" stroke-width=\"1.6\"/><path d=\"M36 64 L30 60 M34 74 L27 76 M42 80 L40 87\" stroke=\"#c9a26f\" stroke-width=\"2\" stroke-linecap=\"round\"/>",
+    "glabella": "<path d=\"M10 58 C24 44 40 44 52 54 M68 54 C80 44 96 44 110 58\" fill=\"none\" stroke=\"#6b4a3a\" stroke-width=\"5\" stroke-linecap=\"round\"/><path d=\"M56 40 L56 66 M64 40 L64 66\" stroke=\"#c46a5a\" stroke-width=\"2\" stroke-dasharray=\"4 4\" stroke-linecap=\"round\"/><path d=\"M22 82 C30 76 40 76 46 82 M74 82 C80 76 90 76 98 82\" fill=\"none\" stroke=\"#4a4a4a\" stroke-width=\"2.4\" stroke-linecap=\"round\"/><path d=\"M48 98 L72 98\" stroke=\"#b8956a\" stroke-width=\"2.4\" stroke-linecap=\"round\"/>",
+    "browlift": "<path d=\"M14 76 C32 66 48 68 58 76\" fill=\"none\" stroke=\"#c46a5a\" stroke-width=\"2\" stroke-dasharray=\"4 4\" stroke-linecap=\"round\"/><path d=\"M62 76 C72 68 88 66 106 76\" fill=\"none\" stroke=\"#c46a5a\" stroke-width=\"2\" stroke-dasharray=\"4 4\" stroke-linecap=\"round\"/><path d=\"M14 62 C32 50 48 52 58 60 M62 60 C72 52 88 50 106 62\" fill=\"none\" stroke=\"#6b4a3a\" stroke-width=\"5\" stroke-linecap=\"round\"/><path d=\"M26 96 C34 90 46 90 52 96 M68 96 C74 90 86 90 94 96\" fill=\"none\" stroke=\"#4a4a4a\" stroke-width=\"2.4\" stroke-linecap=\"round\"/><path d=\"M60 44 L60 14 M52 22 L60 14 L68 22\" fill=\"none\" stroke=\"#b8956a\" stroke-width=\"2.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>"
+  },
+  "method": {
+    "title": "수술 방법",
+    "steps": [
+      {
+        "text": "수술은 수면마취로 시행하며 대략 30분이 걸립니다.",
+        "icon": "sleep"
+      },
+      {
+        "text": "두피쪽에 2~3cm 정도의 작은 절개 세 군데를 통해서",
+        "icon": "scalp"
+      },
+      {
+        "text": "내시경으로 안쪽 포켓을 보면서 이마를 박리하고 눈썹 주위 조직을 충분히 분리시켜준 후에",
+        "icon": "scope"
+      },
+      {
+        "text": "미간을 찡그리는 근육들을 가볍게 힘들 빼주고",
+        "icon": "glabella"
+      },
+      {
+        "text": "이마를 끌어올려 바닥에 녹는실을 이용해서 고정해줍니다. 최대한 재발을 막기 위해서 세 군데, 6개의 루프 이용해서 매우 단단하게 고정하고 있습니다.",
+        "icon": "browlift"
+      }
+    ],
+    "steps_src": "forehead/endoscopic/337",
+    "note": {
+      "text": "고정하는 실은 PDS 라는 실을 이용합니다. 이 실은 6개월 정도면 완전히 녹아서 몸에 흡수되는 실이라 수술 후 이물질이 남지 않는 수술법입니다.",
+      "src": "forehead/endoscopic/195"
+    },
+    "pros_cons": {
+      "paras": [
+        "#이마거상술은 눈과 눈썹이 가깝고 눈 위쪽이 두툼하신 분들께 가장 좋은 수술입니다. 눈썹이 끌려 올라가면서 두툼했던 눈꺼풀이 좀 더 가벼워진답니다.",
+        "반대로 보통상태였던 눈에서는 이 부분이 단점이 될 수 있는데, 눈썹이 올라가면서 눈 위쪽이 꺼져보일 수 있게 됩니다. 눈위쪽이 꺼진 느낌을 좋아하시는 분들께는 장점이 될 수도 있겠지만 대부분의 경우에는 눈 위가 꺼지면 약간 피곤해보이고 나이들어보일 수 있기 때문에 수술 전에 미리 이런부분을 설명드리고 눈위 지방이식을 같이 받으시는 것을 추천드리고 있습니다."
+      ],
+      "src": "forehead/endoscopic/277"
+    }
+  },
+  "recovery": {
+    "title": "회복",
+    "items": [
+      {
+        "label": "수술 당일",
+        "lines": [
+          "수면마취로 수술하기 때문에 잠깐 자고 일어나면 수술은 끝나 있습니다.",
+          "수술시에 출혈이 매우 적고 철저히 지혈하기 때문에 수술부위 피를 흡수하는 피통은 따로 넣지 않는답니다."
+        ],
+        "src": "forehead/endoscopic/195"
+      },
+      {
+        "label": "다음날 · 3일",
+        "lines": [
+          "이마에 붕대를 감아주는데 이 붕대는 수술 다음날 제거해드립니다.",
+          "절개부위 실밥은 수술 후 3일째 제거하고 수술 다음날부터 머리를 감으셔도 됩니다."
+        ],
+        "src": "forehead/endoscopic/195"
+      },
+      {
+        "label": "5일",
+        "lines": [
+          "수술 후 눈 주변에 멍이 들 수 있으므로 멍이 들지 않도록 살색 반창고를 붙이는데 이 반창고는 5일 정도 붙여주면 좋습니다."
+        ],
+        "src": "forehead/endoscopic/195"
+      },
+      {
+        "label": "2주",
+        "lines": [
+          "간혹 더 심한 멍이 눈 주위에 드는 경우도 있습니다. 얼굴에 멍이 드는 경우는 평균적으로 2주면 멍이 사라지는데요, 드물게 체질에 따라 더 오랫동안 멍이 지속되시는 분들도 계십니다."
+        ],
+        "src": "forehead/endoscopic/194"
+      },
+      {
+        "label": "첫 6주",
+        "lines": [
+          "수술 초기 6주정도가 재발에 영향을 미치는 시기이므로, 재발을 최소화 하기 위해서 미간 보톡스를 추천해드리고 있습니다."
+        ],
+        "src": "forehead/endoscopic/372"
+      }
+    ],
+    "note": {
+      "text": "눈 주위에 멍이 들지 않는 경우는 회복기간을 대략 3~5일 생각하시면 되고, 가끔 눈 주변에 멍이 드는 분의 경우는 2주 정도 멍이 유지될 수 있습니다.",
+      "src": "forehead/endoscopic/195"
+    }
+  },
+  "before_after": {
+    "title": "내시경 이마거상술 전후",
+    "alt": "내시경 이마거상술 전후 사진",
+    "items": [
+      {
+        "src": "forehead/endoscopic/193",
+        "image": "https://rococops.com/files/editor/201706271247758434.jpg",
+        "caption": "수술전과 수술 후 3주째 모습입니다.",
+        "label": "정면 3주"
+      },
+      {
+        "src": "forehead/endoscopic/193",
+        "image": "https://rococops.com/files/editor/201706271793151948.jpg",
+        "caption": "우사면 내시경이마거상술 전후사진입니다.",
+        "label": "사선 3주"
+      },
+      {
+        "src": "forehead/endoscopic/194",
+        "image": "https://rococops.com/files/editor/201703021481610103.jpg",
+        "caption": "수술 후 한달 째 모습입니다.",
+        "label": "정면 1개월"
+      },
+      {
+        "src": "forehead/endoscopic/194",
+        "image": "https://rococops.com/files/editor/20170302486459844.jpg",
+        "caption": "이마 주름이 얼마나 펴지는지",
+        "label": "이마 주름 1개월"
+      },
+      {
+        "src": "forehead/endoscopic/337",
+        "image": "https://rococops.com/files/editor/20200622124301408540357.jpg",
+        "caption": "수술전과 내시경 이마거상술 후 18일째 모습입니다.",
+        "label": "정면 18일"
+      },
+      {
+        "src": "forehead/endoscopic/337",
+        "image": "https://rococops.com/files/editor/20200622124348115416609.jpg",
+        "caption": "눈과 눈썹 사이 거리가 거의 두 배로",
+        "label": "측면 18일"
+      },
+      {
+        "src": "forehead/endoscopic/200",
+        "image": "https://rococops.com/files/editor/201605311677538535.jpg",
+        "caption": "수술 전과 수술 후 5주째 사진입니다",
+        "label": "20대 정면 5주"
+      },
+      {
+        "src": "forehead/endoscopic/195",
+        "image": "https://rococops.com/files/editor/20181110593554770.jpg",
+        "caption": "내시경 이마거상술과 눈밑지방재배치 수술 전과 수술 후 3개월째 전후사진입니다.",
+        "label": "눈밑지방재배치 동시 3개월"
+      }
+    ]
+  },
+  "logs": {
+    "title": "대표 사례 — 원장 기록",
+    "items": [
+      {
+        "src": "forehead/endoscopic/543",
+        "tag": "효과 유지 기간"
+      },
+      {
+        "src": "forehead/endoscopic/337",
+        "tag": "수술 방법·전후"
+      },
+      {
+        "src": "forehead/endoscopic/372",
+        "tag": "미간 근육 처리"
+      },
+      {
+        "src": "forehead/endoscopic/277",
+        "tag": "꺼진 눈 보완"
+      },
+      {
+        "src": "forehead/endoscopic/195",
+        "tag": "눈밑지방재배치 동시"
+      },
+      {
+        "src": "forehead/endoscopic/620",
+        "tag": "이마보형물 제거 동시"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "q": "이마거상술 효과는 얼마나 지속되나요?",
+      "a": "이마거상술은 흘러내린 이마를 다시 위쪽으로 올려주는 수술. 다시 말해서 조금 더 젊은 시절로 돌려놓기만 할 뿐 노화 자체를 막는 수술은 아니랍니다. 개인차이가 있지만 눈썹 포함 이마조직은 조금씩 계속해서 내려오게 되는데, 그래도 제 경험상 대부분은 수술 전 보다 최소 5년 이상 눈썹이 올라간 효과를 볼 수 있습니다.",
+      "src": "forehead/endoscopic/543"
+    },
+    {
+      "q": "시간이 지나 눈썹이 다시 내려오면 재수술할 수 있나요?",
+      "a": "수술결과는 최소 5년 이상 유지됩니다. 노화현상 자체를 막을수는 없으니 세월이 10년 20년 지나면 눈썹이 다시 내려오겠지요. 그 때는 간단히 재수술이 가능합니다.",
+      "src": "forehead/endoscopic/195"
+    },
+    {
+      "q": "두피 절개 흉터가 보이나요?",
+      "a": "흉터는 개인차가 있어 조금 더 눈에 띄는 경우도 있고 정말 거의 안보이는 경우도 많습니다. 머리가 짧은 남자분들의 경우에는 아무래도 여자보다 좀 더 흉터가 눈에 띌 가능성이 있답니다.",
+      "src": "forehead/endoscopic/197"
+    },
+    {
+      "q": "수술 후 이마가 넓어지나요?",
+      "a": "이 수술은 사진에서 보이지만 이마가 넓어지기 때문에 이마가 좁은 분에서 더 좋은 결과를 만듭니다. 이마가 너무 넓은 분이나 얼굴이 전체적으로 긴 경우에는 그런 부분이 강조될 수 있기 때문에 미리 수술전에 충분한 상담을 하시고 수술을 결정하셔야 한답니다.",
+      "src": "forehead/endoscopic/201"
+    },
+    {
+      "q": "이마 주름은 보톡스로 펴면 안 되나요?",
+      "a": "이마는 펴지겠지만 눈썹이 아래로 떨어지면서 눈이 눈꺼풀에 폭 덮이게 되어 눈이 아주 작아지고 환자분은 매우 답답함을 느끼게 된답니다. 시야가 좁아졌으니까요..",
+      "src": "forehead/endoscopic/197"
+    }
+  ],
+  "related": [
+    {
+      "href": "forehead/reduction",
+      "name": "이마축소술"
+    },
+    {
+      "href": "eye/brow-lift",
+      "name": "눈썹하거상술"
+    },
+    {
+      "href": "anti-aging/blepharoplasty",
+      "name": "상·하안검성형"
+    },
+    {
+      "href": "eye/lower-fat",
+      "name": "눈밑지방 재배치"
+    },
+    {
+      "href": "eye/fat-graft",
+      "name": "꺼진눈 지방이식"
+    },
+    {
+      "href": "eye/correction",
+      "name": "눈매교정술"
+    }
+  ],
+  "review_banner_subject": "내시경 이마거상술",
+  "cases_visible": 9
+}
