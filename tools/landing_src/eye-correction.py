@@ -57,8 +57,6 @@ data = {
              "extra": [{"quote": seg('251', 39), "src": src('251')}]},
             {"from": 5, "to": 7, "unit": "일", "label": "회복 기간 (드물게 멍이 들면 2주 전후)",
              "quote": seg('256', (42, 43)), "src": src('256')},
-            {"to": 99, "unit": "%", "label": "이상 풀어서 원상복구 가능 (과교정 시)",
-             "quote": seg('258', (76, 82)), "src": src('258')},
         ],
         "bg_image": "images/landing/nose-hump-hero.jpg",
         "case": {"src": src('256'), "image": "https://rococops.com/files/editor/201902181311378335.jpg",
