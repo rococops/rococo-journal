@@ -1,0 +1,337 @@
+{
+  "_comment": "시술별 대표페이지 데이터(콧볼축소술). 원장님 글은 1인칭 칼럼 원문 그대로만 사용(가이드 3인칭 요약은 인용하지 않음). 문장 단위 대조: tools/verify_landing_quotes.py. 소제목·질문형 부제·라벨은 제작 문구. c105/c106/c139 는 236/75/12 의 복제본이라 숫자 번호 글을 사용.",
+  "page": "nostril/alar-base",
+  "seo": {
+    "_comment": "apply=false 이면 <title>·description·H1·구조화데이터는 지금 그대로 둔다.",
+    "apply": true,
+    "title": "콧볼축소술(콧날개축소술) | 넓은 콧볼·복코, 콧볼 형태별 수술법과 흉터 | 로코코성형외과 김상호 원장",
+    "description": "콧볼축소술(콧날개축소술)은 넓게 벌어진 콧볼을 줄이는 수술입니다. 복코교정과의 관계, 콧볼 형태·콧구멍 크기에 따른 수술법, 수술하면 안 되는 콧볼, 절개선과 봉합, 흉터가 흐려지는 과정을 김상호 원장의 글로 정리했습니다.",
+    "h1": "콧볼축소술(콧날개축소술)",
+    "procedure_name": "콧볼축소술(콧날개축소술)"
+  },
+  "hero": {
+    "eyebrow": "ALAR BASE REDUCTION · 콧볼축소술",
+    "question": "콧볼축소술(콧날개축소술)은 어떻게 수술하나요?",
+    "summary": {
+      "text": "제가 주로 사용하는 수술법은 두 가지입니다. 첫 번째는 콧날개 자체를 줄이는 수술법 이며, 두 번째는 콧구멍 크기를 줄이는 수술법 입니다.",
+      "src": "nostril/alar-base/12"
+    },
+    "stats": [
+      {
+        "from": 15,
+        "to": 20,
+        "unit": "분",
+        "label": "수술 시간",
+        "quote": "수술시간 : 15분-20분",
+        "src": "nostril/alar-base/12"
+      },
+      {
+        "to": 5,
+        "unit": "일",
+        "label": "회복 기간 · 세안 및 화장",
+        "quote": "회복기간 : 5일",
+        "src": "nostril/alar-base/12",
+        "extra": [
+          {
+            "quote": "세안 및 화장 : 5일부터 하세요",
+            "src": "nostril/alar-base/12"
+          }
+        ]
+      },
+      {
+        "from": 6,
+        "to": 12,
+        "unit": "개월",
+        "label": "흉터가 흐려지는 시기",
+        "quote": "6~12개월이 지나면 아주 연한 선만 남아서 잘 보이지 않게 됩니다.",
+        "src": "nostril/alar-base/268",
+        "extra": [
+          {
+            "quote": "이 흉터는 6~12개월이 지나면서 상당히 흐려져서 자세히 보지 않으면 거의 보이지 않을정도가 됩니다.",
+            "src": "nostril/alar-base/295"
+          }
+        ]
+      }
+    ],
+    "bg_image": "images/landing/nose-hump-hero.jpg",
+    "case": {
+      "src": "nostril/alar-base/268",
+      "image": "https://rococops.com/files/editor/201907021036561772643227.jpg",
+      "alt": "콧볼축소술 수술 전후 사진",
+      "label": "CASE · 전후",
+      "layout": "stack"
+    }
+  },
+  "features": {
+    "type": "TYPE · ALAR BASE",
+    "toc": "콧볼축소술이 잘 맞는 콧볼",
+    "title": "콧볼축소수술의 효과를 제대로 보려면 일단 콧볼이 좀 얇아야 합니다.",
+    "items": [
+      "콧볼이 두꺼우면 두꺼울수록 그 효과가 떨어진답니다.",
+      "콧볼이 아래쪽에서 볼 때 좀 동그랗게 벌어져 있어야 합니다.",
+      "정면에서 콧구멍이 많이 노출되는 분들 중에서 콧구멍이 큰 분에서는 이런 수술로 콧구멍 노출을 많이 줄일 수도 있답니다."
+    ],
+    "note": "콧구멍을 줄여주는 비공축소술 은 호흡기능과 직결되기 때문에 항상 약간 아쉬운 정도로 디자인하는 것이 가장 중요합니다. 원상복구가 불가능한 수술이기 때문에 간단하지만 매우 위험한 수술이 될 수 있습니다.",
+    "src": "nostril/alar-base/268"
+  },
+  "story": {
+    "title": "김상호 원장 이야기",
+    "blocks": [
+      {
+        "heading": "복코교정과 함께 하는 경우가 많습니다",
+        "paras": [
+          "복코교정을 위해서 병원을 찾는 분들이 많으신데요, 일반적으로 복코교정은 코끝의 크기를 줄이는 수술인데 코끝이 줄어들면 옆에 달려 있는 콧볼이 커보이는 경우가 종종 있습니다. 그래서, 많은 경우에 복코교정 과 함께 콧볼축소술 을 하게 된답니다."
+        ],
+        "src": "nostril/alar-base/295"
+      },
+      {
+        "heading": "콧볼축소술을 비추천하는 콧볼",
+        "paras": [
+          "콧볼축소에 대해 문의하시는 분들 중에서 제가 수술을 비추천드리는 경우가 많습니다. 대부분은 바닥쪽의 콧구멍이 좁고, 콧볼의 아래쪽 바깥쪽 여유가 거의 없는 경우입니다.",
+          "특히나 콧볼축소술은 간단하지만 원상복구가 불가능한 매우 치명적일 수 있는 수술입니다.",
+          "콧볼에 부드러운 곡선이 없어지면서 쭉 뻗는 형태의 콧볼이 되어 좋게 말해서 부자연스러워지고, 나쁘게 말하면 싼티가 나는 코가 - 얼굴이 - 되어버립니다. 문제는 이걸 재수술을 해서 다시 돌릴 방법이 없다는 것이지요."
+        ],
+        "src": "nostril/alar-base/518"
+      },
+      {
+        "heading": "절개선 위치와 봉합",
+        "paras": [
+          "사진에 보시면 콧볼축소 절개선이 콧볼과 볼이 닿으면서 구부러지는 딱 그 지점에 위치해 있습니다. 일반인들은 대부분 저 부위가 주름 진 부위라서 당연히 저기에 절개를 해야 (저길 째야) 흉터가 덜 남을거라고 생각하실텐데 실제로는 저 부위에 절개를 하면 두 절개면이 평행으로 붙지 않고, 각이 지면서 꺾여서 붙어야 하니 봉합면이 예쁘게 붙기가 힘듭니다. 결국 그것이 흉터가 될 가능성이 높아지지요.",
+          "봉합은 간단히 설명해서 제일 약한 힘으로 두 면을 잘 붙이는 것 이 핵심입니다.",
+          "그러니 무조건 촘촘하게 많이 꿰맨다고 해서 좋은건 아니라는 점! 알고 계시면 좋겠습니다."
+        ],
+        "src": "nostril/alar-base/579"
+      },
+      {
+        "heading": "흉터를 줄이는 수술은 디자인에서 시작합니다",
+        "paras": [
+          "제가 생각하는 콧날개줄이기 수술의 가장 중요한 포인트는 <흉터의 최소화>입니다.",
+          "흉터를 줄이는 수술은 디자인에서 시작합니다. 콧날개의 크기는 기본이고, 피부가 지성인지 건성인지, 콧날개의 탄력, 고객이 웃을때 콧날개의 모양등을 고려해서 디자인 해야하고 수술시에는 메스가 들어가는 각도, 깊이, 제거 후 지혈, 봉합의 깊이와 실의 종류 및 실의 두께 등등..",
+          "세상 그 누가 수술을 해도 흉터는 남습니다. 다만 흉터가 최소한으로 눈에 띄지 않게 수술하는 것이 콧날개 줄이기 수술의 정수라고 생각합니다."
+        ],
+        "src": "nostril/alar-base/75"
+      }
+    ]
+  },
+  "icons": {
+    "ellipse": "<path d=\"M34 78 Q60 34 86 78\" fill=\"#efe4d3\" stroke=\"#b8956a\" stroke-width=\"2.4\"/><ellipse cx=\"60\" cy=\"74\" rx=\"18\" ry=\"7\" fill=\"none\" stroke=\"#c46a5a\" stroke-width=\"2.2\" stroke-dasharray=\"4 3\"/>",
+    "thin": "<path d=\"M30 80 Q60 30 90 80\" fill=\"none\" stroke=\"#b8956a\" stroke-width=\"10\" stroke-linecap=\"round\" opacity=\".35\"/><path d=\"M30 80 Q60 30 90 80\" fill=\"none\" stroke=\"#b8956a\" stroke-width=\"3\" stroke-linecap=\"round\"/><path d=\"M60 44 L60 60 M54 54 L60 60 L66 54\" fill=\"none\" stroke=\"#c46a5a\" stroke-width=\"2.4\" stroke-linecap=\"round\"/>",
+    "nostril": "<ellipse cx=\"44\" cy=\"66\" rx=\"14\" ry=\"20\" fill=\"#efe4d3\" stroke=\"#b8956a\" stroke-width=\"2.4\"/><ellipse cx=\"80\" cy=\"66\" rx=\"9\" ry=\"14\" fill=\"#efe4d3\" stroke=\"#b8956a\" stroke-width=\"2.4\"/><path d=\"M60 66 L66 66\" stroke=\"#c46a5a\" stroke-width=\"2.4\" stroke-linecap=\"round\"/>",
+    "keep": "<ellipse cx=\"44\" cy=\"66\" rx=\"12\" ry=\"18\" fill=\"#efe4d3\" stroke=\"#b8956a\" stroke-width=\"2.4\"/><ellipse cx=\"76\" cy=\"66\" rx=\"12\" ry=\"18\" fill=\"#efe4d3\" stroke=\"#b8956a\" stroke-width=\"2.4\"/><path d=\"M52 98 L68 98\" stroke=\"#c46a5a\" stroke-width=\"2.4\" stroke-linecap=\"round\"/><path d=\"M52 104 L68 104\" stroke=\"#c46a5a\" stroke-width=\"2.4\" stroke-linecap=\"round\"/>",
+    "thread": "<path d=\"M28 74 Q44 54 60 74 T92 74\" fill=\"none\" stroke=\"#c46a5a\" stroke-width=\"2.4\" stroke-linecap=\"round\"/><circle cx=\"28\" cy=\"74\" r=\"4\" fill=\"#b8956a\"/><circle cx=\"92\" cy=\"74\" r=\"4\" fill=\"#b8956a\"/>"
+  },
+  "method": {
+    "title": "수술 방법",
+    "steps": [
+      {
+        "text": "콧구멍이 작은 A 형에서는 콧볼축소술을 위해서 가장 흔한 수술법인 타원형의 절제를 합니다.",
+        "icon": "ellipse"
+      },
+      {
+        "text": "콧볼만 줄이기 때문에 콧구멍은 변화가 거의 없습니다.",
+        "icon": "keep"
+      },
+      {
+        "text": "이 때 콧볼이 두꺼운 환자에서는 콧볼의 폭을 줄이는 수술도 동시에 할 수 있는데 이 수술은 콧구멍 안쪽 경계를 따라서 약간의 흉터가 보일 수 있습니다.",
+        "icon": "thin"
+      },
+      {
+        "text": "콧구멍이 큰 B 형 에서는 콧볼축소와 동시에 비공축소술 (콧구멍줄이기) 를 같이 시행할 수 있습니다.",
+        "icon": "nostril"
+      },
+      {
+        "text": "D타입의 경우는 콧구멍을 줄여주면서 동시에 엘라스티꿈 실로 콧볼을 모아주게 됩니다. 이 경우에 가장 큰 효과를 볼 수 있습니다.",
+        "icon": "thread"
+      }
+    ],
+    "steps_src": "nostril/alar-base/295",
+    "note": {
+      "text": "이런 일반적인 형태의 콧볼축소수술은 A & B 형태의 콧볼에서만 의미가 있습니다. C & D 에서 이런식의 수술을 하면 흉터만 남길 뿐 콧볼 자체가 줄어드는 변화는 거의 느끼기 힘듭니다.",
+      "src": "nostril/alar-base/295"
+    },
+    "pros_cons": {
+      "paras": [
+        "아무리 수술을 잘 해도 무조건 흉터는 남게 됩니다. 다만, 1-2년 지난 시점에 검붉던 흉터 색깔이 흐려졌을 때 최대한 눈에 덜 띄는 흉터가 될 수 있게 수술해야 합니다.",
+        "참고로, 저는 요즘에는 실을 이용한 비절개 방식의 콧볼축소술은 단독으로는 거의 하지 않고, 콧구멍-콧볼축소술을 할 때 동반수술을 원하시는 분들께만 같이 시행하고 있습니다. 5년 이상 장기 경과를 봤을 때 아무래도 재발경향이 높다고 판단했기 때문입니다."
+      ],
+      "src": "nostril/alar-base/579"
+    }
+  },
+  "recovery": {
+    "title": "회복",
+    "items": [
+      {
+        "label": "5일",
+        "lines": [
+          "회복기간 : 5일",
+          "세안 및 화장 : 5일부터 하세요"
+        ],
+        "src": "nostril/alar-base/12"
+      },
+      {
+        "label": "실밥 제거 후",
+        "lines": [
+          "실밥 제거 후 아직 흉터가 약간 눈에 띄는데요, 6~12개월이 지나면 아주 연한 선만 남아서 잘 보이지 않게 됩니다."
+        ],
+        "src": "nostril/alar-base/268"
+      },
+      {
+        "label": "6~12개월",
+        "lines": [
+          "이 흉터는 6~12개월이 지나면서 상당히 흐려져서 자세히 보지 않으면 거의 보이지 않을정도가 됩니다. 물론, 체질에 따라서 흉터가 보이는 정도는 약간의 차이가 있을 것입니다."
+        ],
+        "src": "nostril/alar-base/295"
+      },
+      {
+        "label": "피부가 검은 편이라면",
+        "lines": [
+          "고객분처럼 또 저처럼 피부가 검은편인 분들의 경우 우리몸에 상처가 나면 멜라닌색소가 많아 아무래도 흉터가 더 티가나게 된답니다.",
+          "하지만 이 경우에도 시간이 지나면 모든 흉터는 흐려지게 됩니다."
+        ],
+        "src": "nostril/alar-base/75"
+      }
+    ],
+    "note": {
+      "text": "상담시에 반드시 수술부위를 자세히 찍은 사진을 보여달라고 하시는 것이 좋습니다. 이를 확인하신 후 흉터의 정도를 보고 수술을 결정하세요.",
+      "src": "nostril/alar-base/12"
+    }
+  },
+  "before_after": {
+    "title": "콧볼축소술(콧날개축소술) 전후",
+    "alt": "콧볼축소술 수술 전후 사진",
+    "items": [
+      {
+        "src": "nostril/alar-base/268",
+        "image": "https://rococops.com/files/editor/201907021036561772643227.jpg",
+        "caption": "콧볼축소술 전후사진 입니다.",
+        "label": "정면 · 열흘째"
+      },
+      {
+        "src": "nostril/alar-base/268",
+        "image": "https://rococops.com/files/editor/201907021038002024296498.jpg",
+        "caption": "아래쪽에서 본 전후사진입니다.",
+        "label": "아래쪽에서"
+      },
+      {
+        "src": "nostril/alar-base/295",
+        "image": "https://rococops.com/files/editor/20191105135238343585107.jpg",
+        "caption": "좌측이 수술전이고",
+        "label": "type C · 수술 직후"
+      },
+      {
+        "src": "nostril/alar-base/295",
+        "image": "https://rococops.com/files/editor/201911051353151625827480.jpg",
+        "caption": "수술 전과 수술 후 2주째 사진입니다.",
+        "label": "type D · 2주 (융비술 동시)"
+      },
+      {
+        "src": "nostril/alar-base/624",
+        "image": "https://rococops.com/files/editor/20251022111511900189142.jpg",
+        "caption": "수술 전과 수술 후 4주째 사진입니다.",
+        "label": "콧구멍-콧볼 축소 · 4주"
+      },
+      {
+        "src": "nostril/alar-base/624",
+        "image": "https://rococops.com/files/editor/20251022111558505541797.jpg",
+        "caption": "아래쪽에서 본 전후사진입니다.",
+        "label": "아래쪽에서"
+      },
+      {
+        "src": "nostril/alar-base/236",
+        "image": "https://rococops.com/files/album/attach1/1_20110508184752036.jpg",
+        "caption": "일반적인 복코교정 사례였습니다.",
+        "label": "복코교정 + 콧날개 줄이기"
+      },
+      {
+        "src": "nostril/alar-base/75",
+        "image": "https://rococops.com/files/editor/1303382555.jpg",
+        "caption": "자~ 이 사진을 보시면 콧날개 줄이기라는 수술에 대해 좀 더 이해하시기 쉬울 듯 합니다.",
+        "label": "콧날개 줄이기"
+      }
+    ]
+  },
+  "logs": {
+    "title": "대표 사례 — 원장 기록",
+    "items": [
+      {
+        "src": "nostril/alar-base/295",
+        "tag": "콧볼 형태별 수술법"
+      },
+      {
+        "src": "nostril/alar-base/518",
+        "tag": "수술하면 안 되는 콧볼"
+      },
+      {
+        "src": "nostril/alar-base/579",
+        "tag": "절개선 · 봉합"
+      },
+      {
+        "src": "nostril/alar-base/268",
+        "tag": "콧구멍 동시 축소"
+      },
+      {
+        "src": "nostril/alar-base/624",
+        "tag": "코성형 + 콧구멍·콧볼 축소"
+      },
+      {
+        "src": "nostril/alar-base/75",
+        "tag": "흉터"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "q": "복코교정만 하면 콧볼이 더 커 보이나요?",
+      "a": "콧날개 조작 없이 복코만 교정하게 되면 상대적으로 수술 후 콧날개가 더 커보일 수 있어 이런형태의 코에서는 같이 수술받는 것이 좋답니다.",
+      "src": "nostril/alar-base/236"
+    },
+    {
+      "q": "콧볼축소술을 하면 안 되는 코도 있나요?",
+      "a": "콧볼축소에 대해 문의하시는 분들 중에서 제가 수술을 비추천드리는 경우가 많습니다. 대부분은 바닥쪽의 콧구멍이 좁고, 콧볼의 아래쪽 바깥쪽 여유가 거의 없는 경우입니다.",
+      "src": "nostril/alar-base/518"
+    },
+    {
+      "q": "콧볼축소술 흉터는 남나요?",
+      "a": "아무리 수술을 잘 해도 무조건 흉터는 남게 됩니다. 다만, 1-2년 지난 시점에 검붉던 흉터 색깔이 흐려졌을 때 최대한 눈에 덜 띄는 흉터가 될 수 있게 수술해야 합니다.",
+      "src": "nostril/alar-base/579"
+    },
+    {
+      "q": "콧구멍을 같이 줄이면 숨쉬기가 불편해지지 않나요?",
+      "a": "물론, 콧구멍이 줄어들기 때문에 이론적으로 비호흡이 불편해질 가능성이 있으니 이런 부분을 충분히 감안하여 같이 의논해서 어느정도 콧구멍을 줄일지 결정하게 됩니다.",
+      "src": "nostril/alar-base/295"
+    },
+    {
+      "q": "수술 후 주의할 점이 있나요?",
+      "a": "특히 상처 아무는 데 담배가 제일 안좋습니다. 그 이유는 말초혈액순환이 저하되기 때문에 흉터가 더 남게 됩니다.",
+      "src": "nostril/alar-base/579"
+    }
+  ],
+  "related": [
+    {
+      "href": "nostril/reduction",
+      "name": "콧구멍축소술"
+    },
+    {
+      "href": "nostril/alar-raising",
+      "name": "콧날개올리기"
+    },
+    {
+      "href": "nostril/alar-lowering",
+      "name": "비공내리기"
+    },
+    {
+      "href": "nostril/v-shape",
+      "name": "V형 콧구멍교정"
+    },
+    {
+      "href": "nose/bulbous",
+      "name": "복코성형"
+    },
+    {
+      "href": "nose/revision",
+      "name": "코재수술"
+    }
+  ],
+  "review_banner_subject": "콧볼축소술(콧날개축소술)",
+  "cases_visible": 9
+}
