@@ -31,15 +31,15 @@ data = {
     "seo": {
         "_comment": "apply=false 이면 <title>·description·H1·구조화데이터는 지금 그대로 둔다.",
         "apply": True,
-        "title": "퀵광대 15분 광대축소술 | 수면마취·두피 작은 절개, 옆광대와 45도 광대 | 로코코성형외과 김상호 원장",
+        "title": "퀵광대(15분 광대축소술) | 수면마취·두피 작은 절개, 옆광대와 45도 광대 | 로코코성형외과 김상호 원장",
         "description": "퀵광대(15분 광대축소술)는 수면마취로 입안 절개 없이 하는 광대축소술입니다. 옆광대·45도 광대(변형15분) 차이, 수술 방법, 회복 기간, 부작용을 김상호 원장의 글로 정리했습니다.",
-        "h1": "15분 광대축소술(퀵광대)",
-        "procedure_name": "15분 광대축소술(퀵광대)"
+        "h1": "퀵광대(15분 광대축소술)",
+        "procedure_name": "퀵광대(15분 광대축소술)"
     },
 
     "hero": {
-        "eyebrow": "QUICK CHEEKBONE · 15분 광대축소술",
-        "question": "15분 광대축소술(퀵광대)은 어떻게 수술하나요?",
+        "eyebrow": "QUICK CHEEKBONE · 퀵광대",
+        "question": "퀵광대(15분 광대축소술)는 어떻게 수술하나요?",
         "summary": {"text": seg('19', (103, 105)), "src": src('19')},
         "stats": [
             {"from": 10, "to": 20, "unit": "분", "label": "수술 시간 (퀵광대 · 변형15분)",
@@ -71,7 +71,7 @@ data = {
              "paras": [seg('19', (260, 262)), seg('19', (382, 384))], "src": src('19')},
             {"heading": "광대는 광대뼈만으로 만들어지지 않습니다",
              "paras": [seg('19', (12, 16)), seg('19', (24, 26))], "src": src('19')},
-            {"heading": "15분 광대축소술을 만들기까지",
+            {"heading": "퀵광대(15분 광대축소술)를 만들기까지",
              "paras": [seg('19', (180, 183)), seg('19', (189, 192)), seg('19', (206, 207))], "src": src('19')},
             {"heading": "17년간의 퀵광대",
              "paras": [seg('546', 5), seg('546', (15, 18))], "src": src('546')},
@@ -101,7 +101,7 @@ data = {
     "method": {
         "title": "수술 방법",
         "steps": [
-            {"text": seg('19', 306).rstrip(','), "icon": "sleep"},
+            {"text": seg('19', 195), "icon": "sleep"},
             {"text": seg('19', 264), "icon": "scalp"},
             {"text": seg('19', 272), "icon": "scope"},
             {"text": seg('19', (203, 204)), "icon": "nopin"},
@@ -125,7 +125,7 @@ data = {
     },
 
     "before_after": {
-        "title": "15분 광대축소술 수술 전후",
+        "title": "퀵광대 수술 전후",
         "alt": "퀵광대 방식 광대축소술 수술 전후 사진",
         "items": [
             {"src": src('504'), "image": IMG + "20240207094438716212032.jpg",
@@ -180,7 +180,7 @@ data = {
         {"href": "nose/rib-cartilage", "name": "늑연골 명품코성형"},
     ],
 
-    "review_banner_subject": "15분 광대축소술",
+    "review_banner_subject": "퀵광대 수술",
     "cases_visible": 9
 }
 
