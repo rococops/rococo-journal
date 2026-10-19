@@ -184,10 +184,11 @@ class Renderer:
         faq = ''.join(f'<details class="lp-faq"><summary>{e(q["q"])}</summary><p>{e(q["a"])}</p>{self.src_link(q["src"])}</details>'
                       for q in d['faq'])
         related = ''.join(f'<a href="{self.href(r["href"])}">{e(r["name"])}</a>' for r in d.get('related', []))
+        comps = self.companions()
         return f'''{BODY_START}
 <nav class="lp-toc container" aria-label="목차">
   <a href="#lp-features">{e(f["toc"])}</a><a href="#lp-story">원장 이야기</a><a href="#lp-method">{e(m["title"])}</a>
-  <a href="#lp-recovery">{e(rec["title"])}</a><a href="#lp-ba">전후사진</a><a href="#lp-logs">대표 사례</a><a href="#lp-faq">자주 묻는 질문</a><a href="#lp-cases">전체 케이스</a>
+  <a href="#lp-recovery">{e(rec["title"])}</a><a href="#lp-ba">전후사진</a><a href="#lp-logs">대표 사례</a>{'<a href="#lp-comps">함께 보는 시술</a>' if comps else ''}<a href="#lp-faq">자주 묻는 질문</a><a href="#lp-cases">전체 케이스</a>
 </nav>
 
 <section class="section lp" id="lp-features">
@@ -251,7 +252,7 @@ class Renderer:
     <div class="lp-logs">{log_items}</div>
   </div>
 </section>
-
+{comps}
 <section class="section lp" id="lp-faq">
   <div class="container lp-narrow">
     <span class="lp-type">FAQ</span>
@@ -262,6 +263,36 @@ class Renderer:
 </section>
 <div id="lp-cases"></div>
 {BODY_END}'''
+
+    def companions(self):
+        """'함께 알아두면 좋은 시술' 섹션 (선택). 작은 하위 메뉴를 큰 대표페이지에 소개 카드로 흡수할 때 사용.
+        데이터: "companions": {"title": ..., "items": [{"name", "href"(하위 메뉴 경로),
+                 "lead": {"text", "src"}(원장님 원문), "image": {"src", "url", "caption"}(선택)}]}"""
+        c = self.d.get('companions')
+        if not c or not c.get('items'):
+            return ''
+        cards = []
+        for it in c['items']:
+            n = len([x for x in glob.glob(os.path.join(BASE, it['href'], '*', 'index.html'))
+                     if os.path.basename(os.path.dirname(x)) != 'reviews'])
+            img = it.get('image')
+            img_html = (f'<a class="lp-comp-img" href="{self.href(img["src"])}"><img src="{e(img["url"])}" '
+                        f'alt="{e(it["name"])} 수술 전후 사진" loading="lazy"></a>') if img else ''
+            cards.append(
+                f'<article class="lp-comp">{img_html}<div class="lp-comp-body">'
+                f'<h3 class="lp-comp-name"><a href="{self.href(it["href"])}">{e(it["name"])}</a></h3>'
+                f'<p class="lp-comp-lead">{e(it["lead"]["text"])}</p>{self.src_link(it["lead"]["src"])}'
+                f'<a class="lp-comp-more" href="{self.href(it["href"])}">{e(it["name"])} 케이스 {n}개 보기 →</a>'
+                f'</div></article>')
+        return f'''
+<section class="section lp" id="lp-comps">
+  <div class="container">
+    <span class="lp-type">RELATED PROCEDURES</span>
+    <h2 class="lp-h2">{e(c.get("title", "함께 알아두면 좋은 시술"))}</h2>
+    <div class="lp-comps">{"".join(cards)}</div>
+  </div>
+</section>
+'''
 
     def more_button(self, hidden):
         return (f'{MORE_START}\n    <button type="button" class="lp-more" id="lpMore">케이스 더보기 ({hidden}개) ↓</button>'

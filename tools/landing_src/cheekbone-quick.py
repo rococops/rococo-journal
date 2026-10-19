@@ -185,5 +185,7 @@ data = {
 }
 
 out = os.path.join(ROOT, 'data', 'landing', 'cheekbone-quick.json')
+from _companions import companions_for  # 함께 알아두면 좋은 시술(3순위 하위 메뉴 흡수)
+data['companions'] = companions_for(data['page'])
 json.dump(data, open(out, 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
 print('written', os.path.normpath(out))

@@ -60,8 +60,14 @@ def verify(data):
     check('recovery.note', rec['note']['src'], rec['note']['text'], r)
     for i, q in enumerate(data['faq']):
         check(f'faq[{i}]', q['src'], q['a'], r)
+    # 함께 알아두면 좋은 시술(선택): 소개 문장은 원문, 사진은 URL·캡션이 원본에 있어야 함
+    comp_imgs = []
+    for i, it in enumerate((data.get('companions') or {}).get('items', [])):
+        check(f'companions[{it["name"]}]', it['lead']['src'], it['lead']['text'], r)
+        if it.get('image'):
+            comp_imgs.append({'src': it['image']['src'], 'image': it['image']['url'], 'caption': it['image'].get('caption')})
     # 전후사진: 이미지 URL 과 캡션이 해당 칼럼 원본 HTML 에 있어야 함
-    for it in data['before_after']['items'] + [data['hero']['case']]:
+    for it in data['before_after']['items'] + [data['hero']['case']] + comp_imgs:
         raw, body = article_text(it['src'])
         missing = [x for x in (it['image'], it.get('caption')) if x and x not in raw and x not in body]
         r.append((not missing, 'before_after', it['src'], missing))

@@ -2298,6 +2298,16 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .lp-log p{font-weight:700;line-height:1.5;margin:0;flex:1}
 .lp-log-tag{font-size:.72rem;color:var(--accent);letter-spacing:.05em}
 .lp-log-by{font-size:.78rem;color:var(--gray-400)}
+/* 함께 알아두면 좋은 시술 (작은 하위 메뉴 소개 카드) */
+.lp-comps{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem}
+.lp-comp{display:flex;flex-direction:column;background:#fff;border:1px solid var(--gray-200);border-radius:14px;overflow:hidden}
+.lp-comp-img img{display:block;width:100%;aspect-ratio:16/10;object-fit:contain;background:#1f2633}
+.lp-comp-body{display:flex;flex-direction:column;gap:.6rem;padding:1.3rem 1.3rem 1.2rem;flex:1}
+.lp-comp-name{margin:0;font-size:1.1rem;font-weight:800}
+.lp-comp-name a:hover{color:var(--accent)}
+.lp-comp-lead{margin:0;line-height:1.75;color:var(--gray-600);font-size:.92rem;flex:1}
+.lp-comp-more{align-self:flex-start;margin-top:.3rem;font-size:.85rem;font-weight:700;color:var(--accent)}
+.lp-comp-more:hover{text-decoration:underline}
 .lp-faq{border-bottom:1px solid var(--gray-100);padding:1rem 0}
 .lp-faq summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:1rem}
 .lp-faq summary::-webkit-details-marker{display:none}

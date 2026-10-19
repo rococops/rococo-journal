@@ -326,5 +326,26 @@
     }
   ],
   "review_banner_subject": "퀵광대 수술",
-  "cases_visible": 9
+  "cases_visible": 9,
+  "companions": {
+    "title": "함께 알아두면 좋은 시술",
+    "items": [
+      {
+        "name": "심부볼·관자 지방이식",
+        "href": "cheekbone/fat-graft",
+        "lead": {
+          "text": "관자부위에는 저작근이 넓게 펼쳐져 있기 때문에 그냥 지방이식을 하시는 것이 가장 좋습니다. 지방이식 결과도 좋고, 근육 내에만 이식을 하게 되면 생착률도 다른 부위에 비해서 매우 높습니다.",
+          "src": "cheekbone/fat-graft/554"
+        }
+      },
+      {
+        "name": "광대라인 지방흡입",
+        "href": "cheekbone/liposuction",
+        "lead": {
+          "text": "사람의 얼굴에서 <광대>가 나와 보이는 원인은 1. 광대뼈 2. 광대뼈를 덮고 있는 살(연부조직 - 피부, 지방, 근육, 섬유성조직) 3. 광대 주변 구조물들의 밸런스 (왜소턱, 볼꺼짐, 무턱, 관자꺼짐, 볼꺼짐, 꺼진 눈) 크게 이 세가지를 생각해볼 수 있습니다.",
+          "src": "cheekbone/liposuction/120"
+        }
+      }
+    ]
+  }
 }
