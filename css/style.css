@@ -2197,3 +2197,116 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font: inherit; font-size: .78rem; color: var(--gray-400); cursor: pointer; text-decoration: underline;
 }
 .member-bar button:hover { color: var(--black); }
+
+/* =========================================================
+   시술별 대표페이지 (lp-) — tools/build_landing.py 가 data/landing/*.json 으로 생성
+   ========================================================= */
+.lp-toc{display:flex;flex-wrap:wrap;gap:.4rem;padding-top:1.4rem}
+.lp-toc a{font-size:.8rem;padding:.35rem .8rem;border:1px solid var(--gray-200);border-radius:999px;color:var(--gray-600)}
+.lp-toc a:hover{border-color:var(--accent);color:var(--accent)}
+.lp-narrow{max-width:760px}
+.lp-flush{padding-top:0}
+.lp-type{display:block;font-size:.72rem;letter-spacing:.18em;color:var(--accent);margin-bottom:.6rem}
+.lp-h2{font-size:1.6rem;font-weight:800;margin:0 0 1.4rem;line-height:1.35}
+.lp-h3{font-size:1.1rem;font-weight:700;margin:2rem 0 .8rem}
+.lp-checks{list-style:none;padding:0;margin:0 0 1rem}
+.lp-checks li{padding:.9rem 1rem .9rem 2.4rem;border-bottom:1px solid var(--gray-100);position:relative;line-height:1.6}
+.lp-checks li:before{content:"✓";position:absolute;left:.8rem;color:var(--accent);font-weight:800}
+.lp-note{color:var(--gray-600);line-height:1.8;margin:1rem 0 .4rem}
+.lp-note-gap{margin-top:1.4rem}
+.lp-src{display:inline-block;font-size:.78rem;color:var(--gray-400);margin-top:.4rem}
+.lp-src:hover{color:var(--accent)}
+.lp-dark{background:var(--black);color:#eee}
+.lp-dark .lp-h2,.lp-dark .lp-h3{color:#fff}
+.lp-dark .lp-src{color:#888}
+.lp-quote{margin:0;padding:1.4rem 1.6rem;border-left:3px solid var(--accent);background:rgba(255,255,255,.04);line-height:1.9}
+.lp-quote p{margin:0 0 .9rem}
+.lp-quote cite{display:block;text-align:right;font-style:normal;color:var(--accent);font-size:.85rem}
+
+/* 히어로: 어두운 배경 + 케이스 사진. 배경 사진은 페이지별로 style="--lp-hero-bg:url(...)" */
+.lp-hero{margin-top:var(--header-h);padding:3.6rem 0 4rem;color:#eee;border-bottom:2px solid var(--accent);background:linear-gradient(90deg,rgba(14,11,9,.94) 0%,rgba(14,11,9,.86) 38%,rgba(14,11,9,.35) 62%,rgba(14,11,9,.05) 100%),var(--lp-hero-bg,none) 100% 18%/max(140%,1100px) auto no-repeat #1a1410}
+.lp-hero-inner{display:grid;grid-template-columns:1fr 250px;gap:3rem;align-items:end}
+.lp-hero-text{max-width:500px}
+.lp-hero-crumb{font-size:.78rem;color:#8d8478;margin-bottom:1.6rem;display:flex;gap:.45rem}
+.lp-hero-crumb a{color:#8d8478}
+.lp-hero-crumb a:hover{color:#fff}
+.lp-hero-eyebrow{display:block;font-size:.74rem;letter-spacing:.2em;color:var(--accent);margin-bottom:.9rem}
+.lp-hero .lp-hero-title{font-size:2.9rem;font-weight:800;color:#fff;line-height:1.15;margin:0 0 .5rem;letter-spacing:-.01em}
+.lp-hero-q{font-size:1.15rem;color:#d9c3a3;margin:0 0 1.2rem;font-weight:700}
+.lp-hero-summary{font-size:.98rem;line-height:1.8;color:#c9c2b8;margin:0 0 1.8rem;max-width:30rem}
+.lp-hero-stats{list-style:none;padding:0;margin:0 0 2rem;display:flex;gap:0;border-top:1px solid #3b342c;border-bottom:1px solid #3b342c}
+.lp-hero-stats li{flex:1;padding:1rem .2rem;text-align:left}
+.lp-hero-stats li+li{padding-left:1.1rem;border-left:1px solid #3b342c}
+.lp-hero-stats strong{display:block;font-size:1.9rem;color:#fff;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.2}
+.lp-hero-stats small{font-size:.55em;margin-left:.12em;color:#d9c3a3;font-weight:700}
+.lp-hero-stats li > span{display:block;margin-top:.2rem;font-size:.76rem;color:#9b9286}
+.lp-hero-cta{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.4rem}
+.lp-btn{display:inline-block;padding:.8rem 1.6rem;border-radius:999px;font-weight:700;font-size:.9rem;transition:var(--transition)}
+.lp-btn-gold{background:var(--accent);color:#fff}
+.lp-btn-gold:hover{background:#fff;color:var(--black)}
+.lp-btn-line{border:1px solid #6b6156;color:#eee}
+.lp-btn-line:hover{border-color:#fff}
+.lp-hero-by{font-size:.8rem;color:#8d8478;margin:0}
+.lp-hero-case{position:relative;justify-self:end;width:250px;border:1px solid rgba(255,255,255,.18);display:block;border-radius:20px;overflow:hidden;background:#1f2633;box-shadow:0 24px 60px rgba(0,0,0,.45);transition:transform .3s ease}
+.lp-hero-case:hover{transform:translateY(-4px)}
+.lp-hero-case img{display:block;width:100%;aspect-ratio:1/1;object-fit:contain}
+.lp-hero-case-cap{position:absolute;left:0;right:0;bottom:0;padding:2.4rem 1.3rem 1.1rem;background:linear-gradient(transparent,rgba(0,0,0,.82))}
+.lp-hero-case-cap span{font-size:.7rem;letter-spacing:.14em;color:var(--accent)}
+.lp-hero-case-cap p{margin:.3rem 0 .2rem;color:#fff;font-weight:700;font-size:.95rem}
+.lp-hero-case-cap em{font-style:normal;font-size:.78rem;color:#bbb}
+@media (max-width:1024px){.lp-hero-inner{gap:2rem}.lp-hero .lp-hero-title{font-size:2.3rem}.lp-hero-stats strong{font-size:1.5rem}}
+@media (max-width:768px){.lp-hero{background:linear-gradient(180deg,rgba(14,11,9,.55) 0%,rgba(14,11,9,.88) 45%,rgba(14,11,9,.96) 100%),var(--lp-hero-bg,none) 78% 0/cover no-repeat #1a1410}.lp-hero-inner{grid-template-columns:1fr;gap:2.2rem}.lp-hero-case{justify-self:start;width:100%;max-width:340px}}
+@media (max-width:640px){.lp-hero{padding:2.2rem 0 2.6rem}.lp-hero .lp-hero-title{font-size:2.1rem}.lp-hero-stats strong{font-size:1.4rem}.lp-hero-stats li+li{padding-left:.7rem}}
+
+/* 수술 단계 카드 + 화살표 */
+.lp-steps{list-style:none;padding:0;margin:0 0 1.5rem;display:grid;grid-template-columns:repeat(5,1fr);gap:2rem}
+.lp-steps li{position:relative;text-align:center;padding:1.6rem 1rem 1.4rem;background:#fff;border:1px solid var(--gray-200);border-radius:18px}
+.lp-steps li:not(:last-child):after{content:"→";position:absolute;right:-1.55rem;top:50%;transform:translateY(-50%);color:var(--gray-400)}
+.lp-step-ico{width:112px;height:112px;margin:0 auto 1rem;background:#f8f3ec;border-radius:16px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.lp-step-ico svg{width:100%;height:100%}
+.lp-steps li span{display:block;font-size:.7rem;letter-spacing:.12em;color:var(--accent);font-weight:800;margin-bottom:.4rem}
+.lp-steps li p{margin:0;font-weight:700;font-size:.92rem;line-height:1.5;word-break:keep-all}
+.lp-pc{margin-top:1.8rem;padding:1.2rem 1.4rem;border:1px solid var(--gray-200);border-radius:var(--radius);line-height:1.8}
+.lp-pc p{margin:0 0 .6rem}
+
+/* 회복 타임라인 */
+.lp-timeline{list-style:none;padding:0;margin:0 0 .6rem;border-left:2px solid var(--gray-200)}
+.lp-timeline li{position:relative;display:flex;gap:1.2rem;padding:0 0 1.4rem 1.4rem}
+.lp-timeline li:before{content:"";position:absolute;left:-7px;top:.3rem;width:12px;height:12px;border-radius:50%;background:var(--accent)}
+.lp-tl-label{flex:none;width:4.5rem;font-weight:800;color:var(--black)}
+.lp-timeline p{margin:0;line-height:1.7;color:var(--gray-600)}
+
+/* 전후사진 */
+.lp-ba{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.lp-ba-item{display:block;background:#fff;border:1px solid var(--gray-100);border-radius:12px;overflow:hidden;transition:var(--transition)}
+.lp-ba-item:hover{border-color:var(--accent);transform:translateY(-2px)}
+.lp-ba-item img{width:100%;aspect-ratio:1/1;object-fit:contain;display:block;background:#1f2633}
+.lp-ba-item p{margin:.7rem .8rem .2rem;font-size:.82rem;font-weight:700;line-height:1.4}
+.lp-ba-item span{display:block;margin:0 .8rem .8rem;font-size:.75rem;color:var(--gray-400)}
+.lp-disclaimer{font-size:.75rem;color:var(--gray-400);margin-top:1rem}
+
+/* 대표 사례 · FAQ · 관련 수술 */
+.lp-gray{background:var(--gray-50)}
+.lp-logs{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
+.lp-log{display:flex;flex-direction:column;gap:.6rem;padding:1.3rem;background:#fff;border:1px solid var(--gray-100);border-radius:var(--radius);transition:var(--transition)}
+.lp-log:hover{border-color:var(--accent);transform:translateY(-2px)}
+.lp-log p{font-weight:700;line-height:1.5;margin:0;flex:1}
+.lp-log-tag{font-size:.72rem;color:var(--accent);letter-spacing:.05em}
+.lp-log-by{font-size:.78rem;color:var(--gray-400)}
+.lp-faq{border-bottom:1px solid var(--gray-100);padding:1rem 0}
+.lp-faq summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:1rem}
+.lp-faq summary::-webkit-details-marker{display:none}
+.lp-faq summary:after{content:"+";color:var(--accent);font-size:1.2rem}
+.lp-faq[open] summary:after{content:"−"}
+.lp-faq p{line-height:1.8;color:var(--gray-600);margin:.8rem 0 .2rem}
+.lp-related-head{margin-top:2.5rem}
+.lp-related{display:flex;flex-wrap:wrap;gap:.5rem}
+.lp-related a{padding:.5rem 1rem;background:var(--gray-50);border-radius:999px;font-size:.88rem}
+
+/* 케이스 목록 더보기 (cases_visible=9 기준) */
+#case-grid.lp-collapsed > .card:nth-child(n+10){display:none}
+.lp-more{display:block;margin:2rem auto 0;padding:.85rem 2.4rem;border:1px solid var(--black);border-radius:999px;background:#fff;font-weight:700;cursor:pointer;font-family:inherit}
+.lp-more:hover{background:var(--black);color:#fff}
+
+@media (max-width:1024px){.lp-steps{grid-template-columns:repeat(3,1fr)}.lp-steps li:nth-child(3):after{display:none}.lp-ba{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.lp-steps{grid-template-columns:1fr 1fr;gap:1rem}.lp-steps li:after{display:none}.lp-steps li:last-child{grid-column:1/-1}.lp-h2{font-size:1.3rem}.lp-quote{padding:1rem 1.1rem}.lp-logs{grid-template-columns:1fr}}

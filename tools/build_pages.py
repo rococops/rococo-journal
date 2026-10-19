@@ -11,6 +11,7 @@ from sql_parse import iter_insert_tuples, split_tuple_fields, parse_field
 from clean_content import build_article_blocks, clean_text, html_escape, first_paragraph_text, extract_origin_url
 from mcolumn_map import classify as classify_mcolumn
 from seo_title import seo_title
+from build_landing import landing_data_for, apply_landing
 from templates import (NAV_HTML, HEADER_HTML, FOOTER_HTML, CTA_SECTION_HTML,
                         DETAIL_PAGE, LIST_PAGE, CARD_HTML, SORT_SCRIPT_HTML,
                         ALL_CASES_PAGE, ORIGIN_LINK_CARD)
@@ -381,6 +382,13 @@ def build_subcat(cfg, rows, canonical_map):
 
     with open(os.path.join(out_dir, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(list_page)
+
+    # 대표페이지 데이터(data/landing/{cat}-{sub}.json)가 있으면 목록 페이지에 대표페이지 섹션 적용
+    # (없으면 지금처럼 목록 페이지 그대로). 후처리 단독 실행: python tools/build_landing.py
+    landing = landing_data_for(cat_path, sub_dir)
+    if landing:
+        apply_landing(out_dir, landing)
+        print(f'  대표페이지 적용: {cat_path}/{sub_dir}')
 
     print(f'완료: {cat_path}/{sub_dir} - {len(rows)}개 상세페이지 + 목록페이지')
 
