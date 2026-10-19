@@ -36,13 +36,6 @@
         "label": "회복기간",
         "quote": "회복기간 : 2일",
         "src": "eye/double/26"
-      },
-      {
-        "to": 3,
-        "unit": "년",
-        "label": "전문의 취득 후 눈수술 전문",
-        "quote": "저는 전문의 자격증을 딴 후에 3년 정도는 거의 눈수술만 전문으로 상당히 많은 case의 수술을 집도했었고,",
-        "src": "eye/double/392"
       }
     ],
     "bg_image": "images/landing/nose-hump-hero.jpg",

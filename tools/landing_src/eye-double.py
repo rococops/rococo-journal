@@ -66,8 +66,6 @@ data = {
              "extra": [{"quote": seg('199', 76), "src": src('199')}]},
             {"to": 2, "unit": "일", "label": "회복기간",
              "quote": seg('26', 10), "src": src('26')},
-            {"to": 3, "unit": "년", "label": "전문의 취득 후 눈수술 전문",
-             "quote": seg('392', (7, 9)), "src": src('392')},
         ],
         "bg_image": "images/landing/nose-hump-hero.jpg",
         "case": {"src": src('26'), "image": "https://rococops.com/files/editor/201505171445206497.jpg",
