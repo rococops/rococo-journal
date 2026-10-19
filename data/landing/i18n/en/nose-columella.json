@@ -1,0 +1,138 @@
+{
+  "_comment": "English translation of data/landing/nose-columella.json (AI draft by Claude, 2026-10-20 — needs review before launch). Sentences only: numbers, photos and source links come from the Korean data. Doctor's quotes are shown with the original Korean underneath.",
+  "lang": "en",
+  "reviewed": false,
+
+  "seo": {
+    "title": "Columella Lowering & Lifting in Seoul | Retracted Columella, Closed Technique | Dr. Kim Sang-ho, Rococo Plastic Surgery",
+    "description": "Columella lowering and lifting level the columella with the alae. Causes of a retracted columella, the closed method, materials and limits, by Dr. Kim Sang-ho.",
+    "h1": "Columella Lowering & Lifting"
+  },
+
+  "hero": {
+    "eyebrow": "COLUMELLA · COLUMELLA SURGERY",
+    "question": "How are columella lowering and lifting done?",
+    "summary": "The small fleshy pillar between the nostrils is called the bi-ju in Korean, written with the characters for \"nose\" and \"pillar\": the columella.",
+    "stats": ["Surgery time (closed columella lowering)", "Recovery (with alar rim lowering or rhinoplasty)", "Focused on retracted columellas"],
+    "units": ["min", "weeks", "+ years"],
+    "case_caption": "Closed columella lowering — 4 weeks",
+    "case_alt": "Closed columella lowering before and after, front view"
+  },
+
+  "features": {
+    "type": "TYPE · COLUMELLA",
+    "toc": "Three problems",
+    "title": "Three problems of a retracted columella",
+    "items": [
+      "(1) The columella is raised -> columella lowering",
+      "(2) The nostrils are raised -> alar rim lowering",
+      "(3) The alae droop -> alar rim lifting"
+    ],
+    "note": "Not every case gets all four of these surgeries, but where possible, all of them help. If even one is left out, the result leaves something to be desired."
+  },
+
+  "story": {
+    "title": "Dr. Kim's notes",
+    "blocks": [
+      {
+        "heading": "Whether the columella is too high or too low: the reference is being parallel with the alae",
+        "paras": [
+          "The small fleshy pillar between the nostrils is called the bi-ju in Korean, written with the characters for \"nose\" and \"pillar\": the columella. When this columella is too high, we do columella lowering (also called columella \"pulling out\"), and when it droops too much, we do columella lifting.",
+          "The reference is that, seen from the front, it is considered normal when the lowest line of the alae and the lowest line of the columella lie on the same parallel line.",
+          "If the reference from the front is the columella and alae being parallel, then the reference in the side profile is the alar line and the columella line being parallel like a pair of chopsticks."
+        ]
+      },
+      {
+        "heading": "A retracted columella: the root problem is drooping alae",
+        "paras": [
+          "Quite a lot of Koreans have a nose of this shape. Some have a noticeable columella-ala imbalance, and there are also a great many cases of hidden columella-ala imbalance that isn't obvious at a glance. I simply call it a retracted columella tip, but in fact the more fundamental problem than the columella being pulled in starts from <the alae drooping downward>.",
+          "Because the alae droop (are attached low), an optical illusion makes the tip look upturned. Point C, the lowest point of the ala, should be higher, but it has come down too far, and that is where all the problems start. To correct this, unlike upturned nose correction, the whole tip-columella complex has to come down."
+        ]
+      },
+      {
+        "heading": "The surgery depends on the degree",
+        "paras": [
+          "Except for severely retracted columellas, I only recommend surgery that raises the bridge and tip with silicone + ear cartilage, without columella lowering. When the columella is severely retracted, the basic plan is nasal tip lengthening with autologous rib cartilage (including columella lowering) + alar rim lowering, and nasolabial angle surgery and alar rim lifting are added depending on the patient's choice.",
+          "However, the ultimate material for columella lowering is definitely < autologous rib cartilage >. In columella lowering, a lot of tension is placed on the pushed-out tip and columella, so with donor rib cartilage the chance of absorption becomes even higher."
+        ]
+      },
+      {
+        "heading": "Bigger surgery isn't always better surgery",
+        "paras": [
+          "There are many cases where I correct as much as possible using four surgeries, \"autologous rib cartilage + alar rim lowering + nasolabial angle surgery + alar rim lifting,\" but the more surgery I did, the more I came to think that, unless the columella is severely retracted, correcting only the problem areas to a reasonable degree in the simplest possible way may be the best in many respects..",
+          "Recently, when the conditions allow, I aim for remodeling-style surgery that keeps the existing nose and shapes it with additional corrective procedures (columella lowering alone and alar rim lowering, plus alar rim lifting for those whose nostrils have come down a lot) rather than reconstruction-style surgery that rebuilds the whole nose.",
+          "In the past I had a negative view of doing partial surgery on noses like this. However, through many years of operating and following the results, I have learned that bigger surgery isn't always better surgery."
+        ]
+      }
+    ]
+  },
+
+  "method": {
+    "title": "Surgical method",
+    "steps": [
+      "I often perform closed columella lowering on its own. It is not possible in every case, and it works properly in people who already have a columellar strut built in a previous rhinoplasty.",
+      "Closed columella lowering was performed using ear cartilage.",
+      "The surgery is painless, done under sedation, and takes about 20 minutes,",
+      "there is no visible skin scar on the outside,",
+      "and no tape or anything is applied after surgery, so it is simple and not a burden, but"
+    ],
+    "note": "Closed columella lowering is not possible for every patient. It is only possible when certain conditions are met, so you need a consultation first. At the consultation, I can feel the columella and tell you whether this surgery is possible.",
+    "pros_cons": [
+      "The surgery is possible even when the previously built columellar strut is too deep or there is no columellar strut, but the effect is inevitably weaker.",
+      "The right side of the columella (the left side in the photo) is deeper, and because there is not enough skin, this asymmetry remains to some extent even after surgery."
+    ]
+  },
+
+  "recovery": {
+    "title": "Recovery",
+    "items": [
+      {"label": "Tape", "lines": ["No tape or anything is applied after surgery, so it is simple and not a burden, but"]},
+      {"label": "1–2 days (mini tip-plasty)", "lines": ["Swelling is mild, so it has the advantage that you can return to daily life within 1–2 days."]},
+      {"label": "2 weeks (with alar rim lowering)", "lines": ["For recovery, skin-colored tape is placed on the nasal tip for 1 week, and in most cases there is no particular discomfort in daily life after about 2 weeks."]},
+      {"label": "18 months (with rib cartilage tip lengthening)", "lines": ["It is 5 weeks after surgery, so there is still a lot of swelling on the tip, and the swelling keeps going down until 18 months (a year and a half)."]}
+    ],
+    "note": "The recovery period is also short, so patient satisfaction with this surgery is quite high."
+  },
+
+  "before_after": {
+    "title": "Columella lowering & lifting: before and after",
+    "alt": "Columella surgery before and after",
+    "labels": [
+      "Columella lowering, front, 4 weeks",
+      "Columella lowering, side, 4 weeks",
+      "Columella lowering, side, 2 weeks",
+      "Other side, 2 weeks",
+      "Contracted nose, side, 6 weeks",
+      "Contracted nose, from below, 6 weeks",
+      "Columella lifting, front, 2 weeks",
+      "Columella lifting, side, 2 weeks"
+    ]
+  },
+
+  "logs": {
+    "title": "Case notes by Dr. Kim",
+    "tags": ["Material · autologous rib cartilage", "Retracted columella · limits", "Closed columella lowering alone", "Contracted nose · remodeling", "Columella lifting", "Columella lifting after philtrum reduction"]
+  },
+
+  "faq": [
+    {"q": "My nostrils look upturned. Do I have an upturned nose?",
+     "a": "When the alae sit low, patients think their nose is upturned, but strictly speaking, the angle of the columella in such cases is normal, so it is not an upturned nose at all. Because the alae are low, there is an optical illusion that makes it look relatively upturned."},
+    {"q": "Can ear cartilage bring the columella down enough?",
+     "a": "With any material, a surgeon's know-how can produce a good result. However, the ultimate material for columella lowering is definitely < autologous rib cartilage >. In columella lowering, a lot of tension is placed on the pushed-out tip and columella, so with donor rib cartilage the chance of absorption becomes even higher."},
+    {"q": "If the columella is lowered, won't the nostrils look pinched upward?",
+     "a": "As the columella comes down and the tip gets higher, the nostril at point B actually moves up. In the end, the distance between A and B before surgery becomes greater after surgery, giving the impression that the nostrils are pinched upward. The degree varies, so alar rim lowering is not needed in every case, but in most cases alar rim lowering helps."},
+    {"q": "Won't the columella retract again after lowering?",
+     "a": "Results of nose surgery should be judged after at least 1 year, and with the closed columella lowering I perform, the degree of relapse over time is very small."},
+    {"q": "Is there also surgery to lift a drooping columella?",
+     "a": "In clinical practice, there are many cases where the columella is retracted upward and columella lowering is needed, but not many patients whose columella droops so much that columella lifting is needed. Columella lifting is usually done on its own at the columella, but in unusual cases rhinoplasty has to be done at the same time as lifting the columella."}
+  ],
+
+  "related": ["Long nose", "Nasolabial angle (cat-lip) correction", "Alar rim lowering", "Alar rim lifting", "Rib cartilage rhinoplasty", "Revision rhinoplasty"],
+
+  "companions": [
+    {"name": "Long nose",
+     "lead": "Among the many types of rhinoplasty, the one that demands the greatest design skill is, above all, correcting a long nose. If the nose looks long because the tip droops, it is solved simply by lifting the drooping tip, but when the tip position is good and the midface itself is long, so that changing the tip position cannot correct it, I create a nose that feels as short as possible through the design of the glabella and the bridge line."},
+    {"name": "Nasolabial angle (cat-lip) correction",
+     "lead": "Adding volume to the line running from the columella to the upper lip creates a pretty mouth line. It is now a surgery that many surgeons perform after being introduced at the plastic surgery society, but unlike surgery that simply inserts an implant, at Rococo, through long experience and many trials, we reposition the muscle where the implant goes, reducing side effects and producing better results. Depending on the case, the procedure is done through the inside of the nose or the inside of the mouth."}
+  ]
+}

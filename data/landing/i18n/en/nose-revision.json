@@ -1,0 +1,129 @@
+{
+  "_comment": "English translation of data/landing/nose-revision.json (AI draft by Claude, 2026-10-20 — needs review before launch). Sentences only: numbers, photos and source links come from the Korean data. Doctor's quotes are shown with the original Korean underneath.",
+  "lang": "en",
+  "reviewed": false,
+
+  "seo": {
+    "title": "Revision Rhinoplasty in Seoul | Graft Choice, Contracted & Upturned Nose Correction | Dr. Kim Sang-ho, Rococo Plastic Surgery",
+    "description": "Revision rhinoplasty depends on your past surgery and your nose now. Graft choice, implant removal vs. revision, contracted and upturned noses, by Dr. Kim Sang-ho.",
+    "h1": "Revision Rhinoplasty"
+  },
+
+  "hero": {
+    "eyebrow": "REVISION RHINOPLASTY · SECONDARY NOSE SURGERY",
+    "question": "How does revision rhinoplasty work?",
+    "summary": "The noses I see most often in revision consultations look like this: the implant is visible, the nose is short and looks upturned, and the mouth looks protruding.",
+    "stats": ["Share of revisions among the nose surgeries I perform", "Intensive care after implant removal when infected", "Upturned nose correction with autologous rib cartilage (incl. harvest)"],
+    "units": ["%", "weeks", "min"],
+    "case_caption": "Revision rhinoplasty — front view, before and after",
+    "case_alt": "Revision rhinoplasty before and after, front view"
+  },
+
+  "features": {
+    "type": "CHECK · REVISION",
+    "toc": "What to consider",
+    "title": "What to consider before revision",
+    "items": [
+      "Which cartilage was used in the previous surgery",
+      "What you are unhappy with in your current nose, and how you want it to change",
+      "Whether you have previously had double-jaw surgery or protruding mouth surgery (ASO)",
+      "The current condition of the nose"
+    ],
+    "note": "What matters especially in revision rhinoplasty is the skin area of the nasal tip. Cartilage and soft tissue inside the nose can be borrowed from elsewhere in the body, but the skin of the nasal tip cannot be borrowed. Nor can it be removed, because of scarring. That is why the skin area of the nasal tip is one of the most important variables in revision rhinoplasty."
+  },
+
+  "story": {
+    "title": "Dr. Kim's notes",
+    "blocks": [
+      {
+        "heading": "The noses of people who come for revision",
+        "paras": [
+          "The noses I see most often in revision consultations look like this: the implant is visible, the nose is short and looks upturned, and the mouth looks protruding. They are the result of rhinoplasty done without any consideration of overall balance.",
+          "A considerable number of the clients who come to me for revision rhinoplasty consultations have noses like this."
+        ]
+      },
+      {
+        "heading": "When is revision done?",
+        "paras": [
+          "In general, the rule for revision after cosmetic surgery is to wait 6 months to 1 year until the tissue stabilizes, but in modern society it is extremely hard to go without a normal social life for a long time with a damaged appearance. For people suffering like this, at Rococo we correct the nose immediately regardless of timing when there is only a problem with shape and no infection. When there is infection, we remove the implant, stabilize the tissue with 3 weeks of intensive treatment, and then, depending on the condition, carry out a rapid correction using autologous tissue or an implant, so that you can return to your social life."
+        ]
+      },
+      {
+        "heading": "Which cartilage is best?",
+        "paras": [
+          "My answer to this question is: > there is no single best cartilage <.",
+          "(1) Which cartilage was used in the previous surgery.. If a septal extension was done with septal cartilage in the previous surgery and the grafted septal cartilage is still strong and well maintained, this support can be reused, and ear cartilage or AlloDerm can be placed on top to raise the nasal tip further. However, if the grafted cartilage has become soft and weak, septal cartilage can no longer be used. In this case the shape of the nasal tip has to be newly built with rib cartilage or ear cartilage."
+        ]
+      },
+      {
+        "heading": "Removal surgery and revision rhinoplasty are different surgeries",
+        "paras": [
+          "(2) is revision rhinoplasty, not removal surgery. Saying \"make it so the shape doesn't look strange..\" clearly carries the hidden meaning \"please make it a good-looking shape.\" Implant / cartilage removal surgery is only a simple removal surgery. It is a surgery that ends with removal, not a surgery that creates a shape.",
+          "If you are not prepared to take the risk that the shape may become quite strange, you should not have nasal implant removal / tip cartilage removal surgery; you should have revision rhinoplasty and ask for the shape you want."
+        ]
+      }
+    ]
+  },
+
+  "method": {
+    "title": "Surgical method",
+    "steps": [
+      "Before revision rhinoplasty, it is very important to set specific goals for the surgery before going in.",
+      "Which materials to use and how to operate are decided according to the various conditions of the patient who had surgery and what they want.",
+      "The nasal tip and columella were brought down sufficiently using autologous rib cartilage, and designed to feel as defined and high as possible.",
+      "Before surgery the tip looks turned slightly to the right, and after surgery slightly to the left. This is because, to correct the feeling that the bridge leans slightly to the right as it comes down due to facial asymmetry, I deliberately manipulated the septal cartilage to push the tip slightly to the left.",
+      "Making the most of strong, elastic autologous rib cartilage, the nose was lengthened to the limit the tip skin allowed, and"
+    ],
+    "note": "When contracture sets in, scar tissue makes the nose hard as a rock. The tissue is so firm that it is difficult even to inject anesthetic during surgery. That is why revision of a contracted nose like this is the most difficult surgery even within revision rhinoplasty. The surgeon needs a wide range of revision experience and many tools to produce a proper result.",
+    "pros_cons": [
+      "In upturned nose correction, rather than focusing on fine lines, I give priority to correcting the upturned nose firmly with a strong structure so that it recurs as little as possible. While doing that, I refine the line as much as I can,",
+      "but because there is a lot of scar tissue and not enough slack in the tissue, there may be some shortfalls in detail after surgery. These are corrected as what we call a minor touch, which I take responsibility for, after 3 months, once the wound has stabilized to some degree."
+    ]
+  },
+
+  "recovery": {
+    "title": "Recovery",
+    "items": [
+      {"label": "If there was infection", "lines": ["First, the plan was to remove the implant and do a rapid corrective rhinoplasty 3 weeks later."]},
+      {"label": "7 days (pinched nose correction)", "lines": ["Skin-colored tape is placed only on the nasal tip for 7 days. Stitches are removed on day 7."]},
+      {"label": "3 months", "lines": ["These are corrected as what we call a minor touch, which I take responsibility for, after 3 months, once the wound has stabilized to some degree."]},
+      {"label": "6 months", "lines": ["The shape has been well maintained up to 6 months, when it enters the stable phase."]}
+    ],
+    "note": "For upturned nose correction with autologous rib cartilage, the surgery takes about 1 hour 30 minutes to 2 hours including rib cartilage harvest. The longer the surgery, the higher the chance of infection."
+  },
+
+  "before_after": {
+    "title": "Revision rhinoplasty: before and after",
+    "alt": "Revision rhinoplasty before and after",
+    "labels": [
+      "Front",
+      "From below",
+      "Front, indoor lighting",
+      "Right oblique",
+      "Right side",
+      "Left side",
+      "Front, 2 months",
+      "Right side, 2 months"
+    ]
+  },
+
+  "logs": {
+    "title": "Case notes by Dr. Kim",
+    "tags": ["A poorly designed nose", "Choosing materials", "Removal vs. revision", "Infection · contracted nose", "Upturned nose correction", "Pinched nose correction"]
+  },
+
+  "faq": [
+    {"q": "Which cartilage is best for revision rhinoplasty?",
+     "a": "My answer to this question is: > there is no single best cartilage <. Which materials to use and how to operate are decided according to the various conditions of the patient who had surgery and what they want."},
+    {"q": "How is implant removal different from revision rhinoplasty?",
+     "a": "Implant / cartilage removal surgery is only a simple removal surgery. It is a surgery that ends with removal, not a surgery that creates a shape."},
+    {"q": "Can the shape of the nose be predicted after the implant is removed?",
+     "a": "And what the nose will look like after removal can never be predicted. So some noses look surprisingly fine after removal, while in other cases the shape becomes quite unattractive, with the nose twisting or turning up."},
+    {"q": "Why does the nose turn up and become distorted after infection?",
+     "a": "When an infection occurs after nose surgery and it lasts a long time, or an infection that can't be seen continues, contracture develops. Typically the nose becomes distorted and upturned. The nasal tip may become asymmetric, and the skin of the tip may become uneven."},
+    {"q": "Can revision rhinoplasty be done with donor rib cartilage?",
+     "a": "Without rib cartilage it is hard to make this much change, and I think autologous rib cartilage is the best material. Many people ask for donor rib cartilage, but I currently do not use donor rib cartilage."}
+  ],
+
+  "related": ["Rib cartilage rhinoplasty", "Alar rim lowering", "Alar rim lifting", "Columella surgery", "Hump nose", "V-shaped nostril correction"]
+}

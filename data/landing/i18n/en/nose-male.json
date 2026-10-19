@@ -1,0 +1,129 @@
+{
+  "_comment": "English translation of data/landing/nose-male.json (AI draft by Claude, 2026-10-20 — needs review before launch). Sentences only: numbers, photos and source links come from the Korean data. Doctor's quotes are shown with the original Korean underneath.",
+  "lang": "en",
+  "reviewed": false,
+
+  "seo": {
+    "title": "Male Rhinoplasty in Seoul | Hump & Crooked Nose Correction for Men | Dr. Kim Sang-ho, Rococo Plastic Surgery",
+    "description": "Male rhinoplasty needs a different design: tip angle, glabella, a straight bridge, and tougher skin. Hump and crooked nose correction for men, by Dr. Kim Sang-ho.",
+    "h1": "Male Rhinoplasty"
+  },
+
+  "hero": {
+    "eyebrow": "MALE RHINOPLASTY · NOSE SURGERY FOR MEN",
+    "question": "What is different about male rhinoplasty?",
+    "summary": "Personally, what I pay the most attention to in rhinoplasty for male clients is bringing out a refined masculinity while keeping it from looking operated on as much as possible.",
+    "stats": ["Share of male patients in my surgeries (at least)", "When the final result is judged"],
+    "units": ["%", "year"],
+    "case_caption": "Male hump and crooked nose — front view, 3 months",
+    "case_alt": "Male hump and crooked nose surgery before and after, front view"
+  },
+
+  "features": {
+    "type": "DESIGN · MALE NOSE",
+    "toc": "Features of a male nose",
+    "title": "The biggest difference between male and female rhinoplasty is the angle of the nasal tip.",
+    "items": [
+      "A feminine tip should be slightly upturned, while a male tip should project almost perpendicular to the face, straight out, to give off masculine appeal.",
+      "The glabella is also designed a little higher than for women, and",
+      "the bridge is designed to run smoothly in a straight line rather than a slightly scooped curve."
+    ],
+    "note": "This is the most typical male rhinoplasty case. The glabella is low and the tip droops. Augmentation rhinoplasty was performed using septal cartilage from inside the nose and a silicone implant."
+  },
+
+  "story": {
+    "title": "Dr. Kim's notes",
+    "blocks": [
+      {
+        "heading": "Many more male patients now",
+        "paras": [
+          "When I first became a board-certified specialist, the proportion of men having cosmetic surgery was very low. These days at least 20% of the surgeries I perform are on male patients. In the past, people hid the fact that they had had cosmetic surgery, but now it seems that eye and nose surgery, at least, are accepted naturally."
+        ]
+      },
+      {
+        "heading": "Is a male hump nose different from a female one?",
+        "paras": [
+          "Is there a difference between a male hump nose vs. a female hump nose? In fact, there is no particular difference. The principles of the surgery are the same.",
+          "However, men tend to have thicker, tougher skin and a somewhat greater tendency to bleed than women. Because the skin is tough, surgery is a little harder in every case compared with women, whose skin is generally soft."
+        ]
+      },
+      {
+        "heading": "The biggest cause of a crooked nose is facial asymmetry",
+        "paras": [
+          "Over many years of practice I must have performed countless crooked nose surgeries.. From that experience, what I consider the biggest cause of a crooked nose is <facial asymmetry>. The base the nose sits on, that is, the central axis of the face, is twisted, so the nose in the middle of the face cannot help but be crooked.",
+          "In my experience, the most common facial asymmetry in East Asians.. is the central axis of the philtrum being rotated to the right relative to the central axis of the glabella. I think roughly 80% are twisted to the right and roughly 20% to the left."
+        ]
+      },
+      {
+        "heading": "Limits of a crooked nose when the facial axis is twisted",
+        "paras": [
+          "There is no way to correct a bend in the upper part of the bridge. Aligning the tip to the uppermost center point of the bridge is the way to make the nose look the least crooked.",
+          "It would be nice to have it all, but there is not yet any medical technology that can straighten a twisted facial axis, so operating that way is the best we can do for now."
+        ]
+      }
+    ]
+  },
+
+  "method": {
+    "title": "Surgical method",
+    "steps": [
+      "Hump nose correction and rhinitis surgery were performed under sedation.",
+      "The surgery is done implant-free: the tip is raised with septal cartilage,",
+      "the hump is slightly smoothed down,",
+      "and the areas above and below the hump are filled in with septal cartilage.",
+      "Cartilage was also grafted on the left side of the bridge to correct the crooked look, while making up for a bridge that felt too narrow (a knife-edge nose)."
+    ],
+    "note": "If septal cartilage is insufficient, ear cartilage or AlloDerm can be used to fill in.",
+    "pros_cons": [
+      "In addition, to overcome the facial asymmetry, I used a method called the swing door technique, which pushes the tip to the left. The drawbacks are: (1) the columella becomes bent, (2) nostril asymmetry develops — when pushed to the left, the left nostril sits higher than the right nostril from the front, and (3) when the tip is pushed to the left, breathing through the left nostril can become a little easier and breathing through the right nostril a little harder.",
+      "Despite these drawbacks, having the bridge look closer to straight from the front is the bigger gain, so I correct crooked noses this way."
+    ]
+  },
+
+  "recovery": {
+    "title": "After surgery",
+    "items": [
+      {"label": "Swelling", "lines": ["As the swelling goes down, the tip becomes slimmer and more defined."]},
+      {"label": "3 months", "lines": ["This photo is 3 months after surgery. Because the tip was pushed to the left (the right side of the photo), it is clearly closer to straight than before surgery. It does not become perfectly straight. A slight crooked look remains."]},
+      {"label": "Breathing", "lines": ["Ve~ry rarely, if breathing discomfort caused by (3) lasts more than 3 months, the tip position can be restored to its original state after discussing it with the patient. Breathing would then improve again, but the nose would look crooked."]},
+      {"label": "1 year", "lines": ["To properly see the result you need photos after 1 year, but when there are no problems with the surgery, patients don't come back for check-ups.. so for now I'm showing at least these early progress photos."]},
+      {"label": "If the tip was raised a lot", "lines": ["I would raise it a bit higher with autologous rib cartilage, but the higher the tip becomes, the greater the chance of the tip cartilage showing through afterward, and if the cartilage show becomes severe, corrective surgery to lower the tip is needed."]}
+    ],
+    "note": "Because there is no implant, slight irregularities may remain."
+  },
+
+  "before_after": {
+    "title": "Male rhinoplasty: before and after",
+    "alt": "Male rhinoplasty before and after",
+    "labels": [
+      "Hump & crooked nose, front, 3 months",
+      "Right oblique, 3 months",
+      "Side",
+      "Left oblique",
+      "Crooked nose, front, 2 weeks",
+      "Crooked nose, from below",
+      "Implant-free hump nose, front",
+      "Implant-free hump nose, oblique"
+    ]
+  },
+
+  "logs": {
+    "title": "Case notes by Dr. Kim",
+    "tags": ["Male hump & crooked nose", "Crooked nose: causes · limits", "Male nose design", "Male revision rhinoplasty", "Implant-free hump nose", "Crooked · bulbous · hump"]
+  },
+
+  "faq": [
+    {"q": "If I have a deviated septum, does it have to be straightened?",
+     "a": "No one has a perfectly straight space where the septum sits. It is bound to be twisted, even slightly. So there is no case where the septum itself is perfectly straight. That is because a perfectly symmetrical face doesn't exist.. In other words, strictly speaking, everyone in the world has a deviated septum. Many people vaguely think.. \"I have a deviated septum, so it has to be straightened for my nose to be straight..\" but this really applies only in some cases."},
+    {"q": "My nostrils are M-shaped. What happens if the tip is raised?",
+     "a": "The nostrils are slightly M-shaped, and since the plan is to raise the tip with a septal extension using septal cartilage, I let the patient know in advance that the M shape will become a little more pronounced after surgery. Those who don't want that can have alar rim lowering at the same time. At the current degree it isn't essential, so I explain it to the patient at the consultation and let them decide for themselves."},
+    {"q": "If a hump is corrected without an implant, won't irregularities remain?",
+     "a": "In implant-free hump nose surgery, it is common for the area between the tip and the hump to look sunken in the left oblique photo after surgery. This problem occurs when the volume along the sides of the bridge is not filled enough; there is a limit to some degree, but the line has been shaped as much as possible."},
+    {"q": "What methods are there for hump nose correction?",
+     "a": "Hump nose correction can be done with an implant, or without an implant using only your own tissue."},
+    {"q": "Can a male nose with a retracted columella be corrected?",
+     "a": "A retracted columella is difficult to operate on and the results have limits, so I recommend a <silicone + ear cartilage> surgery that simply raises the nose without columella lowering."}
+  ],
+
+  "related": ["Hump nose surgery", "Septal cartilage rhinoplasty", "Osteotomy", "Revision rhinoplasty", "Autologous rib cartilage rhinoplasty", "Rhinitis surgery"]
+}

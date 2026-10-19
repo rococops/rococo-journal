@@ -1,0 +1,131 @@
+{
+  "_comment": "English translation of data/landing/nostril-alar-base.json (AI draft by Claude, 2026-10-20 — needs review before launch). Sentences only: numbers, photos and source links come from the Korean data. Doctor's quotes are shown with the original Korean underneath.",
+  "lang": "en",
+  "reviewed": false,
+
+  "seo": {
+    "title": "Alar Base Reduction in Seoul | Wide Nostrils, Methods by Ala Shape & Scars | Dr. Kim Sang-ho, Rococo Plastic Surgery",
+    "description": "Alar base reduction narrows wide nostril wings. Methods by ala shape, alae that shouldn't be operated on, incisions and how scars fade, by Dr. Kim Sang-ho.",
+    "h1": "Alar Base Reduction"
+  },
+
+  "hero": {
+    "eyebrow": "ALAR BASE REDUCTION · NOSTRIL WINGS",
+    "question": "How is alar base reduction done?",
+    "summary": "There are two methods I mainly use. The first reduces the ala itself, and the second reduces the size of the nostril.",
+    "stats": ["Surgery time", "Recovery · face washing and makeup", "When the scar fades"],
+    "units": ["min", "days", "months"],
+    "case_caption": "Alar base reduction — before and after",
+    "case_alt": "Alar base reduction before and after"
+  },
+
+  "features": {
+    "type": "TYPE · ALAR BASE",
+    "toc": "Alae that suit the surgery",
+    "title": "To get the full effect of alar base reduction, the ala first needs to be fairly thin.",
+    "items": [
+      "The thicker the ala, the weaker the effect.",
+      "Seen from below, the ala should flare out in a somewhat rounded shape.",
+      "Among people whose nostrils show a lot from the front, in those with large nostrils this surgery can also greatly reduce nostril show."
+    ],
+    "note": "Nostril reduction, which makes the nostrils smaller, is directly linked to breathing function, so the most important thing is to always design it so that it feels slightly too little. Because it cannot be reversed, it is a simple surgery but can be a very risky one."
+  },
+
+  "story": {
+    "title": "Dr. Kim's notes",
+    "blocks": [
+      {
+        "heading": "Often done together with bulbous tip correction",
+        "paras": [
+          "Many people come to the clinic for bulbous tip correction. Bulbous tip correction is generally a surgery that reduces the size of the nasal tip, but when the tip becomes smaller, the alae attached on either side often look larger. So in many cases alar base reduction is done together with bulbous tip correction."
+        ]
+      },
+      {
+        "heading": "Alae for which I don't recommend alar base reduction",
+        "paras": [
+          "Among people who ask about alar base reduction, there are many for whom I advise against surgery. Most of them have narrow nostrils at the floor and almost no slack on the lower outer side of the ala.",
+          "Alar base reduction in particular is simple, but it cannot be reversed and can be a very critical surgery.",
+          "The problem is that there is no way to undo it with revision surgery."
+        ]
+      },
+      {
+        "heading": "Where the incision goes, and suturing",
+        "paras": [
+          "If you look at the photo, the alar base reduction incision is located exactly at the point where the ala meets the cheek and bends. Most people assume that since this area is a crease, of course the incision should be made there (that's where to cut) to leave less of a scar. In reality, if you make the incision there, the two cut surfaces don't meet in parallel but have to join at an angle, bent, so it is hard for the suture line to heal neatly. In the end, that makes a scar more likely.",
+          "To put it simply, the key to suturing is to join the two surfaces well with the least possible tension.",
+          "So more and tighter stitches are not always better! It's good to keep that in mind."
+        ]
+      },
+      {
+        "heading": "Surgery that minimizes scars starts with the design",
+        "paras": [
+          "The most important point of alar reduction surgery, as I see it, is <minimizing the scar>.",
+          "Surgery that minimizes scars starts with the design. The size of the ala is a given, and the design must also take into account whether the skin is oily or dry, the elasticity of the ala, and the shape of the ala when the client smiles; during surgery, the angle and depth at which the scalpel enters, hemostasis after removal, the depth of the sutures, the type and thickness of the thread, and so on..",
+          "No matter who in the world performs the surgery, a scar remains. But I believe the essence of alar reduction surgery is to operate so that the scar is as unnoticeable as possible."
+        ]
+      }
+    ]
+  },
+
+  "method": {
+    "title": "Surgical method",
+    "steps": [
+      "In type A, with small nostrils, an elliptical excision, the most common method for alar base reduction, is performed.",
+      "Because only the ala is reduced, the nostril hardly changes.",
+      "In patients with thick alae, surgery to reduce the width of the ala can be done at the same time, but with this surgery a slight scar may be visible along the inner border of the nostril.",
+      "In type B, with large nostrils, nostril reduction (making the nostrils smaller) can be done together with alar base reduction.",
+      "In type D, the nostrils are reduced while the alae are drawn together with Elasticum thread. This gives the greatest effect."
+    ],
+    "note": "This usual form of alar base reduction is meaningful only for alae of types A & B. If this kind of surgery is done for C & D, it only leaves a scar, and it is hard to feel any reduction of the ala itself.",
+    "pros_cons": [
+      "No matter how well the surgery is done, a scar will always remain. But the surgery must be done so that, after 1–2 years when the dark red color of the scar has faded, it becomes as unnoticeable a scar as possible.",
+      "For reference, these days I rarely perform non-incisional alar base reduction using thread on its own; I only do it for people who want it as an add-on when having nostril-ala reduction. This is because, looking at long-term results over 5 years or more, I judged that the tendency to relapse is high."
+    ]
+  },
+
+  "recovery": {
+    "title": "Recovery",
+    "items": [
+      {"label": "5 days", "lines": ["Recovery period: 5 days", "Face washing and makeup: from day 5"]},
+      {"label": "After stitch removal", "lines": ["After the stitches are removed the scar is still slightly noticeable, but after 6–12 months only a very faint line remains and it becomes hard to see."]},
+      {"label": "6–12 months", "lines": ["Over 6–12 months this scar fades considerably, to the point that it is almost invisible unless you look closely. Of course, how visible the scar is will vary slightly depending on constitution."]},
+      {"label": "If your skin is darker", "lines": ["For people with darker skin, like this client and like me, there is more melanin pigment when the body is wounded, so the scar tends to be more noticeable.", "But even in this case, all scars fade over time."]}
+    ],
+    "note": "At your consultation, it's a good idea to always ask to see close-up photos of the surgical area. Check them, look at how visible the scars are, and then decide on surgery."
+  },
+
+  "before_after": {
+    "title": "Alar base reduction: before and after",
+    "alt": "Alar base reduction before and after",
+    "labels": [
+      "Front · day 10",
+      "From below",
+      "Type C · right after surgery",
+      "Type D · 2 weeks (with augmentation rhinoplasty)",
+      "Nostril-ala reduction · 4 weeks",
+      "From below",
+      "Bulbous tip correction + alar reduction",
+      "Alar reduction"
+    ]
+  },
+
+  "logs": {
+    "title": "Case notes by Dr. Kim",
+    "tags": ["Methods by ala shape", "Alae that shouldn't be operated on", "Incision · suturing", "Nostrils reduced at the same time", "Rhinoplasty + nostril-ala reduction", "Scars"]
+  },
+
+  "faq": [
+    {"q": "If I only have bulbous tip correction, will my alae look bigger?",
+     "a": "If only the bulbous tip is corrected without working on the alae, the alae can look relatively larger after surgery, so for noses like this it is better to have both done together."},
+    {"q": "Are there noses that shouldn't have alar base reduction?",
+     "a": "Among people who ask about alar base reduction, there are many for whom I advise against surgery. Most of them have narrow nostrils at the floor and almost no slack on the lower outer side of the ala."},
+    {"q": "Does alar base reduction leave a scar?",
+     "a": "No matter how well the surgery is done, a scar will always remain. But the surgery must be done so that, after 1–2 years when the dark red color of the scar has faded, it becomes as unnoticeable a scar as possible."},
+    {"q": "If the nostrils are reduced too, won't breathing become uncomfortable?",
+     "a": "Of course, because the nostrils become smaller, there is a theoretical possibility that nasal breathing may become uncomfortable, so we take this fully into account and decide together how much to reduce the nostrils."},
+    {"q": "Is there anything to be careful about after surgery?",
+     "a": "Smoking is the worst thing for wound healing in particular. The reason is that it reduces peripheral blood circulation, so more of a scar remains."}
+  ],
+
+  "related": ["Nostril reduction", "Alar rim lifting", "Alar rim lowering", "V-shaped nostril correction", "Bulbous nose surgery", "Revision rhinoplasty"]
+}

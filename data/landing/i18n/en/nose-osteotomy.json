@@ -1,0 +1,131 @@
+{
+  "_comment": "English translation of data/landing/nose-osteotomy.json (AI draft by Claude, 2026-10-20 — needs review before launch). Sentences only: numbers, photos and source links come from the Korean data. Doctor's quotes are shown with the original Korean underneath.",
+  "lang": "en",
+  "reviewed": false,
+
+  "seo": {
+    "title": "Nasal Osteotomy in Seoul | Narrowing a Wide Bridge & Nasal Bones, Crooked Nose | Dr. Kim Sang-ho, Rococo Plastic Surgery",
+    "description": "Nasal osteotomy moves the nasal bones inward to narrow a wide bridge or straighten a crooked one. Limits, infection risk and recovery, by Dr. Kim Sang-ho.",
+    "h1": "Nasal Osteotomy"
+  },
+
+  "hero": {
+    "eyebrow": "OSTEOTOMY · NASAL BONE NARROWING",
+    "question": "How is nasal osteotomy done?",
+    "summary": "Osteotomy is a procedure in which the nasal bones are cracked and moved to a different position to slim down a wide bridge or to straighten a crooked bridge.",
+    "stats": ["Time for the pushed-in nasal bones to set", "Osteotome used for lateral osteotomy"],
+    "units": ["weeks", "mm"],
+    "case_caption": "Nasal osteotomy — view from below, before and after",
+    "case_alt": "Nasal osteotomy before and after, view from below"
+  },
+
+  "features": {
+    "type": "AREA · OSTEOTOMY",
+    "toc": "Areas that can be narrowed",
+    "title": "The tip is narrowed with bulbous tip correction or nostril-ala reduction, and the bridge is narrowed with osteotomy.",
+    "items": [
+      "Area A cannot be narrowed, for structural reasons.",
+      "Area B can be narrowed with osteotomy, but only when the conditions are right.",
+      "Area C is the area called the < nasal valve >; technically it can be narrowed, but narrowing it would make it impossible to breathe through the nose, so it is an area that cannot be narrowed.",
+      "Area D can be narrowed with bulbous tip surgery & nostril-ala reduction, but again only when the conditions are right."
+    ],
+    "note": "For that reason, just remember that \" area C cannot be narrowed. \""
+  },
+
+  "story": {
+    "title": "Dr. Kim's notes",
+    "blocks": [
+      {
+        "heading": "It is not a surgery that smashes the nasal bones",
+        "paras": [
+          "In consultations I meet many people with a vague fear of osteotomy. \"Won't my nasal bones be smashed and collapse?\" \"I heard they pound it with a big hammer.. it's too scary, I can't do it.\" \"Another clinic said it has to be done under general anesthesia, so why do you do it under sedation? Isn't it dangerous?\" and so on..",
+          "Human nasal bones are very small, thin bones. When a small, slender instrument called an osteotome is placed against the bone and tapped very lightly, the bone cracks. Then, by pressing gently with the hand, the nasal bones can be moved to the desired position."
+        ]
+      },
+      {
+        "heading": "After the hump is smoothed, the nasal bones are brought together",
+        "paras": [
+          "When a large hump needs to be removed, it is sometimes removed using an osteotome.",
+          "If too much of the hump is removed, the middle of the bridge looks pressed down, so the nasal bones on both sides have to be osteotomized (osteotome) — that is, cracked — and brought inward to create a smooth bridge ridge."
+        ]
+      },
+      {
+        "heading": "I do osteotomy only when it is truly needed",
+        "paras": [
+          "When I was first doing a lot of nose surgery, I liked to do osteotomies. If the bridge seemed even a little wide, I would recommend osteotomy.",
+          "And since then, I have become sparing with osteotomy.",
+          "Korean nasal bones are small, so personally I think there are quite few cases where osteotomy is needed. It only raises the cost of surgery for nothing.. and increases the chance of infection, so my opinion is that it is best done only when it is truly! needed."
+        ]
+      },
+      {
+        "heading": "Osteotomy under sedation",
+        "paras": [
+          "There seem to be some surgeons who insist that osteotomy must be done under general anesthesia; I think surgeons who say so probably hold that view because a lot of bleeding occurs during their osteotomies.",
+          "When I do an osteotomy, except in very special cases, there is almost no bleeding, so there is almost never a need to pack the nostrils after osteotomy either. If you understand well the positional relationship between the mucosa inside the nose and the osteotome when performing an osteotomy, a bleeding-free procedure like this is possible. So naturally, osteotomy can be done under sedation."
+        ]
+      }
+    ]
+  },
+
+  "method": {
+    "title": "Surgical method",
+    "steps": [
+      "Cracks are made in two places, A (medial osteotomy) and B (lateral osteotomy).",
+      "I do the medial osteotomy in the usual way,",
+      "and for the lateral osteotomy, I use a 2 mm osteotome to crack the bone directly through a small hole from outside the skin.",
+      "Pressing with a finger in the direction of the arrow pushes the bone inward.",
+      "The pushed-in nasal bones set in that position after about 2 weeks."
+    ],
+    "note": "There are two main osteotomy methods: internal osteotomy and external osteotomy. Each surgeon has their own method; personally, I use both. Both methods have pros and cons, so I choose the one that offers the most advantages for each client's nose.",
+    "pros_cons": [
+      "Some people think osteotomy narrows the whole bridge or even the tip, but that is not so; it is a surgery that narrows only part of the middle of the bridge.",
+      "'' When a bridge osteotomy is done together with surgery that places silicone or another implant in the bridge, the chance of infection rises. ''"
+    ]
+  },
+
+  "recovery": {
+    "title": "Recovery",
+    "items": [
+      {"label": "1 week", "lines": ["You can see that the bridge has become slimmer with osteotomy. As the swelling goes down, the bridge becomes even sleeker."]},
+      {"label": "2 weeks", "lines": ["The pushed-in nasal bones set in that position after about 2 weeks."]},
+      {"label": "2½ weeks", "lines": ["It is 2½ weeks after surgery, so the tip is still quite swollen, and"]},
+      {"label": "Residual swelling", "lines": ["Swelling from nose surgery, including residual swelling, goes down over 1½ to 2 years."]}
+    ],
+    "note": "In photos, the effect of osteotomy shows best when viewed from below."
+  },
+
+  "before_after": {
+    "title": "Nasal osteotomy: before and after",
+    "alt": "Nasal osteotomy before and after",
+    "labels": [
+      "From below",
+      "Front · wide nasal bones",
+      "Front, 2½ weeks",
+      "Front, indoor lighting",
+      "Side",
+      "Front · hump & bulbous tip",
+      "Crooked nose, front",
+      "Revision, front"
+    ]
+  },
+
+  "logs": {
+    "title": "Case notes by Dr. Kim",
+    "tags": ["Osteotomy and infection", "Areas that narrow", "Wide nasal bones", "Hump & crooked nose revision", "Hump & bulbous tip together", "Bulbous tip revision"]
+  },
+
+  "faq": [
+    {"q": "When is osteotomy done?",
+     "a": "In conclusion, I explain this possibility to the patient and do osteotomy after discussing it together only when the nasal bones are large and wide enough for osteotomy to have a clear effect; and in implant-free hump nose rhinoplasty, because no implant is used, I do osteotomy in every case where it is needed."},
+    {"q": "Does osteotomy with implant rhinoplasty cause infection?",
+     "a": "While looking through the surgical records of patients who came in with swelling, at some point I went \"Huh?\" and realized: in many cases, they were people who had had osteotomy in the past. Looking back, I have been lucky that there has been no case where osteotomy caused an infection serious enough to require removing the implant."},
+    {"q": "If a hump nose is crooked, how is the osteotomy done?",
+     "a": "Most hump noses are crooked to some degree, though it varies. It isn't very noticeable when the bridge is low, but if surgery is done without considering this, the crooked look becomes obvious once the bridge is raised. When doing osteotomy, cutting the asymmetric nasal bones asymmetrically as well minimizes the crooked look, and making the bridge slimmer also gives a more three-dimensional look."},
+    {"q": "Will I bruise after osteotomy?",
+     "a": "People with fair, thin, translucent skin, like the client in the photo, tend to bruise a bit more easily. There was a little more bruising because of the osteotomy and eye surgery."},
+    {"q": "Why can't the lower middle of the bridge (the nasal valve) be narrowed?",
+     "a": "Right now, hold the cheek skin on both sides of area C with your hands and pull outward. If you breathe through your nose like that, you can breathe easily; if you then push that area inward to narrow it and breathe through your nose, you will feel that breathing becomes stuffy. Because it is another nostril hidden inside the nose, it is called the nasal valve."}
+  ],
+
+  "related": ["Hump nose", "Bulbous nose", "Septal cartilage rhinoplasty", "Revision rhinoplasty", "Male rhinoplasty", "Nostril reduction"]
+}

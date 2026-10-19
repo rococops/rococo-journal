@@ -1,0 +1,133 @@
+{
+  "_comment": "English translation of data/landing/nostril-alar-lowering.json (AI draft by Claude, 2026-10-20 — needs review before launch). Sentences only: numbers, photos and source links come from the Korean data. Doctor's quotes are shown with the original Korean underneath.",
+  "lang": "en",
+  "reviewed": false,
+
+  "seo": {
+    "title": "Alar Rim Lowering in Seoul | Hiding Nostril Show, M-Shaped Nostril Types | Dr. Kim Sang-ho, Rococo Plastic Surgery",
+    "description": "Alar rim lowering hides nostrils that show from the front. How results differ by M-shaped nostril type, the method, recovery and scars, by Dr. Kim Sang-ho.",
+    "h1": "Alar Rim Lowering"
+  },
+
+  "hero": {
+    "eyebrow": "ALAR LOWERING · NOSTRIL SHOW",
+    "question": "How is alar rim lowering done?",
+    "summary": "Some people are born with too little soft tissue covering the nostrils, so their nostrils show from the front.",
+    "stats": ["Patients whose inner scar is hard to notice", "Surgery time (one side · both sides)", "Tape kept on the nasal tip"],
+    "units": ["%", "min", "week"],
+    "case_caption": "Alar rim lowering — front view, before and after",
+    "case_alt": "Alar rim lowering before and after, front view"
+  },
+
+  "features": {
+    "type": "TYPE · ALAR LOWERING",
+    "toc": "Why nostrils show",
+    "title": "There are four main reasons nostrils show",
+    "items": [
+      "An upturned nose",
+      "The upper edge of the nostril is raised (M-shaped nostrils)",
+      "The lower edge of the nostril is lowered (V-shaped nostrils)",
+      "Large nostrils"
+    ],
+    "note": "Usually two or more of the causes above are present at the same time."
+  },
+
+  "story": {
+    "title": "Dr. Kim's notes",
+    "blocks": [
+      {
+        "heading": "A surgery often sought by people whose nostrils show",
+        "paras": [
+          "Some people are born with too little soft tissue covering the nostrils, so their nostrils show from the front. When the nostrils are exposed like this, it doesn't look good, and in face reading it is also said to be a feature that keeps wealth from gathering, so many of our clients want it corrected.",
+          "In some people, part of the alar cartilage at the nasal tip is congenitally underdeveloped and the soft tissue on the side of the nostril is lacking, so the nostrils look triangular. Seen together, the two sides look like the letter M, so I personally call these M-shaped nostrils."
+        ]
+      },
+      {
+        "heading": "Three types of M-shaped nostrils",
+        "paras": [
+          "M-shaped nostrils can be divided into three main types. I classify them as type 1, 2 and 3 depending on whether the raised peak of the nostril is located toward the inside, in the middle, or toward the outside.",
+          "M-shaped nostril Type 1 is when the upward-pointing peak of the nostril is gathered toward the inside. Of the three types, this is the type in which alar rim lowering works best.",
+          "M-shaped nostril Type 2 is when the upward-pointing peak of the nostril is located in the middle. Of the three types, this is the type in which alar rim lowering has a moderate effect.",
+          "M-shaped nostril Type 3 is when the upward-pointing peak of the nostril is spread toward the outside. Of the three types, this is the type in which alar rim lowering is least effective."
+        ]
+      },
+      {
+        "heading": "Not every M-shaped nostril needs correction",
+        "paras": [
+          "Having M-shaped nostrils doesn't mean they look unattractive in every case. Depending on the shape of the nostril floor, the nostrils may show more, or in some cases a moderate amount of nostril show actually has the advantage of making the nasal tip look smaller.",
+          "In other words, not every M-shaped nostril needs to be corrected. The most important thing is your own subjective judgment."
+        ]
+      },
+      {
+        "heading": "17 years of alar rim lowering",
+        "paras": [
+          "Over 17 years of performing alar rim lowering, the method I mainly use, a cartilage-skin composite graft, has changed in three major ways. The method I use now is the third-generation alar rim lowering method, and most patients are very satisfied with the results of alar rim lowering.",
+          "However, 100% satisfaction cannot exist in cosmetic surgery, so rather than theory, I have organized 17 years of experience into a report on what patients who actually had the surgery complained about even slightly or found inconvenient, and on the current limitations of alar rim lowering."
+        ]
+      }
+    ]
+  },
+
+  "method": {
+    "title": "Surgical method",
+    "steps": [
+      "When you wake up, the surgery is already over.",
+      "The surgery uses a composite graft that transplants ear cartilage and skin together,",
+      "with a third-generation alar rim lowering method that minimizes, as much as possible, the bulky nasal tip that is the drawback of this approach.",
+      "When only one side is done, the surgery takes about 20 minutes.",
+      "After surgery, skin-colored tape is placed on the nasal tip for about a week."
+    ],
+    "note": "In this method, cartilage + skin tissue is taken from both ears and grafted inside the nostrils. It is done under sedation and takes about 40 minutes.",
+    "pros_cons": [
+      "Because the skin of the nasal tip has to be brought down to cover the nostrils, the nasal tip inevitably becomes larger. In particular, for up to 3 months after surgery, postoperative swelling adds to this and the nasal tip looks even bulkier.",
+      "Even people who were worried are mostly satisfied once the swelling goes down, but roughly one person every 2–3 years wants part or all of the graft removed to reduce the volume of the nasal tip."
+    ]
+  },
+
+  "recovery": {
+    "title": "Recovery",
+    "items": [
+      {"label": "Day of surgery", "lines": ["When you wake up, the surgery is already over.", "There is no pain at all."]},
+      {"label": "1 week", "lines": ["After surgery, skin-colored tape is placed on the nasal tip for about a week.", "After the tape is removed you can wash your face and wear makeup, and although there is still some swelling, most people go about their daily lives."]},
+      {"label": "2 weeks", "lines": ["Usually after about 2 weeks you can go about daily life without much trouble, but depending on the nose shape or constitution, early swelling is rarely severe and lasts a long time."]},
+      {"label": "2 months", "lines": ["Alcohol and smoking are strictly forbidden for 2 months after surgery; other than that, there is nothing in particular to be careful about.", "Until the grafted skin has fully taken, you need to apply ointment well to keep it moist, and simply come in on your scheduled treatment dates."]},
+      {"label": "Swelling", "lines": ["Swelling of the nasal tip keeps going down for 6–12 months."]}
+    ],
+    "note": "The surgery is done under sedation, and because there is no incision on the outside of the nose and the incision is made only inside the nostrils, there is no visible scar."
+  },
+
+  "before_after": {
+    "title": "Alar rim lowering: before and after",
+    "alt": "Alar rim lowering before and after",
+    "labels": [
+      "Front, 2 months",
+      "From below",
+      "Front, 6 weeks",
+      "Front, 3 weeks",
+      "Front, 3 weeks",
+      "From below",
+      "Dragon nose (Type 3), inside the nostril, before and after",
+      "Dragon nose, inside the nostril"
+    ]
+  },
+
+  "logs": {
+    "title": "Case notes by Dr. Kim",
+    "tags": ["Overview", "Solutions by cause", "Limitations · side effects", "Removal", "Alar lowering alone, before and after", "Limits in a dragon nose"]
+  },
+
+  "faq": [
+    {"q": "Can alar rim lowering be removed?",
+     "a": "<< Alar rim lowering can be removed regardless of timing. >> However, I don't recommend partial removal in the early period after surgery except in very special cases. This is because after a partial removal, the remaining graft may also die (necrosis), and the whole graft may end up having to be removed."},
+    {"q": "Will a scar show inside the nostril after surgery?",
+     "a": "In 97% of patients, the scar inside the nostril is hard to notice. In about 3%, especially in a \"dragon nose,\" the skin graft area may look like a scar when seen from below."},
+    {"q": "Can alar rim lowering be done on a dragon nose (Type 3)?",
+     "a": "In Type 3 nostrils with a dragon-nose shape, alar rim lowering covers the nostrils in an unattractive way. For a dragon nose without much nostril show from the front, I do not recommend alar rim lowering."},
+    {"q": "Does taking cartilage and skin from the ear change the shape of the ear?",
+     "a": "After ear cartilage + skin is harvested, the ear becomes slightly shorter and sits a little closer to the head. So far I have never received a complaint about a change in ear shape."},
+    {"q": "Will breathing become uncomfortable after surgery?",
+     "a": "Because the surgery is done at the entrance of the nostril, there is a theoretical possibility that it could affect breathing even slightly. I have not yet seen a case where breathing discomfort after alar rim lowering alone became a problem."}
+  ],
+
+  "related": ["Alar rim lifting", "V-shaped nostril correction", "Nostril reduction", "Revision rhinoplasty", "Rib cartilage rhinoplasty", "Columella surgery"]
+}

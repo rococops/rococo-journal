@@ -1,0 +1,145 @@
+{
+  "_comment": "English translation of data/landing/nostril-alar-raising.json (AI draft by Claude, 2026-10-20 — needs review before launch). Sentences only: numbers, photos and source links come from the Korean data. Doctor's quotes are shown with the original Korean underneath.",
+  "lang": "en",
+  "reviewed": false,
+
+  "seo": {
+    "title": "Alar Rim Lifting in Seoul | Hanging Alae & V-Shaped Nostril Correction | Dr. Kim Sang-ho, Rococo Plastic Surgery",
+    "description": "Alar rim lifting raises drooping alae to reduce nostril show. 3rd- and 4th-generation methods, a 1–2 mm lift, limits and scars, by Dr. Kim Sang-ho.",
+    "h1": "Alar Rim Lifting"
+  },
+
+  "hero": {
+    "eyebrow": "ALAR RAISING · ALAR RIM LIFTING",
+    "question": "How is alar rim lifting done?",
+    "summary": "There are several surgical methods for covering the nostrils, and the most commonly used are alar rim lowering and alar rim lifting.",
+    "stats": ["How much the nostril rises", "Surgery time (by method and extent)", "Stitches inside the nose removed"],
+    "units": ["mm", "min", "week"],
+    "case_caption": "Alar rim lifting — before and after",
+    "case_alt": "Alar rim lifting before and after"
+  },
+
+  "features": {
+    "type": "TYPE · ALAR RAISING",
+    "toc": "When it is needed",
+    "title": "Alar rim lifting is needed in cases such as",
+    "items": [
+      "When both alae droop and the columella is raised so the tip looks a bit like a \"pig nose\" (this is how patients describe it): the columella is lowered while both alae are lifted at the same time",
+      "When facial asymmetry makes only one ala droop",
+      "This can even create an optical illusion that the nose is crooked, so the surgery is sometimes done to correct that as well."
+    ],
+    "note": "The usual methods are not very effective, so over a long time I have gradually developed the technique. It has become my own alar rim lifting method."
+  },
+
+  "story": {
+    "title": "Dr. Kim's notes",
+    "blocks": [
+      {
+        "heading": "Two main surgeries for covering the nostrils",
+        "paras": [
+          "There are several surgical methods for covering the nostrils, and the most commonly used are alar rim lowering and alar rim lifting. Of these, I will show you the most typical case of covering the nostrils with alar rim lifting.",
+          "After discussing it carefully with the patient, I explained that I expected that doing only alar rim lifting to slightly reduce nostril show would also make the asymmetry a little less noticeable."
+        ]
+      },
+      {
+        "heading": "Third- and fourth-generation alar rim lifting",
+        "paras": [
+          "The alar rim lifting I mainly perform is third-generation alar rim lifting. Because it is done from inside the nostril, there is no scar on the outside, and it is mainly used to reduce nostril show from the front (V-nostril correction) or to lift an ala that hangs down like a hammock in the side profile.",
+          "With third-generation alar rim lifting, the corner of the ala hardly rises, so after thinking it over I created fourth-generation alar rim lifting. The fourth-generation method uses an incision on the outer skin side, and because the corner of the ala is fully lifted, it can create a more noticeable change."
+        ]
+      },
+      {
+        "heading": "A surgery to reduce nostril show from the front",
+        "paras": [
+          "The main purpose of alar rim lifting is to reduce nostril show from the front, so there is not much change from the side or at an angle.",
+          "How much the nostril is reduced with third-generation alar rim lifting depends on the angle of the nostril floor, the size of the nostril, the condition of the tissue around the nostril and so on, and I don't recommend surgery in every case. I recommend it only when some degree of change can be expected."
+        ]
+      },
+      {
+        "heading": "A drooping ala in side profile can also be corrected",
+        "paras": [
+          "Drooping alae like that are corrected very well with alar rim lifting. It is also fairly effective when lifting the floor area as seen from the front.",
+          "Depending on the design, alar rim lifting can adjust how much is lifted in three separate areas: the floor area seen from the front, the corner of the ala, and the side line of the ala."
+        ]
+      },
+      {
+        "heading": "If you have had philtrum reduction",
+        "paras": [
+          "Alar rim lifting works by pulling up tissue from the philtrum area, so in people who have had philtrum reduction there is less slack in the philtrum area, and the effect is inevitably weaker.",
+          "This is a surgery I privately call second-generation alar rim lifting. Compared with the first-generation method, there may be slightly~ more swelling around the lip, which could be a small drawback(?), but the swelling hardly interferes with daily life. The advantages are that the ala rises even a little more and the chance of leaving a scar is reduced."
+        ]
+      }
+    ]
+  },
+
+  "method": {
+    "title": "Surgical method",
+    "steps": [
+      "The surgery is done under sedation, so there is no pain at all,",
+      "and it takes about 20–30 minutes.",
+      "No separate tape is applied,",
+      "and the stitches inside the nose are kept as invisible as possible.",
+      "The stitches inside the nose are removed 1 week after surgery."
+    ],
+    "note": "Alar rim lifting and philtrum reduction pull tissue in opposite directions, so I don't recommend doing them at the same time.",
+    "pros_cons": [
+      "As for the drawbacks of alar rim lifting: in patients who have had nostril reduction or philtrum reduction, the effect is inevitably weaker.",
+      "The nostrils may become narrower after surgery, and this is especially likely in patients who have previously had nostril reduction. If the nostrils become narrower, breathing could theoretically become uncomfortable.",
+      "A scar forms inside the nostril. Most are hard to notice, but very rarely the scar becomes raised and visible. In such cases we manage it as much as possible with scar injections and similar treatment."
+    ]
+  },
+
+  "recovery": {
+    "title": "Recovery",
+    "items": [
+      {"label": "Day of surgery", "lines": ["No tape or anything like that is applied after surgery, swelling is relatively mild as you can see in the photos, and I have not yet seen anyone bruise after this surgery."]},
+      {"label": "Next day", "lines": ["Most patients say they go about their daily lives from the next day without much discomfort."]},
+      {"label": "1 week", "lines": ["The stitches inside the nose are removed 1 week after surgery."]},
+      {"label": "Swelling", "lines": ["To reduce scarring as much as possible, the area of tissue dissection is wider, so there tends to be somewhat more swelling after surgery than with the first-generation surgery."]},
+      {"label": "Scar", "lines": ["In most cases the scar inside the nostril is barely visible after surgery, but occasionally a noticeable scar remains."]}
+    ],
+    "note": "Even now, a noticeable scar rarely forms after surgery. There is a tendency for more scarring especially in people who have previously had alar base reduction or philtrum reduction, because tissue is lacking. In such cases we manage it with scar injections, or in severe cases we sometimes perform scar revision 6 months or more after surgery."
+  },
+
+  "before_after": {
+    "title": "Alar rim lifting: before and after",
+    "alt": "Alar rim lifting before and after",
+    "labels": [
+      "Front, before and after",
+      "From below",
+      "3rd generation, 2 months",
+      "From below",
+      "V-nostril correction, front",
+      "V-nostril correction, from below",
+      "2nd generation, 3 weeks",
+      "4th generation, 2 weeks"
+    ]
+  },
+
+  "logs": {
+    "title": "Case notes by Dr. Kim",
+    "tags": ["3rd generation · covering nostrils", "3rd generation · limits", "4th generation", "Drooping ala, side line", "Pros and cons", "With philtrum reduction"]
+  },
+
+  "faq": [
+    {"q": "Can alar rim lifting and philtrum reduction be done at the same time?",
+     "a": "Alar rim lifting and philtrum reduction pull tissue in opposite directions, so I don't recommend doing them at the same time."},
+    {"q": "Can the nostrils become narrower or breathing become uncomfortable after surgery?",
+     "a": "In most cases the shape of the nostrils does not change, but rarely the nostrils become narrower as the wound heals. So for people whose nostrils are already quite small or narrow, I explain this possibility before surgery and let them know that, in the unlikely event the nostrils narrow, breathing could become uncomfortable."},
+    {"q": "Will a scar show inside the nostril after surgery?",
+     "a": "In most cases the scar inside the nostril is barely visible after surgery, but occasionally a noticeable scar remains."},
+    {"q": "How much are the nostrils covered?",
+     "a": "The nostril rises by about 1–2 mm. The triangular nostril at the upper left remains, but as nostril show is reduced it becomes a little less noticeable."},
+    {"q": "Does fourth-generation alar rim lifting leave a scar on the outside?",
+     "a": "This method leaves a scar on the skin side, but it fades a lot over 1–2 years; so far there have been no particular complaints, and patient satisfaction with this surgery is high."}
+  ],
+
+  "related": ["Alar rim lowering", "V-shaped nostril correction", "Nostril reduction", "Alar base reduction", "Revision rhinoplasty", "Columella surgery"],
+
+  "companions": [
+    {"name": "Nostril reduction",
+     "lead": "Many people are concerned about large alae. The surgical methods I mainly use to reduce the alae fall into three groups: reducing the size of the ala itself, reducing the nostril, and reducing the ala and the nostril at the same time."},
+    {"name": "V-shaped nostril correction",
+     "lead": "Many people from all over the country come to Rococo to correct nostril show. Usually we correct it with alar rim lowering, but for people for whom alar rim lowering is not suitable, I cover the nostrils even a little with V-nostril correction, a method I developed by adapting alar rim lifting."}
+  ]
+}

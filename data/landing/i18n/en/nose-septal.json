@@ -1,0 +1,135 @@
+{
+  "_comment": "English translation of data/landing/nose-septal.json (AI draft by Claude, 2026-10-20 — needs review before launch). Sentences only: numbers, photos and source links come from the Korean data. Doctor's quotes are shown with the original Korean underneath.",
+  "lang": "en",
+  "reviewed": false,
+
+  "seo": {
+    "title": "Septal Cartilage Rhinoplasty in Seoul | L-Strut, Crooked Nose Correction, Graft Choice | Dr. Kim Sang-ho, Rococo Plastic Surgery",
+    "description": "Septal cartilage rhinoplasty raises the tip with cartilage from inside the nose. The L-strut, choosing cartilage, crooked nose correction, by Dr. Kim Sang-ho.",
+    "h1": "Septal Cartilage Rhinoplasty"
+  },
+
+  "hero": {
+    "eyebrow": "SEPTAL CARTILAGE · SEPTAL GRAFT RHINOPLASTY",
+    "question": "How is septal cartilage rhinoplasty done?",
+    "summary": "There are three cartilage materials we mainly use from our own body: ear cartilage, septal cartilage and rib cartilage. Among these three, there is no single best cartilage.",
+    "stats": ["Width of the L-strut that is left in place", "Recovery period", "Time for stitches inside the nose to dissolve"],
+    "units": ["mm", "week", "weeks"],
+    "case_caption": "Crooked nose correction with septal cartilage — front view",
+    "case_alt": "Septal cartilage rhinoplasty and crooked nose correction before and after, front view"
+  },
+
+  "features": {
+    "type": "MATERIAL · SEPTAL CARTILAGE",
+    "toc": "What people hear about cartilage",
+    "title": "Things about cartilage I often hear at consultations",
+    "items": [
+      "\"I heard septal cartilage is a bad material, so I should use ear cartilage..\"",
+      "\"I heard nobody uses ear cartilage these days, so I should use septal cartilage..\"",
+      "\"I heard the nose collapses with ear cartilage, so I should use septal cartilage..\"",
+      "\"I heard the nose gets hard with septal cartilage, so I should use ear cartilage..\"",
+      "\"I heard I should never have surgery at a clinic that uses rib cartilage for a first surgery..\"",
+      "\"I heard rib cartilage is the last-resort material in nose surgery, so once it is used, revision is impossible and it's a disaster..\""
+    ],
+    "note": "Each cartilage has its own pros and cons, and the noses of clients having surgery have various characteristics. Not every client wants the same kind of nose, either. Putting all these variables together, the cartilage best suited to that nose is the best cartilage."
+  },
+
+  "story": {
+    "title": "Dr. Kim's notes",
+    "blocks": [
+      {
+        "heading": "Where does septal cartilage come from?",
+        "paras": [
+          "The septal cartilage is covered with mucosa on both sides, and a thin bone is connected to the back of the septal cartilage.",
+          "Among the surgeries commonly done in ENT clinics is one called SMR; when the septal cartilage is badly bent and blocks the nose, this surgery cuts out the cartilage in that red area and simply throws it away. In rhinoplasty, that cut-out cartilage is not thrown away but used to raise the nasal tip."
+        ]
+      },
+      {
+        "heading": "How much is cut out, and how much is left?",
+        "paras": [
+          "The person who asked wrote, \" If I have surgery, how much of my septal cartilage do you plan to cut out? \" When septal cartilage is harvested for tip rhinoplasty, the idea is not \"how much to cut out..\" but rather \"leave a certain amount and cut out all the rest..\"",
+          "In the photo above, the blue part of the septum was left and the rest was removed. The reason for leaving the blue area is that it acts as the main beam that maintains the shape of the nose. You can see the red arrow; about 8–10 mm of that width must be left for the nose to stay strong and not collapse. Because the blue area is L-shaped, it is called the L-strut."
+        ]
+      },
+      {
+        "heading": "The tip is the lead; the bridge is the supporting role",
+        "paras": [
+          "The tip cartilages are brought together just to the point where they don't look pinched, separating the tip. This makes the tip look defined from the front. If you get a little greedy at this point and narrow the tip further, it becomes an unattractive pinched tip. In my view, a bulbous nose is better than a severely pinched tip.",
+          "Not being greedy with the bridge is what makes a refined nose. After setting the tip position and shape while looking at the whole face, the bridge just needs to flow back from it. The tip should be the lead and the bridge the supporting role. That is the key point of nose design."
+        ]
+      },
+      {
+        "heading": "Crooked noses and facial asymmetry",
+        "paras": [
+          "Many people think their face is symmetrical, but no one in the world has a perfectly symmetrical face. In fact, most people have a considerable degree of facial asymmetry.",
+          "To briefly share one of the things I have learned about facial asymmetry from looking at Korean faces over the years.. in more than 80% of patients, the right side of the head and face is wider. And the right side of the face sits further back than the left.",
+          "Put simply, the central part of the face is rotated to the right relative to the upper central part of the face, like a bottle cap being twisted, and this ratio also seems to be around 70–80%.",
+          "Since the base the nose sits on (the facial bones) is itself twisted, it would be impossible for the nose on top of it to look perfectly straight, wouldn't it?"
+        ]
+      }
+    ]
+  },
+
+  "method": {
+    "title": "Surgical method",
+    "steps": [
+      "There are crooked noses where only the tip is bent and crooked noses where the bridge, including the nasal bones, is bent; the patient in the photo has a tip and bridge that are quite significantly bent overall.",
+      "In crooked nose correction, generally the most important thing is.. aligning the tip as closely as possible with the center line of the glabella.",
+      "It isn't always the case, but.. after that, the nasal bones should be cut asymmetrically (osteotomy) so that the left side is pushed in further than the right, right?",
+      "Then the upper lateral cartilage area between the nasal bones and the tip is corrected. The right side is sunken, so a spreader graft can be placed to add volume; the bulging left side could be pushed toward the center line, but that would make breathing through the left nostril difficult, so that is the limit of this crooked nose correction.",
+      "A slight bulbous tip correction was also done by repositioning the tip cartilages."
+    ],
+    "note": "In photos from a different angle, volume was added to the right upper lateral cartilage as much as possible, but not being able to reduce the volume of the left upper lateral cartilage further inevitably leaves a little regret. It can't be helped, because breathing function cannot be given up.",
+    "pros_cons": [
+      "Although the crooked nose was corrected, the nose still looks turned to the right because of severe facial asymmetry, so further correction is difficult.",
+      "When correcting a crooked nose that comes with facial asymmetry, the surgical plan inevitably gives more priority to shape, so nasal breathing sometimes becomes harder after surgery. In such cases, I explain the possibility of breathing discomfort in advance at the consultation before surgery, and the patient makes the final decision."
+    ]
+  },
+
+  "recovery": {
+    "title": "Recovery",
+    "items": [
+      {"label": "Day of surgery", "lines": ["Under sedation, the nasal tip was raised using septal cartilage and the bridge was raised with silicone. At the same time, the crooked nose was corrected."]},
+      {"label": "Day 5 · day 10", "lines": ["Because of the client's circumstances it was hard to come in for treatment, so after one treatment following surgery, the tape was removed at the second treatment on day 5, and today, day 10, the client came in for a check-up.", "There is still a little residual swelling on the tip and between the eyebrows."]},
+      {"label": "1 week", "lines": ["Recovery period: 1 week. Face washing and makeup: from 1 week."]},
+      {"label": "2–3 weeks", "lines": ["The stitches inside the nose don't need to be painfully removed; they dissolve and disappear within 2–3 weeks.", "As the residual swelling goes down, the nose will become softer, more natural and smoother."]},
+      {"label": "2 months", "lines": ["It is 2 months after surgery, so the swelling of the tip is still noticeable."]}
+    ],
+    "note": "For revision after filler, swelling lasts a little longer than with ordinary nose surgery."
+  },
+
+  "before_after": {
+    "title": "Septal cartilage rhinoplasty: before and after",
+    "alt": "Septal cartilage rhinoplasty before and after",
+    "labels": [
+      "Crooked nose, front, 2 months",
+      "Crooked nose, from below",
+      "Crooked nose, front, 2 weeks",
+      "Crooked nose, from below",
+      "Side",
+      "Nasal tip, side",
+      "Bulbous nose, front",
+      "Revision, front, 2 months"
+    ]
+  },
+
+  "logs": {
+    "title": "Case notes by Dr. Kim",
+    "tags": ["Harvest · L-strut", "Choosing cartilage", "Crooked nose surgery", "Crooked nose with facial asymmetry", "Reusing septal cartilage", "Reusing a septal strut"]
+  },
+
+  "faq": [
+    {"q": "Won't the nose collapse if septal cartilage is removed?",
+     "a": "If too much is cut out, as in the drawing above, without leaving a sufficient L-strut of about 8–10 mm.. this part weakens and the main beam can collapse like this. Then the area below the nasal bones can sink in like this. Because such a nose looks like a horse saddle, it is called a saddle nose. However, if you have surgery with a properly trained, qualified plastic surgery specialist, you can assume there is almost no chance of this happening. The nose collapsing like that after rhinoplasty is truly extremely rare."},
+    {"q": "Why use septal cartilage rather than ear cartilage?",
+     "a": "For this person, given the characteristics of the nose, septal cartilage was judged to be the best material, so septal cartilage was used. It would be difficult to create this postoperative nose shape with ear cartilage (not impossible), and for surgery of this extent, the desired nose can be made without using rib cartilage."},
+    {"q": "If I have a deviated septum, does it have to be straightened to correct a crooked nose?",
+     "a": "No one has a perfectly straight space where the septum sits. It is bound to be twisted, even slightly. So there is no case where the septum itself is perfectly straight. That is because a perfectly symmetrical face doesn't exist.. In other words, strictly speaking, everyone in the world has a deviated septum. Many people vaguely think.. \"I have a deviated septum, so it has to be straightened for my nose to be straight..\" but this really applies only in some cases. Over many years of practice I must have performed countless crooked nose surgeries.. From that experience, what I consider the biggest cause of a crooked nose is <facial asymmetry>. The base the nose sits on, that is, the central axis of the face, is twisted, so the nose in the middle of the face cannot help but be crooked."},
+    {"q": "Does raising the bridge make a crooked nose more noticeable?",
+     "a": "The patient wanted the bridge a bit higher, so I raised it with a 3 mm silicone implant; usually raising the bridge makes the crooked look a little more noticeable. The patient judged that the satisfaction of a higher bridge outweighed a slightly more crooked look, so I did the surgery the way they wanted."},
+    {"q": "I had surgery with septal cartilage before. Do I have to use rib cartilage for revision?",
+     "a": "When I feel the nasal tip, I can feel a firm septal strut. In this case, this septal strut can be reused for pointed nose correction. The patient said that at another clinic they were told autologous rib cartilage would be needed for revision, but in this condition, additional rib cartilage is not needed at all."}
+  ],
+
+  "related": ["Rib cartilage rhinoplasty", "Osteotomy", "Bulbous nose", "Revision rhinoplasty", "Rhinitis surgery", "Comparing rhinoplasty materials (guide)"]
+}

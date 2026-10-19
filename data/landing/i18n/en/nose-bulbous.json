@@ -1,0 +1,132 @@
+{
+  "_comment": "English translation of data/landing/nose-bulbous.json (AI draft by Claude, 2026-10-20 — needs review before launch). Sentences only: numbers, photos and source links come from the Korean data. Doctor's quotes are shown with the original Korean underneath.",
+  "lang": "en",
+  "reviewed": false,
+
+  "seo": {
+    "title": "Bulbous Nose Surgery in Seoul | Narrowing the Tip Without a Pinched Look | Dr. Kim Sang-ho, Rococo Plastic Surgery",
+    "description": "Bulbous nose surgery makes the tip smaller without a pinched look. Tip techniques, skin limits, alar reduction and osteotomy, recovery, by Dr. Kim Sang-ho.",
+    "h1": "Bulbous Nose Surgery"
+  },
+
+  "hero": {
+    "eyebrow": "BULBOUS NOSE · BULBOUS TIP",
+    "question": "How is a bulbous nose corrected?",
+    "summary": "In bulbous tip correction, making the tip smaller is a given, and there are two key points in the surgery. First, the tip should become smaller without looking pinched as if by tongs. Second, the tip should not become too high.",
+    "stats": ["Surgery time (approx.)", "Recovery period"],
+    "units": ["hour", "week"],
+    "case_caption": "Bulbous nose surgery — front view, before and after",
+    "case_alt": "Bulbous nose surgery before and after, front view"
+  },
+
+  "features": {
+    "type": "AREA · BULBOUS NOSE",
+    "toc": "Areas that can be narrowed",
+    "title": "A wide nose: how far can it be narrowed?",
+    "items": [
+      "Area A cannot be narrowed, for structural reasons.",
+      "Area B can be narrowed with osteotomy, but only when the conditions are right.",
+      "Area C is the area called the < nasal valve >; technically it can be narrowed, but narrowing it would make it impossible to breathe through the nose, so it is an area that cannot be narrowed.",
+      "Area D can be narrowed with bulbous tip surgery & nostril-ala reduction, but again only when the conditions are right."
+    ],
+    "note": "Many people worry that their nose is wide; the tip is narrowed with bulbous tip correction or nostril-ala reduction, and the bridge is narrowed with osteotomy."
+  },
+
+  "story": {
+    "title": "Dr. Kim's notes",
+    "blocks": [
+      {
+        "heading": "Not pinched, yet narrow from the front",
+        "paras": [
+          "As I have said many times, the key to bulbous tip correction is to operate so that 1. the tip looks as little unnaturally pinched as possible, while 2. the tip looks as narrow as possible from the front.",
+          "Points 1 and 2 pull in opposite directions (the more you narrow it, the more pinched it looks), so you need the ability, built through long experience and skill, to find the point that satisfies both sides as well as possible at a reasonable level."
+        ]
+      },
+      {
+        "heading": "The tip can be narrowed, but making it small is hard",
+        "paras": [
+          "In patients with a large tip, the skin area is fixed, so there is a limit to reducing the tip. Strictly speaking, the tip can be narrowed, but making it smaller is difficult.",
+          "When operating on a bulbous nose, the cartilage and soft tissue inside the tip can all be reduced, but the tip can only be said to have become smaller if the skin surface area is reduced, and",
+          "what can be done in practice is to narrow and raise the tip so that it looks narrow from the front."
+        ]
+      },
+      {
+        "heading": "Why bulbous tip correction and alar base reduction are done together",
+        "paras": [
+          "Many people come to the clinic for bulbous tip correction. Bulbous tip correction is generally a surgery that reduces the size of the nasal tip, but when the tip becomes smaller, the alae attached on either side often look larger. So in many cases alar base reduction is done together with bulbous tip correction."
+        ]
+      },
+      {
+        "heading": "Where to draw the line between gain and loss",
+        "paras": [
+          "What I always feel while operating is that when you gain one big thing, you have to give up something.",
+          "In the end, the point of the surgery is where to set the line between what is gained and what is lost.",
+          "As I always emphasize, the consultation is already the beginning of the surgery."
+        ]
+      }
+    ]
+  },
+
+  "method": {
+    "title": "Surgical method",
+    "steps": [
+      "When the skin of the tip is thin, the bulbous nose is corrected by reshaping the tip cartilages (alar cartilages), and",
+      "the surgery corrected the bulbous tip while raising the tip with septal cartilage,",
+      "and the bridge was raised with a silicone implant.",
+      "The tip cartilages on both sides, which had been spread apart, were brought together well, creating a defined, refined tip.",
+      "The tip, which had been trapezoid-shaped, was changed to a shape close to an equilateral triangle."
+    ],
+    "note": "The nostril asymmetry on both sides that is visible before surgery remains after surgery. I explain this fully in advance at the consultation before surgery.",
+    "pros_cons": [
+      "In the side profile, the tip doesn't look much narrower than before surgery. This is because the skin surface area of the tip is fixed, so as the tip is narrowed from the front, the excess skin gathers above and below the tip.",
+      "To make the tip narrow in the side profile as well, the tip would have to be raised higher than in this result, and if the tip were higher than it is now, it would become an overdone \"Gangnam-style\" nose."
+    ]
+  },
+
+  "recovery": {
+    "title": "Recovery",
+    "items": [
+      {"label": "Day of surgery", "lines": ["Anesthesia: sedation", "Surgery time: about 1 hour"]},
+      {"label": "1 week", "lines": ["Recovery period: 1 week", "Face washing and makeup: from 1 week"]},
+      {"label": "With osteotomy", "lines": ["After surgery the shape is held with an aluminum splint, and in about a week the nasal bones knit together again in their new position."]},
+      {"label": "1 month", "lines": ["This photo is about a month after bulbous tip correction. After this, the residual swelling of the tip keeps going down and it becomes slimmer."]},
+      {"label": "Swelling", "lines": ["As the swelling goes down, the tip becomes slimmer and more defined."]}
+    ],
+    "note": "For revision after filler, swelling lasts a little longer than with ordinary nose surgery."
+  },
+
+  "before_after": {
+    "title": "Bulbous nose surgery: before and after",
+    "alt": "Bulbous nose surgery before and after",
+    "labels": [
+      "Front, 10 months",
+      "Front · thin tip skin",
+      "From below",
+      "Front · bulbous tip revision",
+      "Front · with alar reduction",
+      "Front · with nose filler revision",
+      "Front · with hump correction and osteotomy",
+      "Full face, front, 1 month"
+    ]
+  },
+
+  "logs": {
+    "title": "Case notes by Dr. Kim",
+    "tags": ["When tip skin is thin", "The key to bulbous tip surgery", "Areas that can be narrowed", "Will my face look wider?", "Bulbous tip revision", "With the alae"]
+  },
+
+  "faq": [
+    {"q": "If bulbous tip correction makes the tip smaller, won't my face look wider?",
+     "a": "When the nose actually becomes narrower through surgery, the face looks narrower too. If the nose is wide, the face inevitably looks wide, and when the nose becomes narrower, the face looks narrower too.."},
+    {"q": "Do the alae (nostril wings) need to be reduced too?",
+     "a": "When the alae flare and the nostrils are wide, as in the before photo, a procedure that reduces both the alae and the nostrils is done. If only the bulbous tip is corrected without working on the alae, the alae can look relatively larger after surgery, so for noses like this it is better to have both done together."},
+    {"q": "Can I just have non-incisional alar base reduction?",
+     "a": "Looking at the effect of non-incisional alar base reduction using Elasticum 5 years after surgery, it did not hold up enough to satisfy me, so these days I don't recommend non-incisional alar base reduction on its own."},
+    {"q": "How is a wide nasal bridge narrowed?",
+     "a": "Osteotomy is a procedure in which the nasal bones are cracked and moved to a different position to slim down a wide bridge or to straighten a crooked bridge."},
+    {"q": "When is bulbous tip revision most often done?",
+     "a": "Among people who come for bulbous tip revision consultations, the largest group is those who had bulbous tip surgery but saw no effect at all, and the second largest is those who come for correction because the nose became pinched, as if clamped with a clothespin. A bulbous tip that wasn't corrected doesn't interfere with daily life, but a tightly pinched nose can affect relationships with other people."}
+  ],
+
+  "related": ["Alar base reduction", "Osteotomy", "Hump nose", "Revision rhinoplasty", "Septal cartilage rhinoplasty", "Rib cartilage rhinoplasty"]
+}
