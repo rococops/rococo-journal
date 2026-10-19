@@ -164,8 +164,10 @@ class Renderer:
     <h3 class="lp-h3">{e(b["heading"])}</h3>
     <blockquote class="lp-quote">{self.paras(b["paras"])}<cite>— 김상호</cite></blockquote>
     {self.src_link(b["src"])}''' for b in st['blocks'])
+        # 아이콘: 공용 ICONS 이름, 또는 이 페이지 데이터의 "icons": {"이름": "<svg 내부 요소>"} (페이지마다 고유 아이콘이 필요할 때)
+        icons = {**ICONS, **{k: _svg(v) for k, v in d.get('icons', {}).items()}}
         steps = ''.join(
-            f'<li><div class="lp-step-ico">{ICONS[s["icon"]]}</div><span>STEP {i + 1:02d}</span><p>{e(s["text"])}</p></li>'
+            f'<li><div class="lp-step-ico">{icons[s["icon"]]}</div><span>STEP {i + 1:02d}</span><p>{e(s["text"])}</p></li>'
             for i, s in enumerate(m['steps']))
         # 회복 출처: 같은 칼럼이 이어지면 한 번만 표시
         rec_srcs = list(dict.fromkeys(it['src'] for it in rec['items']))
