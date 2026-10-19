@@ -65,8 +65,6 @@ data = {
         "question": "코 절골술은 어떻게 수술하나요?",
         "summary": {"text": seg('205', (7, 8)), "src": src('205')},
         "stats": [
-            {"to": 20, "unit": "초", "label": "절골에 걸리는 시간",
-             "quote": seg('562', 52), "src": src('562')},
             {"to": 2, "unit": "주", "label": "밀려 들어간 코뼈가 굳는 기간",
              "quote": seg('562', 50), "src": src('562')},
             {"to": 2, "unit": "mm", "label": "외측절골에 쓰는 절골도",
