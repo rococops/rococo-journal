@@ -1,0 +1,113 @@
+{
+  "_comment": "English translation of data/landing/nose-hump.json (AI draft by Claude, 2026-10-20 — needs review by a native speaker / coordinator before launch). Sentences only: numbers, photos and source links come from the Korean data. Doctor's quotes are shown with the original Korean underneath.",
+  "lang": "en",
+  "reviewed": false,
+
+  "seo": {
+    "title": "Hump Nose Surgery in Seoul | Implant-Free Dorsal Hump Correction | Dr. Kim Sang-ho, Rococo Plastic Surgery",
+    "description": "Hump nose surgery at Rococo aims to avoid implants whenever possible, though some noses do need one. Why a dorsal hump forms, how it is corrected, recovery, and common questions, from Dr. Kim Sang-ho's own columns.",
+    "h1": "Hump Nose Surgery"
+  },
+
+  "hero": {
+    "eyebrow": "HUMP NOSE · DORSAL HUMP",
+    "question": "How is a hump nose corrected?",
+    "summary": "In hump nose surgery we aim for an implant-free approach whenever possible, but depending on the nose, an implant is sometimes needed.",
+    "stats": ["Done without implants", "Surgery time (approx.)", "Standard recovery"],
+    "units": ["%", "hour", "weeks"],
+    "case_caption": "Severe hump nose — 6 months after surgery",
+    "case_alt": "Hump nose surgery before and after, side view"
+  },
+
+  "features": {
+    "type": "TYPE · HUMP NOSE",
+    "toc": "Two features",
+    "title": "A hump nose has two features",
+    "items": [
+      "First, a convex bump that sticks out on the bridge of the nose (the hump), and",
+      "second, a tip that droops downward, so that from the front it looks like an arrow-shaped nose."
+    ],
+    "note": "Hump noses are often crooked as well. Because the hump hides the deviation, surgery is sometimes done without noticing it, which often leads to revision surgery. That is why careful diagnosis and planning are needed before surgery."
+  },
+
+  "story": {
+    "title": "Dr. Kim's notes",
+    "blocks": [
+      {
+        "heading": "Why does a hump nose form?",
+        "paras": [
+          "When a baby's face is forming in the womb and the nose is taking shape, the septal cartilage should grow just enough inside the bony space of the nose (the nasal cavity). I believe a hump forms because the cartilage keeps growing after it has already filled that space, bulging outward onto the bridge of the nose.",
+          "What this means clinically is that the over-grown (?) septal cartilage doesn't only push up into the bridge to make a hump. It also pushes downward to create an arrow-shaped nose, and bends sideways to create a crooked nose.",
+          "In the end, with most hump noses we find that \"when you open the nose, the septum is badly bent.\""
+        ]
+      },
+      {
+        "heading": "Implant or no implant?",
+        "paras": [
+          "Broadly, a hump nose is corrected either with an implant or without one. Neither method is better in itself, because not all hump noses are the same. The best method is the one most suited to your own nose.",
+          "In my experience, roughly half of the people who come to me about a hump nose have a hump nose that should not be treated with an implant."
+        ]
+      }
+    ]
+  },
+
+  "method": {
+    "title": "Surgical steps",
+    "steps": [
+      "Under sedation",
+      "Straightening the deviation with septal cartilage",
+      "Raising the nasal tip",
+      "Smoothing down the hump",
+      "Filling the hollow between the bridge and the tip, again with septal cartilage."
+    ],
+    "note": "Depending on the nose, this basic procedure may also include osteotomy, and ear cartilage or MegaDerm may be added.",
+    "pros_cons": [
+      "The biggest advantage of implant-free hump correction is, quite literally, that no implant is used. Being able to raise the nose without an implant is a huge advantage. Not leaving any foreign material in your body is the greatest benefit in itself, and the risk of infection is also much lower than with implant surgery.",
+      "However, no matter how the surgery is done, it will not create a bridge line as smooth as that of a nose with an implant."
+    ]
+  },
+
+  "recovery": {
+    "title": "Recovery",
+    "items": [
+      {"label": "Day of surgery", "lines": ["Under sedation,", "the surgery takes about 1 hour."]},
+      {"label": "1 week", "lines": ["For one week after surgery, only skin-colored tape is placed on the nose,", "and after a week the tape is removed and you can wash your face and wear makeup."]},
+      {"label": "2 weeks", "lines": ["Bruising and swelling can last about 2 weeks after surgery.", "So you can think of the standard recovery period as 2 weeks."]},
+      {"label": "Residual swelling", "lines": ["(Subtle residual swelling keeps going down for up to a year and a half.)"]}
+    ],
+    "note": "For typical nose surgery, we advise a recovery period of 2 weeks in 99% of cases, and 4 weeks or more in 1%."
+  },
+
+  "before_after": {
+    "title": "Hump nose surgery: before and after (side view)",
+    "alt": "Hump nose surgery before and after, side view",
+    "labels": [
+      "Both sides",
+      "Both sides, before and after",
+      "Both sides, before and after",
+      "Side line, 4 weeks after",
+      "Right side, 5 weeks after",
+      "Right side, before and after",
+      "Right side, 10 weeks after",
+      "Right side, before and after"
+    ]
+  },
+
+  "logs": {
+    "title": "Case notes by Dr. Kim",
+    "tags": ["Implant-free · contour", "Minimizing contour", "Why it forms", "Severe hump", "Female hump nose", "Male hump nose"]
+  },
+
+  "faq": [
+    {"q": "Do I need an implant for hump nose surgery?",
+     "a": "If there is enough height between the eyebrows (the glabella), a hump nose can be corrected without an implant. If the glabella is low and a good line can't be made, an implant has to be used."},
+    {"q": "I heard the hump grows back unless silicone is put in. Is that true?",
+     "a": "A hump does not grow. That claim has no basis at all; think of it simply as a difference in surgical experience and technique."},
+    {"q": "Will some contour remain on the bridge if no implant is used?",
+     "a": "The biggest drawback of the implant-free method is that some contour remains along the bridge. Personally I think a moderate contour is actually an advantage because it makes the nose look natural, but if much of the cartilage grafted onto the bridge is absorbed and more contour appears than expected, an additional correction to add volume may be needed after 6 months."},
+    {"q": "My nose has a hump. Do I also need the deviation corrected?",
+     "a": "You can assume that 99% of hump noses are crooked."}
+  ],
+
+  "related": ["Osteotomy", "Bulbous nose", "Long nose", "Male rhinoplasty", "Septal cartilage rhinoplasty", "Alar lowering (nostril)"]
+}

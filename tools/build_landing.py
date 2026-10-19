@@ -22,6 +22,14 @@ BODY_START, BODY_END = '<!-- 대표페이지 본문 시작 -->', '<!-- 대표페
 MORE_START, MORE_END = '<!-- 대표페이지 더보기 시작 -->', '<!-- 대표페이지 더보기 끝 -->'
 JS_START, JS_END = '<!-- 대표페이지 스크립트 시작 -->', '<!-- 대표페이지 스크립트 끝 -->'
 LD_START, LD_END = '<!-- 대표페이지 구조화데이터 시작 -->', '<!-- 대표페이지 구조화데이터 끝 -->'
+HREFLANG_START, HREFLANG_END = '<!-- 대표페이지 외국어판 시작 -->', '<!-- 대표페이지 외국어판 끝 -->'
+LANG_LABELS = {'en': 'English', 'ja': '日本語', 'zh': '中文'}
+
+
+def foreign_langs(page):
+    """이 대표페이지의 외국어 번역 데이터가 있는 언어 목록 (en·ja·zh 순)."""
+    key = page.strip('/').replace('/', '-')
+    return [l for l in LANG_LABELS if os.path.exists(os.path.join(BASE, 'data', 'landing', 'i18n', l, f'{key}.json'))]
 
 e = html.escape
 
@@ -145,7 +153,7 @@ class Renderer:
         <a href="{self.root}counsel/" class="lp-btn lp-btn-gold">상담 신청</a>
         <a href="#lp-ba" class="lp-btn lp-btn-line">전후사진 보기</a>
       </div>
-      <p class="lp-hero-by">김상호 원장 · 로코코성형외과</p>
+      <p class="lp-hero-by">김상호 원장 · 로코코성형외과</p>{self.lang_links()}
     </div>
     <a class="lp-hero-case{' lp-hero-case--stack' if case.get('layout') == 'stack' else ''}" href="{self.href(case["src"])}">
       <img src="{e(case["image"])}" alt="{e(case["alt"])}" loading="eager">
@@ -263,6 +271,15 @@ class Renderer:
 </section>
 <div id="lp-cases"></div>
 {BODY_END}'''
+
+    def lang_links(self):
+        """히어로 아래 외국어판 링크 (번역이 있는 언어만)."""
+        page = self.d['page'].strip('/')
+        langs = foreign_langs(page)
+        if not langs:
+            return ''
+        return ('<p class="lp-hero-langs">' + ' · '.join(
+            f'<a href="/{l}/{page}/" lang="{l}">{LANG_LABELS[l]}</a>' for l in langs) + '</p>')
 
     def companions(self):
         """'함께 알아두면 좋은 시술' 섹션 (선택). 작은 하위 메뉴를 큰 대표페이지에 소개 카드로 흡수할 때 사용.
@@ -396,6 +413,16 @@ def apply_landing(page_dir, data):
         short_title = seo['title'].split(' | ')[0]
         out = re.sub(r'(<meta property="og:title" content=")[^"]*', lambda m: m.group(1) + e(short_title + ' | 로코코 저널'), out, count=1)
         out = re.sub(r'(<meta property="og:description" content=")[^"]*', lambda m: m.group(1) + e(seo['description']), out, count=1)
+
+    # ── 외국어판 연결: data/landing/i18n/{lang}/{cat}-{sub}.json 이 있는 언어만 hreflang 으로 서로 연결 ──
+    page = data['page'].strip('/')
+    langs = foreign_langs(page)
+    if langs:
+        site = 'https://journal.rococops.com'
+        links = [f'<link rel="alternate" hreflang="ko" href="{site}/{page}/">'] + \
+                [f'<link rel="alternate" hreflang="{l}" href="{site}/{l}/{page}/">' for l in langs] + \
+                [f'<link rel="alternate" hreflang="x-default" href="{site}/{page}/">']
+        out = _upsert(out, HREFLANG_START, HREFLANG_END, HREFLANG_START + '\n' + '\n'.join(links) + '\n' + HREFLANG_END, '</head>')
 
     if out != raw:
         with open(path, 'w', encoding='utf-8-sig' if bom else 'utf-8') as fp:

@@ -262,7 +262,7 @@
   </url>
   <url>
     <loc>https://journal.rococops.com/nose/hump/</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -499,5 +499,25 @@
     <loc>https://journal.rococops.com/guide/rib-cartilage-dorsum/</loc>
     <lastmod>2026-10-19</lastmod>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://journal.rococops.com/en/</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://journal.rococops.com/en/nose/hump/</loc>
+    <lastmod>2026-10-20</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://journal.rococops.com/ja/</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://journal.rococops.com/zh/</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
   </url>
 </urlset>

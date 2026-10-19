@@ -13,6 +13,8 @@ GUIDE_DIR = 'guide'
 # rococops.com 원글과 내용이 겹쳐 구글이 수집을 미루고 있어, 사이트맵은 저널만의 페이지(메뉴·가이드)에 집중한다.
 # 페이지 자체는 그대로 있고, 목록 페이지의 링크로 수집될 수는 있다. 다시 넣고 싶으면 False.
 EXCLUDE_DETAIL_PAGES = True
+# 외국어 홈(/en/ …)과 외국어 대표페이지(/en/nose/hump/ …)
+LANG_DIRS = ['en', 'ja', 'zh']
 EXTRA_PATHS = [
     ('about/', '0.5', DEFAULT_LASTMOD),
     ('about/philosophy/', '0.5', DEFAULT_LASTMOD),
@@ -41,6 +43,12 @@ def read_lastmod(html_path):
     except OSError:
         pass
     return DEFAULT_LASTMOD
+
+
+def file_date(path):
+    """파일 수정일 (YYYY-MM-DD)."""
+    import datetime
+    return datetime.date.fromtimestamp(os.path.getmtime(path)).isoformat()
 
 
 def is_detail_page(path):
@@ -79,6 +87,14 @@ def collect_urls():
                 priority = '0.8'
                 lastmod = read_lastmod(os.path.join(dirpath, 'index.html'))
             urls.append((path, priority, lastmod))
+
+    for lang in LANG_DIRS:
+        for dirpath, _, files in os.walk(lang):
+            if 'index.html' not in files:
+                continue
+            path = dirpath.replace('\\', '/') + '/'
+            lastmod = DEFAULT_LASTMOD if path.count('/') == 1 else file_date(os.path.join(dirpath, 'index.html'))
+            urls.append((path, '0.7', lastmod))
 
     for p, pri, lm in EXTRA_PATHS:
         urls.append((p, pri, lm))

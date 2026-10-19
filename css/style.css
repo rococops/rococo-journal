@@ -2298,6 +2298,21 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .lp-log p{font-weight:700;line-height:1.5;margin:0;flex:1}
 .lp-log-tag{font-size:.72rem;color:var(--accent);letter-spacing:.05em}
 .lp-log-by{font-size:.78rem;color:var(--gray-400)}
+/* 외국어 대표페이지 (/en/ /ja/ /zh/) */
+.lp-i18n-actions{display:flex;align-items:center;gap:.6rem}
+.lp-i18n-contact{background:var(--accent);color:#fff;padding:7px 16px;border-radius:20px;font-size:12px;font-weight:700;white-space:nowrap}
+.lp-i18n-contact:hover{background:var(--black)}
+.lp-hero-langs{margin:.6rem 0 0;font-size:.8rem;color:#8d8478}
+.lp-hero-langs a{color:#d9c3a3}
+.lp-hero-langs a:hover{color:#fff}
+@media (max-width:520px){.lp-i18n-header .logo-sub{display:none}.lp-i18n-contact{padding:6px 12px}}
+.lp-i18n-notice{font-size:.8rem;color:var(--gray-400);padding-top:1.2rem;margin:0 auto;line-height:1.6}
+.lp-orig{margin:.6rem 0 0;font-size:.85rem}
+.lp-orig summary{cursor:pointer;color:var(--accent);font-weight:700;list-style:none}
+.lp-orig summary::before{content:"＋ "}
+.lp-orig[open] summary::before{content:"－ "}
+.lp-orig div{margin-top:.6rem;padding:1rem 1.2rem;border:1px dashed rgba(255,255,255,.25);border-radius:8px;color:#c9c2b8;line-height:1.8}
+.lp-orig div p{margin:0 0 .6rem}
 /* 함께 알아두면 좋은 시술 (작은 하위 메뉴 소개 카드) */
 .lp-comps{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem}
 .lp-comp{display:flex;flex-direction:column;background:#fff;border:1px solid var(--gray-200);border-radius:14px;overflow:hidden}
