@@ -43,8 +43,6 @@ data = {
              "quote": seg('10', 17), "src": src('10')},
             {"to": 1, "unit": "주", "label": "회복기간",
              "quote": seg('10', 18), "src": src('10')},
-            {"to": 1, "unit": "주", "label": "세안·화장 시작",
-             "quote": seg('10', 19), "src": src('10')},
         ],
         "bg_image": "images/landing/nose-hump-hero.jpg",
         "case": {"src": src('136'), "image": "https://rococops.com/files/editor/20151001493206366.jpg",

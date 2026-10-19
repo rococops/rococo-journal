@@ -30,13 +30,6 @@
         "label": "회복기간",
         "quote": "회복기간 : 1주일",
         "src": "nose/bulbous/10"
-      },
-      {
-        "to": 1,
-        "unit": "주",
-        "label": "세안·화장 시작",
-        "quote": "세안 및 화장 : 1주일부터 하세요",
-        "src": "nose/bulbous/10"
       }
     ],
     "bg_image": "images/landing/nose-hump-hero.jpg",
