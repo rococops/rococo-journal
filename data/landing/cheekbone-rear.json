@@ -1,0 +1,332 @@
+{
+  "_comment": "시술별 대표페이지 데이터(뒷광대축소술). 원장님 글은 1인칭 칼럼 원문 그대로만 사용(가이드 3인칭 요약은 인용하지 않음). 문장 단위 대조: tools/verify_landing_quotes.py. 소제목·질문형 부제·라벨은 제작 문구.",
+  "page": "cheekbone/rear",
+  "seo": {
+    "_comment": "apply=false 이면 <title>·description·H1·구조화데이터는 지금 그대로 둔다.",
+    "apply": true,
+    "title": "뒷광대축소술 | 구레나룻 앞 뼈가 튀어나온 경우, 수술 방법·흉터·회복 | 로코코성형외과 김상호 원장",
+    "description": "뒷광대는 귀 앞 구레나룻 부위가 혹처럼 튀어나온 뼈입니다. 어떤 경우에 뒷광대축소술이 도움이 되는지, 수술 방법과 한계, 흉터와 회복을 김상호 원장의 글과 전후사진으로 정리했습니다.",
+    "h1": "뒷광대축소술",
+    "procedure_name": "뒷광대축소술"
+  },
+  "hero": {
+    "eyebrow": "REAR CHEEKBONE · 뒷광대축소술",
+    "question": "뒷광대축소술은 어떻게 수술하나요?",
+    "summary": {
+      "text": "여러가지 특이한 형태 중에 귀 바로 앞쪽 구렛나루 부위가 볼록하게 혹처럼 튀어나온 분들이 있는데요.. 이 부위를 환자분들이 <뒷광대> 라고 부르시더라구요.",
+      "src": "cheekbone/rear/163"
+    },
+    "stats": [
+      {
+        "from": 15,
+        "to": 20,
+        "unit": "분",
+        "label": "수술 시간 (양쪽)",
+        "quote": "양측 수술하는데 걸리는 시간이 대략 15-20분 정도입니다.",
+        "src": "cheekbone/rear/165",
+        "extra": [
+          {
+            "quote": "수술은 수면마취하에 대략 15분정도 걸리는 간단한 수술입니다.",
+            "src": "cheekbone/rear/163"
+          }
+        ]
+      },
+      {
+        "from": 3,
+        "to": 5,
+        "unit": "일",
+        "label": "일상생활 복귀",
+        "quote": "그리 심하게 붓는것은 아니라서 대부분의 환자분들은 3~5일 이내에 일상생활에 복귀하신답니다.",
+        "src": "cheekbone/rear/165"
+      },
+      {
+        "from": 6,
+        "to": 12,
+        "unit": "개월",
+        "label": "흉터가 연한 선으로 남기까지",
+        "quote": "흉터가 남는 정도는 개인차이가 있는데 대략 6~12개월이 지나면 대부분 거의 눈에 잘 띄지 않을 정도로 연한 선으로만 남게 되니 특별히 흉터 걱정은 하지 않으셔도 되겠습니다.",
+        "src": "cheekbone/rear/312"
+      }
+    ],
+    "bg_image": "images/landing/nose-hump-hero.jpg",
+    "case": {
+      "src": "cheekbone/rear/168",
+      "image": "https://rococops.com/files/editor/201801091659744858.jpg",
+      "alt": "뒷광대축소술 수술 전후 사진",
+      "label": "CASE · 측면 3주",
+      "layout": "stack"
+    }
+  },
+  "features": {
+    "type": "TYPE · REAR CHEEKBONE",
+    "toc": "뒷광대축소술이 필요한 경우",
+    "title": "사실 대부분의 환자에서 저 뒷광대 부위는 눈에 잘 띄지 않습니다.",
+    "items": [
+      "뒷광대 부위 피부가 얇고, 뒷광대가 볼록하게 톡 튀어나와 있는 경우는 변형15분 광대축소술시에 뒷광대축소술을 같이 수술을 받으시는 것을 추천드리고 있습니다.",
+      "x-ray 상에서는 저렇게 볼록 튀어 보이지만 실제 저 부위를 덮고 있는 살이 상당히 두꺼운 편이라서 겉으로 볼 때는 볼록해보이지 않는 것이지요.",
+      "그런데, 저 뼈를 덮는 부위의 살이 얇거나, 그 주변조직이 감싸주지 못하는 경우에 뒷광대 부위가 혹처럼 톡! 튀어나온 분에서는 뒷광대축소술로 좋은 효과를 볼 수 있습니다."
+    ],
+    "note": "그러므로 뒷광대축소술이라는 수술이 모든 경우에 도움이 되는 것은 아닙니다.",
+    "src": "cheekbone/rear/167"
+  },
+  "story": {
+    "title": "김상호 원장 이야기",
+    "blocks": [
+      {
+        "heading": "뒷광대는 어떤 부위인가요",
+        "paras": [
+          "공식적인 용어는 아니랍니다. 해부학적으로 말하자면 temporal bone 의 zygomatic process 중에서 root 부위인데요..",
+          "가끔 광대축소술 후에 뒷광대가 남아서 광대뼈축소술의 효과가 떨어지거나 심한 경우는.. 뒷광대가 마치 혹처럼 볼록하게 눈에 띄는 경우가 있답니다."
+        ],
+        "src": "cheekbone/rear/163"
+      },
+      {
+        "heading": "꼭 넣는 것이 좋은 경우는 많지 않습니다",
+        "paras": [
+          "제가 그동안 수 많은 광대축소술을 집도하면서 뒷광대를 꼭 넣는 것이 좋겠다.. 라고 생각되는 case는 그렇게 많지는 않습니다. 대~략 5~10%정도 될까 싶은데요..",
+          "그러면 어떤 뒷광대 형태에서 뒷광대 축소술이 도움이 되는가.. 구렛나룻 부위의 광대(뒷광대)가 유난히 혹처럼 볼록 튀어나온 분에서 좋은 효과를 볼 수 있다고 생각하시면 됩니다."
+        ],
+        "src": "cheekbone/rear/165"
+      },
+      {
+        "heading": "줄인 만큼 얼굴이 달라지는 것은 아닙니다",
+        "paras": [
+          "개인적으로 생각할 때는 뒷광대축소술이 필요한 분은 그렇게 많지 않은 편입니다. 대부분의 경우 뒷광대부위가 머리뼈 폭과 별 차이가 없고 두꺼운 살에 덮혀있는 부위라 이것을 줄여본들 겉으로는 거의 변화가 없습니다. x-ray 상에서 뒷광대부위를 많이 줄인다고 해서 정면 거울에 비친 내 얼굴이 꼭 그만큼 변하는것은 아니라는 것이지요. 그러니, 꼭 필요한 분들에서만 수술을 추천드리고 있습니다."
+        ],
+        "src": "cheekbone/rear/166"
+      },
+      {
+        "heading": "최근에는 이렇게 판단합니다",
+        "paras": [
+          "그래서, 요즘은 뒷광대가 어느 정도 만져지고 겉으로 보이는 경우에는 원하시는 분들께 다 집도해드리고 있습니다. 이전에는 좀 많이 나온 분들만 수술해드렸었거든요."
+        ],
+        "src": "cheekbone/rear/347"
+      }
+    ]
+  },
+  "icons": {
+    "cut": "<path d=\"M44 16 C70 10 94 34 92 64 C90 88 72 102 54 100 C38 98 28 82 30 58 C31 40 36 24 44 16 Z\" fill=\"#f1cfb8\" stroke=\"#4a4a4a\" stroke-width=\"2.2\"/><ellipse cx=\"93\" cy=\"62\" rx=\"6\" ry=\"11\" fill=\"#f1cfb8\" stroke=\"#4a4a4a\" stroke-width=\"2.2\"/><path d=\"M74 46 L74 76\" stroke=\"#c46a5a\" stroke-width=\"3.2\" stroke-linecap=\"round\"/><path d=\"M68 46 L80 46 M68 76 L80 76\" stroke=\"#c46a5a\" stroke-width=\"1.6\" stroke-linecap=\"round\"/>",
+    "trim": "<path d=\"M10 86 C34 86 40 46 60 46 C80 46 86 86 110 86 L110 104 L10 104 Z\" fill=\"#efe4d3\" stroke=\"none\"/><path d=\"M10 86 C34 86 40 46 60 46 C80 46 86 86 110 86\" fill=\"none\" stroke=\"#c46a5a\" stroke-width=\"2\" stroke-dasharray=\"4 4\"/><path d=\"M10 86 C36 86 42 66 60 66 C78 66 84 86 110 86\" fill=\"none\" stroke=\"#4a4a4a\" stroke-width=\"2.4\" stroke-linecap=\"round\"/><path d=\"M60 30 L60 52 M54 46 L60 52 L66 46\" fill=\"none\" stroke=\"#b8956a\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>",
+    "jaw": "<path d=\"M24 34 C40 22 78 22 96 34\" fill=\"none\" stroke=\"#4a4a4a\" stroke-width=\"2.2\" stroke-linecap=\"round\"/><path d=\"M96 34 C100 62 92 84 72 96 C58 100 44 96 34 90\" fill=\"none\" stroke=\"#4a4a4a\" stroke-width=\"2.2\" stroke-linecap=\"round\"/><circle cx=\"90\" cy=\"50\" r=\"13\" fill=\"#c9a26f\" stroke=\"#a9834f\" stroke-width=\"1.8\"/><path d=\"M84 50 L89 55 L97 44\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>",
+    "smooth": "<path d=\"M18 22 C40 22 52 44 52 60 C52 78 66 96 100 98\" fill=\"none\" stroke=\"#c46a5a\" stroke-width=\"2\" stroke-dasharray=\"4 4\"/><path d=\"M18 22 C36 24 44 40 48 60 C52 80 66 94 100 98\" fill=\"none\" stroke=\"#4a4a4a\" stroke-width=\"2.4\" stroke-linecap=\"round\"/><path d=\"M78 30 L84 36 L96 22\" fill=\"none\" stroke=\"#b8956a\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>"
+  },
+  "method": {
+    "title": "수술 방법",
+    "steps": [
+      {
+        "text": "수술은 수면마취하에 대략 15분정도 걸리는 간단한 수술입니다.",
+        "icon": "sleep"
+      },
+      {
+        "text": "수술은 구렛나루 뒤쪽에 1.5~2cm 정도의 절개를 넣고 그 부위를 통해서 뒷광대부위를 다듬어 주게 됩니다.",
+        "icon": "cut"
+      },
+      {
+        "text": "뒷광대축소를 원하시는 분들께는 붉은 경계부위만 부드럽게 다듬어주는 수술을 해드리고 있습니다.",
+        "icon": "trim"
+      },
+      {
+        "text": "턱관절을 보호해야 해서 완전히 납작하게 만들지는 못하기 때문에 수술후에도 약간의 볼록한 느낌이 남을 수 있는데요",
+        "icon": "jaw"
+      },
+      {
+        "text": "그래도 뼈가 많이 튄 분들에서는 눈에 띄게 부드러워지는 변화를 만들 수 있답니다.",
+        "icon": "smooth"
+      }
+    ],
+    "steps_src": "cheekbone/rear/163",
+    "note": {
+      "text": "뒷광대부위를 없앨 때 보통은 burr 라고 하는 뼈를 깍는 기구를 이용하는데 귀앞절개 부위에는 이마쪽으로 가는 안면신경과 목에서 두피쪽으로 올라가는 매우 굵은 동맥이 있어서 burr 사용시에 이러한 중요 구조물이 다칠 위험이 있습니다. 그래서, 저는 제가 따로 고안한 기구를 이용해서 매우 안전하게 뒷광대 부위의 뼈를 제거해드리고 있습니다.",
+      "src": "cheekbone/rear/167"
+    },
+    "pros_cons": {
+      "paras": [
+        "저 뒷광대부위는 우리의 턱관절의 일부를 구성하는 매우 중요한 부위랍니다. 턱관절을 감싸는 관절주머니의 일부가 저 뒷광대에 붙어 있기 때문에 위 사진에서처럼 뼈를 다 날려버리면 턱관절에 장애가 생길 수 있답니다.",
+        "결과에 영향을 미칠만한 경우에는 제가 상담시에 미리 설명을 드립니다. 수술후에 머리뼈가 남아서 눈에 띌 수 있습니다.. 라구요."
+      ],
+      "src": "cheekbone/rear/163"
+    }
+  },
+  "recovery": {
+    "title": "회복",
+    "items": [
+      {
+        "label": "3~5일",
+        "lines": [
+          "그리 심하게 붓는것은 아니라서 대부분의 환자분들은 3~5일 이내에 일상생활에 복귀하신답니다."
+        ],
+        "src": "cheekbone/rear/165"
+      },
+      {
+        "label": "2주",
+        "lines": [
+          "변형15분광대축소술 + 뒷광대축소술 수술 후 2주째입니다. 뒷광대 부위가 상당히 많이 줄어든 것이 보입니다."
+        ],
+        "src": "cheekbone/rear/166"
+      },
+      {
+        "label": "3주",
+        "lines": [
+          "우측얼굴에 튀어보이던 옆광대와 뒷광대가 변형15분광대축소술 + 뒷광대수술로 부드럽게 정리되었습니다. 이후 잔붓기가 더 빠지면서 라인이 더 얄쌍해지게 됩니다."
+        ],
+        "src": "cheekbone/rear/168"
+      },
+      {
+        "label": "6~12개월",
+        "lines": [
+          "흉터가 남는 정도는 개인차이가 있는데 대략 6~12개월이 지나면 대부분 거의 눈에 잘 띄지 않을 정도로 연한 선으로만 남게 되니 특별히 흉터 걱정은 하지 않으셔도 되겠습니다."
+        ],
+        "src": "cheekbone/rear/312"
+      },
+      {
+        "label": "1년",
+        "lines": [
+          "잔붓기가 1년까지 빠지므로 이후 광대부위의 볼룸이 더 줄어들게 됩니다."
+        ],
+        "src": "cheekbone/rear/166"
+      }
+    ],
+    "note": {
+      "text": "흉터는 보통 가는 선상으로 남아 세월이 흐르면서 지속적으로 흐려지며 눈에 잘 안띄는 경우가 대부분입니다.",
+      "src": "cheekbone/rear/304"
+    }
+  },
+  "before_after": {
+    "title": "뒷광대축소술 전후",
+    "alt": "뒷광대축소술 전후 사진",
+    "items": [
+      {
+        "src": "cheekbone/rear/165",
+        "image": "https://rococops.com/files/editor/201706101817575656.jpg",
+        "caption": "수술전과 수술 후 대략 3주째 사진입니다.",
+        "label": "측면 3주"
+      },
+      {
+        "src": "cheekbone/rear/168",
+        "image": "https://rococops.com/files/editor/201801091659744858.jpg",
+        "caption": "뒷광대수술 후 3주째 전후사진입니다.",
+        "label": "측면 3주"
+      },
+      {
+        "src": "cheekbone/rear/168",
+        "image": "https://rococops.com/files/editor/201801091120965956.jpg",
+        "caption": "역시 뒷광대수술 전후사진입니다.",
+        "label": "측면 3주 (좌)"
+      },
+      {
+        "src": "cheekbone/rear/166",
+        "image": "https://rococops.com/files/editor/201706141326719958.jpg",
+        "caption": "변형15분광대축소술 + 뒷광대축소술 수술 후 2주째입니다.",
+        "label": "측면 2주"
+      },
+      {
+        "src": "cheekbone/rear/164",
+        "image": "https://rococops.com/files/editor/201703071984777612.jpg",
+        "caption": "수술 후 2주 반 경과사진입니다.",
+        "label": "측면 2주 반"
+      },
+      {
+        "src": "cheekbone/rear/304",
+        "image": "https://rococops.com/files/editor/20191220102241646394003.jpg",
+        "caption": "역시 좌측 퀵광대 + 뒷광대 축소술 3주째 수술 전후사진입니다.",
+        "label": "사면 3주"
+      },
+      {
+        "src": "cheekbone/rear/304",
+        "image": "https://rococops.com/files/editor/20191220102256238344942.jpg",
+        "caption": "고개를 숙이고 위에서 찍은 전후사진입니다.",
+        "label": "위에서 3주"
+      },
+      {
+        "src": "cheekbone/rear/304",
+        "image": "https://rococops.com/files/editor/20191220102315202970684.jpg",
+        "caption": "아래쪽에서 본 사진입니다.",
+        "label": "아래쪽에서 3주"
+      }
+    ]
+  },
+  "logs": {
+    "title": "대표 사례 — 원장 기록",
+    "items": [
+      {
+        "src": "cheekbone/rear/163",
+        "tag": "종합 설명"
+      },
+      {
+        "src": "cheekbone/rear/165",
+        "tag": "수술 대상"
+      },
+      {
+        "src": "cheekbone/rear/166",
+        "tag": "한계"
+      },
+      {
+        "src": "cheekbone/rear/167",
+        "tag": "x-ray·안전"
+      },
+      {
+        "src": "cheekbone/rear/312",
+        "tag": "흉터"
+      },
+      {
+        "src": "cheekbone/rear/347",
+        "tag": "퀵광대와 함께"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "q": "뒷광대축소술 흉터는 얼마나 남나요?",
+      "a": "뒷광대축소술은 구레나룻 뒤쪽 경계부위에 대략 1.5~2cm 정도 수직절개를 넣고 수술을 합니다. 그래서 가는 선상의 흉터가 남게 되는데요, 흉터가 남는 정도는 개인차이가 있는데 대략 6~12개월이 지나면 대부분 거의 눈에 잘 띄지 않을 정도로 연한 선으로만 남게 되니 특별히 흉터 걱정은 하지 않으셔도 되겠습니다.",
+      "src": "cheekbone/rear/312"
+    },
+    {
+      "q": "뒷광대는 얼마나 줄일 수 있나요?",
+      "a": "이것은 워낙 개인차이가 크기 때문에 뭐라 딱 잘라 말씀드리기 힘든 부분입니다. x-ray 상에서 뒷광대부위를 많이 줄인다고 해서 정면 거울에 비친 내 얼굴이 꼭 그만큼 변하는것은 아니라는 것이지요.",
+      "src": "cheekbone/rear/166"
+    },
+    {
+      "q": "뒷광대는 모든 사람이 줄여야 하나요?",
+      "a": "일단 모든 경우에 뒷광대축소술이 도움이 되는것은 아니랍니다. 유난히 구레나룻 부위 뼈가 볼록하게 혹처럼 튀어있는 분들에서 수술이 의미가 있습니다.",
+      "src": "cheekbone/rear/347"
+    },
+    {
+      "q": "뒷광대를 완전히 없앨 수 있나요?",
+      "a": "뒷광대축소를 한다고 해도 턱관절 보호를 위해서 줄일 수 있는 범위에 한계가 있어 완전히 없애지는 못하고 부드럽게 다듬어 주는 정도로 줄이고 있습니다.",
+      "src": "cheekbone/rear/164"
+    },
+    {
+      "q": "다른 병원에서 광대축소술을 받았는데 뒷광대가 남았다면 뒷광대만 따로 수술받을 수 있나요?",
+      "a": "뒷광대축소술의 경우 일단 옆광대가 충분히 들어가야 합니다. 옆광대축소가 충분하지 않은 상태에서는 뒷광대축소술을 할 수 없답니다. 그래서, 타병원 수술 후 오신 분들 중에서 옆광대축소가 부족한 경우에는 광대 재수술과 함께 뒷광대축소술을 해드리고 있고, 타병원에서 광대아치 뒷부분에 따로 플레이트와 스크류로 고정을 하신 경우에는 플레이트와 스크류를 제거하면서 동시에 뒷광대축소를 해드리고 있습니다.",
+      "src": "cheekbone/rear/312"
+    }
+  ],
+  "related": [
+    {
+      "href": "cheekbone/quick",
+      "name": "15분 광대축소술"
+    },
+    {
+      "href": "cheekbone/revision",
+      "name": "광대 재수술"
+    },
+    {
+      "href": "cheekbone/fat-graft",
+      "name": "심부볼·관자 지방이식"
+    },
+    {
+      "href": "cheekbone/liposuction",
+      "name": "광대라인 지방흡입"
+    },
+    {
+      "href": "guide/cheekbone-reduction-guide",
+      "name": "광대축소술 종류와 선택 기준 (성형 가이드)"
+    },
+    {
+      "href": "guide/cheekbone-reduction-face-type",
+      "name": "광대축소술 효과, 얼굴형별 차이 (성형 가이드)"
+    }
+  ],
+  "review_banner_subject": "뒷광대축소술",
+  "cases_visible": 9
+}
