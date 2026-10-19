@@ -2254,6 +2254,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .lp-hero-case-cap span{font-size:.7rem;letter-spacing:.14em;color:var(--accent)}
 .lp-hero-case-cap p{margin:.3rem 0 .2rem;color:#fff;font-weight:700;font-size:.95rem}
 .lp-hero-case-cap em{font-style:normal;font-size:.78rem;color:#bbb}
+/* 케이스 카드 변형: 사진 위, 설명 아래(사진이 설명에 가려지지 않게). 데이터의 hero.case.layout="stack" 일 때만 사용 */
+.lp-hero-case--stack{background:#16120f}
+.lp-hero-case--stack img{background:#1f2633}
+.lp-hero-case--stack .lp-hero-case-cap{position:static;padding:.9rem 1.1rem 1.1rem;background:none}
+.lp-hero-case--stack .lp-hero-case-cap p{font-size:.88rem;line-height:1.45}
 @media (max-width:1024px){.lp-hero-inner{gap:2rem}.lp-hero .lp-hero-title{font-size:2.3rem}.lp-hero-stats strong{font-size:1.5rem}}
 @media (max-width:768px){.lp-hero{background:linear-gradient(180deg,rgba(14,11,9,.55) 0%,rgba(14,11,9,.88) 45%,rgba(14,11,9,.96) 100%),var(--lp-hero-bg,none) 78% 0/cover no-repeat #1a1410}.lp-hero-inner{grid-template-columns:1fr;gap:2.2rem}.lp-hero-case{justify-self:start;width:100%;max-width:340px}}
 @media (max-width:640px){.lp-hero{padding:2.2rem 0 2.6rem}.lp-hero .lp-hero-title{font-size:2.1rem}.lp-hero-stats strong{font-size:1.4rem}.lp-hero-stats li+li{padding-left:.7rem}}

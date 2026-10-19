@@ -141,6 +141,14 @@ def main():
     with open(os.path.join(out_dir, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(list_page)
 
+    # 대표페이지 데이터(data/landing/nostril-alar-lowering.json)가 있으면 목록 페이지에 대표페이지 섹션 적용
+    # (build_pages.py 와 같은 후처리. 이 스크립트로 목록을 다시 만들어도 대표페이지가 유지되게 함)
+    from build_landing import landing_data_for, apply_landing
+    landing = landing_data_for(CAT_PATH, SUB_DIR)
+    if landing:
+        apply_landing(out_dir, landing)
+        print(f'  대표페이지 적용: {CAT_PATH}/{SUB_DIR}')
+
     print(f'완료: {len(rows)}개 상세페이지 + 목록페이지 생성 -> {out_dir}')
 
 

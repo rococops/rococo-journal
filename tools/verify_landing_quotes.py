@@ -37,6 +37,9 @@ def verify(data):
     check('hero.summary', h['summary']['src'], h['summary']['text'], r)
     for i, s in enumerate(h['stats']):
         check(f'hero.stats[{i}].quote', s['src'], s['quote'], r)
+        # 숫자 하나가 두 칼럼에 걸치는 경우(예: 한쪽 20분 / 양쪽 40분): extra 에 {quote, src} 추가
+        for j, x in enumerate(s.get('extra', [])):
+            check(f'hero.stats[{i}].extra[{j}]', x['src'], x['quote'], r)
     f = data['features']
     for i, t in enumerate(f['items']):
         check(f'features.items[{i}]', f['src'], t, r)

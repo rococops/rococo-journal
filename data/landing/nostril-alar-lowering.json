@@ -1,0 +1,332 @@
+{
+  "_comment": "시술별 대표페이지 데이터(비공내리기). 원장님 글은 1인칭 칼럼 원문 그대로만 사용(가이드 3인칭 요약은 인용하지 않음). 문장 단위 대조: tools/verify_landing_quotes.py. 소제목·질문형 부제·라벨은 제작 문구.",
+  "page": "nostril/alar-lowering",
+  "seo": {
+    "_comment": "apply=false 이면 <title>·description·H1·구조화데이터는 지금 그대로 둔다.",
+    "apply": true,
+    "title": "비공내리기 수술 | 콧구멍 가리는 수술, M자 콧구멍 유형별 효과와 회복 | 로코코성형외과 김상호 원장",
+    "description": "비공내리기는 정면에서 콧구멍이 보이는 것을 가려주는 수술입니다. M자 콧구멍 Type 1·2·3별 효과 차이, 수술 방법, 회복과 흉터를 김상호 원장의 글로 정리했습니다.",
+    "h1": "비공내리기 수술",
+    "procedure_name": "비공내리기 수술"
+  },
+  "hero": {
+    "eyebrow": "ALAR LOWERING · 비공내리기",
+    "question": "비공내리기는 어떻게 수술하나요?",
+    "summary": {
+      "text": "선천적으로 콧구멍을 덮고 있는 연부조직이 부족하여 정면에서 콧구멍이 보이는 분들이 있습니다.",
+      "src": "nostril/alar-lowering/13"
+    },
+    "stats": [
+      {
+        "to": 97,
+        "unit": "%",
+        "label": "안쪽 흉터가 눈에 잘 띄지 않는 환자",
+        "quote": "97% 환자에서는 콧구멍 안쪽 흉터가 눈에 잘 띄지 않습니다.",
+        "src": "nostril/alar-lowering/553"
+      },
+      {
+        "from": 20,
+        "to": 40,
+        "unit": "분",
+        "label": "수술 시간 (한쪽 · 양쪽)",
+        "quote": "수술시간은 한쪽만 하시는 경우 대략 20분정도 걸립니다.",
+        "src": "nostril/alar-lowering/303",
+        "extra": [
+          {
+            "quote": "시간은 대략 40분 걸립니다.",
+            "src": "nostril/alar-lowering/428"
+          }
+        ]
+      },
+      {
+        "to": 1,
+        "unit": "주",
+        "label": "코끝 반창고 유지 기간",
+        "quote": "수술 후 코끝에 살색 반창고를 일주일정도 붙입니다.",
+        "src": "nostril/alar-lowering/303"
+      }
+    ],
+    "bg_image": "images/landing/nose-hump-hero.jpg",
+    "case": {
+      "src": "nostril/alar-lowering/439",
+      "image": "https://rococops.com/files/editor/202211041149181214442072.jpg",
+      "alt": "비공내리기 수술 전후 정면 사진",
+      "label": "CASE · 정면 전후",
+      "layout": "stack"
+    }
+  },
+  "features": {
+    "type": "TYPE · ALAR LOWERING",
+    "toc": "콧구멍이 보이는 원인",
+    "title": "콧구멍이 보이는 원인은 크게 4가지가 있답니다.",
+    "items": [
+      "들창코",
+      "콧구멍 위쪽이 올라간 경우 (M 자 콧구멍)",
+      "콧구멍 아래쪽이 내려간 경우 (v 자 콧구멍)",
+      "콧구멍이 큰 경우"
+    ],
+    "note": "보통 위의 원인 중 2가지 이상이 동시에 있는 경우가 많습니다.",
+    "src": "nostril/alar-lowering/366"
+  },
+  "story": {
+    "title": "김상호 원장 이야기",
+    "blocks": [
+      {
+        "heading": "콧구멍이 보이는 분들이 많이 찾는 수술입니다",
+        "paras": [
+          "선천적으로 콧구멍을 덮고 있는 연부조직이 부족하여 정면에서 콧구멍이 보이는 분들이 있습니다. 이렇게 콧구멍이 노출되면 미관상으로도 보기가 좋지 않고 관상학적으로도 재물이 모이지 않는 상 이라 하여 교정을 원하시는 고객분들이 많답니다.",
+          "선천적으로 코끝의 날개연골 일부의 발달이 저하되어 있고, 콧날개쪽 연부조직이 부족한 경우에 콧구멍이 삼각형모양으로 보이는 경우가 있습니다. 양측을 같이 보면 알파벳 M 자 모양으로 보이기 때문에 저는 개인적으로 M자 콧구멍이라고 부릅니다."
+        ],
+        "src": "nostril/alar-lowering/13"
+      },
+      {
+        "heading": "M자 콧구멍의 세 가지 유형",
+        "paras": [
+          "M 자 콧구멍은 크게 세가지 type 으로 나눌 수 있습니다. 콧구멍이 올라간 끝부분의 위치가 안쪽이냐, 중간이냐, 바깥쪽이냐에 따라 type 1,2,3 으로 나누고 있습니다.",
+          "M자 콧구멍 Type 1 은 콧구멍이 위쪽으로 뾰족한 부분이 안쪽에 몰려있는 경우입니다. 세가지 type중에서 비공내리기 수술의 효과가 가장 좋은 Type 입니다.",
+          "M자 콧구멍 Type 2는 콧구멍이 위쪽으로 뾰족한 부분이 중앙부에 위치한 경우입니다. 세가지 type 중에서 비공내리기 수술의 효과가 중간인 Type 입니다.",
+          "M자 콧구멍 Type 3 은 콧구멍이 위쪽으로 뾰족한 부분이 바깥쪽으로 벌어져 있는 경우입니다. 세가지 type중에서 비공내리기 수술의 효과가 가장 떨어지는 Type 입니다."
+        ],
+        "src": "nostril/alar-lowering/13"
+      },
+      {
+        "heading": "모든 M자 콧구멍이 교정이 필요한 것은 아닙니다",
+        "paras": [
+          "M자 콧구멍이 되었다고 해서 모든 경우에 미워보이는 것은 아닙니다. 콧구멍의 바닥쪽 형태에 따라 콧구멍이 더 보일수도 있고, 적당히 콧구멍이 노출되면서 코끝이 작아보이는 장점을 얻는 경우도 있답니다.",
+          "즉, 모든 M자 콧구멍이 교정을 필요로 하는 것은 아닙니다. 가장 중요한 것은 본인의 주관적인 판단입니다."
+        ],
+        "src": "nostril/alar-lowering/13"
+      },
+      {
+        "heading": "17년간의 비공내리기",
+        "paras": [
+          "17년간 비공내리기 수술을 집도하면서 주로 수술하는 연골-피부 복합조직이식 방식에서 크게 3번의 수술 방법 변화가 있었습니다. 지금 집도하는 수술법은 3세대 비공내리기 방식인데요, 대부분의 환자분들이 비공내리기 수술 결과에 매우 만족하십니다.",
+          "하지만, 미용수술에서 100% 만족이라는 것이 존재할 수 없기 때문에 이론적인 부분이 아닌 실제 수술 받은 환자분들이 조금이라도 컴플레인 하셨거나, 불편을 느끼셨던 부분에 대해서 그리고, 현재 기준 비공내리기 수술의 한계점에 대해 17년간의 경험을 정리해서 보고해드립니다."
+        ],
+        "src": "nostril/alar-lowering/553"
+      }
+    ]
+  },
+  "method": {
+    "title": "수술 방법",
+    "steps": [
+      {
+        "text": "자고 일어나면 수술은 끝나 있습니다.",
+        "icon": "sleep"
+      },
+      {
+        "text": "귀연골과 피부를 동시에 이식하는 복합조직이식 방법으로 수술하는데",
+        "icon": "ear"
+      },
+      {
+        "text": "이 방식의 단점인 코끝이 벙벙해지는 것을 최대한 막는 3세대 비공내리기 수술법으로",
+        "icon": "graft"
+      },
+      {
+        "text": "수술시간은 한쪽만 하시는 경우 대략 20분정도 걸립니다.",
+        "icon": "clock"
+      },
+      {
+        "text": "수술 후 코끝에 살색 반창고를 일주일정도 붙입니다.",
+        "icon": "tape"
+      }
+    ],
+    "steps_src": "nostril/alar-lowering/303",
+    "note": {
+      "text": "양측 귀에서 연골+피부 조직을 얻어서 콧구멍 안쪽에 이식해주는 수술법으로 수면마취로 수술하며, 시간은 대략 40분 걸립니다.",
+      "src": "nostril/alar-lowering/428"
+    },
+    "pros_cons": {
+      "paras": [
+        "코 끝 피부를 내려서 콧구멍을 가려야 하기 때문에 코끝이 커지는 것은 필연적입니다. 특히, 수술 후 3개월까지는 수술붓기까지 더해져 코끝이 더 벙벙해 보입니다.",
+        "걱정하시던 분들도 붓기 빠진 후 대부분 만족하시는데, 대략 2~3년에 한 명 정도는 코끝 볼룸을 줄이기 위해서 이식된 부위에서 일부 혹은 전체 제거를 원하십니다."
+      ],
+      "src": "nostril/alar-lowering/553"
+    }
+  },
+  "recovery": {
+    "title": "회복",
+    "items": [
+      {
+        "label": "수술 당일",
+        "lines": [
+          "자고 일어나면 수술은 끝나 있습니다.",
+          "통증은 전혀 없지요."
+        ],
+        "src": "nostril/alar-lowering/303"
+      },
+      {
+        "label": "1주",
+        "lines": [
+          "수술 후 코끝에 살색 반창고를 일주일정도 붙입니다.",
+          "반창고 제거 후에는 세수 및 화장이 가능하며, 약간 부은 상태지만 대부분 일상생활을 하십니다."
+        ],
+        "src": "nostril/alar-lowering/303"
+      },
+      {
+        "label": "2주",
+        "lines": [
+          "보통 2주 정도면 일상생활에 큰 지장없이 지낼 수 있는데 코모양이나 체질에 따라서 초기 붓기가 심하고 오래 가는 경우도 드물게 있습니다."
+        ],
+        "src": "nostril/alar-lowering/428"
+      },
+      {
+        "label": "2개월",
+        "lines": [
+          "수술 후 2개월간 술담배는 절대 금물이며, 그 외에는 특별히 조심해야 할 것은 없습니다.",
+          "이식된 피부가 완전히 생착될 때까지는 연고를 잘 발라서 습윤한 환경을 유지해주어야 하며, 치료예약일에 잘 방문하시면 되겠습니다."
+        ],
+        "src": "nostril/alar-lowering/155"
+      },
+      {
+        "label": "붓기",
+        "lines": [
+          "코끝붓기는 6~12개월까지 지속적으로 빠집니다."
+        ],
+        "src": "nostril/alar-lowering/303"
+      }
+    ],
+    "note": {
+      "text": "수술은 수면마취로 진행하며, 코의 겉으로는 절개가 없고 콧구멍 안쪽에만 절개하기 때문에 드러나는 흉터는 없습니다.",
+      "src": "nostril/alar-lowering/155"
+    }
+  },
+  "before_after": {
+    "title": "비공내리기 수술 전후",
+    "alt": "비공내리기 수술 전후 사진",
+    "items": [
+      {
+        "src": "nostril/alar-lowering/439",
+        "image": "https://rococops.com/files/editor/202211041149181214442072.jpg",
+        "caption": "수술 전과 수술 후 2개월 사진입니다.",
+        "label": "정면 2개월"
+      },
+      {
+        "src": "nostril/alar-lowering/439",
+        "image": "https://rococops.com/files/editor/202211041149381880854033.jpg",
+        "caption": "콧구멍 아래쪽에서 본 수술전후 사진입니다.",
+        "label": "아래쪽에서"
+      },
+      {
+        "src": "nostril/alar-lowering/449",
+        "image": "https://rococops.com/files/editor/202211181927441124968148.jpg",
+        "caption": "수술 전과 수술 후 6주 사진입니다.",
+        "label": "정면 6주"
+      },
+      {
+        "src": "nostril/alar-lowering/364",
+        "image": "https://rococops.com/files/editor/20210111151010167322907.jpg",
+        "caption": "수술 전과 수술 후 3주째 정면사진입니다.",
+        "label": "정면 3주"
+      },
+      {
+        "src": "nostril/alar-lowering/303",
+        "image": "https://rococops.com/files/editor/20191213170033175584088.jpg",
+        "caption": "수술전과 수술 후 3주째 사진입니다.",
+        "label": "정면 3주"
+      },
+      {
+        "src": "nostril/alar-lowering/303",
+        "image": "https://rococops.com/files/editor/201912131702261543722594.jpg",
+        "caption": "완전히 아래쪽에서 본 전후사진입니다.",
+        "label": "아래쪽에서"
+      },
+      {
+        "src": "nostril/alar-lowering/390",
+        "image": "https://rococops.com/files/editor/20210503153840937560940.jpg",
+        "caption": "수술 전후 아래쪽에서 콧구멍 안쪽을 본 사진입니다.",
+        "label": "용코(Type 3) 안쪽"
+      },
+      {
+        "src": "nostril/alar-lowering/428",
+        "image": "https://rococops.com/files/editor/20221011154833270930423.jpg",
+        "caption": "수술전과 수술 후 콧구멍 안쪽 사진입니다.",
+        "label": "용코 안쪽"
+      }
+    ]
+  },
+  "logs": {
+    "title": "대표 사례 — 원장 기록",
+    "items": [
+      {
+        "src": "nostril/alar-lowering/13",
+        "tag": "종합 설명"
+      },
+      {
+        "src": "nostril/alar-lowering/366",
+        "tag": "원인별 해결법"
+      },
+      {
+        "src": "nostril/alar-lowering/553",
+        "tag": "한계·부작용"
+      },
+      {
+        "src": "nostril/alar-lowering/474",
+        "tag": "제거"
+      },
+      {
+        "src": "nostril/alar-lowering/308",
+        "tag": "단독 수술 전후"
+      },
+      {
+        "src": "nostril/alar-lowering/428",
+        "tag": "용코에서의 한계"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "q": "비공내리기 수술은 제거할 수 있나요?",
+      "a": "<< 비공내리기 수술은 시기에 관계없이 제거가 가능합니다 >> 다만 수술 초기에 부분 제거는 아주 특별한 경우가 아니면 추천드리지 않습니다. 부분 제거를 했다가 남아있는 이식편도 괴사되어 결국 전체 제거를 해야 할 수도 있기 때문입니다.",
+      "src": "nostril/alar-lowering/474"
+    },
+    {
+      "q": "수술 후 콧구멍 안쪽에 흉터가 보이나요?",
+      "a": "97% 환자에서는 콧구멍 안쪽 흉터가 눈에 잘 띄지 않습니다. 대략 3% 정도 특히 용코인 경우에 아래쪽에서 볼 때 피부이식 부위가 흉터처럼 보일 수 있습니다.",
+      "src": "nostril/alar-lowering/553"
+    },
+    {
+      "q": "용코(Type 3)도 비공내리기가 되나요?",
+      "a": "용코 형태 Type3 콧구멍에서는 비공내리기 수술시에 콧구멍이 안예쁘게 가려집니다. 정면에서 콧구멍 노출이 많지 않은 용코는 비공내리기 수술을 비추천드립니다.",
+      "src": "nostril/alar-lowering/553"
+    },
+    {
+      "q": "귀에서 연골과 피부를 채취하면 귀 모양이 변하나요?",
+      "a": "귀연골+피부 채취 후 귀가 살짝 짧아지고 뒤로 붙게 됩니다. 아직까지 귀모양 변형때문에 컴플레인 들은 적은 없습니다.",
+      "src": "nostril/alar-lowering/553"
+    },
+    {
+      "q": "수술 후 숨쉬기가 불편해지나요?",
+      "a": "콧구멍 입구쪽에서 수술을 하기 때문에 호흡에 영향을 조금이나마 미칠 이론적 가능성은 있습니다. 비공내리기 단독 수술 후 호흡불편이 생겨 문제된 경우는 아직 보지 못했습니다.",
+      "src": "nostril/alar-lowering/553"
+    }
+  ],
+  "related": [
+    {
+      "href": "nostril/alar-raising",
+      "name": "콧날개올리기"
+    },
+    {
+      "href": "nostril/v-shape",
+      "name": "V형 콧구멍교정"
+    },
+    {
+      "href": "nostril/reduction",
+      "name": "콧구멍축소술"
+    },
+    {
+      "href": "nose/revision",
+      "name": "코재수술"
+    },
+    {
+      "href": "nose/rib-cartilage",
+      "name": "늑연골 명품코성형"
+    },
+    {
+      "href": "nose/columella",
+      "name": "비주성형"
+    }
+  ],
+  "review_banner_subject": "비공내리기 수술",
+  "cases_visible": 9
+}

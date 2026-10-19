@@ -62,6 +62,26 @@ ICONS = {
     'fill': _svg(_FACE + '<path d="M50 50 C57 53 64 62 66 73 C58 70 52 62 50 50 Z" fill="#c9a26f" stroke="#a9834f" stroke-width="1.4"/>'
                  + _PROFILE +
                  '<path d="M82 52 L82 62 M77 57 L87 57" stroke="#b8956a" stroke-width="2.4" stroke-linecap="round"/>'),
+    # 귀연골+피부 채취: 귀 옆모습, 채취 부위(금색)
+    'ear': _svg('<path d="M60 18 C38 18 30 40 36 62 C40 76 46 84 52 96 C56 104 68 104 74 94 C78 88 76 82 82 76 C94 62 90 18 60 18 Z" fill="#f1cfb8" stroke="#4a4a4a" stroke-width="2.2" stroke-linejoin="round"/>'
+                '<path d="M58 36 C47 37 45 50 51 60 C55 67 58 72 56 82" fill="none" stroke="#4a4a4a" stroke-width="2.2" stroke-linecap="round"/>'
+                '<ellipse cx="66" cy="62" rx="8" ry="12" fill="#c9a26f" stroke="#a9834f" stroke-width="1.6"/>'),
+    # 콧구멍 가리기(3세대 방식): 아래에서 본 코, 콧구멍 윗부분을 이식 조직(금색)이 덮음
+    'graft': _svg('<path d="M25 72 C25 52 40 40 60 40 C80 40 95 52 95 72 C95 87 80 94 60 94 C40 94 25 87 25 72 Z" fill="#f1cfb8" stroke="#4a4a4a" stroke-width="2.2"/>'
+                  '<path d="M37 78 C39 64 52 62 56 74 C52 80 42 82 37 78 Z" fill="#6b4a3a" fill-opacity=".75"/>'
+                  '<path d="M83 78 C81 64 68 62 64 74 C68 80 78 82 83 78 Z" fill="#6b4a3a" fill-opacity=".75"/>'
+                  '<path d="M37 78 C39 64 52 62 56 74 C51 68 43 69 37 78 Z" fill="#c9a26f" stroke="#a9834f" stroke-width="1.2"/>'
+                  '<path d="M83 78 C81 64 68 62 64 74 C69 68 77 69 83 78 Z" fill="#c9a26f" stroke="#a9834f" stroke-width="1.2"/>'
+                  '<path d="M60 14 L60 32 M53 25 L60 32 L67 25" fill="none" stroke="#b8956a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>'),
+    # 수술 시간
+    'clock': _svg('<circle cx="60" cy="62" r="32" fill="#fff" stroke="#b8956a" stroke-width="2.4"/>'
+                  '<path d="M60 36 L60 40 M60 84 L60 88 M34 62 L38 62 M82 62 L86 62" stroke="#b8956a" stroke-width="2.4" stroke-linecap="round"/>'
+                  '<path d="M60 62 L60 46 M60 62 L72 70" fill="none" stroke="#4a4a4a" stroke-width="2.6" stroke-linecap="round"/>'
+                  '<circle cx="60" cy="62" r="3" fill="#4a4a4a"/>'),
+    # 코끝 반창고
+    'tape': _svg('<g transform="rotate(-20 60 62)"><rect x="18" y="48" width="84" height="28" rx="14" fill="#f3d9bf" stroke="#b8956a" stroke-width="2.2"/>'
+                 '<rect x="46" y="50" width="28" height="24" fill="#fff6ea" stroke="#b8956a" stroke-width="1.4"/>'
+                 '<path d="M28 58 L28 66 M36 58 L36 66 M84 58 L84 66 M92 58 L92 66" stroke="#b8956a" stroke-width="1.6" stroke-linecap="round"/></g>'),
 }
 
 # 히어로 숫자 카운트업: 보일 때 한 번, 동작 줄이기 설정이면 생략
@@ -127,7 +147,7 @@ class Renderer:
       </div>
       <p class="lp-hero-by">김상호 원장 · 로코코성형외과</p>
     </div>
-    <a class="lp-hero-case" href="{self.href(case["src"])}">
+    <a class="lp-hero-case{' lp-hero-case--stack' if case.get('layout') == 'stack' else ''}" href="{self.href(case["src"])}">
       <img src="{e(case["image"])}" alt="{e(case["alt"])}" loading="eager">
       <div class="lp-hero-case-cap"><span>{e(case["label"])}</span><p>{e(page_title(case["src"]))}</p><em>케이스 보기 →</em></div>
     </a>
