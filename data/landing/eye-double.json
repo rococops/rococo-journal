@@ -1,0 +1,315 @@
+{
+  "_comment": "시술별 대표페이지 데이터(쌍커풀 자연유착법). 원장님 글은 1인칭 칼럼 원문 그대로만 사용(가이드 3인칭 요약은 인용하지 않음). 문장 단위 대조: tools/verify_landing_quotes.py. 소제목·질문형 부제·라벨은 제작 문구.",
+  "page": "eye/double",
+  "seo": {
+    "_comment": "apply=false 이면 <title>·description·H1·구조화데이터는 지금 그대로 둔다.",
+    "apply": true,
+    "title": "자연유착법 쌍커풀 수술(매몰법) | 수면마취 10분, 매몰·절개 차이와 풀림·회복 | 로코코성형외과 김상호 원장",
+    "description": "자연유착법 쌍커풀 수술(매몰법)은 수면마취 후 국소마취를 하고 10분 정도 걸리는 쌍꺼풀 수술입니다. 매몰·절개·부분절개의 차이, 풀림, 쌍커풀의 깊이, 흉터와 회복 과정을 김상호 원장의 글로 정리했습니다.",
+    "h1": "자연유착법 쌍커풀 수술(매몰법)",
+    "procedure_name": "자연유착법 쌍커풀 수술(매몰법)"
+  },
+  "hero": {
+    "eyebrow": "DOUBLE EYELID · 자연유착법 쌍커풀 수술(매몰법)",
+    "question": "자연유착법 쌍커풀 수술(매몰법)은 어떻게 수술하나요?",
+    "summary": {
+      "text": "가장 많이 하는 쌍커풀 수술 - 자연유착법 - 은 수면마취하에 국소마취 주사를 한 후 잠이 깬 상태에서 10분 정도 걸리는 수술로 통증은 전혀 없습니다.",
+      "src": "eye/double/509"
+    },
+    "stats": [
+      {
+        "to": 10,
+        "unit": "분",
+        "label": "수술 시간",
+        "quote": "잠이 깬 상태에서 10분 정도 걸리는 수술로 통증은 전혀 없습니다.",
+        "src": "eye/double/509",
+        "extra": [
+          {
+            "quote": "자연유착 쌍커풀 수술은 10분 안쪽에 끝이 납니다.",
+            "src": "eye/double/199"
+          }
+        ]
+      },
+      {
+        "to": 2,
+        "unit": "일",
+        "label": "회복기간",
+        "quote": "회복기간 : 2일",
+        "src": "eye/double/26"
+      },
+      {
+        "to": 3,
+        "unit": "년",
+        "label": "전문의 취득 후 눈수술 전문",
+        "quote": "저는 전문의 자격증을 딴 후에 3년 정도는 거의 눈수술만 전문으로 상당히 많은 case의 수술을 집도했었고,",
+        "src": "eye/double/392"
+      }
+    ],
+    "bg_image": "images/landing/nose-hump-hero.jpg",
+    "case": {
+      "src": "eye/double/26",
+      "image": "https://rococops.com/files/editor/201505171445206497.jpg",
+      "alt": "자연유착법 쌍커풀 수술 전후 사진",
+      "label": "CASE · 수술 전후 2주",
+      "layout": "stack"
+    }
+  },
+  "features": {
+    "type": "TYPE · DOUBLE EYELID",
+    "toc": "매몰·절개·부분절개",
+    "title": "쌍커풀 수술의 세 가지 방법",
+    "items": [
+      "로코코의 매몰법 쌍커풀은 4중고정 매몰법으로 다른 매몰법에 비해 풀어질 확률이 매우 낮답니다.",
+      "로코코 절개 쌍커풀은 고주파를 이용하여 근육과 내부조직에 절개를 가하므로 주위 조직손상과 출혈이 매우 적으며, 그만큼 붓기도 적어 일상생활로의 복귀가 빠른 장점이 있습니다.",
+      "눈의 가운데 1cm 정도의 절개를 통해 시술하며, 절개법과 매몰법의 장점을 가진 수술법으로 주로 쳐진살이 없어 매몰법이 가능한데, 지방이 너무 많아 다량의 지방제거가 필요한 경우 또는 매몰법은 불안하여 절개를 원하는 경우에 좋은 수술법입니다."
+    ],
+    "note": "눈성형은 최대한 자연스러운 결과를 만드는 것을 원칙으로 하고 있답니다.",
+    "src": "eye/double/26"
+  },
+  "story": {
+    "title": "김상호 원장 이야기",
+    "blocks": [
+      {
+        "heading": "얼굴이 가장 많이 변할 수 있는 수술",
+        "paras": [
+          "대부분의 경우에 얼굴이 가장 많이 변할 수 있는 한가지 수술은 쌍커풀 수술이 아닐까 합니다.",
+          "특히 자연유착법의 경우 바늘구멍 정도의 흉터만 남고 이 흉터 또한 시간이 지나면 거의 눈에 띄지 않는다는 장점이 있으며, 수술시간이 짧아 붓기나 멍이 매우 적고 그만큼 회복기간이 빠르답니다.",
+          "그리고, 만에 하나 수술결과가 마음에 들지 않을 경우에 간단히 쌍커풀을 풀어서 원상복구가 가능하다는 점도 상당한 장점이 되겠습니다."
+        ],
+        "src": "eye/double/26"
+      },
+      {
+        "heading": "같은 높이라도 쌍커풀의 깊이는 다릅니다",
+        "paras": [
+          "쌍커풀 상담을 오시는 분들이 이런 눈이 되고 싶어요.. 라고 보여주시는 사진들을 보면 대부분이 눈과 눈썹 사이 거리가 멀고 피부도 얇고 라인 자체도 얕은 시원한 쌍커풀입니다.",
+          "눈꺼풀이 더 많이 처질수록 (피부의 양이 많거나, 눈썹이 많이 내려오거나) 일정 높이의 쌍커풀을 만들기 위해서는 더 깊은 쌍커풀을 만들어야만 합니다."
+        ],
+        "src": "eye/double/392"
+      },
+      {
+        "heading": "처진살이 많을 때는 쌍커풀만으로 해결하지 않습니다",
+        "paras": [
+          "눈썹이 많이 내려왔는데 너무 진하지 않은 쌍커풀을 원한다? 이 때는 무조건 #이마거상술 이라는 수술을 받으셔야 합니다. 처진살이 많은데 쌍커풀 수술로 해결을 하려면 깊은 쌍커풀을 만들 수 밖에 없으니 쌍커풀이 매우 진해지고 인위적으로 보이며 기존의 인상에서 변화가 너무 크기 때문입니다.",
+          "눈썹과 눈 사이 거리는 충분한 상태인데, 눈꺼풀 피부의 양이 많아서 많이 처져보이는 경우에는.. 쌍커풀 수술을 하되 피부절제를 해서 깊이가 너무 깊어지지 않게 만드는 방법이 있고, 그 외에 #눈썹하거상술 이라는 수술이 있습니다."
+        ],
+        "src": "eye/double/392"
+      },
+      {
+        "heading": "원래 눈수술이 전문이었습니다",
+        "paras": [
+          "가끔 상담시에 원장님은 눈수술은 안하시나요? 라고 물어보시는 분들이 계십니다.",
+          "저는 전문의 자격증을 딴 후에 3년 정도는 거의 눈수술만 전문으로 상당히 많은 case의 수술을 집도했었고, 이후 지금까지 코성형과 윤곽성형 안면거상술 등 얼굴 전체 성형을 하고 있습니다.",
+          "지금 지난 1년의 수술을 돌아보면 대략 20~30% 정도의 수술은 눈수술을 하고 있는데요,"
+        ],
+        "src": "eye/double/392"
+      }
+    ]
+  },
+  "method": {
+    "title": "수술 방법",
+    "steps": [
+      {
+        "text": "마취 : 수면마취",
+        "icon": "sleep"
+      },
+      {
+        "text": "수술시간 : 10분",
+        "icon": "clock"
+      },
+      {
+        "text": "특히 자연유착법의 경우 바늘구멍 정도의 흉터만 남고 이 흉터 또한 시간이 지나면 거의 눈에 띄지 않는다는 장점이 있으며",
+        "icon": "pinhole"
+      },
+      {
+        "text": "회복기간 : 2일",
+        "icon": "calendar"
+      },
+      {
+        "text": "세안 및 화장 : 수술 후 다음날부터 하세요",
+        "icon": "wash"
+      }
+    ],
+    "steps_src": "eye/double/26",
+    "note": {
+      "text": "자연유착쌍커풀 + 무쌍눈매교정 = 비절개눈매교정 수술이 됩니다.",
+      "src": "eye/double/509"
+    },
+    "pros_cons": {
+      "paras": [
+        "매몰법이지만 풀리는 확률은 극히 낮답니다.",
+        "절개 쌍커풀은 쳐진살이 많거나 눈의 구조상 매몰법으로는 예쁜 라인을 만들기 어려운 경우, 매몰 쌍커풀이 2회 이상 풀어지는 경우 등에 권해드리게 됩니다."
+      ],
+      "src": "eye/double/26"
+    }
+  },
+  "recovery": {
+    "title": "회복",
+    "items": [
+      {
+        "label": "수술 당일",
+        "lines": [
+          "가장 많이 하는 쌍커풀 수술 - 자연유착법 - 은 수면마취하에 국소마취 주사를 한 후 잠이 깬 상태에서 10분 정도 걸리는 수술로 통증은 전혀 없습니다."
+        ],
+        "src": "eye/double/509"
+      },
+      {
+        "label": "다음날",
+        "lines": [
+          "세안 및 화장 : 수술 후 다음날부터 하세요"
+        ],
+        "src": "eye/double/26"
+      },
+      {
+        "label": "2일",
+        "lines": [
+          "회복기간 : 2일"
+        ],
+        "src": "eye/double/26"
+      },
+      {
+        "label": "2주",
+        "lines": [
+          "수술 후 2주째 사진입니다.",
+          "이후 잔붓기가 좀 더 빠지면서 더 자연스러운 느낌의 눈이 된답니다."
+        ],
+        "src": "eye/double/26"
+      }
+    ],
+    "note": {
+      "text": "수술시간이 짧아 붓기나 멍이 매우 적고 그만큼 회복기간이 빠르답니다.",
+      "src": "eye/double/26"
+    }
+  },
+  "before_after": {
+    "title": "자연유착법 쌍커풀 수술(매몰법) 전후",
+    "alt": "자연유착법 쌍커풀 수술 전후 사진",
+    "items": [
+      {
+        "src": "eye/double/26",
+        "image": "https://rococops.com/files/editor/1319855124.jpg",
+        "label": "4중 고정 매몰법"
+      },
+      {
+        "src": "eye/double/26",
+        "image": "https://rococops.com/files/editor/201505171445206497.jpg",
+        "caption": "수술 후 2주째 사진입니다.",
+        "label": "2주 (눈밑 애교필러 함께)"
+      },
+      {
+        "src": "eye/double/509",
+        "image": "https://rococops.com/files/editor/202402261122261379530516.jpg",
+        "caption": "쌍커풀(자연유착) + 밑트임 + 코성형 후 2일째 모습입니다.",
+        "label": "2일째 (밑트임·코성형 함께)"
+      },
+      {
+        "src": "eye/double/26",
+        "image": "https://rococops.com/files/editor/1319020280.jpg",
+        "label": "낮은 라인 (앞트임·뒷트임 함께)"
+      },
+      {
+        "src": "eye/double/26",
+        "image": "https://rococops.com/files/editor/1342969984.jpg",
+        "label": "매몰법 (앞트임·뒷트임 함께)"
+      },
+      {
+        "src": "eye/double/26",
+        "image": "https://rococops.com/files/editor/1319158898.jpg",
+        "label": "쌍커풀 (앞트임·뒷트임 함께)"
+      },
+      {
+        "src": "eye/double/26",
+        "image": "https://rococops.com/files/editor/1318813021.jpg",
+        "label": "재수술 · 인라인→아웃라인"
+      },
+      {
+        "src": "eye/double/25",
+        "image": "https://rococops.com/files/editor/1330050962.jpg",
+        "label": "절개 후 매몰법 재수술"
+      }
+    ]
+  },
+  "logs": {
+    "title": "대표 사례 — 원장 기록",
+    "items": [
+      {
+        "src": "eye/double/26",
+        "tag": "종합 설명"
+      },
+      {
+        "src": "eye/double/509",
+        "tag": "수술 시간·통증"
+      },
+      {
+        "src": "eye/double/392",
+        "tag": "쌍커풀의 깊이"
+      },
+      {
+        "src": "eye/double/199",
+        "tag": "이마거상술과 함께"
+      },
+      {
+        "src": "eye/double/25",
+        "tag": "눈 재수술"
+      },
+      {
+        "src": "eye/double/611",
+        "tag": "절개 쌍커풀(피부절제)"
+      }
+    ]
+  },
+  "faq": [
+    {
+      "q": "매몰법은 풀리지 않나요?",
+      "a": "로코코의 매몰법 쌍커풀은 4중고정 매몰법으로 다른 매몰법에 비해 풀어질 확률이 매우 낮답니다. 절개 쌍커풀은 쳐진살이 많거나 눈의 구조상 매몰법으로는 예쁜 라인을 만들기 어려운 경우, 매몰 쌍커풀이 2회 이상 풀어지는 경우 등에 권해드리게 됩니다.",
+      "src": "eye/double/26"
+    },
+    {
+      "q": "흉터가 남나요?",
+      "a": "쌍커풀라인을 만드는 것은 자연유착법으로 수술하기 때문에 바늘구멍정도의 흉터만 남아서 이 또한 대부분의 경우에 거의 티가 나지 않는답니다.",
+      "src": "eye/correction/256"
+    },
+    {
+      "q": "남자도 티 나지 않게 할 수 있나요?",
+      "a": "남자가 쌍커풀 수술을 받으면 느끼한 인상이 된다고 생각하시고 아예 수술을 피하시는 분들이 계신데.. 남자의 경우 대부분 속쌍커풀로 수술하기 때문에 수술한 티가 거의 나지 않게 수술이 가능하답니다. 아주 자연스럽게 눈이 커지면서 인상이 뚜렷해지고 좀 더 자신감 있어 보이면서 잘생겨지게 됩니다.",
+      "src": "eye/correction/256"
+    },
+    {
+      "q": "결과가 마음에 들지 않으면 어떻게 하나요?",
+      "a": "그리고, 만에 하나 수술결과가 마음에 들지 않을 경우에 간단히 쌍커풀을 풀어서 원상복구가 가능하다는 점도 상당한 장점이 되겠습니다.",
+      "src": "eye/double/26"
+    }
+  ],
+  "related": [
+    {
+      "href": "eye/correction",
+      "name": "눈매교정술"
+    },
+    {
+      "href": "eye/incision",
+      "name": "트임성형"
+    },
+    {
+      "href": "eye/brow-lift",
+      "name": "눈썹하거상술"
+    },
+    {
+      "href": "forehead/endoscopic",
+      "name": "내시경 이마거상술"
+    },
+    {
+      "href": "eye/fat-graft",
+      "name": "꺼진눈 지방이식"
+    },
+    {
+      "href": "eye/lower-fat",
+      "name": "눈밑지방 재배치"
+    }
+  ],
+  "icons": {
+    "pinhole": "<path d=\"M18 70 C36 48 84 48 102 70 C84 90 36 90 18 70 Z\" fill=\"#fff\" stroke=\"#4a4a4a\" stroke-width=\"2.2\" stroke-linejoin=\"round\"/><circle cx=\"60\" cy=\"70\" r=\"13\" fill=\"#6b4a3a\"/><circle cx=\"64\" cy=\"66\" r=\"3\" fill=\"#fff\"/><path d=\"M22 58 C40 36 80 36 98 58\" fill=\"none\" stroke=\"#b8956a\" stroke-width=\"2.6\" stroke-linecap=\"round\"/><circle cx=\"40\" cy=\"44\" r=\"2.4\" fill=\"#c46a5a\"/><circle cx=\"60\" cy=\"38.5\" r=\"2.4\" fill=\"#c46a5a\"/><circle cx=\"80\" cy=\"44\" r=\"2.4\" fill=\"#c46a5a\"/>",
+    "calendar": "<rect x=\"22\" y=\"28\" width=\"76\" height=\"70\" rx=\"8\" fill=\"#fff\" stroke=\"#b8956a\" stroke-width=\"2.4\"/><path d=\"M22 46 L98 46\" stroke=\"#b8956a\" stroke-width=\"2.4\"/><path d=\"M40 20 L40 34 M80 20 L80 34\" stroke=\"#4a4a4a\" stroke-width=\"3\" stroke-linecap=\"round\"/><path d=\"M38 74 C48 84 72 84 82 74\" fill=\"none\" stroke=\"#4a4a4a\" stroke-width=\"2.4\" stroke-linecap=\"round\"/><path d=\"M40 64 C50 56 70 56 80 64\" fill=\"none\" stroke=\"#b8956a\" stroke-width=\"2.2\" stroke-linecap=\"round\"/><path d=\"M46 80 L43 86 M60 83 L60 89 M74 80 L77 86\" stroke=\"#4a4a4a\" stroke-width=\"2\" stroke-linecap=\"round\"/>",
+    "wash": "<path d=\"M18 70 C36 48 84 48 102 70 C84 90 36 90 18 70 Z\" fill=\"#fff\" stroke=\"#4a4a4a\" stroke-width=\"2.2\" stroke-linejoin=\"round\"/><circle cx=\"60\" cy=\"70\" r=\"13\" fill=\"#6b4a3a\"/><circle cx=\"64\" cy=\"66\" r=\"3\" fill=\"#fff\"/><path d=\"M28 30 C28 30 18 42 18 48 A10 10 0 0 0 38 48 C38 42 28 30 28 30 Z\" fill=\"#cfe3ef\" stroke=\"#6f97ad\" stroke-width=\"2\"/><path d=\"M96 22 C96 22 88 32 88 37 A8 8 0 0 0 104 37 C104 32 96 22 96 22 Z\" fill=\"#cfe3ef\" stroke=\"#6f97ad\" stroke-width=\"2\"/><path d=\"M26 58 C42 40 78 40 94 58\" fill=\"none\" stroke=\"#b8956a\" stroke-width=\"2.4\" stroke-linecap=\"round\"/>"
+  },
+  "review_banner_subject": "자연유착법 쌍커풀 수술(매몰법)",
+  "cases_visible": 9
+}
