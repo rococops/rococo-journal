@@ -216,8 +216,9 @@ class Renderer:
     <ol class="lp-steps">{steps}</ol>
   </div>
   <div class="container lp-narrow">
-    <p class="lp-note">{e(m["note"]["text"])}</p>
     {self.src_link(m["steps_src"])}
+    <p class="lp-note">{e(m["note"]["text"])}</p>
+    {self.src_link(m["note"]["src"]) if m["note"]["src"] != m["steps_src"] else ''}
     <div class="lp-pc">{self.paras(m["pros_cons"]["paras"])}</div>
     {self.src_link(m["pros_cons"]["src"])}
   </div>
