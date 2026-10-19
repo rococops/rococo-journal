@@ -338,6 +338,10 @@ def apply_landing(page_dir, data):
         out = re.sub(r'<title>.*?</title>', f'<title>{e(seo["title"])}</title>', out, count=1, flags=re.S)
         out = re.sub(r'(<meta name="description" content=")[^"]*', lambda m: m.group(1) + e(seo['description']), out, count=1)
         out = _upsert(out, LD_START, LD_END, r.json_ld(data['page'].strip('/')), '</head>')
+        # 공유(카카오톡 등) 미리보기 문구도 새 제목·설명에 맞춤
+        short_title = seo['title'].split(' | ')[0]
+        out = re.sub(r'(<meta property="og:title" content=")[^"]*', lambda m: m.group(1) + e(short_title + ' | 로코코 저널'), out, count=1)
+        out = re.sub(r'(<meta property="og:description" content=")[^"]*', lambda m: m.group(1) + e(seo['description']), out, count=1)
 
     if out != raw:
         with open(path, 'w', encoding='utf-8-sig' if bom else 'utf-8') as fp:
