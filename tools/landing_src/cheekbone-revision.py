@@ -66,8 +66,6 @@ data = {
              "extra": [{"quote": seg('79', (92, 93)), "src": src('79')}]},
             {"from": 2, "to": 3, "unit": "mm", "label": "플레이트로 옆광대를 더 넣을 수 있는 정도",
              "quote": seg('79', (59, 62)), "src": src('79')},
-            {"from": 5000, "to": 6000, "unit": "case", "label": "15년간 퀵광대 방식 집도 · 불유합 0건",
-             "quote": seg('354', (246, 248)), "src": src('354')},
         ],
         "bg_image": "images/landing/nose-hump-hero.jpg",
         "case": {"src": src('79'), "image": "https://rococops.com/files/editor/1304003225.jpg",
