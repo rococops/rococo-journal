@@ -1,0 +1,138 @@
+{
+  "_comment": "English translation of data/landing/cheekbone-quick.json (AI draft by Claude, 2026-10-20 — needs review by a native speaker / coordinator before launch). Sentences only: numbers, photos and source links come from the Korean data. Doctor's quotes are shown with the original Korean underneath.",
+  "lang": "en",
+  "reviewed": false,
+
+  "seo": {
+    "title": "Quick Cheekbone Reduction in Seoul | 15 Minutes Under Sedation, Small Scalp Incision | Dr. Kim Sang-ho, Rococo Plastic Surgery",
+    "description": "Quick (15-minute) cheekbone reduction is done under sedation with no incision inside the mouth. Side vs. 45-degree cheekbones, method, recovery and side effects.",
+    "h1": "Quick Cheekbone Reduction (15-Minute Cheekbone Reduction)"
+  },
+
+  "hero": {
+    "eyebrow": "QUICK CHEEKBONE · 15-MINUTE REDUCTION",
+    "question": "How is quick (15-minute) cheekbone reduction done?",
+    "summary": "\"Rococo 15-minute cheekbone reduction\" reduces only the side cheekbones (quick cheekbone reduction), while \"Rococo modified 15-minute cheekbone reduction + Rococo mini lifting\" reduces both the side cheekbones and the 45-degree cheekbones.",
+    "stats": ["Surgery time (quick · modified 15-minute)", "Typical recovery for modified 15-minute reduction", "Years performing quick cheekbone reduction"],
+    "units": ["min", "weeks", "years"],
+    "case_caption": "Changes in the face after quick cheekbone reduction",
+    "case_alt": "Quick cheekbone reduction before and after, front view"
+  },
+
+  "features": {
+    "type": "TYPE · QUICK CHEEKBONE",
+    "toc": "What \"quick\" means",
+    "title": "The quick cheekbone method is not defined in any textbook, but in general you can think of it as",
+    "items": [
+      "cheekbone reduction done under sedation,",
+      "without an incision inside the mouth,",
+      "using a natural fixation method"
+    ],
+    "note": "— that is what it means."
+  },
+
+  "story": {
+    "title": "Dr. Kim's notes",
+    "blocks": [
+      {
+        "heading": "Side cheekbones and 45-degree cheekbones",
+        "paras": [
+          "15-minute cheekbone reduction is a surgery specialized for the \"side cheekbones\"; when the \"45-degree cheekbones\" stick out a lot, the modified 15-minute cheekbone reduction can also reduce the volume in the 45-degree area fairly safely.",
+          "The 45-degree cheekbone below the outer corner of the eye remains. To reduce this area as well, you need the modified 15-minute cheekbone reduction, done with the quick method."
+        ]
+      },
+      {
+        "heading": "The cheekbone area is not made by the bone alone",
+        "paras": [
+          "However, the area we call the \"cheekbones\" on the face is not a structure made simply by the \"cheekbone (zygomatic bone)\" alone. The cheekbone + the soft tissue (flesh) covering it + its relationship with the structures around it — broadly, these three factors determine the shape of the cheekbone area, and the important surrounding structures are three: the temples, the eyes, and the cheeks including the lower face (deep cheeks).",
+          "In cases like this, cheekbone surgery alone has limits in creating a good result. Only by filling more volume into the lower face to wrap around the cheekbone area can a soft-looking face be created."
+        ]
+      },
+      {
+        "heading": "How quick cheekbone reduction came about",
+        "paras": [
+          "I have been very interested in cheekbone surgery since my residency, and through constant effort, starting from cheekbone reduction through intraoral and preauricular (in front of the ear) incisions, and then going through endoscopic techniques, I developed the method little by little until I created the current 15-minute cheekbone reduction (quick cheekbone) method myself.",
+          "When I first performed cheekbone reduction through intraoral and preauricular incisions, it took more than an hour, and when I first did endoscopic surgery it also needed more than an hour of surgery time. Such a long surgery time leads to severe swelling and becomes a decisive factor in delaying the patient's return to daily life.",
+          "In the end, the surgery time was reduced from an hour to 15 minutes, and the incision length from 3 cm to 1.5 cm."
+        ]
+      },
+      {
+        "heading": "17 years of quick cheekbone reduction",
+        "paras": [
+          "It has already been 17 years since I started performing the quick cheekbone method.",
+          "Because so many people have come for this surgery, I have been able to perform a great many cases over a long period, and with 17 years of follow-up it is a thoroughly proven method."
+        ]
+      }
+    ]
+  },
+
+  "method": {
+    "title": "Surgical steps",
+    "steps": [
+      "The surgery is done under sedation.",
+      "It is done through a really small 1.5 cm incision in the scalp (where hair grows) above the ear.",
+      "The cut bone is checked with an endoscope, so you don't need to worry.",
+      "It is done without fixation pins, so even if you happen to have an X-ray taken later in life, no one except medical staff would know you had surgery.",
+      "After Rococo 15-minute cheekbone reduction, we attach a special sponge that helps prevent bruising and swelling. It is best to keep this sponge on for 3 days."
+    ],
+    "note": "I explain this in advance before surgery: even with 15-minute cheekbone reduction, about 1–2 in 100 people get a lot of bruising and swelling after surgery. There may also be about a 1-in-1,000 chance of severe bruising. This is because the human body cannot be predicted 100%, so it is best to take this into account when planning your surgery schedule.",
+    "pros_cons": [
+      "For 45-degree cheekbones, the method many people know — removing part of the cheekbone through an incision inside the mouth under general anesthesia and fixing it with metal plates and screws — gives the best results.",
+      "During consultations I tell patients that, conservatively, the effect of modified 15-minute cheekbone reduction is about 50% of that of surgery under general anesthesia. An effect of 50% means comparing the least effective result of modified 15-minute cheekbone surgery with the best result of intraoral surgery under general anesthesia."
+    ]
+  },
+
+  "recovery": {
+    "title": "Recovery",
+    "items": [
+      {"label": "Quick (side cheekbones)", "lines": ["For Rococo 15-minute cheekbone reduction, the surgery takes about 10 minutes, and in about 98–99% of cases (98–99 out of 100 people) you can expect a typical recovery period of about 2–3 days. There may be slight bruising and swelling around the eyes, but it is at a level that makeup can cover."]},
+      {"label": "Modified 15-minute (incl. 45-degree)", "lines": ["For Rococo modified 15-minute cheekbone reduction + Rococo mini lifting, the surgery takes about 20 minutes, and in about 99% of cases (99 out of 100 people) you can expect a typical recovery period of about 1–2 weeks; it is best to plan your surgery allowing a generous 2 weeks of recovery. In about 1–2% (one or two in a hundred), bruising and swelling may last more than 2 weeks."]},
+      {"label": "Sponge", "lines": ["After Rococo 15-minute cheekbone reduction, we attach a special sponge that helps prevent bruising and swelling. It is best to keep this sponge on for 3 days.", "After Rococo modified 15-minute cheekbone reduction, you leave the clinic with a sponge on your face to prevent swelling and bruising, and we recommend keeping the sponge on for 7 days."]},
+      {"label": "Next day – 1 month", "lines": ["You can wash your hair and shower from the day after surgery. You visit once on day 3 after surgery to have the stitches in the scalp removed, and come back at one month for a follow-up."]},
+      {"label": "Swelling", "lines": ["The 45-degree area shows its effect later than the side cheekbones. The basic swelling goes down over 3 months, and after that subtle swelling keeps going down for up to a year as the volume decreases."]}
+    ],
+    "note": "Around 1 month after surgery there is a change you can feel yourself; a photo at 3 months looks quite different from the 1-month photo, and a photo at 1 year shows the area even more reduced than at 3 months. This is because subtle residual swelling keeps going down."
+  },
+
+  "before_after": {
+    "title": "Quick cheekbone reduction: before and after",
+    "alt": "Quick cheekbone reduction before and after",
+    "labels": [
+      "Front, 2 months",
+      "Left, 2 months",
+      "From below",
+      "Front, 2 weeks",
+      "Side, 2 weeks",
+      "From below",
+      "Right, 2 weeks",
+      "From below"
+    ]
+  },
+
+  "logs": {
+    "title": "Case notes by Dr. Kim",
+    "tags": ["Overview", "Recovery period", "Side effects", "Frequently asked questions", "Comparing surgery types", "Effect by face shape"]
+  },
+
+  "faq": [
+    {"q": "Will my cheeks sag 10 years after cheekbone reduction?",
+     "a": "When the volume of the cheekbones, especially the 45-degree cheekbones, is reduced, you have to assume that cheek sagging increases accordingly. What matters is whether that sagging is clinically visible to the eye. That is why I currently reduce the volume of the 45-degree cheekbones only to the extent that no noticeable sagging occurs."},
+    {"q": "If the bone isn't fixed (natural fixation), will it come back out?",
+     "a": "That is a marketing rumor created by clinics that do fixation surgery. I have already reduced the cheekbones of countless patients with 15-minute cheekbone reduction for 4 years now; if the cheekbones had come back, this surgery would have disappeared long ago. With 15-minute cheekbone reduction, the cheekbones never come back after surgery, so you can rest assured."},
+    {"q": "Where is the scar, and what is it like?",
+     "a": "In the (modified) 15-minute cheekbone reduction I perform, the scar was originally a very small 1–1.5 cm incision scar inside the scalp. For female patients, even if a small scar remains, it is hidden by the hair and is nearly invisible in more than 99% of patients,"},
+    {"q": "Without fixation, isn't there a risk of non-union (the bone not healing)?",
+     "a": "Because it is a natural fixation surgery without separate medical wire or plate-and-screw fixation, many people wonder whether non-union can occur, but so far there has not been a single case of non-union. It is a very safe surgery."},
+    {"q": "Can cheekbone surgery correct facial asymmetry?",
+     "a": "Also, many people ask about correcting asymmetry, but facial asymmetry is not corrected by cheekbone surgery. Please keep this in mind."}
+  ],
+
+  "related": ["Rear cheekbone reduction", "Deep cheek · temple fat grafting", "Cheekbone-line liposuction", "Revision cheekbone surgery", "Rib cartilage rhinoplasty"],
+
+  "companions": [
+    {"name": "Deep cheek · temple fat grafting",
+     "lead": "Because the chewing muscle is spread widely over the temple area, simply doing fat grafting is best there. The fat grafting results are good, and when the fat is grafted only within the muscle, the survival rate is also very high compared with other areas."},
+    {"name": "Cheekbone-line liposuction",
+     "lead": "The reasons the \"cheekbones\" look prominent on a person's face can broadly be thought of as these three: 1. the cheekbone 2. the flesh covering the cheekbone (soft tissue — skin, fat, muscle, fibrous tissue) 3. the balance of the structures around the cheekbones (small jaw, hollow cheeks, retruded chin, hollow temples, hollow cheeks, sunken eyes)."}
+  ]
+}

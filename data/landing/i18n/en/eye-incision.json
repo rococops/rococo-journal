@@ -1,0 +1,132 @@
+{
+  "_comment": "English translation of data/landing/eye-incision.json (AI draft by Claude, 2026-10-20 — needs review by a native speaker / coordinator before launch). Sentences only: numbers, photos and source links come from the Korean data. Doctor's quotes are shown with the original Korean underneath.",
+  "lang": "en",
+  "reviewed": false,
+
+  "seo": {
+    "title": "Canthoplasty in Seoul | Epicanthoplasty, Lateral Canthoplasty, Lower Eyelid Lowering | Dr. Kim Sang-ho, Rococo Plastic Surgery",
+    "description": "Epicanthoplasty, lateral canthoplasty and lower eyelid lowering compared. Who suits lateral canthoplasty (4 mm of space), keeping it from reattaching, scars, recovery.",
+    "h1": "Canthoplasty (Eye-Widening Surgery)"
+  },
+
+  "hero": {
+    "eyebrow": "CANTHOPLASTY · EYE-WIDENING",
+    "question": "How do epicanthoplasty, lateral canthoplasty and lower eyelid lowering differ?",
+    "summary": "Among surgeries that make the eyes bigger, lateral canthoplasty enlarges the eye toward the outer corner and downward at the same time, and lower eyelid lowering enlarges it only downward.",
+    "stats": ["Space behind the outer corner needed to recommend lateral canthoplasty (or more)", "Surgery time (lower eyelid lowering · lateral canthoplasty)", "Years refining the lateral canthoplasty method (as of a 2024 post)"],
+    "units": ["mm", "min", "years"],
+    "case_caption": "Rococo lateral canthoplasty that doesn't reattach — 2 years after surgery",
+    "case_alt": "Lateral canthoplasty before and 2 years after, front view of the eyes"
+  },
+
+  "features": {
+    "type": "POINT · LATERAL CANTHOPLASTY",
+    "toc": "Standards for lateral canthoplasty",
+    "title": "If someone asked me what the most important points are in an excellent lateral canthoplasty",
+    "items": [
+      "No red tissue should be visible at the outer corner of the eye.",
+      "The outer corner should keep a natural triangular shape.",
+      "The scar should not be visible on the outside.",
+      "It should not recur (reattach).",
+      "And on top of that, if there is less swelling after surgery and a quick return to daily life is possible, even better."
+    ],
+    "note": "Of those who want lateral canthoplasty, roughly 30–40% cannot have the surgery because there is no space at all or the space is narrower than 4 mm."
+  },
+
+  "story": {
+    "title": "Dr. Kim's notes",
+    "blocks": [
+      {
+        "heading": "Different procedures for different directions",
+        "paras": [
+          "Among surgeries that make the eyes bigger, lateral canthoplasty enlarges the eye toward the outer corner and downward at the same time, and lower eyelid lowering enlarges it only downward. These methods show the best effect when the outer part of the eye looks closed off and stuffy, or when the outer corners are raised so much that the face looks fierce."
+        ]
+      },
+      {
+        "heading": "How much bigger the eye can get is already decided",
+        "paras": [
+          "A person's outer eye corner (A) can never go beyond the outer edge of the orbital bone. If the outer corner is cut out past the edge of the orbit, only a scar of red mucosa remains behind the bone.",
+          "Lateral canthoplasty is not a surgery where you can adjust the length; the new outer corner must always be made by fixing it well at point B.",
+          "In the end, how much bigger the eye can become with lateral canthoplasty is not decided by the surgical method or skill; assuming the surgery is done properly, it is already decided."
+        ]
+      },
+      {
+        "heading": "Epicanthoplasty, without overdoing it",
+        "paras": [
+          "The biggest advantage of redraping-style epicanthoplasty is that the scar is less noticeable, but it has a drawback. The inner corner can be opened too much, leaving the front of the eye looking blown open; because of this, in the early 2010s a great many people suffered from excessive epicanthoplasty, and as a result a surgery called epicanthoplasty reconstruction was created — there were so many problem patients that plastic surgery clinics specializing only in epicanthoplasty reconstruction appeared.",
+          "The key to epicanthoplasty is to open the inner corner naturally while minimizing the scar and never overdoing it."
+        ]
+      },
+      {
+        "heading": "Why is lateral canthoplasty known to reattach?",
+        "paras": [
+          "Why is the perception so widespread that lateral canthoplasty recurs, that it reattaches? I think it is because there are so many half-hearted lateral canthoplasty methods.",
+          "In particular, a method called \"non-incisional\", which fixes the outer corner to the periosteum with a suture, was once widely performed, and since this method inevitably recurs, I think it also had a big influence on the bad perception of lateral canthoplasty."
+        ]
+      }
+    ]
+  },
+
+  "method": {
+    "title": "Surgical steps",
+    "steps": [
+      "Whether lateral canthoplasty is possible can't be told from photos alone; I must feel the outer corner during the consultation to check the space between the current outer corner and the bone surrounding the eye.",
+      "Personally, I recommend the surgery when this space is 4 mm or more.",
+      "Because the method removes part of the tissue inside the eye, it does not reattach unless a wound forms from rubbing or the like while the surgical site is healing.",
+      "Lateral canthoplasty takes about 30 minutes,",
+      "and after surgery a slightly bulging bit of extra tissue is left at the outer corner; in most cases this softens in about 1 month, but it occasionally remains, and when it does, I simply correct it with radiofrequency at 1 month."
+    ],
+    "note": "It is impossible to correct asymmetry 100%, but in many cases it can be improved to some degree.",
+    "pros_cons": [
+      "With the lateral canthoplasty I perform, the angled part of the outer corner may become very slightly blunter, but you can consider that the opened part does not reattach to how it was, nor does it leave an unsightly, fully squared-off (ㄷ-shaped) scar.",
+      "This conjunctival swelling (chemosis) and conjunctival redness depend largely on constitution, so they cannot be completely prevented, but I take great care during surgery to minimize them."
+    ]
+  },
+
+  "recovery": {
+    "title": "Recovery",
+    "items": [
+      {"label": "1 week · 3 weeks", "lines": ["Lateral canthoplasty takes about 30 minutes; in 50% of cases you can expect a recovery period of 1 week (stitches are removed at 1 week), and in 50% the white of the eye can become red and bruised or swell up like jelly, so recovery may take about 3 weeks."]},
+      {"label": "Conjunctival redness · swelling", "lines": ["You can see the white of the eye looks red and bruised; this is called conjunctival redness (hyperemia). Some people have no conjunctival redness at all, and in some the white of the eye turns completely bright red. There are also cases of conjunctival swelling (chemosis), in which the white of the eye swells up like jelly."]},
+      {"label": "1 month", "lines": ["After surgery, the inner lower part of the outer corner may look slightly kinked; this mostly settles down by one month, and after checking the progress at one month, I sometimes make a slight correction if needed."]},
+      {"label": "1 year 6 months", "lines": ["You can see the outer corner has healed so cleanly that it barely looks operated on."]},
+      {"label": "2 years", "lines": ["Before surgery and 2 years after. The outer part of the eye has opened up nicely and is well maintained."]}
+    ],
+    "note": "Very rarely (about 2%), a small reddish area may remain at the outer corner; this can happen when the space between the eyeball and the orbital bone (the bone surrounding the eyeball) is wide. The redness fades over time, but a little may remain."
+  },
+
+  "before_after": {
+    "title": "Canthoplasty: before and after",
+    "alt": "Canthoplasty before and after, eyes",
+    "labels": [
+      "Lateral canthoplasty, front · 2 years",
+      "Lateral canthoplasty, outer corner · 2 years",
+      "Lateral canthoplasty, progress over time",
+      "Lateral canthoplasty + lower eyelid lowering · 3 years",
+      "Right eye · 3 years",
+      "Removing the epicanthal band",
+      "Redraping epicanthoplasty",
+      "Double eyelid + epicanthoplasty"
+    ]
+  },
+
+  "logs": {
+    "title": "Case notes by Dr. Kim",
+    "tags": ["Lateral canthoplasty, 2 years on", "Eyes suited to lateral canthoplasty", "Lateral + lower lowering, 3 years", "Epicanthoplasty · upper canthoplasty", "Non-incisional lower eyelid lowering", "Lateral canthoplasty before & after"]
+  },
+
+  "faq": [
+    {"q": "Won't lateral canthoplasty reattach over time?",
+     "a": "Early after surgery, within 2–3 weeks before the wound heals, there has been about one case in 5 years where the fixed outer corner was rubbed during sleep or the like, the fixation suture came loose, and it had to be re-fixed. Excluding such special cases, you can consider that the lateral canthoplasty method I perform does not recur."},
+    {"q": "What if the space behind the outer corner is narrower than 4 mm?",
+     "a": "Personally, I recommend surgery only when the A–B distance is 4 mm or more; when it is 3 mm, I explain that the effect will be small and let the patient choose. When the space is narrower than that, I advise against surgery. For such people, even if they have surgery at another clinic, they would just be paying to leave a scar on their eyes."},
+    {"q": "How is lower eyelid lowering done?",
+     "a": "Lower eyelid lowering used to be done with an incisional method, but for the past 7–8 years I have been doing it non-incisionally. Again, the surgery takes about 10 minutes; it softens the look of the eyes and can make the midface look shorter. Doing aegyo-sal (under-eye roll) filler together makes the midface look even shorter."},
+    {"q": "Does epicanthoplasty leave a scar?",
+     "a": "The epicanthoplasty scar at the inner corner of the eye fades considerably after 6–12 months."},
+    {"q": "Are there no eyelashes on the new outer corner made by lateral canthoplasty?",
+     "a": "Whether there are eyelashes on the newly made outer corner was once an issue; the method I use is not one that pulls the outer corner and hooks it to the periosteum (that method causes a lot of ㄷ-shaped complications) but one that fully opens the outer part, so the newly opened area has no eyelashes, but if you look closely at the photos, the existing eyelashes point backward, so it does not look awkward at all."}
+  ],
+
+  "related": ["Natural adhesion double eyelid", "Ptosis correction", "Lower eyelid fat repositioning", "Fat grafting for hollow eyes", "Sub-brow lift", "Revision rhinoplasty"]
+}

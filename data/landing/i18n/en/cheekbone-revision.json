@@ -1,0 +1,126 @@
+{
+  "_comment": "English translation of data/landing/cheekbone-revision.json (AI draft by Claude, 2026-10-20 — needs review by a native speaker / coordinator before launch). Sentences only: numbers, photos and source links come from the Korean data. Doctor's quotes are shown with the original Korean underneath.",
+  "lang": "en",
+  "reviewed": false,
+
+  "seo": {
+    "title": "Revision Cheekbone Reduction in Seoul | When It Helps and Its Limits | Dr. Kim Sang-ho, Rococo Plastic Surgery",
+    "description": "Revision cheekbone surgery when the cheekbones weren't pushed in enough or old wires and screws remain: when a quick-method revision helps, its limits, and X-rays.",
+    "h1": "Revision Cheekbone Surgery"
+  },
+
+  "hero": {
+    "eyebrow": "CHEEKBONE REVISION · SECONDARY REDUCTION",
+    "question": "When does revision cheekbone surgery help?",
+    "summary": "Revision cheekbone reduction is a method sought by many people who had cheekbone reduction at another clinic, such as through an incision inside the mouth under general anesthesia, and were not satisfied with the result.",
+    "stats": ["Surgery time (15 min as standard · 20 min in a revision case)", "How much further a plate can push in the side cheekbone"],
+    "units": ["min", "mm"],
+    "case_caption": "Revision cheekbone reduction with the 15-minute method",
+    "case_alt": "Revision cheekbone surgery before and after"
+  },
+
+  "features": {
+    "type": "TYPE · CHEEKBONE REVISION",
+    "toc": "When revision helps",
+    "title": "Revision cheekbone surgery using the quick cheekbone reduction method helps when",
+    "items": [
+      "(1) the body of the cheekbone has healed (united) well after the previous cheekbone reduction,",
+      "(2) the side cheekbone was not pushed in enough, so there is room for it to go in further,",
+      "(3) the face shape is such that pushing the cheekbone in further can make a meaningful change,",
+      "(4) the 45-degree cheekbone still has room for its volume to be reduced by shaving."
+    ],
+    "note": "Many people come to consult about revision cheekbone reduction, but in quite a lot of them the cheekbones have already been pushed in enough, so further cheekbone reduction would not help."
+  },
+
+  "story": {
+    "title": "Dr. Kim's notes",
+    "blocks": [
+      {
+        "heading": "The result is already decided by your natural face shape",
+        "paras": [
+          "In other words, regardless of the surgical method, the effect you can get from cheekbone surgery is already decided to some extent by the face shape you were born with. That is, of course, when the surgery is done properly.",
+          "But with any method, if the surgery is not done properly.. a face shape that could get an effect of 100 might get an effect of only 20–30."
+        ]
+      },
+      {
+        "heading": "When previous fixation wires and screws remain",
+        "paras": [
+          "This patient had cheekbone reduction through intraoral + preauricular incisions together with previous double-jaw surgery. Her complaint was that she had cheekbone reduction but saw no effect at all.",
+          "Looking at photos like this, what I think is that carrying metal fixation pins around in your face like that is a bit of a burden. You can see that part of the cheekbone above the fixation site has been absorbed, but since it is not visible from the outside, it is not a big problem."
+        ]
+      },
+      {
+        "heading": "Even if the bone looks separated on an X-ray",
+        "paras": [
+          "The answer is that, regardless of fixation or no fixation, if the surgery is done well the bone doesn't separate, and if it is not done well the bone can separate. And in most cases, even if the bone looks fairly separated, it causes no problems at all.",
+          "The one exception is when the skin is very, very thin; in such cases the area may look slightly sunken from the outside. If it does look sunken, I personally recommend correcting it with simple fat grafting."
+        ]
+      },
+      {
+        "heading": "Revisions that need fixation, and those that don't",
+        "paras": [
+          "If the osteotomy of the cheekbone body was done through the mouth, the main beam (buttress) of the cheekbone has been cut, and in that case the cheekbone body and the arch must both be fixed, front and back, during revision; but when the body osteotomy lies outside the buttress, as in the quick method, and when not long has passed since the first surgery, under the right conditions I was able to put the cheekbone back in its original position even without fixation. Depending on the conditions, the side zygomatic arch may need to be fixed even if the surgery is done early."
+        ]
+      }
+    ]
+  },
+
+  "method": {
+    "title": "Surgical steps",
+    "steps": [
+      "For revision cheekbone reduction, surgery proceeds after X-rays are taken.",
+      "Anesthesia: sedation",
+      "The surgery reduces the 45-degree area with special instruments through the 15-minute cheekbone incision (a 1.5 cm incision inside the hairline).",
+      "Surgery time: 15 minutes",
+      "You can wash your hair, shower and wear makeup from the day after surgery."
+    ],
+    "note": "Next, people worry about the border where the bone was cut and pushed in. This is a worry about the osteotomy site; this area is covered by thick flesh, so if you press hard you can feel a slight step, but it is hardly visible from the outside.",
+    "pros_cons": [
+      "For 45-degree cheekbones, the intraoral incision or the full scalp incision (coronal incision) method is the most effective, but it has the burden of general anesthesia, the drawback of leaving metal inside the body, and the drawback of leaving a scar.",
+      "When the 45-degree cheekbone is reduced, the effect is about 50% of the intraoral incision, and there is more swelling than with 15-minute cheekbone surgery alone (side cheekbones).",
+      "The limitation of intraoral cheekbone reduction is that, because fixation can only be done from below, it is hard to 100% prevent the area above the osteotomy from separating to some degree. Of course, not every intraoral cheekbone reduction has that kind of separation. That is because each surgeon has their own know-how."
+    ]
+  },
+
+  "recovery": {
+    "title": "When the bone sets, and revision",
+    "items": [
+      {"label": "2 weeks (pushing back out)", "lines": ["At first I discouraged the surgery, thinking it was not a normal surgery, but she came with her mother, who was tearing up as they asked for revision cheekbone surgery. It happened to be about 2 weeks after surgery, so at her request she signed a document stating that she was having revision cheekbone surgery, and, just like the first surgery, under sedation with a closed approach, I put the side cheekbone back as close to its original position as possible and had her wear a protector; the cheekbone settled into place reasonably without any particular problems, and I received her thanks."]},
+      {"label": "2 months (pushing back out)", "lines": ["At first the bone stayed pushed out, so we decided to let it set as it was, but because the soft tissue had already settled, after about a month the side cheekbone went back to its position after the first surgery."]},
+      {"label": "1 year", "lines": ["After that, residual swelling keeps going down for up to a year, and the volume of the cheekbone area decreases further."]},
+      {"label": "1 year 6 months", "lines": ["In the right photo there is no fixation material at all, but the bone has already hardened like stone. To make an osteotomy site in front of the ear like this come back out, it can only be pushed out by surgical means."]}
+    ],
+    "note": "When only the 45-degree area is revised, the side cheekbone is already angled in, so compared with having modified 15-minute cheekbone reduction from the start, the range in which the 45-degree cheekbone can be reduced is slightly smaller, and the result tends to be slightly less. Still, it is a surgery with the big advantage of a considerably short recovery period."
+  },
+
+  "before_after": {
+    "title": "Revision cheekbone surgery: before and after",
+    "alt": "Revision cheekbone surgery before and after",
+    "labels": [
+      "Front, 2 weeks after revision",
+      "X-ray front · 1 month after revision",
+      "X-ray from below · 1 month after revision",
+      "Cheekbone reconstruction X-ray, front"
+    ]
+  },
+
+  "logs": {
+    "title": "Case notes by Dr. Kim",
+    "tags": ["Revision after fixation surgery", "Conditions for revision", "Cheekbone reconstruction", "The quick-method revision debate", "Fixation vs. no fixation on X-ray", "Additional 45-degree surgery"]
+  },
+
+  "faq": [
+    {"q": "Can revision cheekbone surgery also be done with the quick method?",
+     "a": "Depending on the state of the previous surgery, a better result can be made with the quick (modified) 15-minute cheekbone reduction, but depending on the condition, there are also cases where revision with the quick method is impossible."},
+    {"q": "Will changing the surgical method make the revision more effective?",
+     "a": "Some people who come for consultation ask whether the effect differs a lot depending on the cheekbone surgery method. Personally, I don't think there is a big difference between methods. The fundamental difference is already decided by the face shape."},
+    {"q": "I had cheekbone reduction with fixation at another clinic. Can I have revision?",
+     "a": "I performed a revision with modified 15-minute cheekbone reduction. If you look at the X-ray one month after surgery, even though part of the cheekbone body had been absorbed from the previous surgery, you can see the cheekbone body is well maintained in position after the modified 15-minute cheekbone reduction. The surgery took 20 minutes under sedation, and the patient was very satisfied with the result."},
+    {"q": "Is it possible to push a reduced cheekbone back out (cheekbone reconstruction)?",
+     "a": "For the revision with fixation, we decided to push the side cheekbone back out through an incision at the original 1.5 cm scar in the scalp, under sedation, and fix it firmly through a 1.5 cm incision at the sideburn area. The surgery is relatively simple. As with the surgery that pushes it in, an osteotomy – partial osteotomy is done, the side cheekbone is pushed out, and then it just needs to be fixed in front of the ear. It is a surgery that finishes in under about 30 minutes."},
+    {"q": "I heard many patients who had quick cheekbone reduction end up needing revision. Is that true?",
+     "a": "There are two sides to this. One is that from about 5–6 years ago, as quick cheekbone reduction became hugely popular, many doctors suddenly jumped into this market, and doctors without real experience or caution recklessly cut and pushed in cheekbones, producing serious non-union cases. The second is like the saying that an air crash investigator who only looks at crashed planes becomes too scared to fly: compared with conventional cheekbone reduction, many doctors operated on far too many patients with the quick cheekbone surgery at absurd prices in the low 1-million-won range, so problem patients appeared at a certain rate, and since those patients sought out the few doctors who specialize in revision cheekbone surgery, from those doctors' point of view, without having performed the quick surgery themselves, they simply concluded that this is a bad surgery..? That is what I think."}
+  ],
+
+  "related": ["Quick cheekbone reduction (15-minute)", "Rear cheekbone reduction", "Deep cheek · temple fat grafting", "Cheekbone-line liposuction", "Is quick cheekbone reduction risky? (guide)", "Cheekbone reduction methods compared (guide)"]
+}

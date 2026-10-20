@@ -1,0 +1,129 @@
+{
+  "_comment": "English translation of data/landing/eye-double.json (AI draft by Claude, 2026-10-20 — needs review by a native speaker / coordinator before launch). Sentences only: numbers, photos and source links come from the Korean data. Doctor's quotes are shown with the original Korean underneath.",
+  "lang": "en",
+  "reviewed": false,
+
+  "seo": {
+    "title": "Double Eyelid Surgery in Seoul | Natural Adhesion (Buried Suture), 10 Minutes | Dr. Kim Sang-ho, Rococo Plastic Surgery",
+    "description": "Natural adhesion (buried suture) double eyelid surgery takes about 10 minutes under sedation. Buried vs. incisional vs. partial incision, loosening, fold depth, recovery.",
+    "h1": "Double Eyelid Surgery: Natural Adhesion (Buried Suture) Method"
+  },
+
+  "hero": {
+    "eyebrow": "DOUBLE EYELID · NATURAL ADHESION",
+    "question": "How is natural adhesion (buried suture) double eyelid surgery done?",
+    "summary": "The most common double eyelid surgery — the natural adhesion method — takes about 10 minutes, done while awake after a local anesthetic injection given under sedation, and there is no pain at all.",
+    "stats": ["Surgery time", "Recovery period"],
+    "units": ["min", "days"],
+    "case_caption": "Double eyelid surgery (natural adhesion method)",
+    "case_alt": "Natural adhesion double eyelid surgery before and after"
+  },
+
+  "features": {
+    "type": "TYPE · DOUBLE EYELID",
+    "toc": "Buried · incisional · partial incision",
+    "title": "Three methods of double eyelid surgery",
+    "items": [
+      "Rococo's buried suture double eyelid uses a four-point fixation buried suture method, so the chance of it loosening is very low compared with other buried suture methods.",
+      "Rococo's incisional double eyelid uses radiofrequency to make the incisions in the muscle and inner tissue, so damage to surrounding tissue and bleeding are very low, swelling is correspondingly less, and it has the advantage of a quick return to daily life.",
+      "It is done through an incision of about 1 cm in the middle of the eye and combines the advantages of the incisional and buried suture methods; it is a good method mainly when there is no sagging skin so the buried suture method is possible but there is so much fat that a large amount needs to be removed, or when someone is uneasy about the buried suture method and wants an incision."
+    ],
+    "note": "In eye surgery, my principle is to create results that are as natural as possible."
+  },
+
+  "story": {
+    "title": "Dr. Kim's notes",
+    "blocks": [
+      {
+        "heading": "The surgery that can change a face the most",
+        "paras": [
+          "In most cases, I think the single surgery that can change a face the most is double eyelid surgery.",
+          "The natural adhesion method in particular has the advantages that only needle-hole-sized scars remain, which become barely noticeable over time, and that the surgery time is short, so there is very little swelling or bruising and recovery is correspondingly quick.",
+          "And if, by any chance, you don't like the result, the double eyelid can simply be released to restore the original state, which is also a considerable advantage."
+        ]
+      },
+      {
+        "heading": "Same height, different depth",
+        "paras": [
+          "When I look at the photos people bring to double eyelid consultations saying they want eyes like these.., most show a refreshing double eyelid with a long distance between the eye and eyebrow, thin skin, and a shallow line.",
+          "The more the eyelid droops (because there is a lot of skin, or the eyebrows have come down a lot), the deeper the double eyelid has to be to create a fold of a given height."
+        ]
+      },
+      {
+        "heading": "When there is a lot of sagging skin, a double eyelid alone isn't the answer",
+        "paras": [
+          "Your eyebrows have come down a lot, but you want a double eyelid that isn't too strong? In that case you must have a surgery called a forehead lift. If there is a lot of sagging skin and you try to solve it with double eyelid surgery, the only option is a deep double eyelid, so it becomes very strong and looks artificial, and the change from your existing impression is too great.",
+          "When the distance between the eyebrow and the eye is sufficient but the eyelid looks very droopy because there is a lot of eyelid skin.. there is the option of double eyelid surgery with skin removal so that the fold doesn't become too deep, and there is also a surgery called a sub-brow lift."
+        ]
+      },
+      {
+        "heading": "Eye surgery was originally my specialty",
+        "paras": [
+          "Occasionally during consultations people ask me, \"Don't you do eye surgery?\"",
+          "After obtaining my specialist license, for about 3 years I specialized almost exclusively in eye surgery and performed quite a lot of cases, and since then I have been doing whole-face plastic surgery, including rhinoplasty, facial contouring and facelifts.",
+          "Looking back on my surgeries over the past year, roughly 20–30% of them are eye surgeries,"
+        ]
+      }
+    ]
+  },
+
+  "method": {
+    "title": "Surgical steps",
+    "steps": [
+      "Anesthesia: sedation",
+      "Surgery time: 10 minutes",
+      "The natural adhesion method in particular has the advantage that only needle-hole-sized scars remain, which become barely noticeable over time,",
+      "Recovery period: 2 days",
+      "Face washing and makeup: from the day after surgery"
+    ],
+    "note": "Natural adhesion double eyelid + no-crease ptosis correction = non-incisional ptosis correction.",
+    "pros_cons": [
+      "Although it is a buried suture method, the chance of it loosening is extremely low.",
+      "I recommend an incisional double eyelid when there is a lot of sagging skin, when the structure of the eye makes it hard to create a nice line with the buried suture method, or when a buried suture double eyelid has come loose two or more times."
+    ]
+  },
+
+  "recovery": {
+    "title": "Recovery",
+    "items": [
+      {"label": "Day of surgery", "lines": ["The most common double eyelid surgery — the natural adhesion method — takes about 10 minutes, done while awake after a local anesthetic injection given under sedation, and there is no pain at all."]},
+      {"label": "Next day", "lines": ["Face washing and makeup: from the day after surgery"]},
+      {"label": "2 days", "lines": ["Recovery period: 2 days"]},
+      {"label": "2 weeks", "lines": ["This is a photo 2 weeks after surgery.", "After this, as the residual swelling goes down a bit more, the eyes look even more natural."]}
+    ],
+    "note": "The surgery time is short, so there is very little swelling or bruising, and recovery is correspondingly quick."
+  },
+
+  "before_after": {
+    "title": "Natural adhesion (buried suture) double eyelid: before and after",
+    "alt": "Natural adhesion double eyelid surgery before and after",
+    "labels": [
+      "Four-point fixation buried suture",
+      "2 weeks (with under-eye aegyo-sal filler)",
+      "Day 2 (with lower eyelid lowering and rhinoplasty)",
+      "Low line (with epicanthoplasty and lateral canthoplasty)",
+      "Buried suture (with epicanthoplasty and lateral canthoplasty)",
+      "Double eyelid (with epicanthoplasty and lateral canthoplasty)",
+      "Revision · in-fold to out-fold",
+      "Buried suture revision after incisional surgery"
+    ]
+  },
+
+  "logs": {
+    "title": "Case notes by Dr. Kim",
+    "tags": ["Overview", "Surgery time · pain", "Depth of the double eyelid", "With a forehead lift", "Eye revision", "Incisional double eyelid (skin removal)"]
+  },
+
+  "faq": [
+    {"q": "Doesn't the buried suture method come loose?",
+     "a": "Rococo's buried suture double eyelid uses a four-point fixation buried suture method, so the chance of it loosening is very low compared with other buried suture methods. I recommend an incisional double eyelid when there is a lot of sagging skin, when the structure of the eye makes it hard to create a nice line with the buried suture method, or when a buried suture double eyelid has come loose two or more times."},
+    {"q": "Does it leave a scar?",
+     "a": "Because the double eyelid line is made with the natural adhesion method, only needle-hole-sized scars remain, which in most cases are also barely noticeable."},
+    {"q": "Can it be done without looking operated on, for men too?",
+     "a": "Some men avoid surgery altogether, thinking a double eyelid will make them look greasy.. but for men the surgery is mostly done as an inner (hidden) double eyelid, so it can be done so that it barely looks operated on. The eyes become bigger very naturally, the impression becomes clearer, and they look more confident and more handsome."},
+    {"q": "What if I don't like the result?",
+     "a": "And if, by any chance, you don't like the result, the double eyelid can simply be released to restore the original state, which is also a considerable advantage."}
+  ],
+
+  "related": ["Ptosis correction", "Canthoplasty", "Sub-brow lift", "Endoscopic forehead lift", "Fat grafting for hollow eyes", "Lower eyelid fat repositioning"]
+}

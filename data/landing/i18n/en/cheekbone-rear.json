@@ -1,0 +1,128 @@
+{
+  "_comment": "English translation of data/landing/cheekbone-rear.json (AI draft by Claude, 2026-10-20 — needs review by a native speaker / coordinator before launch). Sentences only: numbers, photos and source links come from the Korean data. Doctor's quotes are shown with the original Korean underneath.",
+  "lang": "en",
+  "reviewed": false,
+
+  "seo": {
+    "title": "Rear Cheekbone Reduction in Seoul | Bulging Bone in Front of the Sideburns | Dr. Kim Sang-ho, Rococo Plastic Surgery",
+    "description": "The \"rear cheekbone\" is bone bulging like a lump at the sideburns in front of the ear. When reducing it helps, how it is done, its limits, scars and recovery.",
+    "h1": "Rear Cheekbone Reduction"
+  },
+
+  "hero": {
+    "eyebrow": "REAR CHEEKBONE · ZYGOMATIC ARCH",
+    "question": "How is rear cheekbone reduction done?",
+    "summary": "Among various unusual shapes, some people have a bulge that sticks out like a lump at the sideburn area right in front of the ear.. Patients call this area the \"rear cheekbone\".",
+    "stats": ["Surgery time (both sides)", "Return to daily life", "Until the scar fades to a faint line"],
+    "units": ["min", "days", "months"],
+    "case_caption": "How much softer does the facial line get after rear cheekbone reduction?",
+    "case_alt": "Rear cheekbone reduction before and after"
+  },
+
+  "features": {
+    "type": "TYPE · REAR CHEEKBONE",
+    "toc": "When it is needed",
+    "title": "In fact, in most patients that rear cheekbone area is not very noticeable.",
+    "items": [
+      "When the skin over the rear cheekbone is thin and the rear cheekbone pops out as a bulge, I recommend having rear cheekbone reduction together with modified 15-minute cheekbone reduction.",
+      "On an X-ray it looks like it bulges out like that, but the flesh actually covering that area is quite thick, so it doesn't look bulging from the outside.",
+      "However, when the flesh covering that bone is thin, or the surrounding tissue can't wrap around it, people whose rear cheekbone pops out like a lump can see a good effect from rear cheekbone reduction."
+    ],
+    "note": "So rear cheekbone reduction is not a surgery that helps in every case."
+  },
+
+  "story": {
+    "title": "Dr. Kim's notes",
+    "blocks": [
+      {
+        "heading": "What is the \"rear cheekbone\"?",
+        "paras": [
+          "It is not an official term. Anatomically speaking, it is the root portion of the zygomatic process of the temporal bone..",
+          "Sometimes the rear cheekbone remains after cheekbone reduction, making the cheekbone reduction less effective, or in severe cases.. the rear cheekbone stands out as a bulge, like a lump."
+        ]
+      },
+      {
+        "heading": "It isn't often a must",
+        "paras": [
+          "Over the countless cheekbone reductions I have performed, there have not been that many cases where I thought the rear cheekbone really should be included. Rou~ghly, maybe about 5–10%..",
+          "So in which rear cheekbone shapes does rear cheekbone reduction help.. You can think of it as giving a good effect in people whose cheekbone at the sideburn area (rear cheekbone) sticks out unusually, like a lump."
+        ]
+      },
+      {
+        "heading": "The face doesn't change as much as the bone is reduced",
+        "paras": [
+          "Personally, I think not that many people need rear cheekbone reduction. In most cases the rear cheekbone area is not much different from the width of the skull and is covered with thick flesh, so even if you reduce it, there is almost no change on the outside. In other words, reducing the rear cheekbone a lot on an X-ray does not necessarily change your face in the mirror from the front by that much. So I recommend the surgery only to those who really need it."
+        ]
+      },
+      {
+        "heading": "How I decide these days",
+        "paras": [
+          "So these days, when the rear cheekbone can be felt to some degree and is visible from the outside, I perform it for anyone who wants it. Before, I only operated on people whose rear cheekbone stuck out quite a lot."
+        ]
+      }
+    ]
+  },
+
+  "method": {
+    "title": "Surgical steps",
+    "steps": [
+      "It is a simple surgery that takes about 15 minutes under sedation.",
+      "An incision of about 1.5–2 cm is made behind the sideburns, and the rear cheekbone area is smoothed through it.",
+      "For those who want rear cheekbone reduction, I smooth only the red-marked border area.",
+      "Because the jaw joint has to be protected, it cannot be made completely flat, so a slight bulging feel may remain after surgery,",
+      "but in people whose bone sticks out a lot, a noticeably softer change can still be made."
+    ],
+    "note": "To remove the rear cheekbone, a bone-shaving instrument called a burr is usually used, but in the area of the incision in front of the ear there is the facial nerve going to the forehead and a very large artery running up from the neck to the scalp, so there is a risk of damaging these important structures when using a burr. That is why I remove the bone of the rear cheekbone very safely using an instrument I designed myself.",
+    "pros_cons": [
+      "That rear cheekbone area is a very important part that makes up part of our jaw joint (temporomandibular joint). Part of the joint capsule surrounding the jaw joint is attached to the rear cheekbone, so if all the bone is removed as in the photo above, jaw joint problems can develop.",
+      "In cases where this could affect the result, I explain it in advance during the consultation: that the skull bone may remain and be noticeable after surgery.."
+    ]
+  },
+
+  "recovery": {
+    "title": "Recovery",
+    "items": [
+      {"label": "3–5 days", "lines": ["The swelling is not that severe, so most patients return to daily life within 3–5 days."]},
+      {"label": "2 weeks", "lines": ["2 weeks after modified 15-minute cheekbone reduction + rear cheekbone reduction. You can see the rear cheekbone area has been reduced quite a lot."]},
+      {"label": "3 weeks", "lines": ["The side cheekbone and rear cheekbone that stuck out on the right side of the face were smoothed out with modified 15-minute cheekbone reduction + rear cheekbone surgery. As the residual swelling goes down further, the line becomes even slimmer."]},
+      {"label": "6–12 months", "lines": ["How much of a scar remains varies from person to person, but after about 6–12 months it mostly remains only as a faint line that is hardly noticeable, so you don't need to worry particularly about the scar."]},
+      {"label": "1 year", "lines": ["Residual swelling goes down for up to a year, so the volume of the cheekbone area decreases further after that."]}
+    ],
+    "note": "The scar usually remains as a thin line and keeps fading over time, and in most cases it is hardly noticeable."
+  },
+
+  "before_after": {
+    "title": "Rear cheekbone reduction: before and after",
+    "alt": "Rear cheekbone reduction before and after",
+    "labels": [
+      "Side, 3 weeks",
+      "Side, 3 weeks",
+      "Side, 3 weeks (left)",
+      "Side, 2 weeks",
+      "Side, 2½ weeks",
+      "Oblique, 3 weeks",
+      "From above, 3 weeks",
+      "From below, 3 weeks"
+    ]
+  },
+
+  "logs": {
+    "title": "Case notes by Dr. Kim",
+    "tags": ["Overview", "Who it suits", "Limits", "X-ray · safety", "Scars", "With quick cheekbone reduction"]
+  },
+
+  "faq": [
+    {"q": "How much of a scar does rear cheekbone reduction leave?",
+     "a": "Rear cheekbone reduction is done through a vertical incision of about 1.5–2 cm at the border behind the sideburns. So a thin linear scar remains; how much of a scar remains varies from person to person, but after about 6–12 months it mostly remains only as a faint line that is hardly noticeable, so you don't need to worry particularly about the scar."},
+    {"q": "How much can the rear cheekbone be reduced?",
+     "a": "This varies so much between individuals that it is hard to give a definite answer. In other words, reducing the rear cheekbone a lot on an X-ray does not necessarily change your face in the mirror from the front by that much."},
+    {"q": "Does everyone need the rear cheekbone reduced?",
+     "a": "First of all, rear cheekbone reduction does not help in every case. The surgery is meaningful for people whose bone at the sideburn area sticks out unusually, like a lump."},
+    {"q": "Can the rear cheekbone be removed completely?",
+     "a": "Even with rear cheekbone reduction, there is a limit to how much can be reduced in order to protect the jaw joint, so it cannot be removed completely; I reduce it only to the extent of smoothing it out."},
+    {"q": "I had cheekbone reduction at another clinic and the rear cheekbone remains. Can I have surgery on just the rear cheekbone?",
+     "a": "For rear cheekbone reduction, the side cheekbone first has to be pushed in sufficiently. Rear cheekbone reduction cannot be done when the side cheekbone has not been reduced enough. So for those who come after surgery at another clinic with insufficient side cheekbone reduction, I perform rear cheekbone reduction together with revision cheekbone surgery, and when another clinic has separately fixed the back part of the zygomatic arch with plates and screws, I remove the plates and screws and reduce the rear cheekbone at the same time."}
+  ],
+
+  "related": ["15-minute cheekbone reduction", "Revision cheekbone surgery", "Deep cheek · temple fat grafting", "Cheekbone-line liposuction", "Types of cheekbone reduction and how to choose (guide)", "Cheekbone reduction results by face shape (guide)"]
+}

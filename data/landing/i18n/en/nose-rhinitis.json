@@ -1,0 +1,133 @@
+{
+  "_comment": "English translation of data/landing/nose-rhinitis.json (AI draft by Claude, 2026-10-20 — needs review by a native speaker / coordinator before launch). Sentences only: numbers, photos and source links come from the Korean data. Doctor's quotes are shown with the original Korean underneath.",
+  "lang": "en",
+  "reviewed": false,
+
+  "seo": {
+    "title": "Rhinitis Surgery in Seoul | Deviated Septum, Turbinate Reduction, With Rhinoplasty | Dr. Kim Sang-ho, Rococo Plastic Surgery",
+    "description": "\"Rhinitis surgery\" widens an airway narrowed by the septum or inferior turbinates. Turbinate reduction, combining it with rhinoplasty, and recovery, with endoscopic photos.",
+    "h1": "Rhinitis Surgery (Nasal Airway Surgery)"
+  },
+
+  "hero": {
+    "eyebrow": "RHINITIS SURGERY · NASAL AIRWAY",
+    "question": "How is rhinitis surgery done?",
+    "summary": "What is called \"rhinitis surgery\" usually refers to surgery that corrects an air passage narrowed by the septum or the inferior turbinates.",
+    "stats": ["Surgery time", "Recovery period", "Years performing rhinitis surgery (as of a 2019 post)"],
+    "units": ["min", "days", "years"],
+    "case_caption": "Rhinitis surgery (partial inferior turbinate resection)",
+    "case_alt": "Rhinitis surgery before and after, endoscopic view"
+  },
+
+  "features": {
+    "type": "CAUSE · NASAL OBSTRUCTION",
+    "toc": "Causes of nasal obstruction",
+    "title": "When breathing through the nose is hard because the air passage is narrow, there are several possible causes.",
+    "items": [
+      "Sometimes breathing is hard because the area near the nostrils is narrowed; in that case, what is needed is not rhinitis surgery but surgery that can widen the nostril area.",
+      "What is called \"rhinitis surgery\" usually refers to surgery that corrects an air passage narrowed by the septum or the inferior turbinates.",
+      "Among these, the representative surgery is partial inferior turbinate reduction, which reduces a structure called the inferior turbinate when it has become much enlarged."
+    ],
+    "note": "\"Rhinitis surgery\" is not an official name for a surgery."
+  },
+
+  "story": {
+    "title": "Dr. Kim's notes",
+    "blocks": [
+      {
+        "heading": "Rhinitis surgery is not one fixed operation",
+        "paras": [
+          "\"Rhinitis surgery\" does not refer to one specific, exact surgery either.",
+          "There is SMR, Sub-Mucosal Resection, a surgery that removes the septal cartilage except for the main beam called the L-strut. Originally, this partial septal resection could be called the representative rhinitis surgery.",
+          "A surgery called partial inferior turbinate resection is also called rhinitis surgery. I have posted about it several times on my blog; it reduces the size of the bulging lumps on both sides of the septum.",
+          "Doing only number 1 can be called having rhinitis surgery.., and doing only number 2 can also be called having rhinitis surgery. Doing 1 + 2 at the same time is also rhinitis surgery."
+        ]
+      },
+      {
+        "heading": "Deviated septum and enlarged inferior turbinates",
+        "paras": [
+          "The space inside the nose is a pear-shaped passage. Think of this space as a tunnel; there is a wall in the middle of the tunnel, and that is the septum.",
+          "The ball-like structures attached on both sides of the septum are called the inferior turbinates (inferior nasal concha). I drew them as round shapes because it is a cross-section, but in reality they are shaped like a long cucumber or eggplant.",
+          "The septum in the middle has shifted to one side. This is called a deviated septum (septal deviation); as the septum shifted to one side, it came into contact with the inferior turbinate on that side. If the space between them is too narrow or they touch, breathing becomes difficult.",
+          "Even if the septum is straight, the nose gets blocked like that if the inferior turbinates become too enlarged."
+        ]
+      },
+      {
+        "heading": "Rhinoplasty and rhinitis surgery together",
+        "paras": [
+          "Surgery number 1 cuts out part of the septum and discards it; if, instead of discarding the removed septum, it is fixed to the remaining main beam to raise the nasal tip, this is called a \"septal extension\".",
+          "In other words, if the tip is raised with a septal extension, you end up having had rhinitis surgery even without intending to.",
+          "Most of the implant-free hump nose surgeries I have posted on my blog use septal extension, so those patients effectively had rhinitis surgery as well."
+        ]
+      },
+      {
+        "heading": "Nasal obstruction is a personal feeling",
+        "paras": [
+          "In cases like this, first of all, the patient has never thought they had rhinitis. In other words, they are not someone who usually suffers from a blocked nose.",
+          "Nasal obstruction is not something that can be clearly defined either. It is just a personal feeling. Even if the nostrils are physically blocked, a patient who doesn't usually feel the discomfort of a blocked nose and lives well can simply go on living that way without any problem.",
+          "There is also empty nose syndrome, in which the nasal passages are physically wide open, yet the person feels nasal obstruction and complains that they cannot live like this.."
+        ]
+      }
+    ]
+  },
+
+  "method": {
+    "title": "Surgical steps",
+    "steps": [
+      "The surgery basically corrects the internal septal deviation,",
+      "removes part of the bone of the inferior turbinate,",
+      "and the remaining bone is micro-fractured and pushed outward (outfracture).",
+      "The thickened mucosa is reduced using radiofrequency."
+    ],
+    "note": "Many clinics do only number 3 (reducing the mucosal volume) during rhinitis surgery, which is why it often recurs.",
+    "pros_cons": [
+      "Recently a viewer left a comment on our clinic's YouTube channel saying.. that septoplasty makes breathing easier for everyone, roughly, so I told them that this is not always the case.",
+      "I have also been performing rhinitis surgery and following the results for about 13 years, and from my experience and that of the doctors around me, reducing only the mucosa with a laser or radiofrequency has quite a high chance of recurrence. The bony part of the inferior turbinate must also be reduced to get a good result without recurrence."
+    ]
+  },
+
+  "recovery": {
+    "title": "Recovery",
+    "items": [
+      {"label": "Recovery period", "lines": ["Recovery period: 3 days"]},
+      {"label": "1 month", "lines": ["This is a photo one month after rhinitis surgery. You can see the space inside the nose has widened."]},
+      {"label": "6 weeks", "lines": ["Before surgery and 6 weeks after. The bulging lump on the outer side of the right nostril has flattened, and you can see the air passage has widened. The mucosa of the inferior turbinate is well preserved."]},
+      {"label": "2 months", "lines": ["Endoscopic findings before surgery and 2 months after. Just looking at it, it feels like you can breathe wide open. Of course the patient was really pleased."]},
+      {"label": "3 months", "lines": ["Cases where, after rhinoplasty, the mucosa swells more because of surgical swelling, so symptoms similar to allergic rhinitis can appear temporarily, and this is mistaken for allergic rhinitis having developed", "In the second case, after about 3 months the mucosal swelling goes down a lot, and the allergy-like symptoms also disappear."]}
+    ],
+    "note": "After partial inferior turbinate reduction, the patient was very happy that breathing had become much easier."
+  },
+
+  "before_after": {
+    "title": "Rhinitis surgery: endoscopic before and after",
+    "alt": "Rhinitis surgery before and after, endoscopic view",
+    "labels": [
+      "Both sides · 1 month",
+      "Right · 6 weeks",
+      "Right · 6 weeks",
+      "Left · 6 weeks",
+      "Both sides · 2 months",
+      "Top: before · bottom: after"
+    ]
+  },
+
+  "logs": {
+    "title": "Case notes by Dr. Kim",
+    "tags": ["Overview", "Septum · inferior turbinates", "Surgical method", "Rhinoplasty and rhinitis", "Combined with rhinoplasty", "Questions about side effects"]
+  },
+
+  "faq": [
+    {"q": "I don't have rhinitis, but a clinic suggested doing rhinitis surgery along with my rhinoplasty.",
+     "a": "In conclusion, I recommend not having surgery at a clinic that suggests rhinitis surgery. However, this is something that could be considered: when the rhinoplasty plan shows that raising the tip will narrow the airway, so breathing discomfort is expected. In such a case, reducing the size of the inferior turbinates preventively, or doing a surgery like this at the same time, could have the meaning of lowering the chance of breathing discomfort."},
+    {"q": "Can I have rhinitis surgery on its own?",
+     "a": "Most rhinitis surgeries are done at the same time as rhinoplasty, only for those who want it, and occasionally rhinitis surgery is done on its own."},
+    {"q": "Can rhinitis develop after rhinoplasty?",
+     "a": "For the statement \"I got rhinitis after rhinoplasty..\" to be \"true\", it would have to be that rhinoplasty caused \"allergic rhinitis\", but allergy is a condition that modern medicine cannot yet cure, and that cannot be created even if you try. So \"it is impossible for rhinoplasty to cause allergic rhinitis.\""},
+    {"q": "Can the nasal tip sink after deviated septum or rhinitis surgery?",
+     "a": "To give just the conclusion.. it is possible, but it very rarely happens in practice. Cases where such a problem is created in clinical practice would be extremely rare, and I think I see such a problem arise during surgery only about once every few years. And even when a saddle nose develops because of such a problem, there are ways to correct it, so you don't need to worry too much."},
+    {"q": "In winter, my operated nose gets blocked and I get nosebleeds.",
+     "a": "Patients come in worried that something may have gone wrong at the surgical site, but as always, in most cases it is simply a symptom of the weather getting dry in winter. When the weather is dry, the inside of the nose also dries out, so there is a lot of crust that often blocks the nose, and the nasal mucosa dries and cracks, so nosebleeds happen easily. It is not a nosebleed that streams out; usually it is just a little blood that comes off."}
+  ],
+
+  "related": ["Septal cartilage rhinoplasty", "Hump nose", "Osteotomy", "Revision rhinoplasty", "Rib cartilage rhinoplasty", "Male rhinoplasty"]
+}

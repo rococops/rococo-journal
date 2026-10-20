@@ -1,0 +1,139 @@
+{
+  "_comment": "English translation of data/landing/forehead-endoscopic.json (AI draft by Claude, 2026-10-20 — needs review by a native speaker / coordinator before launch). Sentences only: numbers, photos and source links come from the Korean data. Doctor's quotes are shown with the original Korean underneath.",
+  "lang": "en",
+  "reviewed": false,
+
+  "seo": {
+    "title": "Endoscopic Forehead Lift in Seoul | Drooping Brows, Forehead Wrinkles, Recovery | Dr. Kim Sang-ho, Rococo Plastic Surgery",
+    "description": "An endoscopic forehead (brow) lift raises the whole forehead, brows included, through small scalp incisions. Why brows descend, the method, how long it lasts, recovery.",
+    "h1": "Endoscopic Forehead Lift (Brow Lift)"
+  },
+
+  "hero": {
+    "eyebrow": "ENDOSCOPIC FOREHEAD LIFT · BROW LIFT",
+    "question": "How is an endoscopic forehead lift done?",
+    "summary": "A forehead lift is a surgery that lifts all of the soft tissue of the forehead, including the eyebrows, and fixes it to the underlying base.",
+    "stats": ["Surgery time (under sedation)", "Small incisions in the scalp (usually 3 · 5 in some cases)", "How long the brow-raising effect lasts (at least, in most cases)"],
+    "units": ["min", "incisions", "years+"],
+    "case_caption": "Endoscopic forehead lift",
+    "case_alt": "Endoscopic forehead lift before and after, front view"
+  },
+
+  "features": {
+    "type": "SIGNS · BROW PTOSIS",
+    "toc": "What changes when the brows descend",
+    "title": "There are characteristic changes that occur when the eyebrows move downward.",
+    "items": [
+      "Horizontal wrinkles form on the inner side,",
+      "horizontal wrinkles also form above the bridge of the nose,",
+      "and as the eyes get covered, the outer part of the eyes also droops.",
+      "In people in their 60s–70s and older, when the drooping at the outer part of the eyes gets severe, tears collect there and the skin can become raw and irritated."
+    ],
+    "note": "These wrinkles are one of the typical signs of aging, and they can never be solved with double eyelid surgery or upper blepharoplasty; the only solution is a forehead lift that raises the eyebrows again."
+  },
+
+  "story": {
+    "title": "Dr. Kim's notes",
+    "blocks": [
+      {
+        "heading": "It isn't the eyelid that droops — the brow has come down",
+        "paras": [
+          "Among the aging changes that come with age, the one that affects the double eyelid area most is the eyebrows drooping downward. People generally think \"my eyelids have drooped..\", but very little of it is the upper eyelid skin stretching and sagging down; mostly, the eyebrows as a whole move downward. For example, with a curtain, it is not that the curtain fabric stretches and sags down, but that the curtain rod above it has itself come down.",
+          "A forehead lift is the surgery that most fundamentally corrects the aging that occurs above the eyes."
+        ]
+      },
+      {
+        "heading": "Regardless of age, for faces whose brows need to go up",
+        "paras": [
+          "Many people think a forehead lift is a surgery only for older people.. but a forehead lift is a surgery that helps any face whose eyebrows need to go up, regardless of age.",
+          "After surgery the eyebrows move up compared with before; the outer end can be raised a bit more to create a slightly strong (?) look, or, as in the photo, the middle of the eyebrow can be pulled a bit more to create a softer look."
+        ]
+      },
+      {
+        "heading": "Three-point fixation, without Endotine",
+        "paras": [
+          "I am sometimes asked about its pros and cons compared with an Endotine forehead lift. I originally did Endotine forehead lifts too.. but after seeing a case presented at an academic conference in which an Endotine fixed inside had not been absorbed even after 2 years and had to be removed because it caused inflammation, I switched to a self-fixation method, and since then I have been getting good results without any other problems.",
+          "Whereas Endotine fixes 2 points, I now use 3-point fixation, which is a bit more stable and can lift the center of the forehead more securely, and not leaving any foreign material in the body is also a very big advantage."
+        ]
+      },
+      {
+        "heading": "I don't cut the frown muscle completely",
+        "paras": [
+          "Frowning means pulling the eyebrows downward; since a forehead lift is done to pull the eyebrows up, using the corrugator muscle a lot makes it at least somewhat more likely that the forehead lift will recur. For that reason, this corrugator muscle is often removed completely.",
+          "I used to operate that way too, but, similar to the person who asked, there was a patient who complained of discomfort because they could hardly make facial expressions. Even to me, their expression looked somewhat awkward when smiling and so on, so since then I don't remove the corrugator muscle completely but only damage it slightly to weaken it, and since the first 6 weeks or so after surgery is the period that affects recurrence, I recommend glabellar Botox to minimize recurrence.",
+          "I have operated this way in many cases over a long time, and since a natural degree of expression remains and there has been no particular recurrence so far, I think it is a good method."
+        ]
+      }
+    ]
+  },
+
+  "method": {
+    "title": "Surgical steps",
+    "steps": [
+      "The surgery is done under sedation and takes about 30 minutes.",
+      "Through three small incisions of about 2–3 cm in the scalp,",
+      "the forehead is dissected while viewing the inner pocket with an endoscope, and the tissue around the eyebrows is fully released,",
+      "the muscles that make you frown between the eyebrows are lightly weakened,",
+      "and the forehead is pulled up and fixed to the base with dissolvable sutures. To prevent recurrence as much as possible, it is fixed very firmly at three points using 6 loops."
+    ],
+    "note": "The fixation suture used is a suture called PDS. This suture completely dissolves and is absorbed by the body in about 6 months, so no foreign material remains after surgery.",
+    "pros_cons": [
+      "A forehead lift is the best surgery for people whose eyes and eyebrows are close together and whose upper eyelids are thick. As the eyebrows are pulled up, the thick eyelids become a little lighter.",
+      "Conversely, in eyes that were average, this can be a drawback: as the eyebrows go up, the area above the eyes can look hollow. For those who like a hollow look above the eyes it may be an advantage, but in most cases a hollow upper eyelid can look a little tired and older, so I explain this in advance before surgery and recommend having upper eyelid fat grafting at the same time."
+    ]
+  },
+
+  "recovery": {
+    "title": "Recovery",
+    "items": [
+      {"label": "Day of surgery", "lines": ["The surgery is done under sedation, so after a short sleep, the surgery is over when you wake up.", "Bleeding during surgery is very low and bleeding is thoroughly controlled, so no separate drain is placed to collect blood from the surgical site."]},
+      {"label": "Next day · 3 days", "lines": ["A bandage is wrapped around the forehead, and it is removed the day after surgery.", "The stitches at the incisions are removed on day 3 after surgery, and you can wash your hair from the day after surgery."]},
+      {"label": "5 days", "lines": ["Bruising can occur around the eyes after surgery, so skin-colored tape is applied to prevent bruising; it is best to keep this tape on for about 5 days."]},
+      {"label": "2 weeks", "lines": ["Occasionally more severe bruising appears around the eyes. When the face bruises, the bruising usually disappears in 2 weeks on average, but rarely, depending on constitution, some people have bruising that lasts longer."]},
+      {"label": "First 6 weeks", "lines": ["Since the first 6 weeks or so after surgery is the period that affects recurrence, I recommend glabellar Botox to minimize recurrence."]}
+    ],
+    "note": "If there is no bruising around the eyes, you can expect a recovery period of about 3–5 days; for people who occasionally bruise around the eyes, the bruising can last about 2 weeks."
+  },
+
+  "before_after": {
+    "title": "Endoscopic forehead lift: before and after",
+    "alt": "Endoscopic forehead lift before and after",
+    "labels": [
+      "Front, 3 weeks",
+      "Oblique, 3 weeks",
+      "Front, 1 month",
+      "Forehead wrinkles, 1 month",
+      "Front, 18 days",
+      "Side, 18 days",
+      "In her 20s, front, 5 weeks",
+      "With lower eyelid fat repositioning, 3 months"
+    ]
+  },
+
+  "logs": {
+    "title": "Case notes by Dr. Kim",
+    "tags": ["How long it lasts", "Method · before & after", "Handling the frown muscle", "Making up for hollow eyes", "With lower eyelid fat repositioning", "With forehead implant removal"]
+  },
+
+  "faq": [
+    {"q": "How long does a forehead lift last?",
+     "a": "A forehead lift is a surgery that raises a forehead that has slid down back up. In other words, it only takes you back to a somewhat younger time; it does not stop aging itself. It varies from person to person, but the forehead tissue, including the eyebrows, keeps coming down little by little; even so, in my experience, most people see the effect of raised eyebrows compared with before surgery for at least 5 years."},
+    {"q": "If the brows come down again over time, can I have revision?",
+     "a": "The result lasts at least 5 years. Aging itself can't be stopped, so after 10 or 20 years the eyebrows will come down again. At that point, revision can easily be done."},
+    {"q": "Are the scalp incision scars visible?",
+     "a": "Scars vary between individuals; in some cases they are a bit more noticeable, and in many cases they are really almost invisible. For men with short hair, the scars are somewhat more likely to be noticeable than for women."},
+    {"q": "Does the forehead get wider after surgery?",
+     "a": "As you can see in the photos, this surgery makes the forehead wider, so it gives better results in people with a narrow forehead. In people whose forehead is very wide or whose face is long overall, that aspect can be emphasized, so you should have a thorough consultation before deciding on surgery."},
+    {"q": "Can't forehead wrinkles just be smoothed with Botox?",
+     "a": "The forehead will be smoothed, but as the eyebrows drop down, the eyes get fully covered by the eyelids, so the eyes become very small and the patient feels very stuffy and closed in. Because the field of vision has narrowed.."}
+  ],
+
+  "related": ["Forehead reduction", "Sub-brow lift", "Upper & lower blepharoplasty", "Lower eyelid fat repositioning", "Fat grafting for hollow eyes", "Ptosis correction"],
+
+  "companions": [
+    {"name": "Forehead reduction",
+     "lead": "Forehead reduction is, literally, a surgery that reduces the height of the forehead in people with a wide forehead. You can think of it as a similar surgery done in the opposite direction to a forehead lift."},
+    {"name": "Sub-brow lift",
+     "lead": "When the eyelids droop, for eyes without a double eyelid you can consider double eyelid surgery or upper blepharoplasty; for eyes with a double eyelid, if the distance between the eye and eyebrow is short, a forehead lift is the best surgery, and if the distance between the eye and eyebrow is long, a sub-brow lift can be considered first."}
+  ]
+}

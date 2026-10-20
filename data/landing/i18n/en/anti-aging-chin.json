@@ -1,0 +1,141 @@
+{
+  "_comment": "English translation of data/landing/anti-aging-chin.json (AI draft by Claude, 2026-10-20 — needs review by a native speaker / coordinator before launch). Sentences only: numbers, photos and source links come from the Korean data. Doctor's quotes are shown with the original Korean underneath.",
+  "lang": "en",
+  "reviewed": false,
+
+  "seo": {
+    "title": "Chin Augmentation in Seoul | Weak Chin Implant via Small Intraoral Incision | Dr. Kim Sang-ho, Rococo Plastic Surgery",
+    "description": "A retruded (weak) chin makes the mouth look protruding and the face unbalanced. Chin implant surgery under sedation through the mouth: method, fixation, recovery.",
+    "h1": "Chin Augmentation (Weak Chin Surgery)"
+  },
+
+  "hero": {
+    "eyebrow": "CHIN AUGMENTATION · WEAK CHIN",
+    "question": "How is weak chin surgery done?",
+    "summary": "Some people don't know what a retruded chin is: it is when the tip of the chin does not project forward enough and sits back, and in that case the mouth above the chin looks relatively protruding.",
+    "stats": ["Surgery time (under sedation)", "Recovery period (in most cases)", "Weak chin corrections performed (as of a 2011 post)"],
+    "units": ["min", "days", "+ cases"],
+    "case_caption": "Correcting a retruded chin to fix a protruding-looking mouth",
+    "case_alt": "Chin augmentation before and after, side view"
+  },
+
+  "features": {
+    "type": "SIGNS · CHIN",
+    "toc": "Downsides of a weak chin",
+    "title": "Among Koreans, there are really many cases where the face looks less attractive because the front of the chin lacks volume.",
+    "items": [
+      "The mouth looks like it sticks out",
+      "Facial balance breaks down — the midface stands out",
+      "Somehow the person looks sulky (you keep hearing \"Are you angry?\" when you're just sitting still)"
+    ],
+    "note": "Many people who come for cheekbone consultations have a retruded chin, and most of them don't know they have one."
+  },
+
+  "story": {
+    "title": "Dr. Kim's notes",
+    "blocks": [
+      {
+        "heading": "The forehead, nasal tip and chin need to be in harmony",
+        "paras": [
+          "During nose consultations, there are times I think, \"Weak chin surgery would do much more for you than nose surgery..\"",
+          "The main purpose of nose surgery is mostly to make the side line of the face (profile) beautiful, and the three points that determine the profile — the forehead, the nasal tip and the chin tip — must be in harmony for the overall balance to come together and make a beautiful face.",
+          "Compared with nose surgery, weak chin surgery is so simple that it is done in 5 minutes under sedation, and since it is done through a small incision inside the mouth there is no external scar, and the scar inside the mouth also becomes hard to see over time; yet the result is that people can't tell what surgery you had, but you clearly look prettier, the protruding mouth looks pushed in, and you look much more refined — a surgery with very high patient satisfaction."
+        ]
+      },
+      {
+        "heading": "Hump noses and weak chins often go together",
+        "paras": [
+          "Many people who come for rhinoplasty have a retruded chin. It often accompanies a hump nose in particular, and many people don't know they have a retruded chin. Many also say it's the first time they've even heard the term.",
+          "Various factors may be involved, but among Koreans, facial balance is broken by a \"retruded chin\" quite often.",
+          "Without having bimaxillary protrusion, the mouth looks like it sticks out because of the weak chin; in some cases the midface is emphasized so the face looks a bit fish-like, and the nose can also look longer than it really is."
+        ]
+      },
+      {
+        "heading": "Why I recommend chin surgery along with rhinoplasty",
+        "paras": [
+          "Personally.. the weak chin catches my eye more than the nose. If the main beam isn't standing properly, the details inside lose their meaning. First of all, balancing the whole face is the most important thing.",
+          "When the chin is as retruded as that, no matter how hard you work on the nose to make a work of art, when we meet people we don't look only at the nose but at the whole face, so it can only end up as a face that still lacks something. That is why I recommend weak chin surgery along with rhinoplasty. Rhinoplasty textbooks also always include a separate section on chin surgery."
+        ]
+      },
+      {
+        "heading": "Retruded chin vs. small jaw",
+        "paras": [
+          "When only the chin tip sits back it is called a retruded chin (mutuk), and when the whole jaw is set back it is called a small jaw (micrognathia).. Quite a lot of the people who visit for cheekbone reduction consultations are people whose midface, including the cheekbones, stands out relatively because of a small jaw..",
+          "Because weak chin surgery also partly corrects such a small jaw, broadly speaking it can also be seen as making protruding cheekbones somewhat less noticeable. It seems quite a lot of Koreans have this kind of small jaw.."
+        ]
+      }
+    ]
+  },
+
+  "method": {
+    "title": "Surgical steps",
+    "steps": [
+      "Under sedation,",
+      "a silicone implant is inserted through a small incision inside the mouth;",
+      "the center of the implant is placed above the periosteum,",
+      "and the two wings are placed in pockets beneath the periosteum,",
+      "which is Rococo Plastic Surgery's method of fixing it perfectly without using separate screws or the like."
+    ],
+    "note": "To make the chin look pointed from the front, after correcting the weak chin with an implant, fat grafting or filler is sometimes used to create a pointed look downward.",
+    "pros_cons": [
+      "Even for a plastic surgery specialist with a lot of experience performing weak chin surgery, cases where they could feel the chin of one of my weak chin patients and be sure whether surgery was done or not would be less than 1%.",
+      "Then what is that 1%? Very rarely there is a very severe weak chin that sits far back.. In such cases, placing the implant to match the lower end of the jawbone makes the face look long, so I fix it a little higher. Then a small border with the jawbone below may be felt.. but this would be hard to notice for anyone but a skilled specialist."
+    ]
+  },
+
+  "recovery": {
+    "title": "Recovery",
+    "items": [
+      {"label": "Day of surgery", "lines": ["There is no problem eating after surgery either."]},
+      {"label": "Stitches", "lines": ["The incision inside the mouth is closed with dissolvable sutures, so no separate stitch removal is needed."]},
+      {"label": "Day 3", "lines": ["Face washing and makeup: from day 3 after surgery"]},
+      {"label": "3–5 days", "lines": ["The recovery period is also very quick, about 3–5 days."]},
+      {"label": "1 week", "lines": ["Front view before surgery and 1 week after. There is still swelling, so it looks slightly unnatural."]}
+    ],
+    "note": "Very occasionally someone gets bruising on the chin tip, about one person a year? In that case, the bruising takes 1–2 weeks to go away."
+  },
+
+  "before_after": {
+    "title": "Chin augmentation: before and after",
+    "alt": "Chin augmentation before and after",
+    "labels": [
+      "Front, 3 weeks",
+      "From below, 3 weeks",
+      "Side, 3 weeks",
+      "Front, 1 week",
+      "Side, 1 week",
+      "Severe weak chin, side, 2 weeks",
+      "Side",
+      "Upturned nose surgery + chin augmentation, side"
+    ]
+  },
+
+  "logs": {
+    "title": "Case notes by Dr. Kim",
+    "tags": ["Hump nose and weak chin", "Weak chin overview", "Method · 3 weeks before & after", "Collected weak chin cases", "Rhinoplasty + weak chin", "Revision rhinoplasty + weak chin"]
+  },
+
+  "faq": [
+    {"q": "Won't chin surgery make my chin look long?",
+     "a": "Many people worry that the chin will look longer from the front, but depending on where the implant is fixed, it can be made not to look longer, as in the photos, and when the chin tip is too short, the implant is sometimes fixed lower to make it look slightly longer."},
+    {"q": "Can the implant be felt when I touch my chin?",
+     "a": "Even when touching the chin tip, unless someone is a plastic surgery specialist with a lot of experience in weak chin surgery, they cannot tell there is an implant."},
+    {"q": "Can weak chin surgery alone change a mouth that looks protruding?",
+     "a": "Even without separate surgery or correction for a protruding mouth, simple weak chin surgery alone makes the mouth look neater and more refined."},
+    {"q": "Can't a weak chin be filled with filler or fat grafting instead?",
+     "a": "Many people have filler or fat grafting for a weak chin, but the result is clearly inferior to an implant, and it looks quite unnatural when smiling or making expressions. Kind of a chubby feel? In severe cases it feels like the flesh is dangling."},
+    {"q": "Can the implant get infected?",
+     "a": "Although it is a surgery that uses an implant, in more than 10 years of performing it there has not been a single infection yet, and I think this is because the chin tip has thick muscle and good blood circulation."}
+  ],
+
+  "related": ["Micro fat grafting", "Filler · Botox", "Elasticum thread lift", "Hump nose surgery", "Quick cheekbone reduction (15-minute)", "Revision rhinoplasty"],
+
+  "companions": [
+    {"name": "Micro fat grafting",
+     "lead": "To increase the survival rate of fat grafting, I have used countless methods over a long time, and I am currently performing micro fat grafting with autologous blood using Lipokit, which in my experience has shown the best results. In fat grafting, the grafting process is important, but the fat harvesting process is even more important. Only when fat is harvested while destroying as few individual fat cells as possible can the grafted cells survive well."},
+    {"name": "Filler · Botox",
+     "lead": "Wrinkle improvement: good for removing forehead, glabellar and crow's feet wrinkles. The effect appears after a week and lasts about 6 months. For safety, only proven dissolvable fillers are used. Filler is used for fine facial wrinkles, nasolabial folds, under-eye aegyo-sal, and making the lips fuller."},
+    {"name": "Elasticum thread lift",
+     "lead": "There are many types of thread used for thread lifts, and among them a silicone thread called Elasticum is the strongest. Elasticum is a lifting thread made in Italy; it was imported into Korea about 5–6 years ago and is now widely used."}
+  ]
+}
