@@ -2340,3 +2340,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 @media (max-width:1024px){.lp-steps{grid-template-columns:repeat(3,1fr)}.lp-steps li:nth-child(3):after{display:none}.lp-ba{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:640px){.lp-steps{grid-template-columns:1fr 1fr;gap:1rem}.lp-steps li:after{display:none}.lp-steps li:last-child{grid-column:1/-1}.lp-h2{font-size:1.3rem}.lp-quote{padding:1rem 1.1rem}.lp-logs{grid-template-columns:1fr}}
+
+/* 일본어·중국어 대표페이지: 띄어쓰기가 없어 keep-all 이면 줄이 안 바뀜 → 글자 단위 줄바꿈 */
+html:lang(ja) body, html:lang(ja) .lp-steps li p,
+html:lang(zh) body, html:lang(zh) .lp-steps li p { word-break: normal; line-break: strict; }
+html:lang(ja) [lang="ko"], html:lang(zh) [lang="ko"] { word-break: keep-all; }
