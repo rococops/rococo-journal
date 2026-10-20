@@ -13,8 +13,8 @@
     "eyebrow": "CHIN AUGMENTATION · WEAK CHIN",
     "question": "How is weak chin surgery done?",
     "summary": "Some people don't know what a retruded chin is: it is when the tip of the chin does not project forward enough and sits back, and in that case the mouth above the chin looks relatively protruding.",
-    "stats": ["Surgery time (under sedation)", "Recovery period (in most cases)", "Weak chin corrections performed (as of a 2011 post)"],
-    "units": ["min", "days", "+ cases"],
+    "stats": ["Surgery time (under sedation)", "Recovery period (in most cases)", "Performing weak chin surgery (no infection cases)"],
+    "units": ["min", "days", "+ years"],
     "case_caption": "Correcting a retruded chin to fix a protruding-looking mouth",
     "case_alt": "Chin augmentation before and after, side view"
   },

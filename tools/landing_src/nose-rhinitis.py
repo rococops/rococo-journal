@@ -18,6 +18,12 @@ def seg(n, *ranges):
     return L.seg(P + n, *ranges)
 
 
+def keep_num(n, r):
+    """seg()와 같지만 첫 줄 머리의 '1. ' 번호를 떼지 않는다 (뒤 문단의 '1번·2번 수술'이 가리키는 대상)."""
+    first = lines(n)[r[0]]
+    return first + ' ' + seg(n, (r[0] + 1, r[1]))
+
+
 def src(n):
     return f'{P}{n}'
 
@@ -86,7 +92,7 @@ data = {
         "title": "김상호 원장 이야기",
         "blocks": [
             {"heading": "비염수술은 정해진 한 가지 수술이 아닙니다",
-             "paras": [seg('571', 24), seg('571', (25, 28)), seg('571', (29, 31)), seg('571', (32, 34))],
+             "paras": [seg('571', 24), keep_num('571', (25, 28)), keep_num('571', (29, 31)), seg('571', (32, 34))],
              "src": src('571')},
             {"heading": "비중격만곡증과 하비갑개 비대",
              "paras": [seg('288', (23, 26)), seg('288', (28, 31)), seg('288', (32, 37)), seg('288', (41, 42))],

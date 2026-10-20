@@ -57,9 +57,9 @@ data = {
 
     "features": {
         "type": "TYPE · COLUMELLA",
-        "toc": "비주말린 코의 세 가지 문제",
-        "title": L.seg(CAT + '346', (22, 23)),
-        "items": [L.seg(CAT + '346', i) for i in (25, 26, 27)],
+        "toc": "비주말린 코에 필요한 네 가지 수술",
+        "title": L.seg(CAT + '346', (79, 80)),
+        "items": [L.seg(CAT + '346', i) for i in (81, 82, 83, 84)],
         "note": L.seg(CAT + '346', (85, 88)),
         "src": CAT + '346'
     },
