@@ -2374,3 +2374,7 @@ html:lang(ja) [lang="ko"], html:lang(zh) [lang="ko"] { word-break: keep-all; }
   .gnb > ul > li.gnb-member { margin: 1rem 0 0; padding-top: 1rem; border-top: 1px solid var(--gray-200); gap: 1.25rem; }
   .gnb .gnb-member a, .gnb .gnb-member button { font-size: 14px; padding: 6px 4px; }
 }
+
+/* 외국어 대표페이지: 사진은 링크 없이 보여 주므로 호버 이동 효과 제거 */
+div.lp-ba-item:hover{border-color:var(--gray-100);transform:none}
+div.lp-hero-case:hover{transform:none}

@@ -116,7 +116,6 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
 .case-scroll::-webkit-scrollbar { height: 4px; }
 .case-scroll::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
 .case-card { flex: 0 0 160px; background: #fff; border: 1px solid #ebebeb; border-radius: 8px; overflow: hidden; text-decoration: none; display: flex; flex-direction: column; transition: box-shadow 0.15s; }
-.case-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.10); }
 .case-card img { width: 100%; height: 120px; object-fit: cover; display: block; }
 .case-no-img { width: 100%; height: 120px; background: #f5f5f5; }
 .case-card-body { padding: 0.6rem 0.75rem 0.75rem; flex: 1; display: flex; flex-direction: column; gap: 4px; }
@@ -152,10 +151,13 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
 
 
 /* LP-GUIDES */
-.proc-guides { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: -0.25rem 0 1rem; }
-.proc-guides-label { font-size: 12px; font-weight: 700; color: #888; margin-right: 2px; }
-.proc-guides a { font-size: 13px; color: #111; text-decoration: none; border: 1px solid #ddd; border-radius: 999px; padding: 5px 12px; background: #fff; }
-.proc-guides a:hover { border-color: #b8956a; color: #b8956a; }
+.proc-guides { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0.25rem 0 1.4rem; padding: 1rem 1.1rem; background: #faf6f0; border: 1px solid #ecdfcb; border-radius: 12px; }
+.proc-guides-label { flex: 0 0 100%; font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #b8956a; }
+.proc-guides a { font-size: 15px; font-weight: 700; color: #111; text-decoration: none; border: 1.5px solid #b8956a; border-radius: 999px; padding: 10px 18px; background: #fff; line-height: 1.3; transition: background .15s, color .15s; }
+.proc-guides a::after { content: " \2192"; color: #b8956a; }
+.proc-guides a:hover { background: #b8956a; color: #fff; }
+.proc-guides a:hover::after { color: #fff; }
+@media (max-width: 640px) { .proc-guides { padding: .85rem; gap: 8px; } .proc-guides a { font-size: 14px; padding: 9px 14px; } }
 /* /LP-GUIDES */
 </style>
 <script type="application/ld+json">
@@ -210,7 +212,6 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
 <body>
 
 <div class="lang-bar">
-  <a href="../">한국어</a>
   <a href="../en/">English</a>
   <a href="../ja/">日本語</a>
   <a href="../zh/" class="active">中文</a>
@@ -224,10 +225,9 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
         <li><a href="#procedures">手术项目</a></li>
         <li><a href="#doctor">院长介绍</a></li>
         <li><a href="#location">地址交通</a></li>
-        <li><a href="../cases/">手术案例</a></li>
       </ul>
     </nav>
-    <div class="lang-switcher"><button class="lang-btn" id="langBtn">🌐 GLOBAL &#9662;</button><div class="lang-dropdown" id="langDropdown"><a href="/" class="lang-option">🇰🇷 한국어</a><a href="/en/" class="lang-option">🇺🇸 English</a><a href="/ja/" class="lang-option">🇯🇵 日本語</a><a href="/zh/" class="lang-option active">🇨🇳 中文</a></div></div>
+    <div class="lang-switcher"><button class="lang-btn" id="langBtn">🌐 GLOBAL &#9662;</button><div class="lang-dropdown" id="langDropdown"><a href="/en/" class="lang-option">🇺🇸 English</a><a href="/ja/" class="lang-option">🇯🇵 日本語</a><a href="/zh/" class="lang-option active">🇨🇳 中文</a></div></div>
     <a href="mailto:rococo2015@naver.com" class="btn-consult">在线咨询</a>
   </div>
 </header>
@@ -254,70 +254,69 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
         <span class="kr">광대축소술</span>
         <h3>颧骨缩小术</h3>
       </div>
-      <a href="https://journal.rococops.com/cheekbone/" class="view-all-link" target="_blank">查看全部 →</a>
     </div>
 <!-- LP-GUIDES --><div class="proc-guides"><span class="proc-guides-label">详细介绍</span><a href="/zh/cheekbone/quick/">快速颧骨缩小术</a><a href="/zh/cheekbone/rear/">颧弓后部缩小术</a><a href="/zh/cheekbone/revision/">颧骨修复手术</a></div><!-- /LP-GUIDES -->
     <div class="case-scroll">
-      <a href="https://journal.rococops.com/cheekbone/quick/19/" class="case-card" target="_blank">
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_20190612968316724.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 83K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/cheekbone/quick/88/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_201906181553568508.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 49K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/cheekbone/quick/86/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_201907101030017445.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 45K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/cheekbone/quick/99/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_201906181593067913.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 42K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/cheekbone/quick/87/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_201906181179011726.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 41K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/cheekbone/quick/85/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_201906191497518833.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 40K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/cheekbone/quick/110/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_20190610104545674.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 35K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/cheekbone/quick/94/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_20190610296291083.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 31K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/cheekbone/quick/100/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_201906181518510395.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 29K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/cheekbone/quick/104/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_201906111942474912.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 26K</span>
         </div>
-      </a>
+      </div>
     </div>
   </div>
 
@@ -327,66 +326,65 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
         <span class="kr">코성형</span>
         <h3>鼻整形</h3>
       </div>
-      <a href="https://journal.rococops.com/nose/" class="view-all-link" target="_blank">查看全部 →</a>
     </div>
 <!-- LP-GUIDES --><div class="proc-guides"><span class="proc-guides-label">详细介绍</span><a href="/zh/nose/bulbous/">蒜头鼻手术</a><a href="/zh/nose/columella/">鼻小柱下移、鼻小柱上提手术</a><a href="/zh/nose/hump/">驼峰鼻手术</a><a href="/zh/nose/male/">男士鼻整形</a><a href="/zh/nose/osteotomy/">鼻部截骨术</a><a href="/zh/nose/revision/">鼻修复手术</a><a href="/zh/nose/rhinitis/">鼻炎手术</a><a href="/zh/nose/rib-cartilage/">自体肋软骨隆鼻</a><a href="/zh/nose/scarless/">闭合式隆鼻</a><a href="/zh/nose/septal/">鼻中隔软骨隆鼻</a></div><!-- /LP-GUIDES -->
     <div class="case-scroll">
-      <a href="https://journal.rococops.com/nose/revision/1/" class="case-card" target="_blank">
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_201906111437183758.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 33K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/nose/cat/16/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_201906121656156714.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 29K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/nose/column/388/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_202104201961068851.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 22K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/nose/bulbous/10/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_20190612732686490.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 20K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/nose/column/393/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_20210510924840177.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 20K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/nose/cat/74/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_201906211666468646.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 20K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/nose/septal/628/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/202604101035211346276915.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/nose/scarless/622/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/20251022111339296822258.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/nose/columella/625/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/202511111253201812779486.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/nose/column/621/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/20251022111339296822258.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
+      </div>
     </div>
   </div>
 
@@ -396,60 +394,59 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
         <span class="kr">콧구멍성형</span>
         <h3>鼻翼整形</h3>
       </div>
-      <a href="https://journal.rococops.com/nostril/" class="view-all-link" target="_blank">查看全部 →</a>
     </div>
 <!-- LP-GUIDES --><div class="proc-guides"><span class="proc-guides-label">详细介绍</span><a href="/zh/nostril/alar-base/">鼻翼缩小术</a><a href="/zh/nostril/alar-lowering/">鼻翼缘下移手术</a><a href="/zh/nostril/alar-raising/">鼻翼上提手术</a></div><!-- /LP-GUIDES -->
     <div class="case-scroll">
-      <a href="https://journal.rococops.com/nostril/alar-lowering/627/" class="case-card" target="_blank">
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/202604101035211346276915.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/nostril/alar-lowering/626/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/202604030856121507326462.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/nostril/reduction/623/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/20251022111339296822258.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/nostril/alar-base/624/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/20251022111339296822258.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/nostril/alar-lowering/619/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/202510151036591342987993.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/nostril/alar-lowering/617/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/202509291045251319046682.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/nostril/alar-raising/618/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/202509291045251319046682.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/nostril/alar-lowering/614/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/20250908110811562945033.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/nostril/alar-raising/610/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/20250826122842582099744.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/nostril/alar-lowering/607/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/202507081518471357725651.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
+      </div>
     </div>
   </div>
 
@@ -459,70 +456,69 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
         <span class="kr">눈성형</span>
         <h3>眼部整形</h3>
       </div>
-      <a href="https://journal.rococops.com/eye/" class="view-all-link" target="_blank">查看全部 →</a>
     </div>
 <!-- LP-GUIDES --><div class="proc-guides"><span class="proc-guides-label">详细介绍</span><a href="/zh/eye/correction/">上睑下垂矫正术</a><a href="/zh/eye/double/">自然粘连法双眼皮</a><a href="/zh/eye/incision/">开眼角手术</a></div><!-- /LP-GUIDES -->
     <div class="case-scroll">
-      <a href="https://journal.rococops.com/eye/incision/20/" class="case-card" target="_blank">
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_20190612683722009.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 75K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/eye/incision/21/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_20190612260568257.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 47K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/eye/correction/251/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_201906211302525573.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 31K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/eye/incision/23/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_20190612423566171.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 30K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/eye/correction/247/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_201906211594061148.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 29K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/eye/incision/245/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_201906211231387800.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 29K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/eye/correction/250/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_201906212099076279.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 29K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/eye/correction/242/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_201906211102990675.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 28K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/eye/incision/243/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_20190621125468281.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 28K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/eye/correction/248/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_201906211739115080.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 26K</span>
         </div>
-      </a>
+      </div>
     </div>
   </div>
 
@@ -532,63 +528,62 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
         <span class="kr">이마성형</span>
         <h3>额头整形</h3>
       </div>
-      <a href="https://journal.rococops.com/forehead/" class="view-all-link" target="_blank">查看全部 →</a>
     </div>
 <!-- LP-GUIDES --><div class="proc-guides"><span class="proc-guides-label">详细介绍</span><a href="/zh/forehead/endoscopic/">内窥镜额部提升</a></div><!-- /LP-GUIDES -->
     <div class="case-scroll">
-      <a href="https://journal.rococops.com/forehead/endoscopic/200/" class="case-card" target="_blank">
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_20190617900292767.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 25K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/forehead/endoscopic/193/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_20190617465355119.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 24K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/forehead/endoscopic/196/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_201907101520736413.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 22K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/forehead/endoscopic/620/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/20251020163927839042823.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/forehead/endoscopic/543/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/202404050853482049315349.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/forehead/endoscopic/372/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/202103081441101889647865.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/forehead/endoscopic/337/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/20200622123919357065621.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/forehead/endoscopic/321/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/202003310920171911318893.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/forehead/reduction/299/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/201911131039241744312042.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/forehead/endoscopic/277/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/201909061324121919806509.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
+      </div>
     </div>
   </div>
 
@@ -598,63 +593,62 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
         <span class="kr">동안성형</span>
         <h3>抗衰老整形</h3>
       </div>
-      <a href="https://journal.rococops.com/anti-aging/" class="view-all-link" target="_blank">查看全部 →</a>
     </div>
 <!-- LP-GUIDES --><div class="proc-guides"><span class="proc-guides-label">详细介绍</span><a href="/zh/anti-aging/chin/">下巴后缩矫正</a></div><!-- /LP-GUIDES -->
     <div class="case-scroll">
-      <a href="https://journal.rococops.com/anti-aging/blepharoplasty/241/" class="case-card" target="_blank">
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_20190621466734299.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 28K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/anti-aging/chin/30/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_201906141657268877.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 27K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/anti-aging/fat-graft/31/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/sitecontents/attach1/1_20190710625837779.jpg" alt="" loading="lazy">
         <div class="case-card-body">
           <span class="case-views">&#128065; 21K</span>
         </div>
-      </a>
-      <a href="https://journal.rococops.com/anti-aging/lifting/616/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/202509120947191319741420.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/anti-aging/fat-graft/615/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/202509120947191319741420.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/anti-aging/chin/568/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/202406211314501393522107.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/anti-aging/chin/560/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <div class="case-no-img"></div>
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/anti-aging/fat-graft/520/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/20240307130728747940493.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/anti-aging/filler-botox/513/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/20240227134746420559197.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
-      <a href="https://journal.rococops.com/anti-aging/blepharoplasty/512/" class="case-card" target="_blank">
+      </div>
+      <div class="case-card">
         <img src="https://rococops.com/files/editor/20240226113257804041124.jpg" alt="" loading="lazy">
         <div class="case-card-body">
         </div>
-      </a>
+      </div>
     </div>
   </div>
 </section>
@@ -681,11 +675,6 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
 
 <hr class="divider">
 
-<section class="cases-banner">
-  <h2>查看真实手术案例</h2>
-  <p>浏览金相浩院长亲笔撰写的手术专栏与真实案例照片。</p>
-  <a href="../cases/">查看手术案例 →</a>
-</section>
 
 <hr class="divider">
 
@@ -693,7 +682,7 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
   <p class="section-title">预约咨询</p>
   <p class="section-sub">所有咨询均由金相镐院长亲自主持，不设中间人</p>
   <div class="consult-grid">
-    <a href="https://journal.rococops.com/counsel/" class="consult-card">
+    <a href="mailto:rococo2015@naver.com" class="consult-card">
       <div class="consult-icon">&#9993;&#65039;</div>
       <h3>在线咨询表格</h3>
       <p>请发送您的问题和照片，我们将在1-2个工作日内通过邮件回复。</p>
@@ -774,7 +763,6 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
     </div>
     <div class="footer-col">
       <p class="footer-title">语言</p>
-      <p><a href="../" style="color:#aaa;">한국어</a></p>
       <p><a href="../en/" style="color:#aaa;">English</a></p>
       <p><a href="../ja/" style="color:#aaa;">日本語</a></p>
       <p><a href="../zh/" style="color:#fff;font-weight:700;">中文</a></p>

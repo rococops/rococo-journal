@@ -2,7 +2,8 @@
 
 - 번역 파일: data/landing/i18n/{lang}/{cat}-{sub}.json  (문장만. 숫자·사진·출처 링크는 한국어 데이터에서 가져옴)
 - 원장님 인용(원장 이야기)은 번역문 아래에 '한국어 원문'을 접어서 그대로 보여 준다(번역이 원문과 어긋날 위험 보완).
-- 케이스 글은 번역하지 않는다. 사진·사례 카드는 한국어 글로 연결하고 '(한국어)'로 표시.
+- 케이스 글은 번역하지 않는다. 한국어 페이지로 가는 링크는 하나도 두지 않는다(2026-10-23 결정):
+  사진은 링크 없이 보여 주고, 출처 링크·케이스 노트·전체 케이스 버튼·한국어 언어 선택은 뺀다.
 - 번역 파일의 문장 개수가 한국어 데이터와 다르면 멈춘다(구조 대조).
 
 사용: python tools/build_landing_i18n.py                (번역 파일 전체)
@@ -25,7 +26,7 @@ UI = {
         'faq': 'Frequently asked questions', 'cases': 'All cases', 'consult': 'Book a consultation', 'see_ba': 'See before & after',
         'by': 'Dr. Kim Sang-ho · Rococo Plastic Surgery', 'src': "From Dr. Kim's column (Korean) →",
         'orig': 'Read the original (Korean)', 'cite': '— Dr. Kim Sang-ho',
-        'disclaimer': 'Results vary from person to person. Tap a photo to open the full case (in Korean).',
+        'disclaimer': 'Results vary from person to person.',
         'log_by': "Dr. Kim's case note (Korean) · Read →", 'related': 'Related procedures', 'case': 'CASE',
         'case_more': 'See the case (Korean) →', 'cases_title': 'Every case, in Dr. Kim\'s own words',
         'cases_desc': 'The full case archive is written in Korean. Your browser can translate it automatically.',
@@ -38,7 +39,7 @@ UI = {
         'faq': 'よくある質問', 'cases': 'すべての症例', 'consult': 'カウンセリング予約', 'see_ba': '術前術後を見る',
         'by': 'キム・サンホ院長 · ロココ整形外科', 'src': 'キム院長のコラムより（韓国語）→',
         'orig': '原文（韓国語）を見る', 'cite': '— キム・サンホ',
-        'disclaimer': '結果には個人差があります。写真をタップすると症例ページ（韓国語）が開きます。',
+        'disclaimer': '結果には個人差があります。',
         'log_by': 'キム院長の症例記録（韓国語）· 見る →', 'related': '関連する施術', 'case': 'CASE',
         'case_more': '症例を見る（韓国語）→', 'cases_title': 'すべての症例を院長自身の言葉で',
         'cases_desc': '症例アーカイブは韓国語です。ブラウザの自動翻訳でお読みいただけます。',
@@ -51,7 +52,7 @@ UI = {
         'faq': '常见问题', 'cases': '全部病例', 'consult': '预约咨询', 'see_ba': '查看术前术后',
         'by': '金相浩院长 · 洛可可整形外科', 'src': '摘自金院长专栏（韩语）→',
         'orig': '查看原文（韩语）', 'cite': '— 金相浩',
-        'disclaimer': '效果因人而异。点击照片可查看完整病例（韩语）。',
+        'disclaimer': '效果因人而异。',
         'log_by': '金院长病例记录（韩语）· 查看 →', 'related': '相关项目', 'case': 'CASE',
         'case_more': '查看病例（韩语）→', 'cases_title': '每一个病例，都是院长亲笔记录',
         'cases_desc': '病例档案为韩语，可使用浏览器自动翻译阅读。',
@@ -107,7 +108,7 @@ def render(lang, key):
     check_shape(ko, t, key, lang)
     page = ko['page'].strip('/')
     url = f'{SITE}/{lang}/{page}/'
-    src_link = lambda s: f'<a class="lp-src" href="{kr(s)}">{e(U["src"])}</a>'
+    src_link = lambda s: ''  # 한국어 칼럼 출처 링크는 두지 않는다
     paras = lambda lst: ''.join(f'<p>{e(p)}</p>' for p in lst)
     h, th = ko['hero'], t['hero']
 
@@ -134,10 +135,10 @@ def render(lang, key):
       </div>
       <p class="lp-hero-by">{e(U["by"])}</p>
     </div>
-    <a class="lp-hero-case{stack}" href="{kr(case["src"])}">
+    <div class="lp-hero-case{stack}">
       <img src="{e(case["image"])}" alt="{e(th.get("case_alt", t["before_after"]["alt"]))}" loading="eager">
-      <div class="lp-hero-case-cap"><span>{e(U["case"])}</span><p>{e(th.get("case_caption", t["before_after"]["title"]))}</p><em>{e(U["case_more"])}</em></div>
-    </a>
+      <div class="lp-hero-case-cap"><span>{e(U["case"])}</span><p>{e(th.get("case_caption", t["before_after"]["title"]))}</p></div>
+    </div>
   </div>
 </section>'''
 
@@ -157,24 +158,23 @@ def render(lang, key):
     timeline = ''.join(f'<li><span class="lp-tl-label">{e(ti["label"])}</span><div>{paras(ti["lines"])}</div></li>' for ti in tr['items'])
     rec_srcs = list(dict.fromkeys(it['src'] for it in rec['items']))
     ba, tba = ko['before_after'], t['before_after']
-    ba_items = ''.join(f'<a class="lp-ba-item" href="{kr(it["src"])}"><img src="{e(it["image"])}" alt="{e(tba["alt"])}" loading="lazy">'
-                       f'<p>{e(lb)}</p><span>{e(U["kr"])}</span></a>' for it, lb in zip(ba['items'], tba['labels']))
-    logs = ''.join(f'<a class="lp-log" href="{kr(it["src"])}"><span class="lp-log-tag">{e(tg)}</span>'
-                   f'<p>{e(tg)}</p><span class="lp-log-by">{e(U["log_by"])}</span></a>' for it, tg in zip(ko['logs']['items'], t['logs']['tags']))
+    ba_items = ''.join(f'<div class="lp-ba-item"><img src="{e(it["image"])}" alt="{e(tba["alt"])}" loading="lazy">'
+                       f'<p>{e(lb)}</p></div>' for it, lb in zip(ba['items'], tba['labels']))
     faq = ''.join(f'<details class="lp-faq"><summary>{e(tq["q"])}</summary><p>{e(tq["a"])}</p>{src_link(kq["src"])}</details>'
                   for kq, tq in zip(ko['faq'], t['faq']))
     langs_avail = set(available_langs_all())
 
     def rel_href(path):
         k = path.strip('/').replace('/', '-')
-        return f'/{lang}/{path.strip("/")}/' if (lang, k) in langs_avail else kr(path)
-    related = ''.join(f'<a href="{rel_href(r["href"])}">{e(n)}</a>' for r, n in zip(ko.get('related', []), t.get('related', [])))
+        return f'/{lang}/{path.strip("/")}/' if (lang, k) in langs_avail else None
+    # 번역된 대표페이지만 잇는다(한국어 페이지로 가는 항목은 뺀다)
+    related = ''.join(f'<a href="{rel_href(r["href"])}">{e(n)}</a>' for r, n in zip(ko.get('related', []), t.get('related', []))
+                      if rel_href(r["href"]))
     comps = ''
     if (ko.get('companions') or {}).get('items'):
         cards = ''.join(
-            f'<article class="lp-comp"><div class="lp-comp-body"><h3 class="lp-comp-name"><a href="{kr(c["href"])}">{e(tc["name"])}</a></h3>'
-            f'<p class="lp-comp-lead">{e(tc["lead"])}</p>{src_link(c["lead"]["src"])}'
-            f'<a class="lp-comp-more" href="{kr(c["href"])}">{e(tc["name"])} {e(U["more_cases"])}</a></div></article>'
+            f'<article class="lp-comp"><div class="lp-comp-body"><h3 class="lp-comp-name">{e(tc["name"])}</h3>'
+            f'<p class="lp-comp-lead">{e(tc["lead"])}</p></div></article>'
             for c, tc in zip(ko['companions']['items'], t['companions']))
         comps = f'''<section class="section lp" id="lp-comps"><div class="container">
     <span class="lp-type">RELATED PROCEDURES</span><h2 class="lp-h2">{e(U["comps"])}</h2><div class="lp-comps">{cards}</div></div></section>'''
@@ -184,7 +184,7 @@ def render(lang, key):
     body = f'''<p class="lp-i18n-notice container">{e(U["notice"])}</p>
 <nav class="lp-toc container" aria-label="contents">
   <a href="#lp-features">{e(tf["toc"])}</a><a href="#lp-story">{e(U["story"])}</a><a href="#lp-method">{e(tm["title"])}</a>
-  <a href="#lp-recovery">{e(tr["title"])}</a><a href="#lp-ba">{e(U["ba"])}</a><a href="#lp-logs">{e(U["logs"])}</a>{f'<a href="#lp-comps">{e(U["comps"])}</a>' if comps else ''}<a href="#lp-faq">{e(U["faq"])}</a><a href="#lp-cases">{e(U["cases"])}</a>
+  <a href="#lp-recovery">{e(tr["title"])}</a><a href="#lp-ba">{e(U["ba"])}</a>{f'<a href="#lp-comps">{e(U["comps"])}</a>' if comps else ''}<a href="#lp-faq">{e(U["faq"])}</a>
 </nav>
 <section class="section lp" id="lp-features"><div class="container lp-narrow">
     <span class="lp-type">{e(tf["type"])}</span><h2 class="lp-h2">{e(tf["title"])}</h2>
@@ -206,15 +206,10 @@ def render(lang, key):
 <section class="section lp lp-flush" id="lp-ba"><div class="container">
     <span class="lp-type">BEFORE &amp; AFTER</span><h2 class="lp-h2">{e(tba["title"])}</h2>
     <div class="lp-ba">{ba_items}</div><p class="lp-disclaimer">{e(U["disclaimer"])}</p></div></section>
-<section class="section lp lp-gray" id="lp-logs"><div class="container">
-    <span class="lp-type">SURGERY NOTES</span><h2 class="lp-h2">{e(t["logs"]["title"])}</h2><div class="lp-logs">{logs}</div></div></section>
 {comps}
 <section class="section lp" id="lp-faq"><div class="container lp-narrow">
     <span class="lp-type">FAQ</span><h2 class="lp-h2">{e(U["faq"])}</h2>{faq}
-    {f'<h3 class="lp-h3 lp-related-head">{e(U["related"])}</h3><div class="lp-related">{related}</div>' if related else ''}</div></section>
-<section class="section lp lp-gray" id="lp-cases"><div class="container lp-narrow" style="text-align:center">
-    <h2 class="lp-h2">{e(U["cases_title"])}</h2><p class="lp-note">{e(U["cases_desc"])}</p>
-    <a class="lp-btn lp-btn-gold" href="{kr(page)}">{e(U["cases_btn"].format(n=n_cases))}</a></div></section>'''
+    {f'<h3 class="lp-h3 lp-related-head">{e(U["related"])}</h3><div class="lp-related">{related}</div>' if related else ''}</div></section>'''
 
     # ── 머리말·구조화데이터 ──
     alts = [('ko', f'{SITE}/{page}/')] + [(l, f'{SITE}/{l}/{page}/') for l in available_langs(key)]
@@ -229,7 +224,7 @@ def render(lang, key):
     analytics = ko_raw[ko_raw.index('<head>') + len('<head>'):ko_raw.index('<meta charset')]
     switch_links = ''.join(
         f'<a href="{(f"/{page}/" if l == "ko" else (f"/{l}/{page}/" if l in available_langs(key) else f"/{l}/"))}" '
-        f'class="lang-option{" active" if l == lang else ""}">{n}</a>' for l, n in LANG_NAMES)
+        f'class="lang-option{" active" if l == lang else ""}">{n}</a>' for l, n in LANG_NAMES if l != 'ko')
     home = open(os.path.join(BASE, lang, 'index.html'), encoding='utf-8-sig').read()
     footer = re.search(r'<footer class="site-footer">.*?</footer>', home, re.S).group(0).replace('href="../', 'href="/')
     og_img = h['case']['image']
