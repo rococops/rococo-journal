@@ -468,6 +468,58 @@ SORT_SCRIPT_HTML = """<script>
 """
 
 
+CASES_LOCK_SCRIPT_HTML = """<script>
+// 전체 케이스 잠금: 로그인 전에는 앞쪽 12개만 보이고 나머지는 썸네일을 흐리게 가림
+(function() {
+  var FREE_COUNT = 12;
+  var grid = document.getElementById('case-grid');
+  if (!grid) return;
+  var ok = false;
+  try {
+    var t = localStorage.getItem('rococo_member_token');
+    if (t) {
+      var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+      if (payload.exp && Date.now() < payload.exp * 1000) ok = true;
+      else localStorage.removeItem('rococo_member_token');
+    }
+  } catch (e) {}
+  if (ok) return;
+
+  var returnQ = '?return=' + encodeURIComponent(location.pathname);
+  var loginUrl = '../member/login/' + returnQ;
+
+  // 안내 박스: 목록 바로 위
+  var notice = document.createElement('div');
+  notice.className = 'paywall-notice cases-notice';
+  notice.innerHTML = '<p class="paywall-title">전후사진은 회원에게 전체 공개됩니다</p>'
+    + '<p class="paywall-desc">앞쪽 ' + FREE_COUNT + '개 케이스는 누구나 볼 수 있습니다.<br>로그인하시면 전체 케이스의 전후사진을 확인하실 수 있습니다.</p>'
+    + '<a class="paywall-btn" href="' + loginUrl + '">로그인하고 전체 보기</a>'
+    + '<a class="paywall-sub" href="../member/signup/' + returnQ + '">회원가입</a>';
+  grid.parentNode.insertBefore(notice, grid);
+
+  // 정렬이 바뀔 때마다 앞쪽 N개만 풀어 둠
+  function applyLock() {
+    Array.prototype.forEach.call(grid.children, function(card, i) {
+      card.classList.toggle('is-locked', i >= FREE_COUNT);
+    });
+  }
+  applyLock();
+  document.querySelectorAll('.sort-btn').forEach(function(btn) {
+    btn.addEventListener('click', applyLock);
+  });
+
+  // 잠긴 카드를 누르면 로그인 페이지로
+  grid.addEventListener('click', function(e) {
+    var card = e.target.closest ? e.target.closest('.card.is-locked') : null;
+    if (!card) return;
+    e.preventDefault();
+    location.href = loginUrl;
+  });
+})();
+</script>
+"""
+
+
 ALL_CASES_PAGE = """<!DOCTYPE html>
 <html lang="ko">
 <head>

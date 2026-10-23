@@ -2345,3 +2345,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 html:lang(ja) body, html:lang(ja) .lp-steps li p,
 html:lang(zh) body, html:lang(zh) .lp-steps li p { word-break: normal; line-break: strict; }
 html:lang(ja) [lang="ko"], html:lang(zh) [lang="ko"] { word-break: keep-all; }
+
+/* 전체 케이스(/cases/) 잠금: 로그인 전에는 앞쪽 일부만 공개, 나머지 썸네일을 흐리게 */
+.cases-notice { margin-bottom: 1.5rem; }
+.card.is-locked { cursor: pointer; }
+.card.is-locked .card-img { position: relative; overflow: hidden; }
+.card.is-locked .card-img img { filter: blur(16px); transform: scale(1.12); }
+.card.is-locked .card-img::after {
+  content: '회원 전용';
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.28);
+  color: #fff; font-size: .9rem; font-weight: 800; letter-spacing: .04em;
+}
+.card.is-locked .card-desc { display: none; }

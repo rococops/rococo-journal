@@ -14,7 +14,7 @@ from seo_title import seo_title
 from build_landing import landing_data_for, apply_landing
 from templates import (NAV_HTML, HEADER_HTML, FOOTER_HTML, CTA_SECTION_HTML,
                         DETAIL_PAGE, LIST_PAGE, CARD_HTML, SORT_SCRIPT_HTML,
-                        ALL_CASES_PAGE, ORIGIN_LINK_CARD)
+                        ALL_CASES_PAGE, ORIGIN_LINK_CARD, CASES_LOCK_SCRIPT_HTML)
 
 BASE = os.path.join(os.path.dirname(__file__), '..')
 
@@ -458,7 +458,7 @@ def build_all_cases_and_homepage_data(cfg_rows, canonical_map):
         footer=footer(root),
         count=len(entries),
         cards='\n'.join(cards),
-        sort_script=SORT_SCRIPT_HTML,
+        sort_script=SORT_SCRIPT_HTML + CASES_LOCK_SCRIPT_HTML,
     )
     with open(os.path.join(out_dir, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(all_cases_page)
