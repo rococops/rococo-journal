@@ -247,6 +247,20 @@ async function handleSubmit(req, res) {
     console.error('Resend send error:', mailError);
   }
 
+  // 휴대폰(ntfy) 알림 — 건수·종류만 보냄(ntfy.sh는 공개·비암호화라 이름·연락처·내용 금지). 실패해도 접수에 영향 없음
+  try {
+    if (process.env.NTFY_TOPIC) {
+      await fetch(`https://ntfy.sh/${process.env.NTFY_TOPIC}`, {
+        method: 'POST',
+        headers: { Title: 'Rococo', Priority: 'high' },
+        body: '[저널] 새 상담 도착',
+        signal: AbortSignal.timeout(5000)
+      });
+    }
+  } catch (ntfyError) {
+    console.error('ntfy send error:', ntfyError.message);
+  }
+
   return res.status(200).json({ ok: true });
 }
 

@@ -51,6 +51,19 @@ export default async function handler(req, res) {
 
     const { error } = await supabase.from('reservations').insert({ name, phone, contact_method, visit_type, category, date, time });
     if (error) return res.status(500).json({ error: error.message });
+    // 휴대폰(ntfy) 알림 — 건수·종류만(이름·연락처 금지). 실패해도 예약 접수에 영향 없음
+    try {
+      if (process.env.NTFY_TOPIC) {
+        await fetch(`https://ntfy.sh/${process.env.NTFY_TOPIC}`, {
+          method: 'POST',
+          headers: { Title: 'Rococo', Priority: 'high' },
+          body: '[저널] 새 진료 예약 도착',
+          signal: AbortSignal.timeout(5000)
+        });
+      }
+    } catch (e) {
+      console.error('ntfy send error:', e.message);
+    }
     return res.status(200).json({ ok:true });
   }
 
