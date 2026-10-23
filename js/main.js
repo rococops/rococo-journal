@@ -103,6 +103,59 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  // 헤더 회원 메뉴: 로그인 전 "로그인 · 회원가입", 로그인 후 "이름님 · 로그아웃"
+  // (페이지마다 헤더 HTML이 따로라 1400여 개를 고치는 대신 여기서 한 번에 붙임)
+  (function () {
+    var list = document.querySelector('#gnb > ul');
+    if (!list) return;
+    // 이 스크립트 경로에서 사이트 루트까지의 상대 경로를 구함 (페이지 깊이와 무관)
+    var scriptEl = document.querySelector('script[src$="js/main.js"]');
+    if (!scriptEl) return;
+    var root = scriptEl.getAttribute('src').replace(/js\/main\.js.*$/, '');
+    var returnQ = '?return=' + encodeURIComponent(location.pathname);
+
+    var name = null;
+    try {
+      var t = localStorage.getItem('rococo_member_token');
+      if (t) {
+        var payload = JSON.parse(atob(t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+        if (payload.exp && Date.now() < payload.exp * 1000) {
+          name = localStorage.getItem('rococo_member_name') || '회원';
+        }
+      }
+    } catch (e) {}
+
+    var li = document.createElement('li');
+    li.className = 'gnb-member';
+    if (name !== null) {
+      var me = document.createElement('a');
+      me.href = root + 'member/account/';
+      me.textContent = name + '님';
+      var out = document.createElement('button');
+      out.type = 'button';
+      out.textContent = '로그아웃';
+      out.addEventListener('click', function () {
+        try {
+          localStorage.removeItem('rococo_member_token');
+          localStorage.removeItem('rococo_member_name');
+        } catch (e) {}
+        location.reload();
+      });
+      li.appendChild(me);
+      li.appendChild(out);
+    } else {
+      var login = document.createElement('a');
+      login.href = root + 'member/login/' + returnQ;
+      login.textContent = '로그인';
+      var signup = document.createElement('a');
+      signup.href = root + 'member/signup/' + returnQ;
+      signup.textContent = '회원가입';
+      li.appendChild(login);
+      li.appendChild(signup);
+    }
+    list.appendChild(li);
+  })();
+
   // 회원 로그인 상태 표시줄은 main.js가 아니라 각 페이지에 인라인으로 들어있음
   // (별도 파일이라 캐시되면 표시줄만 안 뜨는 문제가 있었음 — review_utils.mjs의 MEMBER_BAR 참고)
 

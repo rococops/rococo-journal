@@ -2359,3 +2359,18 @@ html:lang(ja) [lang="ko"], html:lang(zh) [lang="ko"] { word-break: keep-all; }
   color: #fff; font-size: .9rem; font-weight: 800; letter-spacing: .04em;
 }
 .card.is-locked .card-desc { display: none; }
+
+/* 헤더 회원 메뉴 (js/main.js가 #gnb 목록 끝에 붙임) */
+.gnb > ul > li.gnb-member { display: flex; align-items: center; gap: .15rem; margin-left: .35rem; }
+.gnb .gnb-member a,
+.gnb .gnb-member button {
+  background: none; border: none; cursor: pointer; font: inherit;
+  padding: 8px 6px; font-size: 12.5px; font-weight: 600;
+  color: var(--gray-600); text-decoration: none; white-space: nowrap;
+}
+.gnb .gnb-member a:hover,
+.gnb .gnb-member button:hover { color: var(--black); }
+@media (max-width: 768px) {
+  .gnb > ul > li.gnb-member { margin: 1rem 0 0; padding-top: 1rem; border-top: 1px solid var(--gray-200); gap: 1.25rem; }
+  .gnb .gnb-member a, .gnb .gnb-member button { font-size: 14px; padding: 6px 4px; }
+}
