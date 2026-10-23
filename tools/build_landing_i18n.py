@@ -252,7 +252,7 @@ def render(lang, key):
   <div class="header-inner">
     <a href="/{lang}/" class="logo"><span class="logo-main">ROCOCO</span><span class="logo-sub">Plastic Surgery</span></a>
     <div class="lp-i18n-actions">
-      <div class="lang-switcher"><button class="lang-btn" id="langBtn">🌐 GLOBAL &#9662;</button><div class="lang-dropdown" id="langDropdown">{switch_links}</div></div>
+      <div class="lang-switcher"><button class="lang-btn lang-btn--globe" id="langBtn" aria-label="Language"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.7 3.9 5.7 3.9 9s-1.3 6.3-3.9 9c-2.6-2.7-3.9-5.7-3.9-9S9.4 5.7 12 3z"/></svg><span>{lang.upper()}</span></button><div class="lang-dropdown" id="langDropdown">{switch_links}</div></div>
       <a href="/{lang}/#consult" class="lp-i18n-contact">{e(U["contact"])}</a>
     </div>
   </div>

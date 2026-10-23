@@ -2378,3 +2378,35 @@ html:lang(ja) [lang="ko"], html:lang(zh) [lang="ko"] { word-break: keep-all; }
 /* 외국어 대표페이지: 사진은 링크 없이 보여 주므로 호버 이동 효과 제거 */
 div.lp-ba-item:hover{border-color:var(--gray-100);transform:none}
 div.lp-hero-case:hover{transform:none}
+
+/* ── 헤더 정리 (js/main.js가 '후기·전후사진'을 묶고 성형 가이드를 강조) ── */
+/* JS가 메뉴를 다 만들기 전 깜빡임 방지: 준비되면 보이고, JS가 실패해도 0.6초 뒤엔 보임 */
+@media (min-width: 769px) {
+  .gnb:not(.nav-ready) > ul { visibility: hidden; animation: gnbShow 0s 0.6s forwards; }
+  .gnb .gnb-proof > a { cursor: pointer; }
+  .gnb .gnb-proof > a::after {
+    content: ''; display: inline-block; width: 5px; height: 5px; margin: -3px 0 0 6px;
+    border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); opacity: .55;
+  }
+  .gnb-proof.hover-open .sub-menu { opacity: 1; visibility: visible; transform: none; }
+  .gnb-proof .sub-menu { min-width: 130px; }
+}
+@keyframes gnbShow { to { visibility: visible; } }
+/* 성형 가이드: 금색 채움으로 강조 (예전 '전후사진' 버튼 자리) */
+.gnb .gnb-guide > a.btn-gold { margin-left: 4px; }
+/* 로그인만 남긴 회원 메뉴 */
+.gnb > ul > li.gnb-member { margin-left: .2rem; }
+/* 언어 버튼: 지구본 아이콘 + 언어 코드 */
+.lang-btn.lang-btn--globe {
+  display: inline-flex; align-items: center; gap: 5px; background: none; color: var(--gray-600);
+  border: 1px solid var(--gray-200); padding: 6px 10px; font-size: 12px; letter-spacing: .06em;
+}
+.lang-btn.lang-btn--globe:hover { background: var(--gray-50); color: var(--black); }
+.lang-btn.lang-btn--globe svg { display: block; }
+@media (max-width: 768px) {
+  .gnb .gnb-guide > a.btn-gold {
+    background: none; color: var(--accent) !important; margin: 0; text-align: left; border-radius: 0; padding: 15px 1.25rem !important;
+    font-size: 15px !important; justify-content: flex-start;
+  }
+  .lang-btn.lang-btn--globe { padding: 8px 10px; }
+}

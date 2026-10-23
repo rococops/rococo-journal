@@ -2,6 +2,60 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  // 헤더 정리 (페이지마다 헤더 HTML이 따로라 여기서 한 번에 처리 — 구조가 다르면 아무것도 안 함)
+  // ① 수술후기+전후사진 → '후기·전후사진' 한 칸 ② 성형 가이드는 금색 강조(전후사진 버튼 자리)
+  // ③ 로고 'Journal' 제거 ④ 언어 버튼 → 지구본 아이콘 + KO. 시술 분류(광대·코…)는 그대로 노출.
+  (function () {
+    var ul = document.querySelector('#gnb > ul');
+    if (!ul) return;
+    var items = [].slice.call(ul.children);
+    function norm(h) { return (h || '').replace(/^(\.\.\/|\.\/|\/)+/, ''); }
+    function first(li) { return li.querySelector(':scope > a'); }
+    function find(path) {
+      return items.filter(function (li) { var a = first(li); return a && norm(a.getAttribute('href')) === path; })[0];
+    }
+    var guide = find('guide/');
+    var reviews = items.filter(function (li) { return li.querySelector(':scope > a.btn-gold-outline'); })[0];
+    var cases = items.filter(function (li) { return li.querySelector(':scope > a.btn-gold'); })[0];
+    var about = find('about/');
+    if (guide && reviews && cases && about) {
+      var proof = document.createElement('li');
+      proof.className = 'has-sub gnb-proof';
+      var pa = document.createElement('a');
+      pa.href = '#';
+      pa.textContent = '후기·전후사진';
+      // 이 칸 자체는 이동하지 않는 묶음 메뉴 (모바일은 아래 공통 핸들러, 데스크톱 터치는 여기서 토글)
+      pa.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (window.innerWidth > 768) proof.classList.toggle('hover-open');
+      });
+      proof.appendChild(pa);
+      var proofSub = document.createElement('ul');
+      proofSub.className = 'sub-menu';
+      [reviews, cases].forEach(function (li) {
+        first(li).className = '';
+        proofSub.appendChild(li);
+      });
+      proof.appendChild(proofSub);
+
+      first(guide).className = 'btn-gold';
+      guide.className = 'gnb-guide';
+      ul.insertBefore(proof, about);
+    }
+    document.getElementById('gnb').classList.add('nav-ready');
+
+    var logoSub = document.querySelector('.logo .logo-sub');
+    if (logoSub && logoSub.textContent.trim() === 'Journal') logoSub.remove();
+
+    var langBtn = document.getElementById('langBtn');
+    if (langBtn) {
+      var code = (document.documentElement.lang || 'ko').slice(0, 2).toUpperCase();
+      langBtn.classList.add('lang-btn--globe');
+      langBtn.setAttribute('aria-label', 'Language');
+      langBtn.innerHTML = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.7 3.9 5.7 3.9 9s-1.3 6.3-3.9 9c-2.6-2.7-3.9-5.7-3.9-9S9.4 5.7 12 3z"/></svg><span>' + code + '</span>';
+    }
+  })();
+
   // 모바일 메뉴 토글
   const toggle = document.getElementById('navToggle');
   const gnb = document.getElementById('gnb');
@@ -39,10 +93,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const li = this.parentElement;
         const sub = this.nextElementSibling;
         const isOpen = li.classList.contains('sub-open');
-        // 다른 열린 서브메뉴 닫기
-        document.querySelectorAll('.has-sub.sub-open').forEach(function (el) {
+        // 같은 단계의 다른 열린 서브메뉴 닫기 (바깥 묶음 메뉴는 그대로 둠)
+        li.parentElement.querySelectorAll(':scope > .has-sub.sub-open').forEach(function (el) {
           el.classList.remove('sub-open');
-          const s = el.querySelector('.sub-menu');
+          const s = el.querySelector(':scope > .sub-menu');
           if (s) s.classList.remove('open');
         });
         if (!isOpen) {
@@ -103,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // 헤더 회원 메뉴: 로그인 전 "로그인 · 회원가입", 로그인 후 "이름님 · 로그아웃"
+  // 헤더 회원 메뉴: 로그인 전 "로그인"(회원가입은 로그인 페이지 안), 로그인 후 "이름님 · 로그아웃"
   // (페이지마다 헤더 HTML이 따로라 1400여 개를 고치는 대신 여기서 한 번에 붙임)
   (function () {
     var list = document.querySelector('#gnb > ul');
@@ -147,11 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var login = document.createElement('a');
       login.href = root + 'member/login/' + returnQ;
       login.textContent = '로그인';
-      var signup = document.createElement('a');
-      signup.href = root + 'member/signup/' + returnQ;
-      signup.textContent = '회원가입';
       li.appendChild(login);
-      li.appendChild(signup);
     }
     list.appendChild(li);
   })();
