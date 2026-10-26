@@ -2,6 +2,15 @@ import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
 
+// 조용 시간(한국시간 23:00~08:00)에는 ntfy 지연 전달(Delay)로 다음 08:00에 도착하게 함
+function ntfyDelay() {
+  const kst = new Date(Date.now() + 9 * 3600 * 1000);   // UTC getter로 한국시간 읽기
+  const h = kst.getUTCHours();
+  if (h >= 8 && h < 23) return null;
+  const next = Date.UTC(kst.getUTCFullYear(), kst.getUTCMonth(), kst.getUTCDate() + (h >= 23 ? 1 : 0), 8) - 9 * 3600 * 1000;
+  return String(Math.floor(next / 1000));
+}
+
 function toMin(t) { const [h,m] = t.split(':').map(Number); return h*60+m; }
 function toTime(m) { return `${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`; }
 
@@ -56,7 +65,7 @@ export default async function handler(req, res) {
       if (process.env.NTFY_TOPIC) {
         await fetch(`https://ntfy.sh/${process.env.NTFY_TOPIC}`, {
           method: 'POST',
-          headers: { Title: 'Rococo', Priority: 'high' },
+          headers: { Title: 'Rococo', Priority: 'high', ...(ntfyDelay() ? { Delay: ntfyDelay() } : {}) },
           body: '[저널] 새 진료 예약 도착',
           signal: AbortSignal.timeout(5000)
         });
