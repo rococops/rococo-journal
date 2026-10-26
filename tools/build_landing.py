@@ -15,6 +15,8 @@
 import sys, os, re, json, glob, html
 
 BASE = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import guide_links  # 가이드 글 ↔ 대표페이지 연결
 LANDING_DIR = os.path.join(BASE, 'data', 'landing')
 
 HERO_START, HERO_END = '<!-- 대표페이지 히어로 시작 -->', '<!-- 대표페이지 히어로 끝 -->'
@@ -193,10 +195,11 @@ class Renderer:
                       for q in d['faq'])
         related = ''.join(f'<a href="{self.href(r["href"])}">{e(r["name"])}</a>' for r in d.get('related', []))
         comps = self.companions()
+        guides = self.guides()
         return f'''{BODY_START}
 <nav class="lp-toc container" aria-label="목차">
   <a href="#lp-features">{e(f["toc"])}</a><a href="#lp-story">원장 이야기</a><a href="#lp-method">{e(m["title"])}</a>
-  <a href="#lp-recovery">{e(rec["title"])}</a><a href="#lp-ba">전후사진</a><a href="#lp-logs">대표 사례</a>{'<a href="#lp-comps">함께 보는 시술</a>' if comps else ''}<a href="#lp-faq">자주 묻는 질문</a><a href="#lp-cases">전체 케이스</a>
+  <a href="#lp-recovery">{e(rec["title"])}</a><a href="#lp-ba">전후사진</a><a href="#lp-logs">대표 사례</a>{'<a href="#lp-comps">함께 보는 시술</a>' if comps else ''}{'<a href="#lp-guides">관련 가이드</a>' if guides else ''}<a href="#lp-faq">자주 묻는 질문</a><a href="#lp-cases">전체 케이스</a>
 </nav>
 
 <section class="section lp" id="lp-features">
@@ -260,7 +263,7 @@ class Renderer:
     <div class="lp-logs">{log_items}</div>
   </div>
 </section>
-{comps}
+{comps}{guides}
 <section class="section lp" id="lp-faq">
   <div class="container lp-narrow">
     <span class="lp-type">FAQ</span>
@@ -280,6 +283,23 @@ class Renderer:
             return ''
         return ('<p class="lp-hero-langs">' + ' · '.join(
             f'<a href="/{l}/{page}/" lang="{l}">{LANG_LABELS[l]}</a>' for l in langs) + '</p>')
+
+    def guides(self):
+        """이 시술과 연결된 성형 가이드 글 카드 (guide/posts.json 기준). 없으면 빈 문자열."""
+        items = guide_links.posts_for(self.d['page'])
+        if not items:
+            return ''
+        cards = ''.join(guide_links.card(p, self.root) for p in items[:6])
+        return f'''
+<section class="section lp lp-guides-sec" id="lp-guides">
+  <div class="container">
+    <span class="lp-type">GUIDE</span>
+    <h2 class="lp-h2">이 시술, 더 깊이 알아보기</h2>
+    <p class="lp-note">김상호 원장의 실제 케이스 글을 바탕으로 정리한 성형 가이드입니다.</p>
+    <div class="card-grid lp-guide-grid">{cards}</div>
+    <p class="lp-guide-more"><a href="{self.root}guide/">성형 가이드 전체 보기 →</a></p>
+  </div>
+</section>'''
 
     def companions(self):
         """'함께 알아두면 좋은 시술' 섹션 (선택). 작은 하위 메뉴를 큰 대표페이지에 소개 카드로 흡수할 때 사용.

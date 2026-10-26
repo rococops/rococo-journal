@@ -103,6 +103,38 @@ const COVERS = [
   [/늑연골/, 'rib-cartilage'],
   [/재수술|구축|보형물/, 'revision'],
 ];
+// 가이드 글(키워드) → 시술 대표페이지 연결표. 위에서부터 먼저 맞는 것을 씀.
+// 이 표 하나를 가이드 글(대표페이지 안내 박스), 대표페이지(관련 가이드), 홈이 함께 씀 (tools/guide_landing_map.mjs 로 내보냄)
+export const LANDING_RULES = [
+  [/퀵광대/, 'cheekbone/quick', '15분 광대축소술(퀵광대)'],
+  [/뒷광대/, 'cheekbone/rear', '뒷광대축소술'],
+  [/광대\s*재수술/, 'cheekbone/revision', '광대 재수술'],
+  [/광대/, 'cheekbone/quick', '15분 광대축소술(퀵광대)'],
+  [/콧날개올리기/, 'nostril/alar-raising', '콧날개올리기 수술'],
+  [/콧볼/, 'nostril/alar-base', '콧볼축소술'],
+  [/비공/, 'nostril/alar-lowering', '비공내리기 수술'],
+  [/늑연골/, 'nose/rib-cartilage', '자가늑연골 코성형'],
+  [/비중격/, 'nose/septal', '비중격연골 코성형'],
+  [/복코/, 'nose/bulbous', '복코 수술'],
+  [/매부리/, 'nose/hump', '매부리코 수술'],
+  [/절골/, 'nose/osteotomy', '코 절골술'],
+  [/흉터없는|비개방/, 'nose/scarless', '흉터없는 코성형'],
+  [/남자/, 'nose/male', '남자 코성형'],
+  [/비주/, 'nose/columella', '비주내리기·비주올리기 수술'],
+  [/코재수술|구축코|재수술/, 'nose/revision', '코재수술'],
+  [/눈매교정/, 'eye/correction', '눈매교정술'],
+  [/쌍커풀|쌍꺼풀/, 'eye/double', '쌍커풀 자연유착법'],
+  [/트임/, 'eye/incision', '트임성형'],
+  [/이마/, 'forehead/endoscopic', '내시경 이마거상술'],
+  [/무턱/, 'anti-aging/chin', '무턱수술'],
+];
+// post.keyword 로 대표페이지 찾기: { path, label } 또는 null
+export function landingFor(post) {
+  const kw = String((post && post.keyword) || '');
+  const hit = LANDING_RULES.find(([re]) => re.test(kw));
+  return hit ? { path: hit[1], label: hit[2] } : null;
+}
+
 export function coverFor(post) {
   const text = `${post.keyword || ''} ${post.tag || ''} ${post.title || ''}`;
   const hit = COVERS.find(([re]) => re.test(text));
@@ -227,7 +259,24 @@ export function generateGuidePage(post, others = [], opts = {}) {
         </div>`
     : '';
 
-  const related = others.filter(o => o.slug !== post.slug).slice(0, 5);
+  const lp = landingFor(post);
+  const sameLp = (o) => lp && landingFor(o) && landingFor(o).path === lp.path;
+  const related = others.filter(o => o.slug !== post.slug)
+    .sort((a, b) => (sameLp(b) ? 1 : 0) - (sameLp(a) ? 1 : 0)).slice(0, 5);
+  // 이 시술의 대표페이지로 가는 박스 (글 끝 + 사이드바)
+  const lpBox = lp
+    ? `<div class="guide-landing">
+          <p class="guide-landing-label">이 시술 더 알아보기</p>
+          <a href="${root}${lp.path}/" class="guide-landing-link"><strong>${esc(lp.label)}</strong><span>방법·회복 과정·전후사진·자주 묻는 질문 한눈에 보기 →</span></a>
+        </div>`
+    : '';
+  const lpSide = lp
+    ? `<div class="sidebar-card">
+          <p class="sidebar-title">${esc(lp.label)}</p>
+          <p class="sidebar-desc">수술 방법과 회복 과정, 전후사진을 한 페이지에서 확인하세요</p>
+          <a href="${root}${lp.path}/" class="sidebar-btn">시술 안내 보기 →</a>
+        </div>`
+    : '';
   const relatedHtml = related.length
     ? `<div class="sidebar-related">
           <p class="sidebar-title">다른 가이드 글</p>
@@ -266,12 +315,14 @@ ${HEADER(root, nav)}
       <div class="article-content">
         ${renderBody(post.body, post.title)}
         ${sourcesHtml}
+        ${lpBox}
         <div class="inline-cta">
           <p class="inline-cta-text">내 경우에도 해당되는지 궁금하신가요?</p>
           <a href="${root}counsel/online/?from=${encodeURIComponent(post.title)}" class="inline-cta-btn">김상호 원장에게 직접 상담하기 →</a>
         </div>
       </div>
       <aside class="article-sidebar">
+        ${lpSide}
         <div class="sidebar-card">
           <p class="sidebar-title">전후사진 보기</p>
           <p class="sidebar-desc">로코코에서 수술하신 분들의 실제 케이스를 확인하세요</p>
