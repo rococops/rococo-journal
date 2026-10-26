@@ -17,6 +17,11 @@ CATS = [('cheekbone', '광대성형'), ('nose', '코성형'), ('nostril', '콧�
         ('forehead', '이마성형'), ('eye', '눈성형'), ('anti-aging', '동안성형')]
 
 
+# 카테고리 카드 사진 (홈 '시술 카테고리'와 같은 사진)
+THUMBS = {'cheekbone': '1-4.jpg', 'nose': '2-4.jpg', 'nostril': '3-2.jpg',
+          'forehead': '4-2.jpg', 'eye': '9-1.jpg', 'anti-aging': '6-1.jpg'}
+
+
 def landing_chips():
     by_cat = {}
     for p in sorted(glob.glob(os.path.join(BASE, 'data', 'landing', '*.json'))):
@@ -24,14 +29,17 @@ def landing_chips():
         page = d['page'].strip('/')
         name = re.sub(r'\s*[（(][^（()）]*[)）]$', '', d['seo']['h1'])
         by_cat.setdefault(page.split('/')[0], []).append((page, name))
-    rows = ''
+    cards = ''
     for cat, label in CATS:
         items = by_cat.get(cat, [])
         if not items:
             continue
-        chips = ''.join(f'<a href="{pg}/">{e(nm)}</a>' for pg, nm in items)
-        rows += f'<div class="home-lp-row"><span class="home-lp-cat">{label}</span><div class="home-lp-chips">{chips}</div></div>'
-    return rows
+        rows = ''.join(f'<a href="{pg}/"><span>{e(nm)}</span><i aria-hidden="true">→</i></a>' for pg, nm in items)
+        cards += (f'<div class="home-lp-card home-lp-{cat}">'
+                  f'<div class="home-lp-img" style="background-image:url(images/thumbnails/{THUMBS[cat]})">'
+                  f'<span class="home-lp-name">{label}</span><span class="home-lp-n">{len(items)}개 시술</span></div>'
+                  f'<div class="home-lp-list">{rows}</div></div>')
+    return cards
 
 
 def build():
@@ -39,10 +47,11 @@ def build():
     return f'''{START}
 <section class="section home-lp-section">
   <div class="container">
-    <div class="section-head">
-      <h2 class="section-label">내 고민에 맞는 시술 알아보기</h2>
+    <div class="home-lp-head">
+      <span class="home-lp-eyebrow">PROCEDURES</span>
+      <h2 class="home-lp-title">내 고민에 맞는 시술, 한 페이지로 정리했습니다</h2>
+      <p class="home-lp-sub">수술 방법 · 회복 과정 · 전후사진 · 자주 묻는 질문을 시술별로 모았습니다.</p>
     </div>
-    <p class="home-lp-sub">수술 방법·회복 과정·전후사진·자주 묻는 질문을 시술별로 한 페이지에 정리했습니다.</p>
     <div class="home-lp">{landing_chips()}</div>
   </div>
 </section>
