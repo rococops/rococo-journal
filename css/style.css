@@ -2278,8 +2278,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .lp-timeline{list-style:none;padding:0;margin:0 0 .6rem;border-left:2px solid var(--gray-200)}
 .lp-timeline li{position:relative;display:flex;gap:1.2rem;padding:0 0 1.4rem 1.4rem}
 .lp-timeline li:before{content:"";position:absolute;left:-7px;top:.3rem;width:12px;height:12px;border-radius:50%;background:var(--accent)}
-.lp-tl-label{flex:none;width:4.5rem;font-weight:800;color:var(--black)}
-.lp-timeline p{margin:0;line-height:1.7;color:var(--gray-600)}
+.lp-tl-label{flex:none;width:7.5rem;font-weight:800;color:var(--black);line-height:1.7;word-break:keep-all;overflow-wrap:break-word}
+@media (max-width:480px){.lp-tl-label{width:6rem}}
+.lp-tl-label small{display:block;margin-top:.1rem;font-size:.78rem;font-weight:600;line-height:1.5;color:var(--gray-600)}
+.lp-timeline p{margin:0;line-height:1.7;color:var(--gray-600);word-break:keep-all;overflow-wrap:break-word}
 
 /* 전후사진 */
 .lp-ba{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
