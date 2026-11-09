@@ -27,6 +27,10 @@ def find_pages():
         pages += glob.glob(os.path.join(ROOT, c, '*', 'index.html'))
         for lang in ('en', 'ja', 'zh'):
             pages += glob.glob(os.path.join(ROOT, lang, c, '*', 'index.html'))
+    for lang in ('en', 'ja', 'zh'):  # 외국어 홈
+        home = os.path.join(ROOT, lang, 'index.html')
+        if os.path.exists(home):
+            pages.append(home)
     return sorted(pages)
 
 
