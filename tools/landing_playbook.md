@@ -70,3 +70,8 @@
 - 원문의 강조 기호(`<< ... >>`)는 그대로 둔다.
 - **말투는 합니다·입니다 체로 통일한다(2026-11-09 대표 지시).** 원문의 "~랍니다·~지요·~한다" 같은 어미는 `tools/tone_normalize.py`의 규칙으로만 바꾼다(직접 고치지 않는다). 케이스·칼럼 페이지의 원문은 그대로 둔다.
 - **`build_landing.py` 로 대표페이지를 다시 만든 뒤에는 반드시 `python tools/postprocess_landing.py` 를 실행한다.** 말투 통일, 회복 타임라인 라벨의 괄호 분리, 이미지 주소 이전(`images/rococo/`)을 한 번에 다시 적용한다. 안 하면 hotlink·옛 말투로 되돌아간다. `verify_landing_quotes.py` 는 원문과 인용 양쪽에 같은 말투 규칙을 적용해 대조한다.
+
+## 코성형 허브(/nose/) 보강 (2026-11-09)
+- 허브 페이지는 `build_landing.py` 대상이 아니다. 데이터 `data/hub/nose.json`(줄 범위 포함) ← `python tools/hub_src/nose.py`, 검증 `python tools/verify_hub_quotes.py`(불일치 0건), 삽입 `python tools/build_nose_hub.py`(`<!-- 코성형 허브 보강 시작/끝 -->` 마커 구간 재작성, 재실행 안전).
+- 말투 규칙은 같은 `tone_normalize.PHRASES` 를 쓴다. 허브용으로 추가한 문장이 기존 대표페이지 본문과 겹쳐 그 페이지가 바뀌지 않는지 `postprocess_landing.py` 전에 확인한다(이번엔 영향 0건).
+- 칼럼 358(담배와 아이코스)은 카드에서 제외, 471은 아이코스 문장을 인용하지 않는다(검증 스크립트가 '아이코스' 포함 시 실패 처리).
