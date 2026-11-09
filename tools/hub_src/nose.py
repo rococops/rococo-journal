@@ -13,12 +13,35 @@ def para(n, *ranges):
     return {'src': C(n), 'ranges': [list(r) if not isinstance(r, int) else [r, r] for r in ranges], 'text': seg(C(n), *ranges)}
 
 
+def landing(name):
+    return json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'data', 'landing', name + '.json'), encoding='utf-8'))
+
+
+# 전후사진: 이미 검증된 시술별 대표페이지(data/landing/nose-*.json)의 첫 사진을 하나씩 가져온다(이미지 URL·캡션 원본 그대로)
+_ba = []
+for _n in ('hump', 'rib-cartilage', 'revision', 'septal', 'bulbous', 'male', 'columella', 'osteotomy'):
+    _d = landing('nose-' + _n)
+    _it = _d['before_after']['items'][0]
+    _ba.append({'src': _it['src'], 'image': _it['image'], 'caption': _it.get('caption'), 'label': _it.get('label') or _it.get('caption'),
+                'alt': _d['before_after']['alt']})
+_case = landing('nose-rib-cartilage')['hero']['case']
+
 data = {
     'page': 'nose',
+    'hero': {
+        'eyebrow': 'NOSE SURGERY · 코성형',
+        'bg_image': 'images/landing/nose-hump-hero.jpg',
+        'summary': para(144, (69, 70)),   # 약점 먼저: 코끝을 높이는 수술의 방향성
+        'case': {k: _case[k] for k in ('src', 'image', 'alt', 'label', 'layout') if k in _case},
+        # 숫자는 이 허브 페이지 자체의 집계(칼럼·대표페이지 수). 임상 수치 아님. (옛 문구의 '케이스 247개'는 근거를 확인할 수 없어 쓰지 않음)
+        'stats': [{'to': 51, 'unit': '편', 'label': '원장 칼럼'}, {'to': 12, 'unit': '개', 'label': '시술별 대표페이지'}],
+    },
+    'before_after': {'title': '코성형 수술 전후', 'items': _ba},
     # ── 제작 문구(원문 아님): 질문형 부제·소제목·라벨만 ──
     'labels': {
         'lead_q': '코성형, 무엇부터 알아야 하나요?',
-        'toc': ['원장 이야기', '바꿀 수 없는 것', '재료·연골 Q&A', '염증·부작용', '관련 가이드'],
+        'ba_title': '코성형 수술 전후',
+        'toc': ['시술별 안내', '원장 이야기', '전후사진', '바꿀 수 없는 것', '재료·연골 Q&A', '염증·부작용', '관련 가이드'],
         'story_title': '김상호 원장 이야기',
         'series_title': '코(재)수술로 바꿀 수 없는 것',
         'series_tag': '시리즈',

@@ -19,9 +19,9 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>코성형 — 로코코성형외과 김상호 원장</title>
-<meta name="description" content="로코코성형외과 코성형. 로코코 명품코성형. 코재수술, 늑연골·비중격연골 코성형, 매부리코, 복코, 비주성형, 비염수술까지
-김상호 원장의 실제 케이스 247개와 칼럼을 ">
+<title>코성형 | 코재수술·늑연골·매부리코·복코 | 로코코성형외과 김상호 원장</title>
+<meta name="description" content="로코코성형외과 김상호 원장의 코성형 안내. 코재수술, 늑연골·비중격연골 코성형, 매부리코, 복코, 비주성형, 비염수술까지 시술별 설명과 원장 칼럼, 수술 전후 사진을 확인하세요.">
+<meta property="og:description" content="로코코성형외과 김상호 원장의 코성형 안내. 코재수술, 늑연골·비중격연골 코성형, 매부리코, 복코, 비주성형, 비염수술까지 시술별 설명과 원장 칼럼, 수술 전후 사진을 확인하세요.">
 <meta property="og:title" content="코성형 | 로코코 저널">
 <meta property="og:image" content="https://journal.rococops.com/images/thumbnails/2-1.jpg">
 <meta property="og:url" content="https://journal.rococops.com/nose/">
@@ -143,21 +143,32 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
   </div>
 </header>
 
-<section class="cat-hero">
-  <div class="cat-hero-img">
-    <img src="../images/thumbnails/2-1.jpg" alt="코성형 로코코성형외과" loading="eager">
-    <div class="cat-hero-overlay"></div>
-  </div>
-  <div class="cat-hero-text">
-    <div class="container">
-      <span class="cat-hero-eyebrow">Nose Surgery</span>
-      <h1 class="cat-hero-title">코성형</h1>
-      <p class="cat-hero-desc">로코코 명품코성형. 코재수술, 늑연골·비중격연골 코성형, 매부리코, 복코, 비주성형, 비염수술까지<br>김상호 원장의 실제 케이스 247개와 칼럼을 확인하세요.</p>
+<!-- 코성형 허브 히어로 시작 -->
+<section class="lp-hero" style="--lp-hero-bg:url(../images/landing/nose-hump-hero.jpg)">
+  <div class="container lp-hero-inner">
+    <div class="lp-hero-text">
+      <div class="lp-hero-crumb"><a href="../">홈</a><span>›</span><span>코성형</span></div>
+      <span class="lp-hero-eyebrow">NOSE SURGERY · 코성형</span>
+      <h1 class="article-title lp-hero-title">코성형</h1>
+      <p class="lp-hero-q">코성형, 무엇부터 알아야 하나요?</p>
+      <p class="lp-hero-summary">코끝을 높이는 수술은 반드시 한쪽 방향으로 진행된다는 사실을 알고 계셔야 합니다.</p>
+      <ul class="lp-hero-stats"><li><strong><span class="lp-num" data-to="51">51</span><small>편</small></strong><span>원장 칼럼</span></li><li><strong><span class="lp-num" data-to="12">12</span><small>개</small></strong><span>시술별 대표페이지</span></li></ul>
+      <div class="lp-hero-cta">
+        <a href="../counsel/" class="lp-btn lp-btn-gold">상담 신청</a>
+        <a href="#hub-ba" class="lp-btn lp-btn-line">전후사진 보기</a>
+      </div>
+      <p class="lp-hero-by">김상호 원장 · 로코코성형외과</p>
     </div>
+    <a class="lp-hero-case lp-hero-case--stack" href="../nose/rib-cartilage/602/">
+      <img src="/images/rococo/editor/202504161359071449698646.webp" alt="늑연골 코성형 수술 전후 정면 사진" loading="eager">
+      <div class="lp-hero-case-cap"><span>CASE · 정면 전후</span><p>자가늑연골 뾰족코 수술 &amp; 피노키오 코 교정위한 코재수술</p><em>케이스 보기 →</em></div>
+    </a>
   </div>
 </section>
+<nav class="lp-toc container" aria-label="코성형 목차"><a href="#hub-subs">시술별 안내</a><a href="#hub-story">원장 이야기</a><a href="#hub-ba">전후사진</a><a href="#hub-series">바꿀 수 없는 것</a><a href="#hub-faq">재료·연골 Q&amp;A</a><a href="#hub-risk">염증·부작용</a><a href="#hub-guides">관련 가이드</a></nav>
+<!-- 코성형 허브 히어로 끝 -->
 
-<section class="subcat-section">
+<section class="subcat-section" id="hub-subs">
   <div class="container">
     <div class="subcat-grid">
       <a href="column/" class="subcat-item">
@@ -295,14 +306,6 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
 </section>
 
 <!-- 코성형 허브 보강 시작 -->
-<section class="section lp" id="hub-lead">
-  <div class="container lp-narrow">
-    <span class="lp-type">NOSE SURGERY</span>
-    <h2 class="lp-h2">코성형, 무엇부터 알아야 하나요?</h2>
-  </div>
-  <nav class="lp-toc container" aria-label="코성형 목차"><a href="#hub-story">원장 이야기</a><a href="#hub-series">바꿀 수 없는 것</a><a href="#hub-faq">재료·연골 Q&amp;A</a><a href="#hub-risk">염증·부작용</a><a href="#hub-guides">관련 가이드</a></nav>
-</section>
-
 <section class="section lp lp-dark" id="hub-story">
   <div class="container lp-narrow">
     <span class="lp-type">DOCTOR'S NOTE</span>
@@ -319,6 +322,15 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
     <h3 class="lp-h3">코수술에 어떤 연골이 가장 좋을까요?</h3>
     <blockquote class="lp-quote"><p>가장 좋은 재료는 존재하지 않습니다. 각각의 코 상태와 환자 요구사항에 맞는 가장 적합한 재료가 존재할 뿐입니다. 같은 재료라고 해서 같은 결과나 같은 경과를 만드는 것은 아닙니다. &lt; 어떻게, 어떤 방식으로 수술하는가 &gt; 에 따라 같은 재료라도 다른 특성을 띄게 됩니다.</p><cite>— 김상호</cite></blockquote>
     <a class="lp-src" href="../nose/column/517/">— 「코수술에 어떤 연골이 가장 좋을까요?」 중에서 →</a>
+  </div>
+</section>
+
+<section class="section lp lp-flush" id="hub-ba">
+  <div class="container">
+    <span class="lp-type">BEFORE &amp; AFTER</span>
+    <h2 class="lp-h2">코성형 수술 전후</h2>
+    <div class="lp-ba"><a class="lp-ba-item" href="../nose/hump/593/"><img src="/images/rococo/editor/202411081454252110334588.webp" alt="매부리코 수술 전후 측면 사진" loading="lazy"><p>심한 매부리코 수술 - 6개월 전후사진</p><span>양 측면</span></a><a class="lp-ba-item" href="../nose/rib-cartilage/585/"><img src="/images/rococo/editor/202408221341111389463943.webp" alt="늑연골 코성형 수술 전후 사진" loading="lazy"><p>첫 코수술을 자가늑연골로? 비주내리기 &amp; 비순각수술(고양이수술)</p><span>정면 4주</span></a><a class="lp-ba-item" href="../nose/revision/122/"><img src="/images/rococo/editor/1396866555.webp" alt="코재수술 전후 사진" loading="lazy"><p>급속교정 코성형</p><span>정면</span></a><a class="lp-ba-item" href="../nose/septal/157/"><img src="/images/rococo/editor/201811101187000392.webp" alt="비중격연골 코성형 수술 전후 사진" loading="lazy"><p>안면비대칭과 동반된 휜코를 가진 환자에서 휜코교정</p><span>휜코 정면 2개월</span></a><a class="lp-ba-item" href="../nose/bulbous/136/"><img src="/images/rococo/editor/20151001493206366.webp" alt="복코 수술 전후 사진" loading="lazy"><p>복코수술</p><span>정면 10개월</span></a><a class="lp-ba-item" href="../nose/male/338/"><img src="/images/rococo/editor/202007011144341946882598.webp" alt="남자 코성형 수술 전후 사진" loading="lazy"><p>남자 매부리코 수술 - 어려운 case ( feat. 휜코 수술 )</p><span>매부리코·휜코 정면 3개월</span></a><a class="lp-ba-item" href="../nose/columella/500/"><img src="/images/rococo/editor/20240118172125947907391.webp" alt="비주성형 수술 전후 사진" loading="lazy"><p>비개방 비주내리기</p><span>비주내리기 정면 4주</span></a><a class="lp-ba-item" href="../nose/osteotomy/205/"><img src="/images/rococo/editor/1303658956.webp" alt="코 절골술 전후 사진" loading="lazy"><p>절골술(osteotomy) - 넓은 코뼈 좁히기</p><span>아래쪽에서</span></a></div>
+    <p class="lp-disclaimer">수술 결과는 개인에 따라 차이가 있을 수 있습니다. 사진을 누르면 해당 케이스 글로 이동합니다.</p>
   </div>
 </section>
 
@@ -474,5 +486,16 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
   </div>
 </footer>
 <script src="../js/main.js"></script>
+<!-- 코성형 허브 스크립트 시작 -->
+<script>
+(function(){var els=document.querySelectorAll('.lp-num');if(!els.length||!('IntersectionObserver' in window))return;
+if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+function run(el){var to=+el.dataset.to,dur=to<10?700:1400,t0=null;
+ function step(t){if(!t0)t0=t;var p=Math.min((t-t0)/dur,1),v=1-Math.pow(1-p,3);el.textContent=Math.round(to*v);if(p<1)requestAnimationFrame(step);}
+ el.textContent='0';requestAnimationFrame(step);setTimeout(function(){el.textContent=to;},dur+400);}
+var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){run(en.target);io.unobserve(en.target);}});},{threshold:.6});
+els.forEach(function(el){io.observe(el);});})();
+</script>
+<!-- 코성형 허브 스크립트 끝 -->
 </body>
 </html>

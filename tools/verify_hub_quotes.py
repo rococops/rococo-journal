@@ -22,6 +22,7 @@ def quotes(d):
     for i, p in enumerate(d['risk']['items']):
         yield f'risk.items[{i}]', p
     yield 'risk.items_intro', d['risk']['items_intro']
+    yield 'hero.summary', d['hero']['summary']
 
 
 def main():
@@ -41,6 +42,12 @@ def main():
             good = ok and same
             print(f'  {"OK  " if good else "MISS"} {label:26} {p["src"]}' + ('' if good else f'  {missing}'))
             bad += not good
+        # 전후사진: 이미지 URL·캡션이 해당 칼럼 원본 HTML 에 있어야 함
+        for it in d['before_after']['items'] + [d['hero']['case']]:
+            raw = open(os.path.join(BASE, it['src'], 'index.html'), encoding='utf-8-sig').read()
+            miss = [x for x in (it['image'], it.get('caption')) if x and x not in raw]
+            print(f'  {"OK  " if not miss else "MISS"} {"before_after":26} {it["src"]}' + ('' if not miss else f'  {miss}'))
+            bad += bool(miss)
         # 아이코스 금지(대표 지시): 인용·카드 원문 어디에도 나오면 안 됨
         blob = json.dumps(d, ensure_ascii=False)
         if '아이코스' in blob:

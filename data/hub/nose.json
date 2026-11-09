@@ -1,9 +1,106 @@
 {
  "page": "nose",
+ "hero": {
+  "eyebrow": "NOSE SURGERY · 코성형",
+  "bg_image": "images/landing/nose-hump-hero.jpg",
+  "summary": {
+   "src": "nose/column/144",
+   "ranges": [
+    [
+     69,
+     70
+    ]
+   ],
+   "text": "코끝을 높이는 수술은 반드시 한쪽 방향으로 진행된다는 사실을 알고 계셔야 합니다."
+  },
+  "case": {
+   "src": "nose/rib-cartilage/602",
+   "image": "https://rococops.com/files/editor/202504161359071449698646.jpg",
+   "alt": "늑연골 코성형 수술 전후 정면 사진",
+   "label": "CASE · 정면 전후",
+   "layout": "stack"
+  },
+  "stats": [
+   {
+    "to": 51,
+    "unit": "편",
+    "label": "원장 칼럼"
+   },
+   {
+    "to": 12,
+    "unit": "개",
+    "label": "시술별 대표페이지"
+   }
+  ]
+ },
+ "before_after": {
+  "title": "코성형 수술 전후",
+  "items": [
+   {
+    "src": "nose/hump/593",
+    "image": "https://rococops.com/files/editor/202411081454252110334588.jpg",
+    "caption": "수술 전후 양 측면 사진을 자세히 보시면",
+    "label": "양 측면",
+    "alt": "매부리코 수술 전후 측면 사진"
+   },
+   {
+    "src": "nose/rib-cartilage/585",
+    "image": "https://rococops.com/files/editor/202408221341111389463943.jpg",
+    "caption": "수술 전과 수술 후 4주 정면 사진입니다.",
+    "label": "정면 4주",
+    "alt": "늑연골 코성형 수술 전후 사진"
+   },
+   {
+    "src": "nose/revision/122",
+    "image": "https://rococops.com/files/editor/1396866555.jpg",
+    "caption": "정면 수술전후모습입니다.",
+    "label": "정면",
+    "alt": "코재수술 전후 사진"
+   },
+   {
+    "src": "nose/septal/157",
+    "image": "https://rococops.com/files/editor/201811101187000392.jpg",
+    "caption": "수술전과 수술 후 2개월째 사진입니다.",
+    "label": "휜코 정면 2개월",
+    "alt": "비중격연골 코성형 수술 전후 사진"
+   },
+   {
+    "src": "nose/bulbous/136",
+    "image": "https://rococops.com/files/editor/20151001493206366.jpg",
+    "caption": "수술 전과 수술 후 10개월째 사진입니다.",
+    "label": "정면 10개월",
+    "alt": "복코 수술 전후 사진"
+   },
+   {
+    "src": "nose/male/338",
+    "image": "https://rococops.com/files/editor/202007011144341946882598.jpg",
+    "caption": "정면 수술전과 수술 후 3개월째 사진입니다.",
+    "label": "매부리코·휜코 정면 3개월",
+    "alt": "남자 코성형 수술 전후 사진"
+   },
+   {
+    "src": "nose/columella/500",
+    "image": "https://rococops.com/files/editor/20240118172125947907391.jpg",
+    "caption": "비개방 비주내리기 수술",
+    "label": "비주내리기 정면 4주",
+    "alt": "비주성형 수술 전후 사진"
+   },
+   {
+    "src": "nose/osteotomy/205",
+    "image": "https://rococops.com/files/editor/1303658956.jpg",
+    "caption": "절골술의 효과는 사진상으로는 아래쪽에서 볼 때 가장 잘 드러난답니다.",
+    "label": "아래쪽에서",
+    "alt": "코 절골술 전후 사진"
+   }
+  ]
+ },
  "labels": {
   "lead_q": "코성형, 무엇부터 알아야 하나요?",
+  "ba_title": "코성형 수술 전후",
   "toc": [
+   "시술별 안내",
    "원장 이야기",
+   "전후사진",
    "바꿀 수 없는 것",
    "재료·연골 Q&A",
    "염증·부작용",
