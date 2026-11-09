@@ -7,6 +7,9 @@ src 칼럼 본문(article-content)에 그대로 들어있는지 확인한다. �
 """
 import sys, os, re, json, glob, html
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from tone_normalize import tone  # 대표페이지는 합니다체로 통일하므로 원문도 같은 규칙으로 맞춰 대조
+
 sys.stdout.reconfigure(encoding='utf-8')
 BASE = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 
@@ -19,14 +22,14 @@ def article_text(src):
         raw = open(os.path.join(BASE, src, 'index.html'), encoding='utf-8-sig').read()
         m = re.search(r'<div class="article-content">(.*?)</article>', raw, re.S)
         body = m.group(1) if m else ''
-        _cache[src] = (raw, re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', body))))
+        _cache[src] = (raw, tone(re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', body)))))
     return _cache[src]
 
 
 def check(label, src, text, results):
     """text 를 문장 단위로 잘라 원문에 모두 있는지 확인."""
     _, body = article_text(src)
-    missing = [f for f in (re.sub(r'\s+', ' ', s).strip() for s in re.split(r'(?<=[.?])\s+', text))
+    missing = [f for f in (re.sub(r'\s+', ' ', s).strip() for s in re.split(r'(?<=[.?])\s+', tone(text)))
                if f and f not in body]
     results.append((not missing, label, src, missing))
 
