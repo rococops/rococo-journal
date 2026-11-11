@@ -6,7 +6,16 @@
   <atom:link href="https://journal.rococops.com/feed.xml" rel="self" type="application/rss+xml"/>
   <description>로코코성형외과 김상호 원장이 직접 쓰는 성형 가이드</description>
   <language>ko-KR</language>
-  <lastBuildDate>Tue, 10 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Wed, 11 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <item>
+    <title>늑연골 코성형 회복 기간과 붓기, 일상 복귀까지</title>
+    <link>https://journal.rococops.com/guide/rib-cartilage-recovery/</link>
+    <guid isPermaLink="true">https://journal.rococops.com/guide/rib-cartilage-recovery/</guid>
+    <pubDate>Wed, 11 Nov 2026 09:00:00 +0900</pubDate>
+    <author>김상호 원장</author>
+    <category>코성형</category>
+    <description>늑연골 코성형은 수술 시간과 회복 일정이 일반 코수술과 조금 다릅니다. 수술 시간, 실밥과 반창고, 세안과 화장, 붓기가 빠지는 기간, 수술 후 간단한 교정 시기를 정리했습니다.</description>
+  </item>
   <item>
     <title>퀵광대 장기경과 — 광대뼈가 다시 나오지 않는 이유와 1년 반, 3년 뒤 변화</title>
     <link>https://journal.rococops.com/guide/quick-cheekbone-long-term/</link>
@@ -267,15 +276,6 @@
     <author>김상호 원장</author>
     <category>콧구멍성형</category>
     <description>코끝이 들려 콧구멍이 많이 보이는 들창코나 구축코는 코끝만 내려서는 콧구멍이 다 가려지지 않는 경우가 많습니다. 비공내리기를 코수술과 함께 하는 이유와 미리 알아야 할 점을 정리했습니다.</description>
-  </item>
-  <item>
-    <title>늑연골 코성형 하면 코끝이 뾰족하게 비친다?</title>
-    <link>https://journal.rococops.com/guide/rib-cartilage-pointy-tip/</link>
-    <guid isPermaLink="true">https://journal.rococops.com/guide/rib-cartilage-pointy-tip/</guid>
-    <pubDate>Wed, 14 Oct 2026 09:00:00 +0900</pubDate>
-    <author>김상호 원장</author>
-    <category>코성형</category>
-    <description>늑연골 코성형을 하면 코끝이 뾰족해지고 비친다는 이야기 때문에 망설이는 분이 많습니다. 코끝이 뾰족해지고 비치는 진짜 이유는 재료가 아니라 피부 여유에 비해 얼마나 높였느냐에 있습니다.</description>
   </item>
 </channel>
 </rss>
