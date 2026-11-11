@@ -281,3 +281,10 @@ function authHead(extra) {
 | copyright 왼쪽 정렬 | `.footer-bottom` flex 정렬 | `justify-content:center` 추가 |
 | 상담 목록에 "undefined" 표시 | status 컬럼 추가 전 데이터 | `statusLabel()` fallback 함수로 처리 |
 | 번역 안내 한국인에게도 표시 | JS 감지 누락 | `navigator.language` 체크 스크립트 삽입 |
+
+## 검색·AI 노출 자동화 (2026-11-11 추가)
+- `feed.xml`(성형 가이드 RSS)·`llms.txt`(목차형)·가이드 본문 사진 크기는 가이드가 발행되면 GitHub Actions `guide-postbuild`가 자동으로 다시 만든다. 손으로 돌릴 때: `python tools/build_feed.py`, `python tools/build_llms.py`.
+- 배포가 끝나면 `after-deploy`가 바뀐 주소(사이트맵에 있는 것만)를 IndexNow로 네이버·빙에 알린다. 배포 실패는 한 번 자동 재시도한다. 키 파일 `75d67ec7….txt`는 지우지 말 것.
+- 대표페이지를 다시 만든 뒤에는 `postprocess_landing.py` 다음에 `python tools/seo_postprocess.py`도 실행(글꼴 preconnect, JSON-LD dateModified — 여러 번 실행해도 같은 결과).
+- push 전 `python tools/check_jsonld.py`로 구조화데이터 검사(바뀐 파일만). 전체는 `--sitemap`.
+- 남은 수작업(대표 계정): 네이버 서치어드바이저·빙 웹마스터에 `https://journal.rococops.com/feed.xml` RSS 제출.
