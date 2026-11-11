@@ -1,33 +1,136 @@
-# ROCOCO Journal — llms.txt
-# 로코코성형외과 김상호 원장 공식 저널
-# https://journal.rococops.com
+# 로코코 저널 (ROCOCO Journal)
 
-## Site
-- Name: 로코코 저널 (ROCOCO Journal)
-- URL: https://journal.rococops.com
-- Language: Korean (ko-KR)
-- Description: 로코코성형외과 김상호 원장이 직접 집필하는 성형외과 케이스 저널. 광대축소술, 코성형, 콧구멍성형, 눈성형, 이마성형, 동안성형의 실제 수술 케이스와 의학적 근거를 수록합니다.
+> 로코코성형외과 김상호 원장(성형외과 전문의)이 직접 집필하는 성형외과 저널. 광대축소술, 코성형, 콧구멍성형, 눈성형, 이마성형, 동안성형의 시술별 대표 페이지와 성형 가이드, 실제 수술 케이스를 수록합니다.
 
-## Author
-- Name: 김상호 (Kim Sang-ho)
-- Title: 원장 (Director/Chief Surgeon)
-- Specialty: 성형외과 전문의 (Board-certified Plastic Surgeon)
-- Clinic: 로코코성형외과 (Rococo Plastic Surgery Clinic)
-- Location: Seoul, South Korea
+- 사이트: https://journal.rococops.com (한국어, 일부 영어·일본어·중국어)
+- 저자: 김상호 (Kim Sang-ho), 로코코성형외과 원장, 성형외과 전문의 — 서울 압구정
+- AI 크롤러: 허용. 인용 시 "로코코 저널 (journal.rococops.com)"으로 출처 표기
+- 개별 수술 케이스 원문은 병원 홈페이지(rococops.com)가 원본입니다
 
-## Content
-- 580+ surgical case articles written by Dr. Kim Sang-ho
-- Categories: 광대성형(cheekbone), 코성형(rhinoplasty), 콧구멍성형(nostril), 눈성형(eye), 이마성형(forehead), 동안성형(anti-aging)
-- All content is original, medically accurate, and authored by a board-certified surgeon
+## 광대성형
 
-## Permissions
-- AI crawlers: allowed
-- Content use for AI training: allowed with attribution
-- Citation: please cite as "로코코 저널 (journal.rococops.com)"
+- [광대성형](https://journal.rococops.com/cheekbone/): 로코코성형외과 광대성형. 15분 광대축소술(퀵광대), 심부볼·관자 지방이식, 광대라인 지방흡입, 뒷광대축소술, 광대 재수술. 김상호 원장의 실제 케이스와 칼럼.
+- [관자·심부볼 지방이식](https://journal.rococops.com/cheekbone/fat-graft/): 관자와 볼이 꺼져 광대가 더 튀어나와 보일 때 관자·심부볼 지방이식은 어떤 수술인지, 관자 필러·보형물과 무엇이 다른지, 지방터치와 회복을 김상호 원장의 글과 전후사진으로 정리했습니다.
+- [광대라인 지방흡입](https://journal.rococops.com/cheekbone/liposuction/): 광대라인 지방흡입(2개 케이스) — 로코코성형외과 김상호 원장의 광대라인 지방흡입 시술 케이스 모음
+- [퀵광대(15분 광대축소술)](https://journal.rococops.com/cheekbone/quick/): 퀵광대(15분 광대축소술)는 수면마취로 입안 절개 없이 하는 광대축소술입니다. 옆광대·45도 광대(변형15분) 차이, 수술 방법, 회복 기간, 부작용을 김상호 원장의 글로 정리했습니다.
+- [뒷광대축소술](https://journal.rococops.com/cheekbone/rear/): 뒷광대는 귀 앞 구레나룻 부위가 혹처럼 튀어나온 뼈입니다. 어떤 경우에 뒷광대축소술이 도움이 되는지, 수술 방법과 한계, 흉터와 회복을 김상호 원장의 글과 전후사진으로 정리했습니다.
+- [광대 재수술](https://journal.rococops.com/cheekbone/revision/): 광대축소술 후 옆광대가 덜 들어갔거나 이전 고정 철사·나사가 남아 있는 경우의 광대 재수술. 퀵광대 방식 재수술이 도움이 되는 조건과 한계, 넣은 광대를 다시 빼는 광대재건술까지 김상호 원장의 글과 전후 X-ray로 정리했습니다.
 
-## Key URLs
-- Homepage: https://journal.rococops.com/
-- All cases: https://journal.rococops.com/cases/
-- Surgery guides (성형 가이드): https://journal.rococops.com/guide/
-- About Dr. Kim: https://journal.rococops.com/about/
-- Sitemap: https://journal.rococops.com/sitemap.xml
+## 코성형
+
+- [코성형](https://journal.rococops.com/nose/): 로코코성형외과 김상호 원장의 코성형 안내. 코재수술, 늑연골·비중격연골 코성형, 매부리코, 복코, 비주성형, 비염수술까지 시술별 설명과 원장 칼럼, 수술 전후 사진을 확인하세요.
+- [복코 수술](https://journal.rococops.com/nose/bulbous/): 복코 수술은 코끝이 작아지되 집게로 집은 것처럼 보이지 않아야 합니다. 코끝 연골 정리 방법, 피부 두께와 피부 표면적의 한계, 콧볼축소·절골술과 함께 하는 경우, 회복과 전후사진을 김상호 원장의 글로 정리했습니다.
+- [고양이 수술(입매교정술)](https://journal.rococops.com/nose/cat/): 고양이 수술(입매교정술, 비순각교정술)은 코끝에서 윗입술로 이어지는 라인에 볼륨을 주는 수술입니다. 어떤 코에 필요한지, 비주내리기·비공내리기와 어떻게 함께 하는지를 김상호 원장의 글과 전후사진으로 정리했습니다.
+- [비주내리기·비주올리기 수술](https://journal.rococops.com/nose/columella/): 비주내리기(예전 이름 비주빼기)와 비주올리기는 콧구멍 사이 기둥인 비주와 콧볼의 높이를 맞추는 수술입니다. 비주말린 코의 원인, 비개방 비주내리기 방법과 조건, 재료, 회복과 한계를 김상호 원장의 글로 정리했습니다.
+- [진료단상](https://journal.rococops.com/nose/column/): 진료단상 — 콧구멍 안쪽으로만 수술하는, 바깥쪽으로는 흉터가 남지 않는 비개방 방식의 코성형에 대해 알아보겠습니다.
+- [매부리코 수술](https://journal.rococops.com/nose/hump/): 매부리코 수술은 가능하면 무보형물 수술을 지향하고 있으며, 코상태에 따라 보형물이 필요한 경우도 있습니다. 매부리코가 생기는 이유, 수술 방법, 자주 묻는 질문을 김상호 원장의 글로 정리했습니다.
+- [긴 코 성형](https://journal.rococops.com/nose/long/): 코끝이 처졌거나 중안면이 길어 코가 길어 보일 때 긴 코 성형은 어떻게 디자인하는지, 콧대를 높이면 생기는 단점과 콧구멍 노출 문제를 김상호 원장의 글과 전후사진으로 정리했습니다.
+- [남자 코성형](https://journal.rococops.com/nose/male/): 남자 코성형은 코끝 각도·미간 높이·일자 콧대처럼 여자 코와 디자인이 다르고, 피부가 두껍고 질겨 수술이 더 까다롭습니다. 남자 매부리코·휜코 교정 방법과 한계, 수술 후 경과를 김상호 원장의 글로 정리했습니다.
+- [코 절골술](https://journal.rococops.com/nose/osteotomy/): 코 절골술은 코뼈에 금을 내 안쪽으로 모아 넓은 콧대를 좁히거나 휜 콧대를 바로잡는 수술입니다. 절골로 좁아지는 부위와 한계, 보형물 수술과 함께 할 때의 염증 가능성, 회복을 김상호 원장의 글로 정리했습니다.
+- [코재수술](https://journal.rococops.com/nose/revision/): 코재수술은 이전 수술과 현재 코 상태에 따라 방법이 달라집니다. 재료 선택 기준, 보형물 제거와 코재수술의 차이, 구축코·들린코 교정 사례를 김상호 원장의 글로 정리했습니다.
+- [비염수술](https://journal.rococops.com/nose/rhinitis/): 비염수술은 비중격이나 하비갑개 때문에 좁아진 공기 통로를 넓히는 수술입니다. 하비갑개 부분축소술 방법, 코성형과 함께 하는 경우, 수술 후 호흡과 회복을 김상호 원장의 글과 내시경 전후사진으로 정리했습니다.
+- [자가늑연골 코성형](https://journal.rococops.com/nose/rib-cartilage/): 자가늑연골 코성형은 본인의 늑연골로 코끝을 만드는 수술입니다. 채취 방법과 흉터, 기증늑연골·실리콘과의 비교, 코가 휘는지 궁금한 점을 김상호 원장의 글로 정리했습니다.
+- [비개방 코성형(흉터없는 코성형)](https://journal.rococops.com/nose/scarless/): 콧구멍 안쪽으로만 수술해 바깥쪽으로 흉터를 남기지 않는 비개방 코성형입니다. 실리콘과 귀연골을 쓰는 방식, 개방형과의 차이, 비개방이 가능한 코와 한계, 회복을 김상호 원장의 글로 정리했습니다.
+- [비중격연골 코성형](https://journal.rococops.com/nose/septal/): 비중격연골 코성형은 콧속 비중격연골을 얻어 코끝을 높이는 수술입니다. 연골을 얼마나 남겨야 코가 내려앉지 않는지(L자 지지대), 귀연골·늑연골과의 선택, 휜코 교정과 회복을 김상호 원장의 글로 정리했습니다.
+
+## 콧구멍성형
+
+- [콧구멍성형](https://journal.rococops.com/nostril/): 로코코성형외과 콧구멍성형. 로코코 콧구멍성형. 비공내리기, 콧날개올리기, V형 콧구멍교정, 콧구멍축소술, 콧볼축소술.
+선천적으로 콧구멍이 보이는 분들을 위한 정밀 교정.
+- [콧볼축소술(콧날개축소술)](https://journal.rococops.com/nostril/alar-base/): 콧볼축소술(콧날개축소술)은 넓게 벌어진 콧볼을 줄이는 수술입니다. 복코교정과의 관계, 콧볼 형태·콧구멍 크기에 따른 수술법, 수술하면 안 되는 콧볼, 절개선과 봉합, 흉터가 흐려지는 과정을 김상호 원장의 글로 정리했습니다.
+- [비공내리기 수술](https://journal.rococops.com/nostril/alar-lowering/): 비공내리기는 정면에서 콧구멍이 보이는 것을 가려주는 수술입니다. M자 콧구멍 Type 1·2·3별 효과 차이, 수술 방법, 회복과 흉터를 김상호 원장의 글로 정리했습니다.
+- [콧날개올리기 수술](https://journal.rococops.com/nostril/alar-raising/): 콧날개올리기는 처진 콧볼을 위로 올려 콧구멍 노출과 콧볼 비대칭을 줄이는 수술입니다. 3세대·4세대 방법, 올라가는 정도(1~2mm), 인중축소술 후 한계와 흉터를 김상호 원장의 글로 정리했습니다.
+- [콧구멍축소술](https://journal.rococops.com/nostril/reduction/): 콧구멍이 크거나 많이 보여 고민일 때 콧구멍축소술은 어떤 수술인지, 되돌릴 수 없다는 점과 흉터·호흡 문제, 콧날개올리기와 함께 하는 경우를 김상호 원장의 글과 전후사진으로 정리했습니다.
+- [V형 콧구멍교정](https://journal.rococops.com/nostril/v-shape/): 콧구멍이 많이 보이는데 비공내리기가 맞지 않는 경우, 콧날개올리기를 응용한 V형 콧구멍교정은 어떤 수술인지, 가려지는 정도와 단점, 회복을 김상호 원장의 글과 전후사진으로 정리했습니다.
+
+## 눈성형
+
+- [눈성형](https://journal.rococops.com/eye/): 로코코성형외과 눈성형. 로코코 눈성형. 눈매교정술, 트임성형, 쌍커풀, 눈밑지방 재배치, 꺼진눈 지방이식, 눈썹하거상술.
+자연스럽고 또렷한 눈매를 만드는 정밀 수술.
+- [눈썹하거상술](https://journal.rococops.com/eye/brow-lift/): 눈썹하거상술 — 젊은 시절 예쁜 쌍커풀 라인이 있었는데 어느새 나이가 들면서 쳐진살 때문에 쌍커풀이 숨어버린 경우에 가장 추천되는 수술법입니다.
+- [눈매교정술](https://journal.rococops.com/eye/correction/): 눈매교정술은 눈 뜨는 힘을 강하게 만들어 졸려 보이는 눈을 또렷하게 하는 수술입니다. 절개·비절개·무절개(무쌍) 눈매교정의 차이, 수술 방법과 회복, 절개 후 비절개 재수술과 비대칭 교정을 김상호 원장의 글로 정리했습니다.
+- [자연유착법 쌍커풀 수술(매몰법)](https://journal.rococops.com/eye/double/): 자연유착법 쌍커풀 수술(매몰법)은 수면마취 후 국소마취를 하고 10분 정도 걸리는 쌍꺼풀 수술입니다. 매몰·절개·부분절개의 차이, 풀림, 쌍커풀의 깊이, 흉터와 회복 과정을 김상호 원장의 글로 정리했습니다.
+- [꺼진눈 지방이식](https://journal.rococops.com/eye/fat-graft/): 눈 위가 꺼져 피곤하고 나이 들어 보이거나 쌍커풀이 여러 겹일 때, 꺼진눈 지방이식은 어떤 수술인지 단점과 회복, 이마거상술 뒤에 꺼지는 경우를 김상호 원장의 글과 전후사진으로 정리했습니다.
+- [트임성형](https://journal.rococops.com/eye/incision/): 트임성형은 눈을 키우는 방향에 따라 앞트임·뒤트임(뒷트임)·밑트임으로 나뉩니다. 뒤트임이 가능한 눈의 기준(눈꼬리 뒤 공간 4mm), 다시 붙지 않게 하는 수술 방법, 흉터와 회복 과정을 김상호 원장의 글로 정리했습니다.
+- [눈밑지방 재배치](https://journal.rococops.com/eye/lower-fat/): 눈밑이 불룩하고 그림자가 져 피곤해 보일 때 눈밑지방 재배치는 어떤 수술인지, 수술로 고쳐지지 않는 다크서클과 재발을 줄이는 방법을 김상호 원장의 글과 전후사진으로 정리했습니다.
+
+## 이마성형
+
+- [이마성형](https://journal.rococops.com/forehead/): 로코코성형외과 이마성형. 로코코 이마성형. 내시경 이마거상술과 이마축소술.
+노화로 처진 이마와 눈썹을 자연스럽게 교정합니다.
+- [내시경 이마거상술](https://journal.rococops.com/forehead/endoscopic/): 내시경 이마거상술은 두피 속 작은 절개로 눈썹을 포함한 이마 전체를 들어올려 고정하는 수술입니다. 눈썹이 내려와 생기는 변화, 수술 방법, 효과 유지 기간, 붓기·멍과 회복을 김상호 원장의 글과 전후사진으로 정리했습니다.
+- [이마축소술](https://journal.rococops.com/forehead/reduction/): 이마거상술과 이마축소술은 어떻게 다른 수술일까요? 이마 높이와 관련된 수술을 로코코성형외과 김상호 원장이 비교해 설명합니다.
+
+## 동안성형
+
+- [동안성형](https://journal.rococops.com/anti-aging/): 로코코성형외과 동안성형. 로코코 동안성형. 무턱성형, 미세지방이식, 상·하안검성형, 엘라스티꿈 실리프팅, 필러·보톡스.
+얼굴 균형과 자연스러운 동안 라인을 완성합니다.
+- [상·하안검성형](https://journal.rococops.com/anti-aging/blepharoplasty/): 상·하안검성형(5개 케이스) — 로코코성형외과 김상호 원장의 상·하안검성형 시술 케이스 모음
+- [무턱수술](https://journal.rococops.com/anti-aging/chin/): 무턱은 턱끝이 충분히 앞으로 나오지 못하고 뒤에 있는 상태로, 입이 튀어나와 보이고 얼굴 밸런스가 깨져 보이게 합니다. 수면마취·입안 절개로 하는 무턱수술의 방법, 보형물 고정, 회복과 전후사진을 김상호 원장의 글로 정리했습니다.
+- [리포킷 미세지방이식](https://journal.rococops.com/anti-aging/fat-graft/): 얼굴 지방이식은 지방을 어떻게 채취하고 이식하느냐에 따라 달라집니다. 리포킷 자가혈 미세지방이식, 지방이 흘러내린다는 말의 진실, 이마·미간 지방이식의 한계를 김상호 원장의 글로 정리했습니다.
+- [필러·보톡스](https://journal.rococops.com/anti-aging/filler-botox/): 필러·보톡스 — 일반인들이 볼 때 논문이라고 하면 대단한 진실을 담고 있다고 생각하시겠지만 꼭 그런것은 아닙니다.
+- [엘라스티꿈 실리프팅](https://journal.rococops.com/anti-aging/lifting/): 엘라스티꿈 실리프팅(3개 케이스) — 로코코성형외과 김상호 원장의 엘라스티꿈 실리프팅 시술 케이스 모음
+
+## 성형 가이드 (김상호 원장 집필)
+
+- [퀵광대 장기경과 — 광대뼈가 다시 나오지 않는 이유와 1년 반, 3년 뒤 변화](https://journal.rococops.com/guide/quick-cheekbone-long-term/): 나사로 고정하지 않는 퀵광대는 시간이 지나면 광대가 다시 나온다는 말이 있습니다. 밀려 들어간 뼈가 굳는 시기, 충격에 대한 걱정, 1년 반과 3년 뒤 실제 경과를 정리했습니다.
+- [코재수술 대신 찝힌코만 교정하는 방법](https://journal.rococops.com/guide/revision-rhinoplasty-pinched-tip/): 코수술 후 코끝과 콧볼 사이가 꺼진 찝힌코는 코 전체를 다시 하는 코재수술 없이도 교정할 수 있습니다. 콧구멍 안쪽 절개로 기증진피를 넣는 방법과 흡수에 대한 궁금증을 정리했습니다.
+- [광대축소술 대신 광대 마사지? 오히려 광대가 커지는 이유](https://journal.rococops.com/guide/cheekbone-reduction-massage/): 광대축소술 대신 경락이나 마사지로 광대를 줄이려는 분들이 있습니다. 광대뼈 위의 살을 계속 문지르면 흉살이 생겨 오히려 광대가 커지고 수술 결과에도 영향을 주는 이유를 설명합니다.
+- [비공내리기로 콧구멍 짝짝이 교정 — 한쪽만, 때로는 두 번에 나눠서](https://journal.rococops.com/guide/alar-lowering-asymmetry/): 콧구멍 짝짝이는 대부분 한쪽 콧구멍이 찝혀 올라간 경우라 그쪽만 비공내리기를 해서 교정할 수 있습니다. 한쪽 수술의 과정과 시간, 비대칭이 심할 때 두 번에 나눠 수술하는 이유를 설명합니다.
+- [늑연골 코성형 재수술, 기존 늑연골 재활용과 진피 보강](https://journal.rococops.com/guide/rib-cartilage-reuse-dermis/): 이미 늑연골 코성형을 받은 코를 재수술할 때 새로 늑연골을 얻지 않고 기존 연골을 다시 쓸 수 있는 경우가 많습니다. 기존 늑연골 재활용과 진피를 함께 쓰는 방법, 주의할 점을 정리했습니다.
+- [퀵광대 하면 입을 못 벌리게 된다? 턱관절과의 관계](https://journal.rococops.com/guide/quick-cheekbone-jaw-opening/): 퀵광대로 옆광대를 넣으면 입을 못 벌리게 된다는 이야기가 있습니다. 어떤 경우에 불편이 생길 수 있는지, 입 벌릴 때 귀 앞이 볼록해지는 건 무엇인지 정리했습니다.
+- [코재수술 새부리 변형, 교정법은 세 가지입니다](https://journal.rococops.com/guide/revision-rhinoplasty-bird-beak/): 코성형 후 세월이 지나 코끝만 낮아지면 새부리 변형이 생기고, 코재수술 상담에서 자주 보는 모양입니다. 새부리 변형이 생기는 원리와 코끝을 높이거나 콧대를 낮추는 세 가지 교정법, 각각의 장단점을 설명합니다.
+- [광대축소술로 안면비대칭도 교정될까](https://journal.rococops.com/guide/cheekbone-reduction-asymmetry/): 광대축소술로 얼굴 비대칭까지 맞출 수 있는지 묻는 분이 많습니다. 교정이 어려운 이유, 약간 호전되는 경우, 한국인에게 흔한 비대칭 형태를 정리했습니다.
+- [비공내리기로 용코도 교정될까 — 가능한 것과 불가능한 것](https://journal.rococops.com/guide/alar-lowering-dragon-nostril/): 콧구멍 바깥쪽이 치켜 올라간 용코는 비공내리기로 콧구멍 노출을 줄일 수는 있지만 용코 모양 자체를 없애기는 어렵습니다. 용코의 특징과 비공내리기 결과의 한계, 수술을 권하는 경우를 정리했습니다.
+- [늑연골 코성형으로 염증 후 구축코 재건하기](https://journal.rococops.com/guide/rib-cartilage-contracted-nose/): 코수술 후 염증으로 보형물과 연골을 제거하면 코가 쪼그라드는 구축코가 생길 수 있습니다. 염증 단계별 대처, 재건 시기, 늑연골 코성형과 비공내리기로 재건하는 과정을 사례와 함께 정리했습니다.
+- [퀵광대 흉터, 어디에 얼마나 남을까](https://journal.rococops.com/guide/quick-cheekbone-scar/): 퀵광대 흉터는 관자 쪽 두피 1~1.5cm 절개 하나입니다. 여성과 남성의 절개 위치 차이, 3주와 3개월째 모습, 드물게 비어 보일 때 가리는 방법을 정리했습니다.
+- [코재수술 후 염증, 코가 붓는 것이 첫 신호입니다](https://journal.rococops.com/guide/revision-rhinoplasty-inflammation/): 코성형이나 코재수술 후 염증은 아픈 것보다 붓는 것으로 먼저 나타나는 경우가 많습니다. 보형물 거부반응과 염증의 차이, 초기 증상, 바로 해야 할 대처를 정리했습니다.
+- [광대축소술 하면 얼굴이 작아질까? 정확한 기대치](https://journal.rococops.com/guide/cheekbone-reduction-smaller-face/): 광대축소술을 받으면 얼굴이 작아지느냐는 질문을 자주 받습니다. 광대뼈와 턱뼈의 차이, 얼굴이 작아지는 수술보다 얼굴선이 부드러워지는 수술에 가까운 이유를 설명합니다.
+- [비공내리기 제거 가능할까? 시기와 방법](https://journal.rococops.com/guide/alar-lowering-removal/): 비공내리기는 시간이 지나면 제거할 수 없다는 이야기가 있지만 시기에 관계없이 제거할 수 있습니다. 다만 무엇을 얼마나 제거하느냐에 따라 콧구멍이 다시 올라갈 수 있어 미리 알아야 할 점을 정리했습니다.
+- [늑연골 코성형으로 들린코·들창코 교정하기](https://journal.rococops.com/guide/rib-cartilage-upturned-nose/): 들린코와 들창코는 코끝을 내린 뒤에도 다시 들리려는 힘이 강하게 작용합니다. 늑연골 코성형으로 교정하는 이유, 기증늑연골과의 차이, 비공내리기를 함께 하는 경우가 많은 이유를 정리했습니다.
+- [퀵광대 회복기간, 1주·2주 차 멍과 붓기는 어느 정도일까](https://journal.rococops.com/guide/quick-cheekbone-recovery/): 퀵광대 회복기간은 옆광대만 하면 2~3일, 45도 광대까지 하면 1~2주입니다. 1주째와 2주째 실제 멍과 붓기, 잔붓기가 빠지는 기간, 일정 잡는 요령을 정리했습니다.
+- [코재수술 후 담배와 아이코스를 끊어야 하는 이유](https://journal.rococops.com/guide/revision-rhinoplasty-smoking/): 보형물을 쓰는 코재수술은 제가 하는 수술 중 염증 가능성이 가장 높은 수술입니다. 담배와 궐련형 전자담배가 상처 치유와 염증에 어떤 영향을 주는지 설명합니다.
+- [광대축소술 후 볼처짐, 어디가 어떻게 처지는 걸까](https://journal.rococops.com/guide/cheekbone-reduction-cheek-sagging/): 광대축소술 후 볼처짐을 턱선이 늘어지는 것으로 아는 분이 많지만 실제로는 다릅니다. 볼처짐이 생기는 방향과 원인, 45도 광대를 얼마나 줄이느냐가 중요한 이유를 정리했습니다.
+- [비공내리기 부작용과 한계, 귀와 코로 나눠 정리](https://journal.rococops.com/guide/alar-lowering-side-effects/): 귀연골과 피부를 함께 옮기는 비공내리기 수술에서 실제로 불편이 있었던 부분과 한계를 귀(채취부)와 코(이식부)로 나눠 정리했습니다. 각각 얼마나 드물고 어떻게 대처하는지 설명합니다.
+- [늑연골 코성형을 첫 코수술로 하는 경우](https://journal.rococops.com/guide/rib-cartilage-first-surgery/): 첫 코수술에 늑연골을 쓰는 것에 거부감을 느끼는 분이 많습니다. 저도 첫 수술은 대부분 비중격연골이나 귀연골을 권하지만, 늑연골 코성형이 훨씬 나은 결과가 예상되는 경우가 있습니다.
+- [퀵광대 부작용 총정리 — 흉터, 불유합, 신경, 볼처짐까지](https://journal.rococops.com/guide/quick-cheekbone-side-effects/): 퀵광대에서 생길 수 있는 부작용을 흉터, 염증, 출혈, 불유합, 신경 손상, 볼처짐, 예측하기 어려운 경우까지 일곱 가지로 나눠 각각 어떻게 대비하는지 정리했습니다.
+- [코재수술 전에 알아야 할 부작용 13가지와 대처](https://journal.rococops.com/guide/revision-rhinoplasty-side-effects/): 코수술과 코재수술 후 생길 수 있는 부작용을 멍과 붓기, 감각 이상, 혈종, 보형물 거부반응, 코막힘, 피부괴사까지 13가지로 나눠 각각 어떻게 대처하는지 정리했습니다.
+- [광대축소술 고정 vs 비고정, 뼈가 벌어지는 진짜 이유](https://journal.rococops.com/guide/cheekbone-reduction-fixation/): 광대축소술은 나사로 고정해야 안전하고 비고정은 뼈가 벌어진다는 말이 많습니다. 재수술 환자의 x-ray로 본 실제 모습과, 뼈가 잘 붙는지를 좌우하는 진짜 요인을 정리했습니다.
+- [비공내리기 하면 코끝이 커진다? 하면 안 되는 수술이라는 말의 진실](https://journal.rococops.com/guide/alar-lowering-bigger-tip/): 비공내리기는 하면 안 되는 수술이라는 글을 보고 걱정하는 분이 많습니다. 코끝이 커지는 이유와 그 정도, 복코 교정과 함께 원할 때의 문제, 수술 초기 벙벙함이 줄어드는 과정을 설명합니다.
+- [늑연골 코성형, 콧대까지 늑연골로 해야 할까](https://journal.rococops.com/guide/rib-cartilage-dorsum/): 늑연골 코성형을 할 때 콧대까지 늑연골로 높여 달라는 분들이 있습니다. 콧대에 실리콘과 늑연골을 쓸 때의 장단점, 장기 경과에서 본 문제, 와핑을 막는 방법을 정리했습니다.
+- [퀵광대 위험한 수술인가요? 안전성을 판단하는 기준](https://journal.rococops.com/guide/quick-cheekbone-safety/): 퀵광대가 위험하다는 글을 보고 걱정하는 분이 많습니다. 왜 그런 말이 나오는지, 이 방식이 학술지에 실린 적이 있는지, 무엇으로 안전성을 판단해야 하는지 정리했습니다.
+- [코재수술로도 바꿀 수 없는 것 — 코 바닥 길이, 코끝 피부, 밴드현상](https://journal.rococops.com/guide/revision-rhinoplasty-limits/): 코재수술을 여러 번 받아도 원하는 코가 나오지 않는 데는 현대의학으로 바꿀 수 없는 부분이 있기 때문입니다. 코 바닥 길이, 코끝 피부 표면적, 콧대 중앙 밴드현상 등 11가지 한계를 정리했습니다.
+- [광대축소술 수술법 비교 — 관상절개, 입안절개, 두피 절개 방식의 장단점](https://journal.rococops.com/guide/cheekbone-reduction-methods/): 광대축소술은 어디를 절개해 광대뼈에 접근하는지, 자른 뼈를 고정하는지에 따라 방식이 크게 달라집니다. 관상절개, 입안절개, 두피 쪽 작은 절개 방식의 장단점을 정리했습니다.
+- [비공내리기와 코재수술을 함께 할 때 — 들창코·구축코 교정](https://journal.rococops.com/guide/alar-lowering-with-revision/): 코끝이 들려 콧구멍이 많이 보이는 들창코나 구축코는 코끝만 내려서는 콧구멍이 다 가려지지 않는 경우가 많습니다. 비공내리기를 코수술과 함께 하는 이유와 미리 알아야 할 점을 정리했습니다.
+- [늑연골 코성형 하면 코끝이 뾰족하게 비친다?](https://journal.rococops.com/guide/rib-cartilage-pointy-tip/): 늑연골 코성형을 하면 코끝이 뾰족해지고 비친다는 이야기 때문에 망설이는 분이 많습니다. 코끝이 뾰족해지고 비치는 진짜 이유는 재료가 아니라 피부 여유에 비해 얼마나 높였느냐에 있습니다.
+- [퀵광대 효과가 작다는 말, 어디까지 사실일까](https://journal.rococops.com/guide/quick-cheekbone-effect/): 퀵광대는 효과가 작다는 말은 절반만 맞습니다. 옆광대는 입안절개 방식과 차이가 없고, 45도 광대는 덜 줄이는 대신 볼처짐 부담이 적습니다. 효과를 가늠하는 기준까지 정리했습니다.
+- [코재수술의 가장 흔한 원인, 콧대 S라인이란](https://journal.rococops.com/guide/revision-rhinoplasty-s-line/): 코재수술을 받는 가장 흔한 원인은 콧대 S라인입니다. 콧대 피부의 여유가 부위마다 달라서 세월이 지나면 코끝은 낮아지고 코끝 위는 볼록해지는 원리와 교정의 한계를 설명합니다.
+- [구축코란? 코끝이 들려 올라가는 원인과 자가늑연골·비공내리기 교정 방법](https://journal.rococops.com/guide/contracted-nose-causes-and-correction/): 코성형 후 코끝이 들리고 콧구멍이 드러나는 구축코. 생기는 원인과 자가늑연골, 비공내리기, 비주내리기 교정 방법, 한계까지 그동안 올렸던 케이스를 모아 정리했습니다.
+- [광대축소술 효과는 얼굴형이 결정합니다 — A·B·C형, 도토리형, W광대](https://journal.rococops.com/guide/cheekbone-reduction-face-type/): 광대축소술 효과는 수술법보다 타고난 얼굴형에서 먼저 정해집니다. 효과가 좋은 A형, 중간인 B형(아랫광대), 효과가 적은 C형과 도토리형, 뼈를 줄여도 남아 보이는 W광대를 정리했습니다.
+- [비공내리기만이 답은 아닙니다 — 콧구멍이 보이는 4가지 원인과 해결법](https://journal.rococops.com/guide/alar-lowering-nostril-causes/): 콧구멍이 보이는 이유는 들창코, 위로 올라간 콧구멍, 아래로 내려간 콧구멍, 큰 콧구멍 네 가지입니다. 원인에 따라 비공내리기, 콧날개올리기, 콧구멍축소술 중 무엇이 맞는지 정리했습니다.
+- [늑연골 코성형으로 휜코 교정 — 여러 번 실패했다면](https://journal.rococops.com/guide/rib-cartilage-deviated/): 여러 번 수술해도 휜코가 교정되지 않았다면 원인이 지지대에 있는지, 얼굴 축에 있는지부터 봐야 합니다. 늑연골 코성형으로 휜코를 교정한 사례와 함께 비염 수술을 같이 하는 경우를 정리했습니다.
+- [퀵광대와 변형15분 광대축소술 차이 — 옆광대만 할까, 45도 광대까지 할까](https://journal.rococops.com/guide/quick-cheekbone-vs-modified/): 퀵광대는 옆광대만 넣는 15분 광대축소술과 45도 광대까지 줄이는 변형15분 광대축소술로 나뉩니다. 수술 시간, 회복 기간, 효과 차이를 표로 정리했습니다.
+- [코성형 재료 비교 - 비중격연골·귀연골·자가늑연골, 코끝엔 뭘 써야 할까](https://journal.rococops.com/guide/rhinoplasty-material-guide/): 코성형에서 코끝을 높이는 재료는 비중격연골, 귀연골, 자가늑연골 세 가지입니다. 각각의 장단점과 안장코 같은 걱정거리까지 제 설명으로 정리했습니다.
+- [비공내리기 수술이란? 3세대 비공내리기의 효과와 흉터, 회복 기간](https://journal.rococops.com/guide/alar-lowering-guide/): 콧구멍이 많이 보이는 것을 가려주는 비공내리기 수술. 1~3세대로 발전해 온 수술법과 흉터가 어느 정도 보이는지, 회복 기간, 콧구멍 모양별 결과 차이까지 정리했습니다.
+- [코재수술 언제 받아야 할까? 6개월설의 진실과 보형물 제거수술과의 차이](https://journal.rococops.com/guide/revision-rhinoplasty-timing/): 코재수술은 정해진 시기가 없습니다. 왜 6개월이라는 말이 나오는지, 언제 바로 재수술이 가능한지, 그리고 자주 헷갈리는 보형물 제거수술과의 차이를 정리했습니다.
+- [늑연골 코성형이란? 자가늑연골과 기증늑연골 비교, 흉터와 코 휨 궁금증 정리](https://journal.rococops.com/guide/rib-cartilage-rhinoplasty-guide/): 늑연골 코성형에서 자주 묻는 질문을 정리했습니다. 자가늑연골과 기증늑연골의 차이, 채취 흉터, 코가 휜다는 말, 석회화 걱정까지 김상호 원장의 경험 기준입니다.
+- [광대축소술 종류와 선택 기준 - 옆광대·45도 광대·뒷광대, 퀵광대는 누구에게 맞을까](https://journal.rococops.com/guide/cheekbone-reduction-guide/): 광대축소술은 옆광대, 45도 광대, 뒷광대 중 어디가 문제인지에 따라 방법이 달라집니다. 퀵광대 방식의 효과와 회복 기간, 관자 꺼짐 착시까지 정리했습니다.
+
+## 병원·원장 안내
+
+- [지인(知人) 담당의사 김상호 원장](https://journal.rococops.com/about/): 경험과 실력, 사람에 대한 존중을 갖춘 로코코성형외과의 의료진이 처음부터 끝까지 함께합니다. 대표원장 김상호의 인사말과 약력을 소개합니다.
+- [자주 묻는 질문 — 로코코성형외과 김상호 원장](https://journal.rococops.com/about/faq/): 코성형·코재수술·매부리코·휜코·콧구멍성형·광대축소·눈성형·이마거상술 등 로코코성형외과 김상호 원장이 상담에서 가장 많이 받는 질문 76가지를 정리했습니다.
+- [오시는 길 & 진료시간](https://journal.rococops.com/about/location/): 로코코성형외과 오시는 길과 진료시간 안내. 서울특별시 강남구 논현로 842 압구정빌딩 3층, 압구정역 3번 출구. 모든 진료는 100% 예약제입니다.
+- [로코코의 약속과 경쟁력](https://journal.rococops.com/about/philosophy/): 로코코성형외과가 지키는 약속 10가지와 다른 병원과 차별화되는 경쟁력 5가지를 소개합니다. 거짓없는 진솔한 상담부터 안전성형 시스템까지.
+- [전체 케이스](https://journal.rococops.com/cases/): 로코코성형외과 김상호 원장의 시술 케이스 전체 모음 (601개) — 최신순/조회수순으로 확인할 수 있습니다.
+- [상담·예약](https://journal.rococops.com/counsel/): 온라인 상담 또는 예약 신청 중 원하시는 방법을 선택해주세요. 로코코성형외과에서 빠르게 확인 후 연락드립니다.
+- [온라인 상담 신청](https://journal.rococops.com/counsel/online/): 온라인 상담 신청 — 이름, 연락처, 궁금한 점을 남겨주시면 빠르게 확인 후 연락드립니다. 상담 내용과 답변은 본인만 열람할 수 있으며, 다른 분에게 공개되지 않습니다.
+- [수술후기](https://journal.rococops.com/reviews/): 로코코성형외과 김상호 원장에게 수술받은 환자분들이 직접 남긴 수술후기 475건을 시술별로 모았습니다.
+
+## Optional
+
+- [English](https://journal.rococops.com/en/): Rococo Plastic Surgery in Apgujeong, Seoul. Board-certified specialist Dr. Kim Sang-ho offers cheekbone reduction, rhinoplasty, nostril surgery, eye surgery and more. All consultations by appointment.
+- [日本語](https://journal.rococops.com/ja/): ソウル・狎鴎亭のロココ整形外科。形成外科専門医キム・サンホ院長が頬骨縮小術、鼻整形、目の整形など顔の輪郭整形を専門に行います。完全予約制。
+- [中文](https://journal.rococops.com/zh/): 首尔狎鸥亭洛可可整形外科。整形外科专科医生金相浩院长专业提供颧骨缩小术、隆鼻术、眼部整形等面部轮廓手术。完全预约制。
+- [RSS 피드](https://journal.rococops.com/feed.xml): 성형 가이드 새 글
+- [사이트맵](https://journal.rococops.com/sitemap.xml)

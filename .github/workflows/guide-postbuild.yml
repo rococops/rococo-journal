@@ -1,0 +1,35 @@
+# 성형 가이드가 발행·수정되면(예약 발행 포함) RSS 피드와 llms.txt 를 다시 만들고,
+# 가이드 본문 사진에 크기(width/height)를 넣어 커밋한다.
+name: guide-postbuild
+on:
+  push:
+    branches: [main]
+    paths: ['guide/**']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: guide-postbuild
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet pillow
+      - name: 피드·llms.txt·사진 크기
+        run: |
+          python tools/build_feed.py
+          python tools/build_llms.py
+          python tools/seo_postprocess.py --guides
+      - name: 바뀐 것이 있으면 커밋
+        run: |
+          git add feed.xml llms.txt guide data/img_dims.json
+          if git diff --cached --quiet; then echo "변경 없음"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "성형 가이드 후처리 자동 반영 (RSS·llms.txt·사진 크기)"
+          git pull --rebase origin main
+          git push origin HEAD:main

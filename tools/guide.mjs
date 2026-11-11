@@ -202,6 +202,8 @@ ${preview ? `<base href="${canonical}">\n` : ''}<meta charset="UTF-8">
 <script type="application/ld+json">
 ${schema}
 </script>
+<link rel="alternate" type="application/rss+xml" title="로코코 저널 — 성형 가이드" href="https://journal.rococops.com/feed.xml">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css" rel="stylesheet">
 <link rel="stylesheet" href="${root}css/style.css">
 ${preview ? '' : TRACKING}</head>`;
