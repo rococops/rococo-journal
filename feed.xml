@@ -6,7 +6,16 @@
   <atom:link href="https://journal.rococops.com/feed.xml" rel="self" type="application/rss+xml"/>
   <description>로코코성형외과 김상호 원장이 직접 쓰는 성형 가이드</description>
   <language>ko-KR</language>
-  <lastBuildDate>Wed, 11 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Thu, 12 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <item>
+    <title>비공내리기 직후 모습과 붓기 빠지는 과정 — 1주, 1개월, 3개월</title>
+    <link>https://journal.rococops.com/guide/alar-lowering-recovery/</link>
+    <guid isPermaLink="true">https://journal.rococops.com/guide/alar-lowering-recovery/</guid>
+    <pubDate>Thu, 12 Nov 2026 09:00:00 +0900</pubDate>
+    <author>김상호 원장</author>
+    <category>콧구멍성형</category>
+    <description>비공내리기 후 반창고를 떼는 날 코끝이 생각보다 커 보여 놀라는 분이 많습니다. 수술 직후부터 1주, 1개월, 3개월까지 붓기가 빠지는 과정과 회복 일정을 사진과 함께 정리했습니다.</description>
+  </item>
   <item>
     <title>늑연골 코성형 회복 기간과 붓기, 일상 복귀까지</title>
     <link>https://journal.rococops.com/guide/rib-cartilage-recovery/</link>
@@ -267,15 +276,6 @@
     <author>김상호 원장</author>
     <category>광대성형</category>
     <description>광대축소술은 어디를 절개해 광대뼈에 접근하는지, 자른 뼈를 고정하는지에 따라 방식이 크게 달라집니다. 관상절개, 입안절개, 두피 쪽 작은 절개 방식의 장단점을 정리했습니다.</description>
-  </item>
-  <item>
-    <title>비공내리기와 코재수술을 함께 할 때 — 들창코·구축코 교정</title>
-    <link>https://journal.rococops.com/guide/alar-lowering-with-revision/</link>
-    <guid isPermaLink="true">https://journal.rococops.com/guide/alar-lowering-with-revision/</guid>
-    <pubDate>Wed, 14 Oct 2026 09:00:00 +0900</pubDate>
-    <author>김상호 원장</author>
-    <category>콧구멍성형</category>
-    <description>코끝이 들려 콧구멍이 많이 보이는 들창코나 구축코는 코끝만 내려서는 콧구멍이 다 가려지지 않는 경우가 많습니다. 비공내리기를 코수술과 함께 하는 이유와 미리 알아야 할 점을 정리했습니다.</description>
   </item>
 </channel>
 </rss>
