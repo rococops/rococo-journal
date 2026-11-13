@@ -6,7 +6,16 @@
   <atom:link href="https://journal.rococops.com/feed.xml" rel="self" type="application/rss+xml"/>
   <description>로코코성형외과 김상호 원장이 직접 쓰는 성형 가이드</description>
   <language>ko-KR</language>
-  <lastBuildDate>Thu, 12 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 13 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <item>
+    <title>코재수술 원인 2위, 휜코 — 얼굴 축이 틀어진 코를 고치는 법</title>
+    <link>https://journal.rococops.com/guide/revision-rhinoplasty-deviated/</link>
+    <guid isPermaLink="true">https://journal.rococops.com/guide/revision-rhinoplasty-deviated/</guid>
+    <pubDate>Fri, 13 Nov 2026 09:00:00 +0900</pubDate>
+    <author>김상호 원장</author>
+    <category>코재수술</category>
+    <description>코재수술을 원하는 이유 중 두 번째로 많은 것이 코가 휘어 보인다는 것입니다. 휜코의 원인, 한국인에게 흔한 얼굴 축 틀어짐, 비중격을 옮기는 교정법과 그 대가를 정리했습니다.</description>
+  </item>
   <item>
     <title>광대축소술 재수술, 효과를 못 봤다면 다시 하면 될까</title>
     <link>https://journal.rococops.com/guide/cheekbone-reduction-revision/</link>
@@ -267,15 +276,6 @@
     <author>김상호 원장</author>
     <category>광대성형</category>
     <description>퀵광대가 위험하다는 글을 보고 걱정하는 분이 많습니다. 왜 그런 말이 나오는지, 이 방식이 학술지에 실린 적이 있는지, 무엇으로 안전성을 판단해야 하는지 정리했습니다.</description>
-  </item>
-  <item>
-    <title>코재수술로도 바꿀 수 없는 것 — 코 바닥 길이, 코끝 피부, 밴드현상</title>
-    <link>https://journal.rococops.com/guide/revision-rhinoplasty-limits/</link>
-    <guid isPermaLink="true">https://journal.rococops.com/guide/revision-rhinoplasty-limits/</guid>
-    <pubDate>Fri, 16 Oct 2026 09:00:00 +0900</pubDate>
-    <author>김상호 원장</author>
-    <category>코재수술</category>
-    <description>코재수술을 여러 번 받아도 원하는 코가 나오지 않는 데는 현대의학으로 바꿀 수 없는 부분이 있기 때문입니다. 코 바닥 길이, 코끝 피부 표면적, 콧대 중앙 밴드현상 등 11가지 한계를 정리했습니다.</description>
   </item>
 </channel>
 </rss>
