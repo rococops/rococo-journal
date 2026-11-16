@@ -6,7 +6,16 @@
   <atom:link href="https://journal.rococops.com/feed.xml" rel="self" type="application/rss+xml"/>
   <description>로코코성형외과 김상호 원장이 직접 쓰는 성형 가이드</description>
   <language>ko-KR</language>
-  <lastBuildDate>Fri, 13 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Mon, 16 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <item>
+    <title>퀵광대와 지방이식 — 관자·심부볼을 함께 채우면 달라지는 이유</title>
+    <link>https://journal.rococops.com/guide/quick-cheekbone-fat-graft/</link>
+    <guid isPermaLink="true">https://journal.rococops.com/guide/quick-cheekbone-fat-graft/</guid>
+    <pubDate>Mon, 16 Nov 2026 09:00:00 +0900</pubDate>
+    <author>김상호 원장</author>
+    <category>광대성형</category>
+    <description>퀵광대만으로 아쉬움이 남는 얼굴이 있습니다. 관자나 볼이 꺼져 광대가 더 나와 보이는 경우 지방이식을 함께 하는 이유, 생착과 유지에 대해 정리했습니다.</description>
+  </item>
   <item>
     <title>코재수술 원인 2위, 휜코 — 얼굴 축이 틀어진 코를 고치는 법</title>
     <link>https://journal.rococops.com/guide/revision-rhinoplasty-deviated/</link>
@@ -267,15 +276,6 @@
     <author>김상호 원장</author>
     <category>코성형</category>
     <description>늑연골 코성형을 할 때 콧대까지 늑연골로 높여 달라는 분들이 있습니다. 콧대에 실리콘과 늑연골을 쓸 때의 장단점, 장기 경과에서 본 문제, 와핑을 막는 방법을 정리했습니다.</description>
-  </item>
-  <item>
-    <title>퀵광대 위험한 수술인가요? 안전성을 판단하는 기준</title>
-    <link>https://journal.rococops.com/guide/quick-cheekbone-safety/</link>
-    <guid isPermaLink="true">https://journal.rococops.com/guide/quick-cheekbone-safety/</guid>
-    <pubDate>Fri, 16 Oct 2026 09:00:00 +0900</pubDate>
-    <author>김상호 원장</author>
-    <category>광대성형</category>
-    <description>퀵광대가 위험하다는 글을 보고 걱정하는 분이 많습니다. 왜 그런 말이 나오는지, 이 방식이 학술지에 실린 적이 있는지, 무엇으로 안전성을 판단해야 하는지 정리했습니다.</description>
   </item>
 </channel>
 </rss>
