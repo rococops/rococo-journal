@@ -206,6 +206,98 @@ document.addEventListener('DOMContentLoaded', function () {
     list.appendChild(li);
   })();
 
+  // 상담 연결 — ① 모바일 하단 고정 바(전화·카톡) ② 기사 본문 끝 상담 박스
+  // 한국어 페이지만. 관리자·회원 페이지 제외. style.css를 건드리지 않으려고 스타일은 여기서 넣음.
+  (function () {
+    var lang = (document.documentElement.lang || 'ko').slice(0, 2).toLowerCase();
+    if (lang !== 'ko') return;
+    if (/^\/(admin|member)\//.test(location.pathname)) return;
+
+    var TEL = '02-2135-2702';
+    var KAKAO = 'https://pf.kakao.com/_xdBpRl';
+
+    // 클릭 수 측정 (GA4)
+    function track(name) {
+      try { if (typeof gtag === 'function') gtag('event', name, { page_path: location.pathname }); } catch (e) {}
+    }
+
+    var css = document.createElement('style');
+    css.textContent =
+      '.cta-bar{display:none}' +
+      '@media (max-width:768px){' +
+        '.cta-bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:1000;gap:8px;' +
+          'padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.97);' +
+          'border-top:1px solid #e5e5e5;box-shadow:0 -4px 16px rgba(0,0,0,.06)}' +
+        '.cta-bar a{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;height:48px;' +
+          'border-radius:6px;font-size:15px;font-weight:800;text-decoration:none;font-family:var(--font-main)}' +
+        '.cta-bar .cta-tel{background:#111;color:#fff}' +
+        '.cta-bar .cta-kakao{background:#FEE500;color:#3C1E1E}' +
+        'body.has-cta-bar{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}' +
+        'body.has-cta-bar .kakao-float{display:none}' +
+      '}' +
+      '.cta-box{margin:3rem 0 1rem;padding:1.5rem 1.25rem;border:1px solid #e3d6c4;border-radius:6px;background:#faf7f2;text-align:center}' +
+      '.cta-box-title{margin:0 0 .35rem;font-size:1.05rem;font-weight:800;color:#111}' +
+      '.cta-box-desc{margin:0 0 1rem;font-size:.88rem;color:#666}' +
+      '.cta-box-btns{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}' +
+      '.cta-box-btns a{display:inline-flex;align-items:center;gap:6px;padding:.7rem 1.2rem;border-radius:6px;' +
+        'font-size:.95rem;font-weight:800;text-decoration:none}' +
+      '.cta-box-btns .cta-tel{background:#111;color:#fff}' +
+      '.cta-box-btns .cta-kakao{background:#FEE500;color:#3C1E1E}';
+    document.head.appendChild(css);
+
+    var ICON_TEL = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11.4 11.4 0 003.6.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.6a1 1 0 01-.25 1z"/></svg>';
+    var ICON_KAKAO = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.6c-.1.3.3.6.6.4l4.2-2.8c.5.1 1 .1 1.5.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>';
+
+    function telLink(label) {
+      var a = document.createElement('a');
+      a.href = 'tel:' + TEL;
+      a.className = 'cta-tel';
+      a.innerHTML = ICON_TEL + '<span>' + label + '</span>';
+      a.addEventListener('click', function () { track('click_call'); });
+      return a;
+    }
+    function kakaoLink(label) {
+      var a = document.createElement('a');
+      a.href = KAKAO;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.className = 'cta-kakao';
+      a.innerHTML = ICON_KAKAO + '<span>' + label + '</span>';
+      a.addEventListener('click', function () { track('click_kakao'); });
+      return a;
+    }
+
+    // ① 모바일 하단 바 (768px 이하에서만 보임)
+    var bar = document.createElement('div');
+    bar.className = 'cta-bar';
+    bar.setAttribute('role', 'navigation');
+    bar.setAttribute('aria-label', '상담 연결');
+    bar.appendChild(telLink('전화 상담'));
+    bar.appendChild(kakaoLink('카톡 상담'));
+    document.body.appendChild(bar);
+    document.body.classList.add('has-cta-bar');
+
+    // 기존 동그란 카톡 버튼도 클릭 수 측정
+    [].forEach.call(document.querySelectorAll('.kakao-float'), function (a) {
+      a.addEventListener('click', function () { track('click_kakao'); });
+    });
+
+    // ② 기사 본문 끝 상담 박스 (본문이 있는 페이지만)
+    var content = document.querySelector('.article-content');
+    if (content) {
+      var box = document.createElement('div');
+      box.className = 'cta-box';
+      box.innerHTML = '<p class="cta-box-title">상담 문의</p>' +
+        '<p class="cta-box-desc">로코코성형외과 · 전화 또는 카카오톡으로 문의하실 수 있습니다.</p>';
+      var btns = document.createElement('div');
+      btns.className = 'cta-box-btns';
+      btns.appendChild(telLink(TEL));
+      btns.appendChild(kakaoLink('카톡 상담'));
+      box.appendChild(btns);
+      content.appendChild(box);
+    }
+  })();
+
   // 회원 로그인 상태 표시줄은 main.js가 아니라 각 페이지에 인라인으로 들어있음
   // (별도 파일이라 캐시되면 표시줄만 안 뜨는 문제가 있었음 — review_utils.mjs의 MEMBER_BAR 참고)
 
