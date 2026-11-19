@@ -6,7 +6,16 @@
   <atom:link href="https://journal.rococops.com/feed.xml" rel="self" type="application/rss+xml"/>
   <description>로코코성형외과 김상호 원장이 직접 쓰는 성형 가이드</description>
   <language>ko-KR</language>
-  <lastBuildDate>Wed, 18 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Thu, 19 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <item>
+    <title>코재수술이 어려워지는 경우 — 메쉬·메드포어 비중격 연장</title>
+    <link>https://journal.rococops.com/guide/revision-rhinoplasty-mesh/</link>
+    <guid isPermaLink="true">https://journal.rococops.com/guide/revision-rhinoplasty-mesh/</guid>
+    <pubDate>Thu, 19 Nov 2026 09:00:00 +0900</pubDate>
+    <author>김상호 원장</author>
+    <category>코재수술</category>
+    <description>메쉬나 메드포어로 코끝을 높인 뒤 코재수술을 하면 제거가 매우 어려운 경우가 있습니다. 비주 지지대와 비중격 연장 방식의 차이, 재수술 경험에서 본 문제점을 개인 견해로 정리했습니다.</description>
+  </item>
   <item>
     <title>광대축소술 최후방절골, 뒤에서 자를수록 많이 들어갈까</title>
     <link>https://journal.rococops.com/guide/cheekbone-reduction-arch-osteotomy/</link>
@@ -267,15 +276,6 @@
     <author>김상호 원장</author>
     <category>광대성형</category>
     <description>퀵광대에서 생길 수 있는 부작용을 흉터, 염증, 출혈, 불유합, 신경 손상, 볼처짐, 예측하기 어려운 경우까지 일곱 가지로 나눠 각각 어떻게 대비하는지 정리했습니다.</description>
-  </item>
-  <item>
-    <title>코재수술 전에 알아야 할 부작용 13가지와 대처</title>
-    <link>https://journal.rococops.com/guide/revision-rhinoplasty-side-effects/</link>
-    <guid isPermaLink="true">https://journal.rococops.com/guide/revision-rhinoplasty-side-effects/</guid>
-    <pubDate>Thu, 22 Oct 2026 09:00:00 +0900</pubDate>
-    <author>김상호 원장</author>
-    <category>코재수술</category>
-    <description>코수술과 코재수술 후 생길 수 있는 부작용을 멍과 붓기, 감각 이상, 혈종, 보형물 거부반응, 코막힘, 피부괴사까지 13가지로 나눠 각각 어떻게 대처하는지 정리했습니다.</description>
   </item>
 </channel>
 </rss>
