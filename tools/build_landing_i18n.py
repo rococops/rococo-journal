@@ -239,6 +239,7 @@ def render(lang, key):
 <meta property="og:image" content="{e(og_img)}">
 <meta property="og:url" content="{url}">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="로코코성형외과 저널">
 <link rel="canonical" href="{url}">
 {hreflang}<script type="application/ld+json">
 {json.dumps(ld, ensure_ascii=False, indent=2)}

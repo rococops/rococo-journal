@@ -55,6 +55,7 @@ ${MEMBER_GATE(root)}
 <meta property="og:image" content="${ogImage}">
 <meta property="og:url" content="${ogUrl}">
 <meta property="og:type" content="article">
+<meta property="og:site_name" content="로코코성형외과 저널">
 <link rel="canonical" href="${ogUrl}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
@@ -211,11 +212,12 @@ ${MEMBER_GATE(root)}
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${cfg.subName} 수술후기 (${reviews.length}건) — 로코코성형외과 김상호 원장</title>
 <meta name="description" content="${cfg.subName} 환자분들이 직접 남긴 수술후기 ${reviews.length}건 — 로코코성형외과">
-<meta property="og:title" content="${cfg.subName} 수술후기 | 로코코 저널">
+<meta property="og:title" content="${cfg.subName} 수술후기 | 로코코성형외과 저널">
 <meta property="og:description" content="${cfg.subName} 환자분들이 직접 남긴 수술후기 ${reviews.length}건">
 <meta property="og:image" content="${root}images/thumbnails/1-1.jpg">
 <meta property="og:url" content="${SITE_BASE}/${cfg.catPath}/${cfg.subDir}/reviews/">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="로코코성형외과 저널">
 <link rel="canonical" href="${SITE_BASE}/${cfg.catPath}/${cfg.subDir}/reviews/">
 <script type="application/ld+json">
 [{"@context":"https://schema.org","@type":"CollectionPage","name":"${cfg.subName} 수술후기 — 로코코성형외과","description":"${cfg.subName} 환자 후기 ${reviews.length}건","url":"${SITE_BASE}/${cfg.catPath}/${cfg.subDir}/reviews/","inLanguage":"ko","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"about":{"@type":"MedicalProcedure","name":"${cfg.subName}"},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"${SITE_BASE}"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"${SITE_BASE}/"},{"@type":"ListItem","position":2,"name":"${catName}","item":"${SITE_BASE}/${cfg.catPath}/"},{"@type":"ListItem","position":3,"name":"${cfg.subName}","item":"${SITE_BASE}/${cfg.catPath}/${cfg.subDir}/"},{"@type":"ListItem","position":4,"name":"수술후기","item":"${SITE_BASE}/${cfg.catPath}/${cfg.subDir}/reviews/"}]}]

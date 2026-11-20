@@ -92,7 +92,7 @@ origin = ORIGIN_LINK_CARD.format(
 
 html = DETAIL_PAGE.format(
     root=ROOT,
-    meta_title=f'{TITLE} | 로코코 저널',
+    meta_title=f'{TITLE} | 로코코성형외과 저널',
     description=DESCRIPTION,
     og_image=HERO_IMAGE,
     og_url=OG_URL,

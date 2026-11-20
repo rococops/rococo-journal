@@ -196,6 +196,7 @@ ${preview ? `<base href="${canonical}">\n` : ''}<meta charset="UTF-8">
 <meta property="og:image" content="${esc(ogImage)}">
 <meta property="og:url" content="${canonical}">
 <meta property="og:type" content="${ogType}">
+<meta property="og:site_name" content="로코코성형외과 저널">
 <link rel="canonical" href="${canonical}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">

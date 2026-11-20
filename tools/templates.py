@@ -204,6 +204,7 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
 <meta property="og:image" content="{og_image}">
 <meta property="og:url" content="{og_url}">
 <meta property="og:type" content="article">
+<meta property="og:site_name" content="로코코성형외과 저널">
 <link rel="canonical" href="{canonical_url}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
@@ -370,13 +371,14 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{sub_name} | 로코코 저널</title>
+<title>{sub_name} | 로코코성형외과 저널</title>
 <meta name="description" content="{description}">
-<meta property="og:title" content="{sub_name} | 로코코 저널">
+<meta property="og:title" content="{sub_name} | 로코코성형외과 저널">
 <meta property="og:description" content="{description}">
 <meta property="og:image" content="{og_image}">
 <meta property="og:url" content="{og_url}">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="로코코성형외과 저널">
 <link rel="canonical" href="{og_url}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
@@ -540,13 +542,14 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>전체 케이스 | 로코코 저널</title>
+<title>전체 케이스 | 로코코성형외과 저널</title>
 <meta name="description" content="{description}">
-<meta property="og:title" content="전체 케이스 | 로코코 저널">
+<meta property="og:title" content="전체 케이스 | 로코코성형외과 저널">
 <meta property="og:description" content="{description}">
 <meta property="og:image" content="{og_image}">
 <meta property="og:url" content="{og_url}">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="로코코성형외과 저널">
 <link rel="canonical" href="{og_url}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">

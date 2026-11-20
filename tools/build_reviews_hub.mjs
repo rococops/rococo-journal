@@ -99,10 +99,11 @@ fetch('https://rococo-journal-api.vercel.app/api/track', {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>수술후기 (${usable.length}건) — 로코코성형외과 김상호 원장</title>
 <meta name="description" content="로코코성형외과에서 시술받으신 환자분들이 직접 남기신 수술후기 ${usable.length}건.">
-<meta property="og:title" content="수술후기 | 로코코 저널">
+<meta property="og:title" content="수술후기 | 로코코성형외과 저널">
 <meta property="og:description" content="환자분들이 직접 남기신 수술후기를 확인하세요.">
 <meta property="og:url" content="https://journal.rococops.com/reviews/">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="로코코성형외과 저널">
 <link rel="canonical" href="https://journal.rococops.com/reviews/">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"CollectionPage","name":"수술후기 — 로코코성형외과","description":"환자분들이 직접 남기신 수술후기 ${usable.length}건","url":"https://journal.rococops.com/reviews/","inLanguage":"ko","isAccessibleForFree":false,"hasPart":{"@type":"WebPageElement","isAccessibleForFree":false,"cssSelector":".paywalled"},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"https://journal.rococops.com"}}
