@@ -242,7 +242,8 @@ document.addEventListener('DOMContentLoaded', function () {
       '.cta-box-btns a{display:inline-flex;align-items:center;gap:6px;padding:.7rem 1.2rem;border-radius:6px;' +
         'font-size:.95rem;font-weight:800;text-decoration:none}' +
       '.cta-box-btns .cta-tel{background:#111;color:#fff}' +
-      '.cta-box-btns .cta-kakao{background:#FEE500;color:#3C1E1E}';
+      '.cta-box-btns .cta-kakao{background:#FEE500;color:#3C1E1E}' +
+      '.cta-inline-btns{justify-content:flex-start;margin-bottom:1rem}';
     document.head.appendChild(css);
 
     var ICON_TEL = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11.4 11.4 0 003.6.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.6a1 1 0 01-.25 1z"/></svg>';
@@ -282,9 +283,19 @@ document.addEventListener('DOMContentLoaded', function () {
       a.addEventListener('click', function () { track('click_kakao'); });
     });
 
-    // ② 기사 본문 끝 상담 박스 (본문이 있는 페이지만)
+    // ② 기사 본문 끝 상담 연결 (본문이 있는 페이지만)
+    //   기존 '○○에 대해 더 궁금한 점이 있으신가요?' 박스(.inline-cta)가 있으면 그 안에 전화·카톡 버튼을 합침
+    //   (박스가 두 개 연달아 보이지 않게). 없을 때만 새 상담 박스를 붙임.
     var content = document.querySelector('.article-content');
-    if (content) {
+    var inlineCta = content && content.querySelector('.inline-cta');
+    if (inlineCta) {
+      var row = document.createElement('div');
+      row.className = 'cta-box-btns cta-inline-btns';
+      row.appendChild(telLink(TEL));
+      row.appendChild(kakaoLink('카톡 상담'));
+      var oldLink = inlineCta.querySelector('.inline-cta-btn');
+      inlineCta.insertBefore(row, oldLink || null);
+    } else if (content) {
       var box = document.createElement('div');
       box.className = 'cta-box';
       box.innerHTML = '<p class="cta-box-title">상담 문의</p>' +
