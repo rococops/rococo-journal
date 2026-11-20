@@ -6,7 +6,16 @@
   <atom:link href="https://journal.rococops.com/feed.xml" rel="self" type="application/rss+xml"/>
   <description>로코코성형외과 김상호 원장이 직접 쓰는 성형 가이드</description>
   <language>ko-KR</language>
-  <lastBuildDate>Thu, 19 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 20 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <item>
+    <title>늑연골 코성형으로 갈라진 코끝 교정</title>
+    <link>https://journal.rococops.com/guide/rib-cartilage-bifid-tip/</link>
+    <guid isPermaLink="true">https://journal.rococops.com/guide/rib-cartilage-bifid-tip/</guid>
+    <pubDate>Fri, 20 Nov 2026 09:00:00 +0900</pubDate>
+    <author>김상호 원장</author>
+    <category>코성형</category>
+    <description>코끝 날개연골이 너무 벌어져 있고 피부가 얇으면 코끝이 두 갈래로 갈라져 보입니다. 비중격을 쓸 수 없는 상태에서 늑연골 코성형으로 갈라진 코끝을 교정한 사례를 설명합니다.</description>
+  </item>
   <item>
     <title>퀵광대 남자 수술, 여자와 무엇이 다를까</title>
     <link>https://journal.rococops.com/guide/quick-cheekbone-men/</link>
@@ -267,15 +276,6 @@
     <author>김상호 원장</author>
     <category>콧구멍성형</category>
     <description>귀연골과 피부를 함께 옮기는 비공내리기 수술에서 실제로 불편이 있었던 부분과 한계를 귀(채취부)와 코(이식부)로 나눠 정리했습니다. 각각 얼마나 드물고 어떻게 대처하는지 설명합니다.</description>
-  </item>
-  <item>
-    <title>늑연골 코성형을 첫 코수술로 하는 경우</title>
-    <link>https://journal.rococops.com/guide/rib-cartilage-first-surgery/</link>
-    <guid isPermaLink="true">https://journal.rococops.com/guide/rib-cartilage-first-surgery/</guid>
-    <pubDate>Fri, 23 Oct 2026 09:00:00 +0900</pubDate>
-    <author>김상호 원장</author>
-    <category>코성형</category>
-    <description>첫 코수술에 늑연골을 쓰는 것에 거부감을 느끼는 분이 많습니다. 저도 첫 수술은 대부분 비중격연골이나 귀연골을 권하지만, 늑연골 코성형이 훨씬 나은 결과가 예상되는 경우가 있습니다.</description>
   </item>
 </channel>
 </rss>
