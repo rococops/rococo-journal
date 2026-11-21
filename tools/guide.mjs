@@ -3,6 +3,7 @@
 //
 // 저장 구조: guide/posts.json(목록 데이터) + guide/{slug}/index.html(글) + guide/index.html(목록)
 import { navHtml } from './nav.mjs';
+import { buildMetaDescription, paragraphsFromHtml } from './meta_desc.mjs';
 
 export const GUIDE = {
   path: 'guide',
@@ -245,12 +246,14 @@ export function generateGuidePage(post, others = [], opts = {}) {
   const canonical = `${SITE_BASE}/${GUIDE.path}/${post.slug}/`;
   const metaTitle = metaTitleOf(post);
   const description = String(post.summary || '').trim().slice(0, 160);
+  // 메타 설명: 요약이 120자 미만이면 본문 앞부분 원문 문장을 이어 붙여 120~160자로 (화면 요약은 그대로)
+  const metaDesc = buildMetaDescription({ lead: description, paragraphs: paragraphsFromHtml(renderBody(post.body, post.title)), title: post.title }) || description;
   const cover = coverFor(post);
   const hero = firstImage(post.body) || `${root}${cover}`;
   const ogImage = hero.startsWith('/') ? SITE_BASE + hero : (hero.startsWith('../') ? `${SITE_BASE}/${cover}` : hero);
   const date = post.date || new Date().toISOString().slice(0, 10);
   const tag = post.tag || GUIDE.name;
-  const titleJ = jsonStr(post.title), descJ = jsonStr(description);
+  const titleJ = jsonStr(post.title), descJ = jsonStr(metaDesc);
 
   const schema = `[{"@context":"https://schema.org","@type":"MedicalWebPage","headline":"${titleJ}","description":"${descJ}","url":"${canonical}","image":"${esc(ogImage)}","datePublished":"${date}","dateModified":"${date}","inLanguage":"ko-KR","author":{"@type":"Physician","name":"김상호","honorificPrefix":"원장","worksFor":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"${SITE_BASE}"}},"publisher":{"@type":"MedicalBusiness","name":"로코코성형외과","url":"${SITE_BASE}"},"medicalAudience":{"@type":"MedicalAudience","audienceType":"Patient"},"specialty":"Plastic Surgery"},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"${SITE_BASE}/"},{"@type":"ListItem","position":2,"name":"${GUIDE.name}","item":"${SITE_BASE}/${GUIDE.path}/"},{"@type":"ListItem","position":3,"name":"${titleJ}","item":"${canonical}"}]}]`;
 
@@ -287,7 +290,7 @@ export function generateGuidePage(post, others = [], opts = {}) {
         </div>`
     : '';
 
-  return `${headTop(root, metaTitle, description, canonical, ogImage, 'article', schema, opts.preview)}
+  return `${headTop(root, metaTitle, metaDesc, canonical, ogImage, 'article', schema, opts.preview)}
 <body>
 ${HEADER(root, nav)}
 <section class="article-hero">

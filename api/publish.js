@@ -1,6 +1,7 @@
 import * as cheerio from 'cheerio';
 import { createClient } from '@supabase/supabase-js';
 import { navHtml, CAT_NAMES } from '../tools/nav.mjs';
+import { buildMetaDescription, paragraphsFromHtml } from '../tools/meta_desc.mjs';
 import { GUIDE, SITE_BASE as GUIDE_SITE, generateGuidePage, generateGuideIndex, firstImage } from '../tools/guide.mjs';
 
 const GITHUB_REPO = 'rococops/rococo-journal';
@@ -193,12 +194,14 @@ function seoTitle(h1, keywords) {
 }
 
 // ── 페이지 템플릿 ──────────────────────────────────────────────
-function generatePage({title, metaTitle, description, ogImage, ogUrl, date,
+function generatePage({title, metaTitle, description, metaDescription, ogImage, ogUrl, date,
   catPath, catName, subDir, subName, subNameEn, heroImage, content, originUrl}) {
   const root = '../../../';
   const listRoot = '../';
   const titleJ = title.replace(/"/g,'\\"');
-  const descJ  = description.replace(/"/g,'\\"');
+  // 메타 설명(검색 결과용)은 120~160자 본문 발췌, 화면 요약(article-summary)은 입력한 요약 그대로
+  const metaDesc = metaDescription || description;
+  const descJ  = metaDesc.replace(/"/g,'\\"');
   const catJ   = catName.replace(/"/g,'\\"');
   const subJ   = subName.replace(/"/g,'\\"');
   const originCard = originUrl
@@ -215,9 +218,9 @@ function generatePage({title, metaTitle, description, ogImage, ogUrl, date,
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(metaTitle)}</title>
-<meta name="description" content="${esc(description)}">
+<meta name="description" content="${esc(metaDesc)}">
 <meta property="og:title" content="${esc(metaTitle)}">
-<meta property="og:description" content="${esc(description)}">
+<meta property="og:description" content="${esc(metaDesc)}">
 <meta property="og:image" content="${ogImage}">
 <meta property="og:url" content="${ogUrl}">
 <meta property="og:type" content="article">
@@ -409,6 +412,7 @@ async function handlePublishArticle(req, res) {
     const slug = await getNextSlug(catPath, subDir, token);
     const {html: articleHtml, images} = buildArticleBlocks(content, cfg.keywords);
     const description = summary || cleanText(cheerio.load(content).text()).slice(0, 150);
+    const metaDescription = buildMetaDescription({ lead: summary, paragraphs: paragraphsFromHtml(articleHtml), title }) || description;
     const ogUrl = `${SITE_BASE}/${catPath}/${subDir}/${slug}/`;
     const ogImage = images[0] || (THUMB_BASE + cfg.thumbPool[0]);
     const heroImage = images[0] || `../../../images/thumbnails/${cfg.thumbPool[0]}`;
@@ -425,7 +429,7 @@ async function handlePublishArticle(req, res) {
 
     const pageHtml = generatePage({
       title, metaTitle: seoTitle(title, cfg.keywords),
-      description, ogImage, ogUrl, date: pageDate,
+      description, metaDescription, ogImage, ogUrl, date: pageDate,
       catPath, catName, subDir, subName: cfg.subName,
       subNameEn: cfg.subNameEn, heroImage,
       content: articleHtml, originUrl,
