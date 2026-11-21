@@ -160,8 +160,8 @@ const FOOTER = (root) => `<footer class="site-footer">
       </div>
       <div class="footer-hours">
         <p class="footer-title">진료시간</p>
-        <p>월·금 — 09:00 ~ 19:00</p><p>화·수·목 — 09:00 ~ 18:00</p>
-        <p>토 — 09:00 ~ 13:00</p><p>일·공휴일 휴진</p>
+        <p>월·금 — 09:00 ~ 19:00</p><p>화·수 — 09:00 ~ 18:00</p>
+        <p>토 — 09:00 ~ 13:00</p><p>목·일·공휴일 휴진</p>
       </div>
       <div class="footer-links">
         <p class="footer-title">바로가기</p>
@@ -333,7 +333,7 @@ ${HEADER(root, nav)}
         </div>
         <div class="sidebar-card">
           <p class="sidebar-title">온라인 상담</p>
-          <p class="sidebar-desc">02-2135-2702<br>월·금 09:00~19:00<br>화·수·목 09:00~18:00<br>토 09:00~13:00</p>
+          <p class="sidebar-desc">02-2135-2702<br>월·금 09:00~19:00<br>화·수 09:00~18:00<br>토 09:00~13:00<br>목·일·공휴일 휴진</p>
           <a href="${root}counsel/online/?from=${encodeURIComponent(post.title)}" class="sidebar-btn">상담 신청하기 →</a>
         </div>
         ${relatedHtml}

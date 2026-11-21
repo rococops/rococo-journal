@@ -118,7 +118,7 @@ ${MEMBER_BAR(root)}
         </div>
         <div class="sidebar-card">
           <p class="sidebar-title">온라인 상담</p>
-          <p class="sidebar-desc">02-2135-2702<br>월·금 09:00~19:00<br>화·수·목 09:00~18:00<br>토 09:00~13:00</p>
+          <p class="sidebar-desc">02-2135-2702<br>월·금 09:00~19:00<br>화·수 09:00~18:00<br>토 09:00~13:00<br>목·일·공휴일 휴진</p>
           <a href="${root}counsel/online/?from=${cfg.subName}후기" class="sidebar-btn">상담 신청하기 →</a>
         </div>
         <div class="sidebar-related">
