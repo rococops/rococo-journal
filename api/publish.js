@@ -802,9 +802,69 @@ function interleaveByKeyword(drafts) {
   return out;
 }
 
+// 예약 배정 옵션(모두 선택). 없으면 기존 동작(평일 하루 1~2편) 그대로.
+//   weekdays: 발행 요일 목록, 0=일 1=월 … 6=토 (예: [1,4] = 월·목)
+//   excludeDates: 발행하지 않을 한국 날짜 목록 ['2027-01-01', …] (공휴일은 코드에 박지 않고 호출 때 넘김)
+//   maxPerDay: 하루 최대 편수 1 또는 2
+//   dryRun: true면 저장하지 않고 배정안만 돌려줌. ids 없이 count(최대 50)만 줘도 됨
+function parseScheduleOptions(body) {
+  const o = {};
+  if (body?.weekdays !== undefined) {
+    if (!Array.isArray(body.weekdays) || !body.weekdays.length || !body.weekdays.every(n => Number.isInteger(n) && n >= 0 && n <= 6)) {
+      return { error: 'weekdays는 0(일)~6(토) 정수 목록이어야 합니다.' };
+    }
+    o.weekdays = new Set(body.weekdays);
+  }
+  if (body?.excludeDates !== undefined) {
+    if (!Array.isArray(body.excludeDates) || !body.excludeDates.every(s => /^\d{4}-\d{2}-\d{2}$/.test(s) && !isNaN(Date.parse(s + 'T00:00:00Z')))) {
+      return { error: 'excludeDates는 YYYY-MM-DD 날짜 목록이어야 합니다.' };
+    }
+    // 'YYYY-MM-DD'의 UTC 자정 = 한국 날짜 번호와 같은 기준(kstDayNumber는 한국 자정을 하루 경계로 씀)
+    o.excluded = new Set(body.excludeDates.map(s => Math.floor(Date.parse(s + 'T00:00:00Z') / 86400000)));
+  }
+  if (body?.maxPerDay !== undefined) {
+    if (![1, 2].includes(body.maxPerDay)) return { error: 'maxPerDay는 1 또는 2여야 합니다.' };
+    o.maxPerDay = body.maxPerDay;
+  }
+  o.dryRun = body?.dryRun === true;
+  return o;
+}
+
+// 배정안 계산(저장 없음). startDay부터 조건에 맞는 날에 시각을 붙여 n편 배정
+function buildSchedulePlan(n, startDay, opts) {
+  const days = [];
+  let day = startDay;
+  let remaining = n;
+  for (let guard = 0; remaining > 0 && guard < 3660; guard++, day++) {
+    // 날짜 번호 0 = 1970-01-01(목요일) → (day + 4) % 7 이 0이면 일요일, 6이면 토요일
+    const dow = (day + 4) % 7;
+    if (opts.weekdays ? !opts.weekdays.has(dow) : (dow === 0 || dow === 6)) continue;
+    if (opts.excluded?.has(day)) continue;
+    const count = opts.maxPerDay === 1 ? 1 : (Math.random() < 0.5 ? 1 : 2);
+    const hours = shuffle(SLOT_HOURS_KST).slice(0, Math.min(count, remaining)).sort((a, b) => a - b);
+    for (const h of hours) days.push(slotToUtcIso(day, h));
+    remaining -= hours.length;
+  }
+  return days;
+}
+
 // 선택한 초안들을 이미 잡힌 예약 다음 날부터 평일(월~금)에만 하루 1~2편씩, 9·15·21시 중 무작위 시각에 배정
+// (옵션으로 요일·제외 날짜·하루 최대 편수를 바꿀 수 있음 — parseScheduleOptions 참고)
 async function draftSchedule(req, res) {
+  const opts = parseScheduleOptions(req.body);
+  if (opts.error) return res.status(400).json({ error: opts.error });
   const ids = Array.isArray(req.body?.ids) ? req.body.ids.filter(Boolean).slice(0, 300) : [];
+
+  // 드라이런 + ids 없음: 가짜 n편으로 날짜만 계산해 돌려줌(DB 쓰기 없음)
+  if (opts.dryRun && !ids.length) {
+    const n = Math.min(Math.max(parseInt(req.body?.count, 10) || 0, 1), 50);
+    const { data: last } = await supabase.from('drafts').select('scheduled_at')
+      .eq('status', 'scheduled').order('scheduled_at', { ascending: false }).limit(1);
+    const tomorrow = kstDayNumber(Date.now()) + 1;
+    const start = last?.[0]?.scheduled_at ? Math.max(tomorrow, kstDayNumber(Date.parse(last[0].scheduled_at)) + 1) : tomorrow;
+    const slots = buildSchedulePlan(n, start, opts);
+    return res.status(200).json({ ok: true, dryRun: true, lastScheduled: last?.[0]?.scheduled_at || null, plan: slots.map((s, i) => ({ id: null, title: `(드라이런 ${i + 1})`, scheduled_at: s })), skipped: [] });
+  }
   if (!ids.length) return res.status(400).json({ error: '예약할 초안을 선택해주세요.' });
 
   const { data: picked, error } = await supabase.from('drafts').select('id, title, keyword, summary, slug, status, updated_at').in('id', ids);
@@ -831,21 +891,12 @@ async function draftSchedule(req, res) {
   const { data: last } = await supabase.from('drafts').select('scheduled_at')
     .eq('status', 'scheduled').order('scheduled_at', { ascending: false }).limit(1);
   const tomorrow = kstDayNumber(Date.now()) + 1;
-  let day = last?.[0]?.scheduled_at ? Math.max(tomorrow, kstDayNumber(Date.parse(last[0].scheduled_at)) + 1) : tomorrow;
+  const day = last?.[0]?.scheduled_at ? Math.max(tomorrow, kstDayNumber(Date.parse(last[0].scheduled_at)) + 1) : tomorrow;
 
-  const plan = [];
-  while (plan.length < targets.length) {
-    // 날짜 번호 0 = 1970-01-01(목요일) → (day + 4) % 7 이 0이면 일요일, 6이면 토요일
-    const dow = (day + 4) % 7;
-    if (dow === 0 || dow === 6) { day++; continue; }
-    const count = Math.random() < 0.5 ? 1 : 2;
-    const hours = shuffle(SLOT_HOURS_KST).slice(0, count).sort((a, b) => a - b);
-    for (const h of hours) {
-      if (plan.length >= targets.length) break;
-      plan.push({ id: targets[plan.length].id, title: targets[plan.length].title, scheduled_at: slotToUtcIso(day, h) });
-    }
-    day++;
-  }
+  const slots = buildSchedulePlan(targets.length, day, opts);
+  if (slots.length < targets.length) return res.status(400).json({ error: '조건에 맞는 날짜가 부족합니다.' });
+  const plan = targets.map((t, i) => ({ id: t.id, title: t.title, scheduled_at: slots[i] }));
+  if (opts.dryRun) return res.status(200).json({ ok: true, dryRun: true, plan, skipped });
 
   for (const p of plan) {
     const { error: e } = await supabase.from('drafts')
