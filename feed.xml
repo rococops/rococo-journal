@@ -6,7 +6,16 @@
   <atom:link href="https://journal.rococops.com/feed.xml" rel="self" type="application/rss+xml"/>
   <description>로코코성형외과 김상호 원장이 직접 쓰는 성형 가이드</description>
   <language>ko-KR</language>
-  <lastBuildDate>Fri, 20 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Mon, 23 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <item>
+    <title>비공내리기 기증진피 단독 수술을 권하지 않는 이유</title>
+    <link>https://journal.rococops.com/guide/alar-lowering-dermis/</link>
+    <guid isPermaLink="true">https://journal.rococops.com/guide/alar-lowering-dermis/</guid>
+    <pubDate>Mon, 23 Nov 2026 09:00:00 +0900</pubDate>
+    <author>김상호 원장</author>
+    <category>콧구멍성형</category>
+    <description>메가덤이나 알로덤 같은 기증진피로 콧구멍을 내리는 비공내리기는 간단하지만 1년쯤 지나 원래대로 돌아오는 경우가 많습니다. 효과가 오래가지 않는 이유와 재수술이 어려워지는 문제를 설명합니다.</description>
+  </item>
   <item>
     <title>늑연골 코성형으로 갈라진 코끝 교정</title>
     <link>https://journal.rococops.com/guide/rib-cartilage-bifid-tip/</link>
@@ -267,15 +276,6 @@
     <author>김상호 원장</author>
     <category>광대성형</category>
     <description>광대축소술 후 볼처짐을 턱선이 늘어지는 것으로 아는 분이 많지만 실제로는 다릅니다. 볼처짐이 생기는 방향과 원인, 45도 광대를 얼마나 줄이느냐가 중요한 이유를 정리했습니다.</description>
-  </item>
-  <item>
-    <title>비공내리기 부작용과 한계, 귀와 코로 나눠 정리</title>
-    <link>https://journal.rococops.com/guide/alar-lowering-side-effects/</link>
-    <guid isPermaLink="true">https://journal.rococops.com/guide/alar-lowering-side-effects/</guid>
-    <pubDate>Mon, 26 Oct 2026 09:00:00 +0900</pubDate>
-    <author>김상호 원장</author>
-    <category>콧구멍성형</category>
-    <description>귀연골과 피부를 함께 옮기는 비공내리기 수술에서 실제로 불편이 있었던 부분과 한계를 귀(채취부)와 코(이식부)로 나눠 정리했습니다. 각각 얼마나 드물고 어떻게 대처하는지 설명합니다.</description>
   </item>
 </channel>
 </rss>
