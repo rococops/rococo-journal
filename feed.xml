@@ -6,7 +6,16 @@
   <atom:link href="https://journal.rococops.com/feed.xml" rel="self" type="application/rss+xml"/>
   <description>로코코성형외과 김상호 원장이 직접 쓰는 성형 가이드</description>
   <language>ko-KR</language>
-  <lastBuildDate>Mon, 23 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Tue, 24 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <item>
+    <title>코재수술 상담에서 자주 듣는 요청 — 분필코와 콧대 시작점</title>
+    <link>https://journal.rococops.com/guide/revision-rhinoplasty-dorsum/</link>
+    <guid isPermaLink="true">https://journal.rococops.com/guide/revision-rhinoplasty-dorsum/</guid>
+    <pubDate>Tue, 24 Nov 2026 09:00:00 +0900</pubDate>
+    <author>김상호 원장</author>
+    <category>코재수술</category>
+    <description>콧대가 너무 도드라지는 분필코, 코가 길어 보여 콧대 시작점을 내리고 싶다는 요청은 코재수술 상담에서 자주 듣습니다. 각각의 원인과 실제로 할 수 있는 방법, 한계를 설명합니다.</description>
+  </item>
   <item>
     <title>광대축소술과 치아교정, 무엇을 먼저 해야 할까</title>
     <link>https://journal.rococops.com/guide/cheekbone-reduction-orthodontics/</link>
@@ -267,15 +276,6 @@
     <author>김상호 원장</author>
     <category>광대성형</category>
     <description>퀵광대 회복기간은 옆광대만 하면 2~3일, 45도 광대까지 하면 1~2주입니다. 1주째와 2주째 실제 멍과 붓기, 잔붓기가 빠지는 기간, 일정 잡는 요령을 정리했습니다.</description>
-  </item>
-  <item>
-    <title>코재수술 후 담배와 아이코스를 끊어야 하는 이유</title>
-    <link>https://journal.rococops.com/guide/revision-rhinoplasty-smoking/</link>
-    <guid isPermaLink="true">https://journal.rococops.com/guide/revision-rhinoplasty-smoking/</guid>
-    <pubDate>Tue, 27 Oct 2026 09:00:00 +0900</pubDate>
-    <author>김상호 원장</author>
-    <category>코재수술</category>
-    <description>보형물을 쓰는 코재수술은 제가 하는 수술 중 염증 가능성이 가장 높은 수술입니다. 담배와 궐련형 전자담배가 상처 치유와 염증에 어떤 영향을 주는지 설명합니다.</description>
   </item>
 </channel>
 </rss>
