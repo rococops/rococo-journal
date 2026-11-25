@@ -6,7 +6,16 @@
   <atom:link href="https://journal.rococops.com/feed.xml" rel="self" type="application/rss+xml"/>
   <description>로코코성형외과 김상호 원장이 직접 쓰는 성형 가이드</description>
   <language>ko-KR</language>
-  <lastBuildDate>Tue, 24 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Wed, 25 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <item>
+    <title>늑연골 코성형으로 매부리코 재수술하기</title>
+    <link>https://journal.rococops.com/guide/rib-cartilage-hump-revision/</link>
+    <guid isPermaLink="true">https://journal.rococops.com/guide/rib-cartilage-hump-revision/</guid>
+    <pubDate>Wed, 25 Nov 2026 09:00:00 +0900</pubDate>
+    <author>김상호 원장</author>
+    <category>코성형</category>
+    <description>매부리코 수술 후 코끝이 들리거나 비주가 처지고 콧대 굴곡이 남아 재수술을 고민하는 분들이 있습니다. 늑연골 코성형으로 매부리코를 재수술한 사례와 미리 알아야 할 점을 정리했습니다.</description>
+  </item>
   <item>
     <title>퀵광대는 광대뼈가 크면 효과가 없다? 오히려 반대입니다</title>
     <link>https://journal.rococops.com/guide/quick-cheekbone-big-bone/</link>
@@ -267,15 +276,6 @@
     <author>김상호 원장</author>
     <category>콧구멍성형</category>
     <description>비공내리기는 시간이 지나면 제거할 수 없다는 이야기가 있지만 시기에 관계없이 제거할 수 있습니다. 다만 무엇을 얼마나 제거하느냐에 따라 콧구멍이 다시 올라갈 수 있어 미리 알아야 할 점을 정리했습니다.</description>
-  </item>
-  <item>
-    <title>늑연골 코성형으로 들린코·들창코 교정하기</title>
-    <link>https://journal.rococops.com/guide/rib-cartilage-upturned-nose/</link>
-    <guid isPermaLink="true">https://journal.rococops.com/guide/rib-cartilage-upturned-nose/</guid>
-    <pubDate>Wed, 28 Oct 2026 09:00:00 +0900</pubDate>
-    <author>김상호 원장</author>
-    <category>코성형</category>
-    <description>들린코와 들창코는 코끝을 내린 뒤에도 다시 들리려는 힘이 강하게 작용합니다. 늑연골 코성형으로 교정하는 이유, 기증늑연골과의 차이, 비공내리기를 함께 하는 경우가 많은 이유를 정리했습니다.</description>
   </item>
 </channel>
 </rss>
