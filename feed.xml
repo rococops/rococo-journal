@@ -6,7 +6,16 @@
   <atom:link href="https://journal.rococops.com/feed.xml" rel="self" type="application/rss+xml"/>
   <description>로코코성형외과 김상호 원장이 직접 쓰는 성형 가이드</description>
   <language>ko-KR</language>
-  <lastBuildDate>Thu, 26 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 27 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <item>
+    <title>광대축소술 후 뒷광대, 모든 사람이 줄여야 할까</title>
+    <link>https://journal.rococops.com/guide/cheekbone-reduction-rear/</link>
+    <guid isPermaLink="true">https://journal.rococops.com/guide/cheekbone-reduction-rear/</guid>
+    <pubDate>Fri, 27 Nov 2026 09:00:00 +0900</pubDate>
+    <author>김상호 원장</author>
+    <category>광대성형</category>
+    <description>광대축소술 후 뒷광대 축소를 함께 해야 하는지 묻는 분이 많지만 실제로 필요한 경우는 많지 않습니다. 뒷광대 축소가 도움이 되는 얼굴, 줄일 때의 한계, 흉터가 남는 정도를 정리했습니다.</description>
+  </item>
   <item>
     <title>비공내리기 대신 콧날개올리기가 맞는 콧구멍</title>
     <link>https://journal.rococops.com/guide/alar-lowering-vs-raising/</link>
@@ -267,15 +276,6 @@
     <author>김상호 원장</author>
     <category>코재수술</category>
     <description>코성형이나 코재수술 후 염증은 아픈 것보다 붓는 것으로 먼저 나타나는 경우가 많습니다. 보형물 거부반응과 염증의 차이, 초기 증상, 바로 해야 할 대처를 정리했습니다.</description>
-  </item>
-  <item>
-    <title>광대축소술 하면 얼굴이 작아질까? 정확한 기대치</title>
-    <link>https://journal.rococops.com/guide/cheekbone-reduction-smaller-face/</link>
-    <guid isPermaLink="true">https://journal.rococops.com/guide/cheekbone-reduction-smaller-face/</guid>
-    <pubDate>Thu, 29 Oct 2026 09:00:00 +0900</pubDate>
-    <author>김상호 원장</author>
-    <category>광대성형</category>
-    <description>광대축소술을 받으면 얼굴이 작아지느냐는 질문을 자주 받습니다. 광대뼈와 턱뼈의 차이, 얼굴이 작아지는 수술보다 얼굴선이 부드러워지는 수술에 가까운 이유를 설명합니다.</description>
   </item>
 </channel>
 </rss>
