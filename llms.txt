@@ -148,7 +148,7 @@
 ## Optional
 
 - [English](https://journal.rococops.com/en/): Rococo Plastic Surgery in Apgujeong, Seoul. Board-certified specialist Dr. Kim Sang-ho offers cheekbone reduction, rhinoplasty, nostril surgery, eye surgery and more. All consultations by appointment.
-- [日本語](https://journal.rococops.com/ja/): ソウル・狎鴎亭のロココ整形外科。形成外科専門医キム・サンホ院長が頬骨縮小術、鼻整形、目の整形など顔の輪郭整形を専門に行います。完全予約制。
+- [日本語](https://journal.rococops.com/ja/): 韓国・ソウル狎鴎亭のロココ美容外科。形成外科専門医キム・サンホ院長が頬骨縮小術、鼻整形、目の整形など顔の輪郭整形を専門に行います。完全予約制。
 - [中文](https://journal.rococops.com/zh/): 首尔狎鸥亭洛可可整形外科。整形外科专科医生金相浩院长专业提供颧骨缩小术、隆鼻术、眼部整形等面部轮廓手术。完全预约制。
 - [RSS 피드](https://journal.rococops.com/feed.xml): 성형 가이드 새 글
 - [사이트맵](https://journal.rococops.com/sitemap.xml)
